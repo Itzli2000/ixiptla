@@ -1,0 +1,42 @@
+---
+import { getLangFromUrl } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const currentPath = Astro.url.pathname;
+
+let otherLangPath = "";
+if (lang === "en") {
+  otherLangPath = currentPath.replace(/^\/en/, "/es");
+
+  if (otherLangPath.includes("/events")) {
+    otherLangPath = otherLangPath.replace("/events", "/eventos");
+  }
+
+  if (otherLangPath.includes("/contact")) {
+    otherLangPath = otherLangPath.replace("/contact", "/contacto");
+  }
+} else {
+  otherLangPath = currentPath.replace(/^\/es/, "/en");
+
+  if (otherLangPath.includes("/eventos")) {
+    otherLangPath = otherLangPath.replace("/eventos", "/events");
+  }
+
+  if (otherLangPath.includes("/contacto")) {
+    otherLangPath = otherLangPath.replace("/contacto", "/contact");
+  }
+}
+
+if (otherLangPath === currentPath) {
+  otherLangPath = lang === "en" ? "/es" : "/en";
+}
+---
+
+<div class="language-switcher">
+  <a
+    href={otherLangPath}
+    class="px-2 py-1 bg-dark text-light hover:bg-secondary hover:text-dark rounded transition-colors duration-300"
+  >
+    {lang === "en" ? "ES" : "EN"}
+  </a>
+</div>

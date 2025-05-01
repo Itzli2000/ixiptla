@@ -1,0 +1,12 @@
+{
+  "language": {
+    "en": "Inglés",
+    "es": "Español"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "services": "Servicios",
+    "contact": "Contacto"
+  }
+}
