@@ -1,4 +1,5 @@
 ---
+import Navigation from '../components/navigation/Navigation.astro';
 import '../styles/global.css';
 ---
 
@@ -11,8 +12,11 @@ import '../styles/global.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>Ixpitla</title>
 	</head>
-	<body class="p-2">
-		<slot />
+	<body>
+		<Navigation />
+		<div class="p-2">
+			<slot />
+		</div>
 	</body>
 </html>
 
