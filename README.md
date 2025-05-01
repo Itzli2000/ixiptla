@@ -1,26 +1,31 @@
-# Astro Starter Kit: Basics
+![Ixpitla Logo](public/images/logo.svg)
 
-```sh
-yarn create astro@latest -- --template basics
-```
+# 🏺 Ixpitla
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+A modern web application showcasing a curated collection of handcrafted archaeological replicas. Built with Astro.js, this platform combines performance with stunning visual presentation to bring ancient artifacts to life in the digital age.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## 🎯 About
+
+Ixpitla is designed to present our collection of meticulously crafted archaeological reproductions. Each piece in our gallery comes with detailed information about its historical context, crafting process, and cultural significance.
+
+## ✨ Features
+
+- 🖼️ Responsive gallery of archaeological replicas
+- 📱 Mobile-first design approach
+- 🚀 Lightning-fast performance with Astro.js
+- 📖 Detailed information for each artifact
+- 🎨 Beautiful, user-friendly interface
 
 ## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
+│   └── images/
+│       └── logo.svg
 ├── src/
+│   ├── components/
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
@@ -28,7 +33,12 @@ Inside of your Astro project, you'll see the following folders and files:
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## 🛠️ Tech Stack
+
+- [Astro](https://astro.build) - Static Site Generator
+- Modern CSS with Flexbox/Grid
+- Responsive Image Optimization
+- TypeScript for Type Safety
 
 ## 🧞 Commands
 
@@ -36,13 +46,19 @@ All commands are run from the root of the project, from a terminal:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
-| `yarn install`             | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn build`           | Build your production site to `./dist/`          |
-| `yarn preview`         | Preview your build locally, before deploying     |
-| `yarn astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn astro -- --help` | Get help using the Astro CLI                     |
+| `yarn install`           | Installs dependencies                            |
+| `yarn dev`               | Starts local dev server at `localhost:4321`      |
+| `yarn build`             | Build your production site to `./dist/`          |
+| `yarn preview`           | Preview your build locally, before deploying     |
 
-## 👀 Want to learn more?
+## 📝 License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project is proprietary and confidential. All rights reserved.
+
+## 🤝 Contact
+
+For inquiries about our archaeological replicas or this website, please reach out to us through [our contact page](#).
+
+---
+
+Built with 💜 and crafted with attention to historical detail.
