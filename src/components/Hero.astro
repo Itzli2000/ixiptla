@@ -1,14 +1,13 @@
 ---
 import Button from './Button.astro';
 import { getLangFromUrl, useTranslations }from '../i18n/utils';
-import { getRelativeLocaleUrl } from 'astro/virtual-modules/i18n.js';
 import { Image } from 'astro:assets';
 import colibri from '../assets/images/colibri.png';
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
-const navigateToCollection = getRelativeLocaleUrl(lang, lang === 'en' ? '/collection' : '/coleccion');
+const navigateToCollection = lang === 'en' ? '/en/collection' : '/es/coleccion';
 ---
 
 <section class="min-h-[90vh] bg-quaternary px-4 py-10 lg:py-16">

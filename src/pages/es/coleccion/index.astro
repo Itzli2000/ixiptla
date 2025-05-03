@@ -1,89 +1,202 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import ArtifactCard from '../../../components/ArtifactCard.astro';
-import { fullCollection, cultures, type Artifact } from '../../../data/collection';
-import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+import { Image } from "astro:assets";
+import ArtifactCard from "../../../components/ArtifactCard.astro";
+import {
+    fullCollection,
+    getArtifactsByCulture
+} from "../../../data/collection";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import Layout from "../../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  return fullCollection.map((artifact) => ({
+    params: { slug: artifact.slug },
+    props: { artifact },
+  }));
+}
+
+const { artifact } = Astro.props;
+
+const relatedArtifacts = getArtifactsByCulture(artifact.culture)
+  .filter((a) => a.id !== artifact.id)
+  .slice(0, 3);
+
+const currentIndex = fullCollection.findIndex((a) => a.id === artifact.id);
+const prevArtifact = currentIndex > 0 ? fullCollection[currentIndex - 1] : null;
+const nextArtifact =
+  currentIndex < fullCollection.length - 1
+    ? fullCollection[currentIndex + 1]
+    : null;
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
-
-const artifacts = fullCollection;
 ---
 
-<Layout title={t('collection.title')} description={t('collection.description')} lang={lang}>
-  <section class="pt-24 pb-16 px-4 bg-quaternary">
-    <div class="mx-auto max-w-7xl">
-      <h1 class="text-4xl md:text-5xl font-bold text-tertiary text-center mb-8">
-        {t('collection.title')}
-      </h1>
-      <p class="text-xl text-dark/80 text-center max-w-3xl mx-auto mb-12">
-        {t('collection.description')}
-      </p>
-      
-      <div class="flex flex-wrap gap-4 justify-center mb-12">
-        {cultures.map(culture => (
-          <button 
-            data-culture={culture}
-            class={`px-6 py-2 rounded-full transition-colors filter-btn
-              bg-secondary/50 text-dark hover:bg-secondary`}
+<Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
+  <article class="pt-24 pb-16 px-4">
+    <div class="mx-auto max-w-6xl">
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 text-sm text-dark/70">
+          <li><a href="/" class="hover:text-main">{t("artifact.home")}</a></li>
+          <li><span class="mx-2">/</span></li>
+          <li>
+            <a
+              href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}`}
+              class="hover:text-main">{t("artifact.collection")}</a>
+          </li>
+          <li><span class="mx-2">/</span></li>
+          <li class="text-main font-medium">{artifact.name[lang]}</li>
+        </ol>
+      </nav>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-4">
+          <div
+            class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-light flex items-center justify-center"
           >
-            {t(`collection.${culture.toLowerCase()}`)}
-          </button>
-        ))}
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {artifacts.map(artifact => (
-          <div 
-            class="artifact-card" 
-            data-culture={artifact.culture}
-          >
-            <ArtifactCard artifact={artifact} />
+            <Image
+              transition:name={artifact.name[lang]}
+              src={artifact.image}
+              alt={artifact.name[lang]}
+              width={500}
+              height={500}
+            />
           </div>
-        ))}
+        </div>
+
+        <div class="space-y-8">
+          <div>
+            <h1 class="text-4xl font-bold text-tertiary mb-4">
+              {artifact.name[lang]}
+            </h1>
+            <div class="flex flex-wrap gap-4 text-dark/80">
+              <div class="bg-secondary/30 px-4 py-2 rounded-lg">
+                <span class="font-medium">{t("artifact.culture")}:</span>
+                {artifact.culture}
+              </div>
+              <div class="bg-secondary/30 px-4 py-2 rounded-lg">
+                <span class="font-medium">{t("artifact.period")}:</span>
+                {artifact.period}
+              </div>
+            </div>
+          </div>
+
+          <div class="prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-tertiary mb-4">
+              {t("artifact.description")}
+            </h2>
+            <p class="text-lg text-dark/80 leading-relaxed">
+              {artifact.description[lang]}
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6 bg-light rounded-xl p-6">
+            <div>
+              <h3 class="text-lg font-bold text-tertiary mb-2">
+                {t("artifact.location")}
+              </h3>
+              <p class="text-dark/80">
+                {artifact.museum}<br />
+                {artifact.location[lang]}
+              </p>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-tertiary mb-2">
+                {t("artifact.technicalInfo")}
+              </h3>
+              <div class="space-y-2 text-dark/80">
+                {artifact.dimensions && (
+                  <p>
+                    <span class="font-medium">{t("artifact.dimensions")}:</span>{" "}
+                    {artifact.dimensions}
+                  </p>
+                )}
+                {artifact.material && (
+                  <p>
+                    <span class="font-medium">{t("artifact.material")}:</span>{" "}
+                    {artifact.material}
+                  </p>
+                )}
+                {artifact.technique && (
+                  <p>
+                    <span class="font-medium">{t("artifact.technique")}:</span>{" "}
+                    {artifact.technique}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between pt-8 border-t border-dark/10">
+            {
+              prevArtifact ? (
+                <a
+                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.slug}`}
+                  class="flex items-center text-main hover:text-dark transition-colors"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                  {prevArtifact.name[lang]}
+                </a>
+              ) : (
+                <div />
+              )
+            }
+
+            {
+              nextArtifact ? (
+                <a
+                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.slug}`}
+                  class="flex items-center text-main hover:text-dark transition-colors"
+                >
+                  {nextArtifact.name[lang]}
+                  <svg
+                    class="w-5 h-5 ml-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
+              ) : (
+                <div />
+              )
+            }
+          </div>
+        </div>
       </div>
+
+      {
+        relatedArtifacts.length > 0 && (
+          <section class="mt-24">
+            <h2 class="text-3xl font-bold text-tertiary mb-8">
+              {t("artifact.related")}
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+              {relatedArtifacts.map((related) => (
+                <ArtifactCard artifact={related} />
+              ))}
+            </div>
+          </section>
+        )
+      }
     </div>
-  </section>
+  </article>
 </Layout>
-
-<script>
-  function handleFilter(culture: string) {
-    const cards = document.querySelectorAll('.artifact-card');
-    const buttons = document.querySelectorAll('.filter-btn');
-
-    buttons.forEach(btn => {
-      if (btn instanceof HTMLElement) {
-        const btnCulture = btn.dataset.culture;
-        if (btnCulture === culture) {
-          btn.classList.add('bg-main', 'text-quaternary');
-          btn.classList.remove('bg-secondary/50', 'text-dark');
-        } else {
-          btn.classList.remove('bg-main', 'text-quaternary');
-          btn.classList.add('bg-secondary/50', 'text-dark');
-        }
-      }
-    });
-
-    cards.forEach(card => {
-      if (card instanceof HTMLElement) {
-        const cardCulture = card.dataset.culture;
-        if (culture === 'All' || cardCulture?.toLowerCase().includes(culture.toLowerCase())) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      }
-    });
-  }
-
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      if (e.currentTarget instanceof HTMLElement) {
-        const culture = e.currentTarget.dataset.culture || 'All';
-        handleFilter(culture);
-      }
-    });
-  });
-
-  handleFilter('All');
-</script>
