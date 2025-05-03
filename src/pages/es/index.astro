@@ -2,9 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import IxpitlaSection from '../../components/IxpitlaSection.astro';
+import Collection from '../../components/Collection.astro';
+import { featuredArtifacts } from '../../data/collection';
 ---
 
 <Layout>
 	<Hero />
 	<IxpitlaSection />
+	<Collection items={featuredArtifacts} />	
 </Layout>

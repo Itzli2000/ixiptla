@@ -21,5 +21,14 @@
     "title": "¿Qué es Ixiptla?",
     "description": "Arraigado en la sabiduría náhuatl, Ixiptla encarna el profundo concepto de la representación sagrada. Más allá de una simple réplica, captura la esencia de la transformación - donde un objeto o ser se convierte en recipiente de presencia divina, uniendo los reinos físico y espiritual.",
     "description2": "En esta exposición, exploramos estos recipientes sagrados a través de una colección curada de réplicas. Cada pieza narra una historia de nuestro patrimonio ancestral, ofreciendo una ventana hacia el profundo significado cultural del arte mesoamericano."
+  },
+  "collection": {
+    "title": "Colección Destacada",
+    "description": "Explora algunas de nuestras reproducciones más emblemáticas del patrimonio cultural mexicano",
+    "cta": "Ver Colección",
+    "all": "Todas",
+    "maya": "Maya",
+    "azteca": "Azteca",
+    "olmeca": "Olmeca"
   }
 }

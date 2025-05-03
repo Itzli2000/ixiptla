@@ -21,5 +21,14 @@
     "title": "What is Ixiptla?",
     "description": "Rooted in Nahuatl wisdom, Ixiptla embodies the profound concept of sacred representation. More than mere replication, it captures the essence of transformation - where an object or being becomes a vessel of divine presence, bridging the physical and spiritual realms.",
     "description2": "In this exhibition, we explore these sacred vessels through a curated collection of replicas. Each piece tells a story of our ancestral heritage, offering a window into the deep cultural significance of Mesoamerican artistry."
+  },
+  "collection": {
+    "title": "Featured Collection",
+    "description": "Explore some of our most iconic Mexican cultural reproductions",
+    "cta": "View Collection",
+    "all": "All",
+    "maya": "Maya",
+    "azteca": "Azteca",
+    "olmeca": "Olmeca"
   }
 }
