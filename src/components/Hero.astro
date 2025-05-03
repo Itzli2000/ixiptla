@@ -1,0 +1,43 @@
+---
+import Button from './Button.astro';
+import { useTranslations } from '../i18n/utils';
+import { getLangFromUrl } from '../i18n/utils';
+import { getRelativeLocaleUrl } from 'astro/virtual-modules/i18n.js';
+import { Image } from 'astro:assets';
+import colibri from '../assets/images/colibri.png';
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+
+const navigateToCollection = getRelativeLocaleUrl(lang, lang === 'en' ? '/collection' : '/coleccion');
+---
+
+<section class="min-h-[90vh] bg-quaternary px-4 py-10 lg:py-16">
+  <div class="mx-auto max-w-7xl flex flex-col items-center gap-10">
+    <div class="space-y-6 text-center max-w-3xl">
+      <h1 class="text-4xl lg:text-6xl font-bold text-tertiary leading-tight">
+        {t('hero.title')}
+      </h1>
+      <p class="text-xl lg:text-2xl text-dark/80 font-light">
+        {t('hero.tagline')}
+      </p>
+    </div>
+
+    <Image
+      src={colibri}
+      alt={t('hero.imageAlt')}
+      class="relative w-full max-w-lg mx-auto"
+      width={500}
+      height={500}
+    />
+    
+    <div class="flex gap-4 justify-center">
+      <Button href={navigateToCollection} variant="primary">
+        {t('hero.cta.primary')}
+      </Button>
+      <Button href="/ixpitla" variant="secondary">
+        {t('hero.cta.secondary')}
+      </Button>
+    </div>
+  </div>
+</section>

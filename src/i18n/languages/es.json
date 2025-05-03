@@ -7,5 +7,14 @@
     "home": "Inicio",
     "collection": "Colección",
     "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Ixpitla",
+    "tagline": "El arte de la Ixpitla",
+    "imageAlt": "Ixpitla",
+    "cta": {
+      "primary": "Ver Colección",
+      "secondary": "Ver Ixpitla"
+    }
   }
 }
