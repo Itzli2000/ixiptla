@@ -12,7 +12,7 @@ const type = isPieceRelated ? 'piece' : 'generic';
 const collectionPath = lang === 'es' ? 'coleccion' : 'collection';
 ---
 
-<Layout>
+<Layout title={t('404.title')} description={t('404.description')} lang={lang}>
   <div class="min-h-[60vh] flex items-center justify-center px-4">
     <div class="text-center max-w-2xl">
       <h1 class="text-6xl font-bold text-main mb-4">404</h1>

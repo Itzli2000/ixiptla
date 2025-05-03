@@ -32,7 +32,7 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 ---
 
-<Layout>
+<Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
   <article class="pt-24 pb-16 px-4">
     <div class="mx-auto max-w-6xl">
       <nav class="mb-8" aria-label="Breadcrumb">
