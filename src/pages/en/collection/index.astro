@@ -1,8 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ArtifactCard from '../../components/ArtifactCard.astro';
-import { fullCollection, cultures, type Artifact } from '../../data/collection';
-import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import Layout from '../../../layouts/Layout.astro';
+import ArtifactCard from '../../../components/ArtifactCard.astro';
+import { fullCollection, cultures, type Artifact } from '../../../data/collection';
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);

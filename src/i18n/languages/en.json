@@ -30,5 +30,18 @@
     "maya": "Maya",
     "azteca": "Azteca",
     "olmeca": "Olmeca"
+  },
+  "artifact": {
+    "title": "Piece",
+    "description": "Piece description",
+    "cta": "View Piece",
+    "home": "Home",
+    "collection": "Collection",
+    "culture": "Culture",
+    "period": "Period",
+    "location": "Location",
+    "museum": "Museum",
+    "technicalInfo": "Technical Information",
+    "related": "Related"
   }
 }

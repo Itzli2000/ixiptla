@@ -1,5 +1,3 @@
-// src/data/collection.ts
-
 export interface Translation {
   es: string;
   en: string;
@@ -12,14 +10,13 @@ export interface ArtifactItem {
   period: string;
   image: string;
   slug: string;
-  description?: Translation;
-  museum?: string;
-  location?: Translation;
+  description: Translation;
+  museum: string;
+  location: Translation;
 }
 
 export interface Artifact {
   culture: string;
-  // Add other properties as needed
 }
 
 export const featuredArtifacts: ArtifactItem[] = [
@@ -109,7 +106,6 @@ export const featuredArtifacts: ArtifactItem[] = [
   },
 ];
 
-// Colección más extensa para la página principal de colección
 export const fullCollection: ArtifactItem[] = [
   ...featuredArtifacts,
   {
@@ -240,24 +236,10 @@ export const fullCollection: ArtifactItem[] = [
   },
 ];
 
-// Función para filtrar por cultura
 export const getArtifactsByCulture = (culture: string) => {
   return fullCollection.filter((artifact) =>
     artifact.culture.toLowerCase().includes(culture.toLowerCase())
   );
 };
 
-// Función para obtener artículo por slug
-export const getArtifactBySlug = (slug: string) => {
-  return fullCollection.find((artifact) => artifact.slug === slug);
-};
-
-// Categorías disponibles
 export const cultures: string[] = ["All", "Maya", "Azteca", "Olmeca"];
-
-// Períodos históricos
-export const historicalPeriods = [
-  "Preclásico (2500 a.C. - 200 d.C.)",
-  "Clásico (200 - 900 d.C.)",
-  "Posclásico (900 - 1521 d.C.)",
-];
