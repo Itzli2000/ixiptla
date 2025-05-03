@@ -1,19 +1,17 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
 const routes = {
-  home: getRelativeLocaleUrl(lang, '/'),
-  collection: getRelativeLocaleUrl(lang, lang === 'en' ? '/collection' : '/coleccion'),
-  contact: getRelativeLocaleUrl(lang, lang === 'en' ? '/contact' : '/contacto'),
+  home: lang === 'en' ? '/en/' : '/es/',
+  collection: lang === 'en' ? '/en/collection' : '/es/coleccion',
+  contact: lang === 'en' ? '/en/contact' : '/es/contacto',
 };
 ---
 
-<nav class="bg-quaternary shadow-md">
+<nav class="bg-quaternary shadow-md fixed top-0 left-0 right-0 w-full z-50">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex justify-between items-center h-16">
       <div class="flex-shrink-0">
@@ -69,18 +67,41 @@ const routes = {
 </nav>
 
 <script>
-  const mobileMenuButton = document.querySelector('.mobile-menu-button');
-  const mobileMenu = document.querySelector('.mobile-menu');
+  document.addEventListener('astro:page-load', () => {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
 
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  }
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        mobileMenu.classList.toggle("open");
+      });
+
+      // Cerrar el menú cuando se hace clic en un enlace
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("open");
+        });
+      });
+    }
+  });
 </script>
 
 <style>
   .mobile-menu {
     transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .mobile-menu.open {
+    max-height: 300px;
+  }
+
+  /* Añadir padding al contenido principal para compensar el nav fijo */
+  :global(body) {
+    padding-top: 4rem;
   }
 </style>

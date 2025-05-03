@@ -1,8 +1,8 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import ArtifactCard from '../../../components/ArtifactCard.astro';
-import { fullCollection, cultures, type Artifact } from '../../../data/collection';
-import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+import Layout from "../../../layouts/Layout.astro";
+import ArtifactCard from "../../../components/ArtifactCard.astro";
+import { fullCollection, cultures } from "../../../data/collection";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
@@ -10,80 +10,90 @@ const t = useTranslations(lang);
 const artifacts = fullCollection;
 ---
 
-<Layout title={t('collection.title')} description={t('collection.description')} lang={lang}>
-  <section class="pt-24 pb-16 px-4 bg-quaternary">
+<Layout
+  title={t("collection.title")}
+  description={t("collection.description")}
+  lang={lang}
+>
+  <section class="pt-10 lg:pt-24 pb-16 px-4 bg-quaternary">
     <div class="mx-auto max-w-7xl">
       <h1 class="text-4xl md:text-5xl font-bold text-tertiary text-center mb-8">
-        {t('collection.title')}
+        {t("collection.title")}
       </h1>
       <p class="text-xl text-dark/80 text-center max-w-3xl mx-auto mb-12">
-        {t('collection.description')}
+        {t("collection.description")}
       </p>
-      
+
       <div class="flex flex-wrap gap-4 justify-center mb-12">
-        {cultures.map(culture => (
-          <button 
-            data-culture={culture}
-            class={`px-6 py-2 rounded-full transition-colors filter-btn
+        {
+          cultures.map((culture) => (
+            <button
+              data-culture={culture}
+              class={`px-6 py-2 rounded-full transition-colors filter-btn
               bg-secondary/50 text-dark hover:bg-secondary`}
-          >
-            {t(`collection.${culture.toLowerCase()}`)}
-          </button>
-        ))}
+            >
+              {t(`collection.${culture.toLowerCase()}`)}
+            </button>
+          ))
+        }
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {artifacts.map(artifact => (
-          <div 
-            class="artifact-card" 
-            data-culture={artifact.culture}
-          >
-            <ArtifactCard artifact={artifact} />
-          </div>
-        ))}
+        {
+          artifacts.map((artifact) => (
+            <div class="artifact-card" data-culture={artifact.culture}>
+              <ArtifactCard artifact={artifact} />
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 </Layout>
 
 <script>
-  function handleFilter(culture: string) {
-    const cards = document.querySelectorAll('.artifact-card');
-    const buttons = document.querySelectorAll('.filter-btn');
+  document.addEventListener("astro:page-load", () => {
+    function handleFilter(culture: string) {
+      const cards = document.querySelectorAll(".artifact-card");
+      const buttons = document.querySelectorAll(".filter-btn");
 
-    buttons.forEach(btn => {
-      if (btn instanceof HTMLElement) {
-        const btnCulture = btn.dataset.culture;
-        if (btnCulture === culture) {
-          btn.classList.add('bg-main', 'text-quaternary');
-          btn.classList.remove('bg-secondary/50', 'text-dark');
-        } else {
-          btn.classList.remove('bg-main', 'text-quaternary');
-          btn.classList.add('bg-secondary/50', 'text-dark');
+      buttons.forEach((btn) => {
+        if (btn instanceof HTMLElement) {
+          const btnCulture = btn.dataset.culture;
+          if (btnCulture === culture) {
+            btn.classList.add("bg-main", "text-quaternary");
+            btn.classList.remove("bg-secondary/50", "text-dark");
+          } else {
+            btn.classList.remove("bg-main", "text-quaternary");
+            btn.classList.add("bg-secondary/50", "text-dark");
+          }
         }
-      }
-    });
+      });
 
-    cards.forEach(card => {
-      if (card instanceof HTMLElement) {
-        const cardCulture = card.dataset.culture;
-        if (culture === 'All' || cardCulture?.toLowerCase().includes(culture.toLowerCase())) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
+      cards.forEach((card) => {
+        if (card instanceof HTMLElement) {
+          const cardCulture = card.dataset.culture;
+          if (
+            culture === "All" ||
+            cardCulture?.toLowerCase().includes(culture.toLowerCase())
+          ) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
         }
-      }
-    });
-  }
+      });
+    }
 
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      if (e.currentTarget instanceof HTMLElement) {
-        const culture = e.currentTarget.dataset.culture || 'All';
-        handleFilter(culture);
-      }
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        if (e.currentTarget instanceof HTMLElement) {
+          const culture = e.currentTarget.dataset.culture || "All";
+          handleFilter(culture);
+        }
+      });
     });
+
+    handleFilter("All");
   });
-
-  handleFilter('All');
 </script>

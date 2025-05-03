@@ -1,16 +1,25 @@
 {
   "name": "ixiptla",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prepare-release:patch": "node scripts/prepare-release.js --patch",
+    "prepare-release:minor": "node scripts/prepare-release.js --minor",
+    "prepare-release:major": "node scripts/prepare-release.js --major"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.5",
     "astro": "^5.7.10",
+    "generate-changelog": "^1.8.0",
+    "shelljs": "^0.9.2",
     "tailwindcss": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/generate-changelog": "^1",
+    "@types/shelljs": "^0"
   }
 }

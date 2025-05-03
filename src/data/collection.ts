@@ -1,26 +1,6 @@
-export interface Translation {
-  es: string;
-  en: string;
-}
+import type { ArtifactItem } from "../types";
 
-export interface ArtifactItem {
-  id: number;
-  name: Translation;
-  culture: string;
-  period: string;
-  image: string;
-  slug: string;
-  description: Translation;
-  museum: string;
-  location: Translation;
-  dimensions?: string;
-  material?: string;
-  technique?: string;
-}
-
-export interface Artifact {
-  culture: string;
-}
+import colibri from "../assets/images/colibri.png";
 
 export const featuredArtifacts: ArtifactItem[] = [
   {
@@ -28,7 +8,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Copa del Colibrí", en: "Hummingbird Cup" },
     culture: "Mixteca",
     period: "1225 d.C.",
-    image: "/src/assets/images/colibri.png",
+    image: colibri,
     slug: "copa-colibri",
     description: {
       es: "Delicada vasija tipo códice que muestra un colibrí azul posado sobre una copa, con diseños simbólicos incluyendo grecas escalonadas de serpientes y animales alter ego de los dioses. Encontrada en la tumba 1 de Zaachila.",
@@ -45,7 +25,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Piedra del Sol", en: "Piedra del Sol" },
     culture: "Mexica (Azteca)",
     period: "1502-1520 d.C.",
-    image: "/images/artifacts/piedra-del-sol.jpg",
+    image: colibri,
     slug: "piedra-del-sol",
     description: {
       es: "Monolito circular con representaciones cosmológicas y calendáricas",
@@ -62,7 +42,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Chac Mool de Chichén Itzá", en: "Chac Mool de Chichén Itzá" },
     culture: "Maya",
     period: "800-900 d.C.",
-    image: "/images/artifacts/chac-mool.jpg",
+    image: colibri,
     slug: "chac-mool-chichen-itza",
     description: {
       es: "Escultura reclinada con recipiente sobre el vientre para ofrendas",
@@ -79,7 +59,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Máscara de Jade de Pakal", en: "Máscara de Jade de Pakal" },
     culture: "Maya",
     period: "683 d.C.",
-    image: "/images/artifacts/mascara-jade-pakal.jpg",
+    image: colibri,
     slug: "mascara-jade-pakal",
     description: {
       es: "Máscara funeraria del gobernante Pakal de Palenque",
@@ -96,7 +76,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Cabeza Colosal Olmeca", en: "Cabeza Colosal Olmeca" },
     culture: "Olmeca",
     period: "1200-900 a.C.",
-    image: "/images/artifacts/cabeza-olmeca.jpg",
+    image: colibri,
     slug: "cabeza-colosal-olmeca",
     description: {
       es: "Escultura monumental en basalto de aproximadamente 3 metros",
@@ -113,7 +93,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Tláloc Monolítico", en: "Tláloc Monolítico" },
     culture: "Teotihuacana",
     period: "200-650 d.C.",
-    image: "/images/artifacts/tlaloc-monolitico.jpg",
+    image: colibri,
     slug: "tlaloc-monolitico",
     description: {
       es: "Representación del dios de la lluvia, tallado en una sola pieza",
@@ -127,7 +107,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     name: { es: "Disco de la Muerte", en: "Disco de la Muerte" },
     culture: "Teotihuacana",
     period: "300-650 d.C.",
-    image: "/images/artifacts/disco-muerte.jpg",
+    image: colibri,
     slug: "disco-muerte-teotihuacan",
     description: {
       es: "Disco de piedra con representación de un cráneo descarnado",
@@ -145,7 +125,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Serpiente Emplumada", en: "Serpiente Emplumada" },
     culture: "Mexica (Azteca)",
     period: "1428-1521 d.C.",
-    image: "/images/artifacts/serpiente-emplumada.jpg",
+    image: colibri,
     slug: "serpiente-emplumada-mexica",
     description: {
       es: "Escultura de Quetzalcóatl, deidad del viento y sabiduría",
@@ -159,7 +139,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Coyolxauhqui", en: "Coyolxauhqui" },
     culture: "Mexica (Azteca)",
     period: "1469 d.C.",
-    image: "/images/artifacts/coyolxauhqui.jpg",
+    image: colibri,
     slug: "coyolxauhqui",
     description: {
       es: "Relieve circular que representa a la diosa lunar desmembrada",
@@ -173,7 +153,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "El Luchador Olmeca", en: "El Luchador Olmeca" },
     culture: "Olmeca",
     period: "1200-900 a.C.",
-    image: "/images/artifacts/luchador-olmeca.jpg",
+    image: colibri,
     slug: "luchador-olmeca",
     description: {
       es: "Escultura de basalto representando a un atleta o guerrero",
@@ -187,7 +167,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Estela de la Venta", en: "Estela de la Venta" },
     culture: "Olmeca",
     period: "1000-600 a.C.",
-    image: "/images/artifacts/estela-la-venta.jpg",
+    image: colibri,
     slug: "estela-la-venta",
     description: {
       es: "Monumento con escritura y representaciones de gobernantes",
@@ -201,7 +181,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Máscara de Malinalco", en: "Máscara de Malinalco" },
     culture: "Mexica (Azteca)",
     period: "1450-1521 d.C.",
-    image: "/images/artifacts/mascara-malinalco.jpg",
+    image: colibri,
     slug: "mascara-malinalco",
     description: {
       es: "Máscara ceremonial con incrustaciones de turquesa y obsidiana",
@@ -215,7 +195,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Dintel 26 de Yaxchilán", en: "Dintel 26 de Yaxchilán" },
     culture: "Maya",
     period: "724 d.C.",
-    image: "/images/artifacts/dintel-26-yaxchilan.jpg",
+    image: colibri,
     slug: "dintel-26-yaxchilan",
     description: {
       es: "Relieve en piedra con escena de sacrificio ritual",
@@ -229,7 +209,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Xipe Tótec", en: "Xipe Tótec" },
     culture: "Mexica (Azteca)",
     period: "1450-1521 d.C.",
-    image: "/images/artifacts/xipe-totec.jpg",
+    image: colibri,
     slug: "xipe-totec",
     description: {
       es: "Escultura del dios desollado de la primavera y renovación",
@@ -243,7 +223,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Códice Borbónico", en: "Códice Borbónico" },
     culture: "Mexica (Azteca)",
     period: "1507-1521 d.C.",
-    image: "/images/artifacts/codice-borbonico.jpg",
+    image: colibri,
     slug: "codice-borbonico",
     description: {
       es: "Manuscrito pictográfico con calendario ritual y festividades",
@@ -257,7 +237,7 @@ export const fullCollection: ArtifactItem[] = [
     name: { es: "Jaguar de Xalla", en: "Jaguar de Xalla" },
     culture: "Teotihuacana",
     period: "200-650 d.C.",
-    image: "/images/artifacts/jaguar-xalla.jpg",
+    image: colibri,
     slug: "jaguar-xalla",
     description: {
       es: "Escultura felina en piedra verde con incrustaciones",
