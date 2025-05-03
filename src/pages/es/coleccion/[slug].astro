@@ -7,6 +7,7 @@ import {
 } from "../../../data/collection";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
+
 export async function getStaticPaths() {
   return fullCollection.map((artifact) => ({
     params: { slug: artifact.slug },
@@ -170,7 +171,7 @@ const t = useTranslations(lang);
         relatedArtifacts.length > 0 && (
           <section class="mt-24">
             <h2 class="text-3xl font-bold text-tertiary mb-8">
-              Piezas relacionadas
+              {t("artifact.related")}
             </h2>
             <div class="grid md:grid-cols-3 gap-8">
               {relatedArtifacts.map((related) => (
