@@ -1,7 +1,6 @@
 ---
 import Button from './Button.astro';
-import { useTranslations } from '../i18n/utils';
-import { getLangFromUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslations }from '../i18n/utils';
 import { getRelativeLocaleUrl } from 'astro/virtual-modules/i18n.js';
 import { Image } from 'astro:assets';
 import colibri from '../assets/images/colibri.png';
@@ -35,7 +34,7 @@ const navigateToCollection = getRelativeLocaleUrl(lang, lang === 'en' ? '/collec
       <Button href={navigateToCollection} variant="primary">
         {t('hero.cta.primary')}
       </Button>
-      <Button href="/ixpitla" variant="secondary">
+      <Button href="/ixiptla" variant="secondary">
         {t('hero.cta.secondary')}
       </Button>
     </div>

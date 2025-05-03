@@ -1,0 +1,41 @@
+---
+interface Props {
+  image: string;
+  name: string;
+  culture: string;
+  period: string;
+  slug: string;
+}
+
+const { image, name, culture, period, slug } = Astro.props;
+---
+
+<article class="group bg-light rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+  <div class="aspect-[4/3] overflow-hidden">
+    <img 
+      src={image} 
+      alt={name}
+      loading="lazy"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+    />
+  </div>
+  <div class="p-6 space-y-4">
+    <h3 class="text-xl font-bold text-tertiary group-hover:text-main transition-colors">
+      {name}
+    </h3>
+    <div class="flex items-center text-dark/70 text-sm">
+      <span>{culture}</span>
+      <span class="mx-2">•</span>
+      <span>{period}</span>
+    </div>
+    <a 
+      href={`/coleccion/${slug}`}
+      class="inline-flex items-center text-main hover:text-dark font-medium transition-colors"
+    >
+      Ver más
+      <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
+  </div>
+</article>

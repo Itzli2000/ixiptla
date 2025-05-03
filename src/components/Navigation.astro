@@ -1,7 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { getLangFromUrl } from '../i18n/utils';
-import { useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
@@ -19,7 +18,7 @@ const routes = {
     <div class="flex justify-between items-center h-16">
       <div class="flex-shrink-0">
         <a href={routes.home} class="text-xl font-bold">
-          <img src="/images/logo.svg" alt="Ixpitla" class="h-10" />
+          <img src="/images/logo.svg" alt="Ixiptla" class="h-10" />
         </a>
       </div>
 

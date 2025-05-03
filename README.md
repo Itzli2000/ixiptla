@@ -1,13 +1,13 @@
-![Ixpitla Logo](public/images/logo.svg)
+![Ixiptla Logo](public/images/logo.svg)
 
-# 🏺 Ixpitla
+# 🏺 Ixiptla
 
 A modern web application showcasing a curated collection of handcrafted archaeological replicas. Built with Astro.js, this platform combines performance with stunning visual presentation to bring ancient artifacts to life in the digital age.
 
 
 ## 🎯 About
 
-Ixpitla is designed to present our collection of meticulously crafted archaeological reproductions. Each piece in our gallery comes with detailed information about its historical context, crafting process, and cultural significance.
+Ixiptla is designed to present our collection of meticulously crafted archaeological reproductions. Each piece in our gallery comes with detailed information about its historical context, crafting process, and cultural significance.
 
 ## ✨ Features
 
