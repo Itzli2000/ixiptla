@@ -5,8 +5,7 @@
   },
   "navigation": {
     "home": "Home",
-    "about": "About",
-    "services": "Services",
+    "collection": "Collection",
     "contact": "Contact"
   }
 }

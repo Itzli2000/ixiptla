@@ -24,13 +24,10 @@ const t = useTranslations(lang);
           <a href={getRelativeLocaleUrl(lang, '/')} class="px-3 py-2 rounded-md">
             {t('navigation.home')}
           </a>
-          <a href={getRelativeLocaleUrl(lang, '/about')} class="px-3 py-2 rounded-md">
-            {t('navigation.about')}
+          <a href={getRelativeLocaleUrl(lang, lang === 'en' ? '/collection' : '/coleccion')} class="px-3 py-2 rounded-md">
+            {t('navigation.collection')}
           </a>
-          <a href={getRelativeLocaleUrl(lang, '/services')} class="px-3 py-2 rounded-md">
-            {t('navigation.services')}
-          </a>
-          <a href={getRelativeLocaleUrl(lang, '/contact')} class="px-3 py-2 rounded-md">
+          <a href={getRelativeLocaleUrl(lang, lang === 'en' ? '/contact' : '/contacto')} class="px-3 py-2 rounded-md">
             {t('navigation.contact')}
           </a>
         </div>
@@ -55,13 +52,10 @@ const t = useTranslations(lang);
         <a href={getRelativeLocaleUrl(lang, '/')} class="block px-3 py-2 rounded-md">
           {t('navigation.home')}
         </a>
-        <a href={getRelativeLocaleUrl(lang, '/about')} class="block px-3 py-2 rounded-md">
-          {t('navigation.about')}
+        <a href={getRelativeLocaleUrl(lang, lang === 'en' ? '/collection' : '/coleccion')} class="block px-3 py-2 rounded-md">
+          {t('navigation.collection')}
         </a>
-        <a href={getRelativeLocaleUrl(lang, '/services')} class="block px-3 py-2 rounded-md">
-          {t('navigation.services')}
-        </a>
-        <a href={getRelativeLocaleUrl(lang, '/contact')} class="block px-3 py-2 rounded-md">
+        <a href={getRelativeLocaleUrl(lang, lang === 'en' ? '/contact' : '/contacto')} class="block px-3 py-2 rounded-md">
           {t('navigation.contact')}
         </a>
       </div>
