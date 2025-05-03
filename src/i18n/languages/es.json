@@ -26,11 +26,11 @@
     "description2": "En esta exposición, exploramos estos recipientes sagrados a través de una colección curada de réplicas. Cada pieza narra una historia de nuestro patrimonio ancestral, ofreciendo una ventana hacia el profundo significado cultural del arte mesoamericano."
   },
   "collection": {
-    "title": "Colección Destacada",
+    "title": "Colección",
     "description": "Explora algunas de nuestras reproducciones más emblemáticas del patrimonio cultural mexicano",
     "cta": "Ver Colección",
     "all": "Todas",
-    "maya": "Maya",
+    "maya": "Maya", 
     "azteca": "Azteca",
     "olmeca": "Olmeca",
     "mixteca": "Mixteca"
