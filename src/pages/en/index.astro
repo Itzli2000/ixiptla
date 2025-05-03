@@ -4,9 +4,13 @@ import Hero from '../../components/Hero.astro';
 import IxiptlaSection from '../../components/IxiptlaSection.astro';
 import Collection from '../../components/Collection.astro';
 import { featuredArtifacts } from '../../data/collection';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
 ---
 
-<Layout>
+<Layout title={t('home.title')} description={t('home.description')} lang={lang}>
 	<Hero />
 	<IxiptlaSection />
 	<Collection items={featuredArtifacts} />	

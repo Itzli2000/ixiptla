@@ -29,7 +29,8 @@
     "all": "All",
     "maya": "Maya",
     "azteca": "Azteca",
-    "olmeca": "Olmeca"
+    "olmeca": "Olmeca",
+    "mixteca": "Mixteca"
   },
   "artifact": {
     "title": "Piece",
@@ -42,6 +43,27 @@
     "location": "Location",
     "museum": "Museum",
     "technicalInfo": "Technical Information",
-    "related": "Related"
+    "dimensions": "Dimensions",
+    "material": "Material",
+    "technique": "Technique",
+    "related": "Related Pieces"
+  },
+  "404": {
+    "generic": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you're looking for doesn't exist or has been moved to another location.",
+      "cta": {
+        "primary": "Go to Home",
+        "secondary": "View Collection"
+      }
+    },
+    "piece": {
+      "title": "Piece Not Found",
+      "description": "Sorry, the piece you're looking for doesn't exist in our collection or has been moved to another location.",
+      "cta": {
+        "primary": "Go to Home",
+        "secondary": "View Collection"
+      }
+    }
   }
 }

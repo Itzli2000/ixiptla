@@ -13,6 +13,9 @@ export interface ArtifactItem {
   description: Translation;
   museum: string;
   location: Translation;
+  dimensions?: string;
+  material?: string;
+  technique?: string;
 }
 
 export interface Artifact {
@@ -20,6 +23,23 @@ export interface Artifact {
 }
 
 export const featuredArtifacts: ArtifactItem[] = [
+  {
+    id: 0,
+    name: { es: "Copa del Colibrí", en: "Hummingbird Cup" },
+    culture: "Mixteca",
+    period: "1225 d.C.",
+    image: "/src/assets/images/colibri.png",
+    slug: "copa-colibri",
+    description: {
+      es: "Delicada vasija tipo códice que muestra un colibrí azul posado sobre una copa, con diseños simbólicos incluyendo grecas escalonadas de serpientes y animales alter ego de los dioses. Encontrada en la tumba 1 de Zaachila.",
+      en: "Delicate codex-type vessel showing a blue hummingbird perched on a cup, with symbolic designs including stepped frets of serpents and animal alter egos of the gods. Found in tomb 1 of Zaachila."
+    },
+    museum: "Museo Nacional de Antropología",
+    location: { es: "CDMX", en: "CDMX" },
+    dimensions: "15 x 12 x 8 cm",
+    material: "Cerámica policromada",
+    technique: "Modelado y pintura"
+  },
   {
     id: 1,
     name: { es: "Piedra del Sol", en: "Piedra del Sol" },
@@ -33,6 +53,9 @@ export const featuredArtifacts: ArtifactItem[] = [
     },
     museum: "Museo Nacional de Antropología",
     location: { es: "CDMX", en: "CDMX" },
+    dimensions: "358 x 98 cm",
+    material: "Basalto de olivino",
+    technique: "Tallado en piedra"
   },
   {
     id: 2,
@@ -47,6 +70,9 @@ export const featuredArtifacts: ArtifactItem[] = [
     },
     museum: "Museo Nacional de Antropología",
     location: { es: "CDMX", en: "CDMX" },
+    dimensions: "130 x 90 x 60 cm",
+    material: "Piedra caliza",
+    technique: "Esculpido"
   },
   {
     id: 3,
@@ -61,6 +87,9 @@ export const featuredArtifacts: ArtifactItem[] = [
     },
     museum: "Museo Nacional de Antropología",
     location: { es: "CDMX", en: "CDMX" },
+    dimensions: "21.8 x 20.5 cm",
+    material: "Jade, concha y obsidiana",
+    technique: "Mosaico e incrustación"
   },
   {
     id: 4,
@@ -75,6 +104,9 @@ export const featuredArtifacts: ArtifactItem[] = [
     },
     museum: "Museo de Antropología de Xalapa",
     location: { es: "Veracruz", en: "Veracruz" },
+    dimensions: "300 x 200 x 200 cm",
+    material: "Basalto",
+    technique: "Tallado monumental"
   },
   {
     id: 5,
@@ -242,4 +274,4 @@ export const getArtifactsByCulture = (culture: string) => {
   );
 };
 
-export const cultures: string[] = ["All", "Maya", "Azteca", "Olmeca"];
+export const cultures: string[] = ["All", "Mixteca", "Maya", "Azteca", "Olmeca"];
