@@ -5,8 +5,21 @@
   },
   "navigation": {
     "home": "Home",
-    "about": "About",
-    "services": "Services",
+    "collection": "Collection",
     "contact": "Contact"
+  },
+  "hero": {
+    "title": "Ixiptla",
+    "tagline": "The art of the Ixiptla",
+    "imageAlt": "Ixiptla",
+    "cta": {
+      "primary": "View Collection",
+      "secondary": "View Ixiptla"
+    }
+  },
+  "ixiptla": {
+    "title": "What is Ixiptla?",
+    "description": "Ixiptla (or Ixiptla) comes from the Nahuatl roots 'xip' (skin, covering) and 'ixtli' (eyes, face, something on the surface of a conscious being). It represents not just an image or representation, but embodies a presence or skin - a vessel that actualizes power within an object or person.",
+    "description2": "This concept is deeply rooted in Mesoamerican culture, exemplified in the deity Xipe Totec, often depicted wearing the flayed skin of another, where a person would become the deity's embodiment through ritual ceremony. Our work bridges this profound cultural heritage with contemporary design and technology."
   }
 }

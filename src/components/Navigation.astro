@@ -1,45 +1,45 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { getLangFromUrl } from '../../i18n/utils';
-import { useTranslations } from '../../i18n/utils';
-import LanguageSwitcher from '../languageSwitcher/LanguageSwitcher.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
+
+const routes = {
+  home: getRelativeLocaleUrl(lang, '/'),
+  collection: getRelativeLocaleUrl(lang, lang === 'en' ? '/collection' : '/coleccion'),
+  contact: getRelativeLocaleUrl(lang, lang === 'en' ? '/contact' : '/contacto'),
+};
 ---
 
 <nav class="bg-quaternary shadow-md">
   <div class="max-w-6xl mx-auto px-4">
     <div class="flex justify-between items-center h-16">
-      <!-- Logo/Brand -->
       <div class="flex-shrink-0">
-        <a href={getRelativeLocaleUrl(lang, '/')} class="text-xl font-bold">
-          <img src="/images/logo.svg" alt="Ixpitla" class="h-10" />
+        <a href={routes.home} class="text-xl font-bold">
+          <img src="/images/logo.svg" alt="Ixiptla" class="h-10" />
         </a>
       </div>
 
-      <!-- Navigation Links -->
       <div class="hidden md:block">
         <div class="ml-10 flex items-center space-x-4">
-          <a href={getRelativeLocaleUrl(lang, '/')} class="px-3 py-2 rounded-md">
+          <a href={routes.home} class="px-3 py-2 rounded-md">
             {t('navigation.home')}
           </a>
-          <a href={getRelativeLocaleUrl(lang, '/about')} class="px-3 py-2 rounded-md">
-            {t('navigation.about')}
+          <a href={routes.collection} class="px-3 py-2 rounded-md">
+            {t('navigation.collection')}
           </a>
-          <a href={getRelativeLocaleUrl(lang, '/services')} class="px-3 py-2 rounded-md">
-            {t('navigation.services')}
-          </a>
-          <a href={getRelativeLocaleUrl(lang, '/contact')} class="px-3 py-2 rounded-md">
+          <a href={routes.contact} class="px-3 py-2 rounded-md">
             {t('navigation.contact')}
           </a>
         </div>
       </div>
 
-      <!-- Language Switcher -->
-      <LanguageSwitcher />
+      <div class="hidden md:block">
+        <LanguageSwitcher />
+      </div>
 
-      <!-- Mobile menu button -->
       <div class="md:hidden flex items-center">
         <button class="mobile-menu-button" aria-label="Open menu">
           <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -49,28 +49,26 @@ const t = useTranslations(lang);
       </div>
     </div>
 
-    <!-- Mobile Menu -->
     <div class="hidden md:hidden mobile-menu">
       <div class="px-2 pt-2 pb-3 space-y-1">
-        <a href={getRelativeLocaleUrl(lang, '/')} class="block px-3 py-2 rounded-md">
+        <a href={routes.home} class="block px-3 py-2 rounded-md">
           {t('navigation.home')}
         </a>
-        <a href={getRelativeLocaleUrl(lang, '/about')} class="block px-3 py-2 rounded-md">
-          {t('navigation.about')}
+        <a href={routes.collection} class="block px-3 py-2 rounded-md">
+          {t('navigation.collection')}
         </a>
-        <a href={getRelativeLocaleUrl(lang, '/services')} class="block px-3 py-2 rounded-md">
-          {t('navigation.services')}
-        </a>
-        <a href={getRelativeLocaleUrl(lang, '/contact')} class="block px-3 py-2 rounded-md">
+        <a href={routes.contact} class="block px-3 py-2 rounded-md">
           {t('navigation.contact')}
         </a>
+        <div class="px-3 py-2">
+          <LanguageSwitcher />
+        </div>
       </div>
     </div>
   </div>
 </nav>
 
 <script>
-  // Mobile menu toggle
   const mobileMenuButton = document.querySelector('.mobile-menu-button');
   const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -82,7 +80,6 @@ const t = useTranslations(lang);
 </script>
 
 <style>
-  /* Add any custom styles here */
   .mobile-menu {
     transition: all 0.3s ease-in-out;
   }

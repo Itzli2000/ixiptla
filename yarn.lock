@@ -2224,9 +2224,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ixpitla@workspace:.":
+"ixiptla@workspace:.":
   version: 0.0.0-use.local
-  resolution: "ixpitla@workspace:."
+  resolution: "ixiptla@workspace:."
   dependencies:
     "@tailwindcss/vite": "npm:^4.1.5"
     astro: "npm:^5.7.10"

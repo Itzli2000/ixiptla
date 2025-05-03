@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl } from "../../i18n/utils";
+import { getLangFromUrl } from "../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const currentPath = Astro.url.pathname;
@@ -8,8 +8,8 @@ let otherLangPath = "";
 if (lang === "en") {
   otherLangPath = currentPath.replace(/^\/en/, "/es");
 
-  if (otherLangPath.includes("/events")) {
-    otherLangPath = otherLangPath.replace("/events", "/eventos");
+  if (otherLangPath.includes("/collection")) {
+    otherLangPath = otherLangPath.replace("/collection", "/coleccion");
   }
 
   if (otherLangPath.includes("/contact")) {
@@ -18,8 +18,8 @@ if (lang === "en") {
 } else {
   otherLangPath = currentPath.replace(/^\/es/, "/en");
 
-  if (otherLangPath.includes("/eventos")) {
-    otherLangPath = otherLangPath.replace("/eventos", "/events");
+  if (otherLangPath.includes("/coleccion")) {
+    otherLangPath = otherLangPath.replace("/coleccion", "/collection");
   }
 
   if (otherLangPath.includes("/contacto")) {
