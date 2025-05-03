@@ -3,6 +3,10 @@
     "en": "English",
     "es": "Spanish"
   },
+  "home": {
+    "title": "Ixiptla",
+    "description": "The art of the Ixiptla"
+  },
   "navigation": {
     "home": "Home",
     "collection": "Collection",
@@ -13,8 +17,7 @@
     "tagline": "The art of the Ixiptla",
     "imageAlt": "Ixiptla",
     "cta": {
-      "primary": "View Collection",
-      "secondary": "View Ixiptla"
+      "primary": "View Collection"
     }
   },
   "ixiptla": {
@@ -49,6 +52,7 @@
     "related": "Related Pieces"
   },
   "404": {
+    "title": "Page Not Found",
     "generic": {
       "title": "Page Not Found",
       "description": "Sorry, the page you're looking for doesn't exist or has been moved to another location.",

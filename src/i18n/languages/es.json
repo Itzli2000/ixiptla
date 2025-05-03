@@ -3,6 +3,10 @@
     "en": "Inglés",
     "es": "Español"
   },
+  "home": {
+    "title": "Ixiptla",
+    "description": "El arte de la Ixiptla"
+  },
   "navigation": {
     "home": "Inicio",
     "collection": "Colección",
@@ -13,8 +17,7 @@
     "tagline": "El arte de la Ixiptla",
     "imageAlt": "Ixiptla",
     "cta": {
-      "primary": "Ver Colección",
-      "secondary": "Ver Ixiptla"
+      "primary": "Ver Colección"
     }
   },
   "ixiptla": {
@@ -49,6 +52,7 @@
     "related": "Piezas Relacionadas"
   },
   "404": {
+    "title": "Página No Encontrada",
     "generic": {
       "title": "Página No Encontrada",
       "description": "Lo sentimos, la página que buscas no existe o ha sido movida a otra ubicación.",
