@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { type ArtifactItem } from '../data/collection';
 import { getLangFromUrl } from '../i18n/utils';
 
@@ -14,12 +15,19 @@ const { image, culture, period, slug } = artifact;
 
 <article class="group bg-light rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
   <div class="aspect-[4/3] overflow-hidden">
-    <img 
-      src={image} 
-      alt={name}
-      loading="lazy"
+    <a 
+    href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}/${slug}`}
       class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-    />
+    >
+      <Image
+        src={image} 
+        alt={name}
+        width={500}
+        height={500}
+        loading="lazy"
+        class="transition-transform duration-500 group-hover:scale-110"
+      />
+    </a>
   </div>
   <div class="p-6 space-y-4">
     <h3 class="text-xl font-bold text-tertiary group-hover:text-main transition-colors">

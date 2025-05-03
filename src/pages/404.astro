@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+
+const isPieceRelated = Astro.url.pathname.includes('/coleccion/') || Astro.url.pathname.includes('/collection/');
+const type = isPieceRelated ? 'piece' : 'generic';
+
+const collectionPath = lang === 'es' ? 'coleccion' : 'collection';
+---
+
+<Layout>
+  <div class="min-h-[60vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-2xl">
+      <h1 class="text-6xl font-bold text-main mb-4">404</h1>
+      <h2 class="text-3xl font-bold text-tertiary mb-6">
+        {t(`404.${type}.title`)}
+      </h2>
+      <p class="text-xl text-dark/80 mb-8">
+        {t(`404.${type}.description`)}
+      </p>
+      <div class="flex gap-4 justify-center">
+        <Button href={`/${lang}`} variant="primary">
+          {t(`404.${type}.cta.primary`)}
+        </Button>
+        <Button href={`/${lang}/${collectionPath}`} variant="secondary">
+          {t(`404.${type}.cta.secondary`)}
+        </Button>
+      </div>
+    </div>
+  </div>
+</Layout> 
