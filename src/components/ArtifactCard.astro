@@ -1,13 +1,15 @@
 ---
+import { type ArtifactItem } from '../data/collection';
+import { getLangFromUrl } from '../i18n/utils';
+
 interface Props {
-  image: string;
-  name: string;
-  culture: string;
-  period: string;
-  slug: string;
+  artifact: ArtifactItem;
 }
 
-const { image, name, culture, period, slug } = Astro.props;
+const { artifact } = Astro.props;
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const name = artifact.name[lang] || artifact.name.es;
+const { image, culture, period, slug } = artifact;
 ---
 
 <article class="group bg-light rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
@@ -27,12 +29,23 @@ const { image, name, culture, period, slug } = Astro.props;
       <span>{culture}</span>
       <span class="mx-2">•</span>
       <span>{period}</span>
+      {artifact.location && (
+        <>
+          <span class="mx-2">•</span>
+          <span>{artifact.location[lang] || artifact.location.es}</span>
+        </>
+      )}
     </div>
+    {artifact.description && (
+      <p class="text-dark/70 text-sm line-clamp-2">
+        {artifact.description[lang] || artifact.description.es}
+      </p>
+    )}
     <a 
-      href={`/coleccion/${slug}`}
+      href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}/${slug}`}
       class="inline-flex items-center text-main hover:text-dark font-medium transition-colors"
     >
-      Ver más
+      {lang === 'es' ? 'Ver más' : 'See more'}
       <svg class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
       </svg>

@@ -19,7 +19,29 @@
   },
   "ixiptla": {
     "title": "What is Ixiptla?",
-    "description": "Ixiptla (or Ixiptla) comes from the Nahuatl roots 'xip' (skin, covering) and 'ixtli' (eyes, face, something on the surface of a conscious being). It represents not just an image or representation, but embodies a presence or skin - a vessel that actualizes power within an object or person.",
-    "description2": "This concept is deeply rooted in Mesoamerican culture, exemplified in the deity Xipe Totec, often depicted wearing the flayed skin of another, where a person would become the deity's embodiment through ritual ceremony. Our work bridges this profound cultural heritage with contemporary design and technology."
+    "description": "Rooted in Nahuatl wisdom, Ixiptla embodies the profound concept of sacred representation. More than mere replication, it captures the essence of transformation - where an object or being becomes a vessel of divine presence, bridging the physical and spiritual realms.",
+    "description2": "In this exhibition, we explore these sacred vessels through a curated collection of replicas. Each piece tells a story of our ancestral heritage, offering a window into the deep cultural significance of Mesoamerican artistry."
+  },
+  "collection": {
+    "title": "Featured Collection",
+    "description": "Explore some of our most iconic Mexican cultural reproductions",
+    "cta": "View Collection",
+    "all": "All",
+    "maya": "Maya",
+    "azteca": "Azteca",
+    "olmeca": "Olmeca"
+  },
+  "artifact": {
+    "title": "Piece",
+    "description": "Piece description",
+    "cta": "View Piece",
+    "home": "Home",
+    "collection": "Collection",
+    "culture": "Culture",
+    "period": "Period",
+    "location": "Location",
+    "museum": "Museum",
+    "technicalInfo": "Technical Information",
+    "related": "Related"
   }
 }

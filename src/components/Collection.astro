@@ -1,0 +1,41 @@
+---
+// src/components/sections/Collection.astro
+import ArtifactCard from './ArtifactCard.astro';
+import Button from './Button.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import type { ArtifactItem } from '../data/collection';
+
+interface Props {
+  items: ArtifactItem[];
+}
+
+const { items } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+---
+
+<section class="py-24 px-4 bg-quaternary max-w-7xl mx-auto">
+  <div class="mx-auto max-w-7xl">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-tertiary mb-4">
+        {t('collection.title')}
+      </h2>
+      <p class="text-lg text-dark/70 max-w-2xl mx-auto">
+        {t('collection.description')}
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      {items.map(item => (
+        <ArtifactCard artifact={item} />
+      ))}
+    </div>
+    
+    <div class="text-center">
+      <Button href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} size="lg">
+        {t('collection.cta')}
+      </Button>
+    </div>
+  </div>
+</section>
