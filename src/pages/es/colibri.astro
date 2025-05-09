@@ -1,0 +1,40 @@
+---
+import { Scene3D } from "../../components/Scene3D";
+import ExperienceLayout from "../../layouts/ExperienceLayout.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+---
+
+<ExperienceLayout title="Colibrí - Ixiptla" description="Experiencia 3D del Colibrí" lang={lang}>
+  <div class="relative w-full h-[calc(100vh-4rem)]">
+    <button
+      onclick="history.back()"
+      class="absolute top-4 left-4 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-white/20 transition-all"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      {t("artifact.back")}
+    </button>
+    <div class="w-full h-full bg-black">
+      <Scene3D client:only="react" />
+    </div>
+  </div>
+</ExperienceLayout>
+
+<style>
+  :global(body) {
+    overflow: hidden;
+  }
+</style> 

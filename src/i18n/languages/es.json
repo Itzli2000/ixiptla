@@ -49,7 +49,11 @@
     "dimensions": "Dimensiones",
     "material": "Material",
     "technique": "Técnica",
-    "related": "Piezas Relacionadas"
+    "related": "Piezas Relacionadas",
+    "explore3D": "Explora en 3D",
+    "explore3DDescription": "Descubre esta pieza en una experiencia inmersiva 3D que te permitirá explorar cada detalle desde todos los ángulos.",
+    "viewExperience": "Ver Experiencia",
+    "back": "Volver"
   },
   "404": {
     "title": "Página No Encontrada",

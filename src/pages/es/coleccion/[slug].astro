@@ -62,6 +62,37 @@ const t = useTranslations(lang);
               height={500}
             />
           </div>
+          {
+            artifact.slug === "copa-colibri" && (
+              <div class="bg-secondary/30 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-tertiary mb-4">
+                  {t("artifact.explore3D")}
+                </h3>
+                <p class="text-dark/80 mb-4">
+                  {t("artifact.explore3DDescription")}
+                </p>
+                <a
+                  href={`/${lang}/colibri`}
+                  class="inline-flex items-center text-main hover:text-dark transition-colors"
+                >
+                  {t("artifact.viewExperience")}
+                  <svg
+                    class="w-5 h-5 ml-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </a>
+              </div>
+            )
+          }
         </div>
 
         <div class="space-y-8">

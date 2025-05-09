@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Navigation from '../components/Navigation.astro';
 import mainImage from "../assets/images/colibri.png";
 import '../styles/global.css';
 
@@ -8,10 +7,9 @@ export interface Props {
   title: string;
   description: string;
   lang: string;
-  showHeader?: boolean;
 }
 
-const { title, description, lang = "en", showHeader = true } = Astro.props;
+const { title, description, lang = "en" } = Astro.props;
 const currentPath = Astro.url.pathname.replace(/^\/?/, "/");
 const siteUrl = Astro.site
   ? new URL(currentPath, Astro.site).toString()
@@ -44,8 +42,7 @@ const siteUrl = Astro.site
 		<title>{title}</title>
 		<ClientRouter />
 	</head>
-	<body class="bg-quaternary text-dark">
-		{showHeader && <Navigation />}
+	<body class="bg-black">
 		<slot />
 	</body>
 </html>
@@ -56,5 +53,6 @@ const siteUrl = Astro.site
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		overflow: hidden;
 	}
-</style>
+</style> 
