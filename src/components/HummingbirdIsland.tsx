@@ -13,18 +13,14 @@ export function HummingbirdIsland({ autoRotate = false }: HummingbirdProps) {
   const { nodes, materials } = useGLTF('/images/models/colibri.glb');
   const [isDragging, setIsDragging] = useState(false);
 
-  // Handle rotation with limits
   useFrame((_state: any, delta: number) => {
     if (groupRef.current && autoRotate && !isDragging) {
-      // Auto-rotation only when enabled and not being dragged
       groupRef.current.rotation.y += delta * 0.5;
       
-      // Limit vertical rotation (up/down)
       const currentRotationX = groupRef.current.rotation.x;
       const newRotationX = currentRotationX + delta * 0.2;
       
-      // Limit rotation to prevent going too far down
-      if (newRotationX < Math.PI / 4) { // Limit to 45 degrees down
+      if (newRotationX < Math.PI / 4) {
         groupRef.current.rotation.x = newRotationX;
       }
     }

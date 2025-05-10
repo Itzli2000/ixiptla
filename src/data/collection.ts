@@ -20,12 +20,12 @@ export const featuredArtifacts: ArtifactItem[] = [
       es: "En esta delicada vasija se presenta a un colibrí posado sobre una copa que podría representar una flor. La copa es del tipo códice, mostrando diversos diseños simbólicos con grecas escalonadas que representan serpientes y animales alter ego de los dioses: un jaguar, dos águilas y un tlacuache. Fue depositada en la tumba 1 de Zaachila, fechada en 1225 d.C.",
       en: "This delicate vessel features a hummingbird perched on a cup that could represent a flower. The cup is of the codex type, showing various symbolic designs with stepped fretwork representing serpents and alter ego animals of the gods: a jaguar, two eagles, and an opossum. It was deposited in tomb 1 of Zaachila, dated to 1225 AD.",
     },
-    museum: "Museo Nacional de Antropología", // Asumiendo este museo debido al contexto
+    museum: "Museo Nacional de Antropología",
     location: {
       es: "Zaachila, Valle de Zimatlán, Oaxaca",
       en: "Zaachila, Zimatlan Valley, Oaxaca",
     },
-    dimensions: "No especificadas", // Información no proporcionada en el texto
+    dimensions: "No especificadas",
     material: "Cerámica policroma",
     technique: "Modelado y pintado",
   },

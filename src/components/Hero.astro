@@ -9,11 +9,15 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
 const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
+
+const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") || 
+              Astro.request.headers.get("user-agent")?.includes("iPad") || 
+              Astro.request.headers.get("user-agent")?.includes("iPod");
 ---
 
 <section class="min-h-[90vh] bg-quaternary w-full">
   <div class="w-full flex flex-col items-center gap-10">
-    <div class="artwork-container">
+    <div class={`artwork-container ${isIOS ? 'ios-fallback' : ''}`}>
       <div class="artwork-bg"></div>
       <div class="image-wrapper">
         <Image
@@ -25,15 +29,24 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
         />
       </div>
 
-      <div class="mask">
-        <div class="knockout-content">
+      {!isIOS && (
+        <div class="mask">
+          <div class="knockout-content">
+            <Logo />
+            <span class="text-[15vw] font-bold">Ixiptla</span>
+          </div>
+        </div>
+      )}
+
+      {isIOS && (
+        <div class="ios-content">
           <Logo />
           <span class="text-[15vw] font-bold">Ixiptla</span>
         </div>
-      </div>
+      )}
     </div>
 
-    <div class="spacer"></div>
+    <div class={`spacer ${isIOS ? 'ios-spacer' : ''}`}></div>
 
     <div class="flex gap-4 justify-center">
       <Button href={navigateToCollection} variant="primary">
@@ -80,6 +93,12 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       width: 100%;
     }
 
+    .artwork-container.ios-fallback {
+      position: relative;
+      height: auto;
+      min-height: 100vh;
+    }
+
     .artwork-bg {
       position: absolute;
       inset: 0;
@@ -99,6 +118,10 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       height: 50vh;
       margin-top: 60vh;
       view-timeline: --reveal;
+    }
+
+    .spacer.ios-spacer {
+      display: none;
     }
 
     .mask {
@@ -129,27 +152,44 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       will-change: transform;
     }
 
+    .ios-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      color: white;
+      z-index: 1;
+    }
+
     @media (max-width: 768px) {
-      .knockout-content {
+      .knockout-content,
+      .ios-content {
         gap: 1rem;
       }
       
-      .knockout-content svg {
+      .knockout-content svg,
+      .ios-content svg {
         width: 15vw;
       }
     }
 
     @media (max-width: 480px) {
-      .knockout-content {
+      .knockout-content,
+      .ios-content {
         gap: 0.5rem;
       }
       
-      .knockout-content svg {
+      .knockout-content svg,
+      .ios-content svg {
         width: 12vw;
       }
     }
 
-    .knockout-content svg {
+    .knockout-content svg,
+    .ios-content svg {
       width: 20vw;
       fill: white;
       will-change: transform;
@@ -162,17 +202,6 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       to {
         transform: scale(1);
       }
-    }
-  }
-
-  @supports (-webkit-touch-callout: none) {
-    .mask {
-      filter: none !important;
-      background-color: transparent !important;
-      color: #fff !important;
-    }
-    .knockout-content {
-      /* Aquí puedes personalizar el contenido para iOS si lo deseas */
     }
   }
 </style>
