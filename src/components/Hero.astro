@@ -47,12 +47,6 @@ const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") ||
     </div>
 
     <div class={`spacer ${isIOS ? 'ios-spacer' : ''}`}></div>
-
-    <div class="flex gap-4 justify-center">
-      <Button href={navigateToCollection} variant="primary">
-        {t("hero.cta.primary")}
-      </Button>
-    </div>
   </div>
 </section>
 
