@@ -1,3 +1,21 @@
+### 0.2.0 (2025-05-10)
+
+##### New Features
+
+* **3D Experience:**
+  *  add new 3D model for Seated Figure and refactor Scene3D to support dynamic model loading (42f2e705)
+  *  integrate Hummingbird model with interactive scene and enhance UI for 3D exploration (92db49b7)
+* **i18n:**  implement browser language detection and enhance URL redirection for supported languages (6340dd5e)
+* **Hero Component:**  enhance layout and styling; integrate logo and improve responsiveness (698a345d)
+* **Collection:**  add new artifact images and update artifact details in collection.ts (8e59ea5e)
+
+##### Code Style Changes
+
+* **Hero Component:**
+  *  refine responsive scaling and add iOS-specific styles for enhanced visual consistency (036b5ddb)
+  *  enhance responsive scaling and animation effects for improved visual performance (8d5a4eea)
+  *  adjust layout dimensions and color scheme for improved aesthetics and responsiveness (eaa9b203)
+
 ### 0.1.0 (2025-05-03)
 
 ##### New Features
