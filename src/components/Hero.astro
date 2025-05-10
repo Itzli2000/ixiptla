@@ -84,7 +84,7 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
     }
 
     .spacer {
-      height: 100vh;
+      height: 50vh;
       margin-top: 60vh;
       view-timeline: --reveal;
     }
@@ -93,7 +93,7 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       height: 100vh;
       position: absolute;
       z-index: 1;
-      background-color: blueviolet;
+      background-color: #000000;
       color: white;
       display: grid;
       place-items: center;
@@ -109,14 +109,13 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       align-items: center;
       justify-content: center;
       gap: 2rem;
-      scale: var(--scale, 100);
-      transform-origin: calc(var(--x, 50) * 1%) calc(var(--y, 50) * 1%);
+      scale: 100;
+      transform-origin: 50% 50%;
       animation: shrink both ease-out;
       animation-timeline: --reveal;
       animation-range: entry;
     }
 
-    /* Media queries for responsive scale */
     @media (max-width: 768px) {
       .knockout-content {
         scale: 150;
