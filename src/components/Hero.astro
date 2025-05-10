@@ -1,38 +1,226 @@
 ---
-import Button from './Button.astro';
-import { getLangFromUrl, useTranslations }from '../i18n/utils';
-import { Image } from 'astro:assets';
-import colibri from '../assets/images/colibri.png';
+import Button from "./Button.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { Image } from "astro:assets";
+import colibri from "../assets/images/colibri.png";
+import Logo from "/public/favicon.svg";
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
-const navigateToCollection = lang === 'en' ? '/en/collection' : '/es/coleccion';
+const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
+
+const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") || 
+              Astro.request.headers.get("user-agent")?.includes("iPad") || 
+              Astro.request.headers.get("user-agent")?.includes("iPod");
 ---
 
-<section class="min-h-[90vh] bg-quaternary px-4 py-10 lg:py-16">
-  <div class="mx-auto max-w-7xl flex flex-col items-center gap-10">
-    <div class="space-y-6 text-center max-w-3xl">
-      <h1 class="text-4xl lg:text-6xl font-bold text-tertiary leading-tight">
-        {t('hero.title')}
-      </h1>
-      <p class="text-xl lg:text-2xl text-dark/80 font-light">
-        {t('hero.tagline')}
-      </p>
+<section class="min-h-[90vh] bg-quaternary w-full">
+  <div class="w-full flex flex-col items-center gap-10">
+    <div class={`artwork-container ${isIOS ? 'ios-fallback' : ''}`}>
+      <div class="artwork-bg"></div>
+      <div class="image-wrapper">
+        <Image
+          src={colibri}
+          alt={t("hero.imageAlt")}
+          class="relative mx-auto transition-opacity duration-500"
+          width={900}
+          height={900}
+        />
+      </div>
+
+      {!isIOS && (
+        <div class="mask">
+          <div class="knockout-content">
+            <Logo />
+            <span class="text-[15vw] font-bold">Ixiptla</span>
+          </div>
+        </div>
+      )}
+
+      {isIOS && (
+        <div class="ios-content">
+          <Logo />
+          <span class="text-[15vw] font-bold">Ixiptla</span>
+        </div>
+      )}
     </div>
 
-    <Image
-      src={colibri}
-      alt={t('hero.imageAlt')}
-      class="relative w-full max-w-lg mx-auto"
-      width={500}
-      height={500}
-    />
-    
-    <div class="flex gap-4 justify-center">
-      <Button href={navigateToCollection} variant="primary">
-        {t('hero.cta.primary')}
-      </Button>
-    </div>
+    <div class={`spacer ${isIOS ? 'ios-spacer' : ''}`}></div>
   </div>
 </section>
+
+<style>
+  @layer animation;
+
+  @layer animation {
+    :root {
+      timeline-scope: --reveal;
+      --knockout-scale-initial: 100;
+      --transform-origin: 49% 50%;
+    }
+
+    @media (max-width: 1024px) {
+      :root {
+        --knockout-scale-initial: 100;
+        --transform-origin: 39% 50%;
+      }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --knockout-scale-initial: 180;
+        --transform-origin: 49% 50%;
+      }
+    }
+    @media (max-width: 480px) {
+      :root {
+        --knockout-scale-initial: 100;
+        --transform-origin: 49% 50%;
+      }
+    }
+
+    .artwork-container {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .artwork-container.ios-fallback {
+      position: relative;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    .artwork-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+
+    .spacer {
+      height: 50vh;
+      margin-top: 60vh;
+      view-timeline: --reveal;
+    }
+
+    .spacer.ios-spacer {
+      display: none;
+    }
+
+    .mask {
+      height: 100vh;
+      position: absolute;
+      z-index: 1;
+      background-color: #000000;
+      color: white;
+      display: grid;
+      place-items: center;
+      filter: url(#knockout-filter);
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .knockout-content {
+      color: white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      scale: 1;
+      transform-origin: var(--transform-origin);
+      animation: shrink both ease-out;
+      animation-timeline: --reveal;
+      animation-range: entry;
+      will-change: transform;
+    }
+
+    .ios-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      color: white;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .knockout-content,
+      .ios-content {
+        gap: 1rem;
+      }
+      
+      .knockout-content svg,
+      .ios-content svg {
+        width: 15vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .knockout-content,
+      .ios-content {
+        gap: 0.5rem;
+      }
+      
+      .knockout-content svg,
+      .ios-content svg {
+        width: 12vw;
+      }
+    }
+
+    .knockout-content svg,
+    .ios-content svg {
+      width: 20vw;
+      fill: white;
+      will-change: transform;
+    }
+
+    @keyframes shrink {
+      from {
+        transform: scale(var(--knockout-scale-initial));
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+  }
+</style>
+
+<svg class="svg-filter hidden">
+  <defs>
+    <filter id="knockout-filter" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        result="knocked"
+        type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                -1 -1 -1 1 0"
+      ></feColorMatrix>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="3" intercept="-1"></feFuncR>
+        <feFuncG type="linear" slope="3" intercept="-1"></feFuncG>
+        <feFuncB type="linear" slope="3" intercept="-1"></feFuncB>
+      </feComponentTransfer>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncR>
+        <feFuncG type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncG>
+        <feFuncB type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+</svg>

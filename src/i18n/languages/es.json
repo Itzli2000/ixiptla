@@ -13,12 +13,7 @@
     "contact": "Contacto"
   },
   "hero": {
-    "title": "Ixiptla",
-    "tagline": "El arte de la Ixiptla",
-    "imageAlt": "Ixiptla",
-    "cta": {
-      "primary": "Ver Colección"
-    }
+    "imageAlt": "Ixiptla"
   },
   "ixiptla": {
     "title": "¿Qué es Ixiptla?",
@@ -49,7 +44,14 @@
     "dimensions": "Dimensiones",
     "material": "Material",
     "technique": "Técnica",
-    "related": "Piezas Relacionadas"
+    "related": "Piezas Relacionadas",
+    "explore3D": "Explora en 3D",
+    "explore3DDescription": "Descubre esta pieza en una experiencia inmersiva 3D que te permitirá explorar cada detalle desde todos los ángulos.",
+    "viewExperience": "Ver Experiencia",
+    "back": "Volver",
+    "resetView": "Reiniciar Vista",
+    "autoRotate": "Rotación Automática",
+    "instructions": "Usa el mouse para rotar, la rueda para acercar/alejar y arrastra para mover la vista"
   },
   "404": {
     "title": "Página No Encontrada",

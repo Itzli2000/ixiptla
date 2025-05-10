@@ -13,12 +13,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Ixiptla",
-    "tagline": "The art of the Ixiptla",
-    "imageAlt": "Ixiptla",
-    "cta": {
-      "primary": "View Collection"
-    }
+    "imageAlt": "Ixiptla"
   },
   "ixiptla": {
     "title": "What is Ixiptla?",
@@ -49,7 +44,14 @@
     "dimensions": "Dimensions",
     "material": "Material",
     "technique": "Technique",
-    "related": "Related Pieces"
+    "related": "Related Pieces",
+    "explore3D": "Explore in 3D",
+    "explore3DDescription": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
+    "viewExperience": "View Experience",
+    "back": "Back",
+    "resetView": "Reset View",
+    "autoRotate": "Auto Rotate",
+    "instructions": "Use mouse to rotate, scroll to zoom, and drag to pan"
   },
   "404": {
     "title": "Page Not Found",

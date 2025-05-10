@@ -1,0 +1,135 @@
+---
+import { Scene3D } from "../../../components/Scene3D";
+import ExperienceLayout from "../../../layouts/ExperienceLayout.astro";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+
+// Solo los modelos que quieras generar
+export async function getStaticPaths() {
+  return [
+    { params: { model: "colibri" } },
+    { params: { model: "sedente" } },
+    // Agrega aquí más modelos si los tienes
+  ];
+}
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+
+// Obtener el modelo de los parámetros de la ruta
+const { model } = Astro.params;
+const modelPath = model ? `/images/models/${model}.glb` : null;
+
+// Mapeo de títulos y descripciones según el modelo
+const modelInfo = {
+  colibri: {
+    title: "Colibrí - Ixiptla",
+    description: "Experiencia 3D del Colibrí",
+  },
+  sedente: {
+    title: "Figura Sedente - Ixiptla",
+    description: "Experiencia 3D de la Figura Sedente",
+  },
+};
+
+const info =
+  model && modelInfo[model as keyof typeof modelInfo]
+    ? modelInfo[model as keyof typeof modelInfo]
+    : {
+        title: "Modelo no encontrado - Ixiptla",
+        description: "El modelo solicitado no está disponible",
+      };
+---
+
+<ExperienceLayout title={info.title} description={info.description} lang={lang}>
+  <div class="relative w-full h-[calc(100vh-4rem)] text-white">
+    <button
+      onclick="history.back()"
+      class="absolute top-4 left-4 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-white/20 transition-all"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+      </svg>
+      {t("artifact.back")}
+    </button>
+
+    <div class="absolute top-4 right-4 z-50 flex gap-2">
+      <button
+        id="resetView"
+        class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full hover:bg-white/20 transition-all"
+      >
+        {t("artifact.resetView")}
+      </button>
+      <button
+        id="toggleAutoRotate"
+        class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full hover:bg-white/20 transition-all"
+      >
+        {t("artifact.autoRotate")}
+      </button>
+    </div>
+
+    <div class="w-full h-full bg-black">
+      {
+        modelPath ? (
+          <Scene3D client:only="react" modelPath={modelPath} />
+        ) : (
+          <div class="w-full h-full flex items-center justify-center">
+            <p class="text-xl">Modelo no encontrado</p>
+          </div>
+        )
+      }
+    </div>
+
+    <div
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 py-3 rounded-full"
+    >
+      <p class="text-sm text-center">
+        {t("artifact.instructions")}
+      </p>
+    </div>
+  </div>
+</ExperienceLayout>
+
+<style>
+  :global(body) {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const resetButton = document.getElementById("resetView");
+    const autoRotateButton = document.getElementById("toggleAutoRotate");
+    let isAutoRotating = false;
+
+    if (resetButton) {
+      resetButton.addEventListener("click", () => {
+        // Reset camera position
+        const event = new CustomEvent("reset-camera");
+        window.dispatchEvent(event);
+      });
+    }
+
+    if (autoRotateButton) {
+      autoRotateButton.addEventListener("click", () => {
+        isAutoRotating = !isAutoRotating;
+        const event = new CustomEvent("toggle-auto-rotate", {
+          detail: { enabled: isAutoRotating },
+        });
+        window.dispatchEvent(event);
+        autoRotateButton.textContent = isAutoRotating
+          ? "Detener Rotación"
+          : "Rotación Automática";
+      });
+    }
+  });
+</script>
+

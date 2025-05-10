@@ -1,1 +1,19 @@
-<meta http-equiv="refresh" content="0;url=/es/" />
+const defaultLang = "es";
+
+<html>
+  <head>
+    <script>
+      function detectBrowserLanguage() {
+        const supportedLangs = ["en", "es"];
+        const browserLang = navigator.language.split('-')[0];
+        return supportedLangs.includes(browserLang) ? browserLang : "es";
+      }
+
+      const lang = detectBrowserLanguage();
+      window.location.href = `/${lang}/`;
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
