@@ -4,6 +4,7 @@ import colibri from "../assets/images/colibri.png";
 import sedente from "../assets/images/sedente.png";
 import mono from "../assets/images/mono.png";
 import sacerdotisa from "../assets/images/sacerdotisa.png";
+import yax from "../assets/images/yax.png";
 
 export const featuredArtifacts: ArtifactItem[] = [
   {
@@ -98,163 +99,32 @@ export const featuredArtifacts: ArtifactItem[] = [
     material: "Cerámica",
     technique: "Figurilla sonaja antropomorfa",
   },
-  {
-    id: 5,
-    name: { es: "Tláloc Monolítico", en: "Tláloc Monolítico" },
-    culture: "Teotihuacana",
-    period: "200-650 d.C.",
-    image: colibri,
-    slug: "tlaloc-monolitico",
-    description: {
-      es: "Representación del dios de la lluvia, tallado en una sola pieza",
-      en: "Representation of the rain god, carved in one piece",
-    },
-    museum: "Museo Nacional de Antropología",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 6,
-    name: { es: "Disco de la Muerte", en: "Disco de la Muerte" },
-    culture: "Teotihuacana",
-    period: "300-650 d.C.",
-    image: colibri,
-    slug: "disco-muerte-teotihuacan",
-    description: {
-      es: "Disco de piedra con representación de un cráneo descarnado",
-      en: "Stone disc with representation of a disemboweled skull",
-    },
-    museum: "Museo del Sitio de Teotihuacán",
-    location: { es: "Estado de México", en: "Mexico State" },
-  },
 ];
 
 export const fullCollection: ArtifactItem[] = [
   ...featuredArtifacts,
   {
     id: 7,
-    name: { es: "Serpiente Emplumada", en: "Serpiente Emplumada" },
-    culture: "Mexica (Azteca)",
-    period: "1428-1521 d.C.",
-    image: colibri,
-    slug: "serpiente-emplumada-mexica",
-    description: {
-      es: "Escultura de Quetzalcóatl, deidad del viento y sabiduría",
-      en: "Sculture of Quetzalcóatl, deity of the wind and wisdom",
+    name: {
+      es: "Yax Pasaj Chan Yopaat",
+      en: "Yax Pasaj Chan Yopaat",
     },
-    museum: "Museo del Templo Mayor",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 8,
-    name: { es: "Coyolxauhqui", en: "Coyolxauhqui" },
-    culture: "Mexica (Azteca)",
-    period: "1469 d.C.",
-    image: colibri,
-    slug: "coyolxauhqui",
-    description: {
-      es: "Relieve circular que representa a la diosa lunar desmembrada",
-      en: "Circular relief representing the disemboweled lunar goddess",
-    },
-    museum: "Museo del Templo Mayor",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 9,
-    name: { es: "El Luchador Olmeca", en: "El Luchador Olmeca" },
-    culture: "Olmeca",
-    period: "1200-900 a.C.",
-    image: colibri,
-    slug: "luchador-olmeca",
-    description: {
-      es: "Escultura de basalto representando a un atleta o guerrero",
-      en: "Basalt sculpture representing an athlete or warrior",
-    },
-    museum: "Museo Nacional de Antropología",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 10,
-    name: { es: "Estela de la Venta", en: "Estela de la Venta" },
-    culture: "Olmeca",
-    period: "1000-600 a.C.",
-    image: colibri,
-    slug: "estela-la-venta",
-    description: {
-      es: "Monumento con escritura y representaciones de gobernantes",
-      en: "Monument with writing and representations of rulers",
-    },
-    museum: "Parque-Museo La Venta",
-    location: { es: "Tabasco", en: "Tabasco" },
-  },
-  {
-    id: 11,
-    name: { es: "Máscara de Malinalco", en: "Máscara de Malinalco" },
-    culture: "Mexica (Azteca)",
-    period: "1450-1521 d.C.",
-    image: colibri,
-    slug: "mascara-malinalco",
-    description: {
-      es: "Máscara ceremonial con incrustaciones de turquesa y obsidiana",
-      en: "Ceremonial mask with turquoise and obsidian inlays",
-    },
-    museum: "Museo Nacional de Antropología",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 12,
-    name: { es: "Dintel 26 de Yaxchilán", en: "Dintel 26 de Yaxchilán" },
     culture: "Maya",
-    period: "724 d.C.",
-    image: colibri,
-    slug: "dintel-26-yaxchilan",
+    period: "Clásico Tardío (763 - 810 d.C.)",
+    image: yax,
+    slug: "yax-pasaj-chan-yopaat",
     description: {
-      es: "Relieve en piedra con escena de sacrificio ritual",
-      en: "Relief in stone with ritual sacrifice scene",
+      es: "Yax Pasaj Chan Yopaat fue uno de los gobernantes más destacados de la antigua ciudad maya de Copán, Honduras. Su nombre significa 'Primer Amanecer del Cielo', reflejando su conexión con la mitología y el orden cósmico maya. Ascendió al trono en el año 763 d.C. como el decimosexto rey de Copán y gobernó durante un periodo de resurgimiento cultural y arquitectónico tras una etapa de declive.",
+      en: "Yax Pasaj Chan Yopaat was one of the most prominent rulers of the ancient Maya city of Copán, Honduras. His name means 'First Dawn of the Sky', reflecting his connection to Maya mythology and the cosmic order. He ascended the throne in 763 AD as the sixteenth king of Copán and ruled during a period of cultural and architectural resurgence after a stage of decline.",
     },
-    museum: "Museo Nacional de Antropología",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 13,
-    name: { es: "Xipe Tótec", en: "Xipe Tótec" },
-    culture: "Mexica (Azteca)",
-    period: "1450-1521 d.C.",
-    image: colibri,
-    slug: "xipe-totec",
-    description: {
-      es: "Escultura del dios desollado de la primavera y renovación",
-      en: "Sculture of the disemboweled spring and renewal deity",
+    museum: "Copán Ruinas",
+    location: {
+      es: "Copán, Honduras",
+      en: "Copán, Honduras",
     },
-    museum: "Museo Nacional de Antropología",
-    location: { es: "CDMX", en: "CDMX" },
-  },
-  {
-    id: 14,
-    name: { es: "Códice Borbónico", en: "Códice Borbónico" },
-    culture: "Mexica (Azteca)",
-    period: "1507-1521 d.C.",
-    image: colibri,
-    slug: "codice-borbonico",
-    description: {
-      es: "Manuscrito pictográfico con calendario ritual y festividades",
-      en: "Pictographic manuscript with ritual calendar and festivities",
-    },
-    museum: "Biblioteca Nacional de Francia",
-    location: { es: "París (Réplica)", en: "Paris (Replica)" },
-  },
-  {
-    id: 15,
-    name: { es: "Jaguar de Xalla", en: "Jaguar de Xalla" },
-    culture: "Teotihuacana",
-    period: "200-650 d.C.",
-    image: colibri,
-    slug: "jaguar-xalla",
-    description: {
-      es: "Escultura felina en piedra verde con incrustaciones",
-      en: "Felid sculpture in green stone with inlays",
-    },
-    museum: "Museo del Sitio de Teotihuacán",
-    location: { es: "Estado de México", en: "Mexico State" },
+    dimensions: "No especificadas",
+    material: "Piedra tallada",
+    technique: "Escultura y glifos mayas",
   },
 ];
 
