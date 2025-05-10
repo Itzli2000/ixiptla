@@ -49,6 +49,23 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
   @layer animation {
     :root {
       timeline-scope: --reveal;
+      --knockout-scale-initial: 100;
+    }
+
+    @media (max-width: 1024px) {
+      :root {
+        --knockout-scale-initial: 20;
+      }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --knockout-scale-initial: 10;
+      }
+    }
+    @media (max-width: 480px) {
+      :root {
+        --knockout-scale-initial: 6;
+      }
     }
 
     .artwork-container {
@@ -100,33 +117,46 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
       align-items: center;
       justify-content: center;
       gap: 2rem;
-      scale: 100;
-      transform-origin: 50% 50%;
+      scale: 1;
+      transform-origin: 49% 50%;
       animation: shrink both ease-out;
       animation-timeline: --reveal;
       animation-range: entry;
+      will-change: transform;
     }
 
     @media (max-width: 768px) {
       .knockout-content {
-        scale: 150;
+        gap: 1rem;
+      }
+      
+      .knockout-content svg {
+        width: 15vw;
       }
     }
 
     @media (max-width: 480px) {
       .knockout-content {
-        scale: 130;
+        gap: 0.5rem;
+      }
+      
+      .knockout-content svg {
+        width: 12vw;
       }
     }
 
     .knockout-content svg {
       width: 20vw;
       fill: white;
+      will-change: transform;
     }
 
     @keyframes shrink {
+      from {
+        transform: scale(var(--knockout-scale-initial));
+      }
       to {
-        scale: 1;
+        transform: scale(1);
       }
     }
   }
