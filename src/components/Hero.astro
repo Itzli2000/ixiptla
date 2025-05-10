@@ -13,15 +13,6 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
 
 <section class="min-h-[90vh] bg-quaternary w-full">
   <div class="w-full flex flex-col items-center gap-10">
-    <!-- <div class="space-y-6 text-center max-w-3xl">
-      <h1 class="text-4xl lg:text-6xl font-bold text-tertiary leading-tight">
-        {t("hero.title")}
-      </h1>
-      <p class="text-xl lg:text-2xl text-dark/80 font-light">
-        {t("hero.tagline")}
-      </p>
-    </div> -->
-
     <div class="artwork-container">
       <div class="artwork-bg"></div>
       <div class="image-wrapper">
@@ -151,16 +142,16 @@ const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
                 0 1 0 0 0
                 0 0 1 0 0
                 -1 -1 -1 1 0"
-      />
+      ></feColorMatrix>
       <feComponentTransfer>
-        <feFuncR type="linear" slope="3" intercept="-1" />
-        <feFuncG type="linear" slope="3" intercept="-1" />
-        <feFuncB type="linear" slope="3" intercept="-1" />
+        <feFuncR type="linear" slope="3" intercept="-1"></feFuncR>
+        <feFuncG type="linear" slope="3" intercept="-1"></feFuncG>
+        <feFuncB type="linear" slope="3" intercept="-1"></feFuncB>
       </feComponentTransfer>
       <feComponentTransfer>
-        <feFuncR type="table" tableValues="0 0 0 0 0 1 1 1 1 1" />
-        <feFuncG type="table" tableValues="0 0 0 0 0 1 1 1 1 1" />
-        <feFuncB type="table" tableValues="0 0 0 0 0 1 1 1 1 1" />
+        <feFuncR type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncR>
+        <feFuncG type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncG>
+        <feFuncB type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncB>
       </feComponentTransfer>
     </filter>
   </defs>
