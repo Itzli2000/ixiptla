@@ -30,6 +30,14 @@ const nextArtifact =
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
+
+// Mapeo de slugs a modelos 3D
+const slugToModel = {
+  "copa-colibri": "colibri",
+  "figura-antropomorfa-masculina": "sedente",
+  // Agrega más relaciones si tienes más modelos
+};
+const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
 ---
 
 <Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
@@ -63,7 +71,7 @@ const t = useTranslations(lang);
             />
           </div>
           {
-            artifact.slug === "copa-colibri" && (
+            model3D && (
               <div class="bg-secondary/30 p-6 rounded-xl">
                 <h3 class="text-xl font-bold text-tertiary mb-4">
                   {t("artifact.explore3D")}
@@ -72,7 +80,7 @@ const t = useTranslations(lang);
                   {t("artifact.explore3DDescription")}
                 </p>
                 <a
-                  href={`/${lang}/colibri`}
+                  href={`/${lang}/experience/${model3D}`}
                   class="inline-flex items-center text-main hover:text-dark transition-colors"
                 >
                   {t("artifact.viewExperience")}
