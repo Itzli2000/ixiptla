@@ -10,14 +10,11 @@ const t = useTranslations(lang);
 
 const navigateToCollection = lang === "en" ? "/en/collection" : "/es/coleccion";
 
-const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") || 
-              Astro.request.headers.get("user-agent")?.includes("iPad") || 
-              Astro.request.headers.get("user-agent")?.includes("iPod");
 ---
 
 <section class="min-h-[90vh] bg-quaternary w-full">
   <div class="w-full flex flex-col items-center gap-10">
-    <div class={`artwork-container ${isIOS ? 'ios-fallback' : ''}`}>
+    <div class="artwork-container">
       <div class="artwork-bg"></div>
       <div class="image-wrapper">
         <Image
@@ -29,24 +26,20 @@ const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") ||
         />
       </div>
 
-      {!isIOS && (
-        <div class="mask">
-          <div class="knockout-content">
-            <Logo />
-            <span class="text-[15vw] font-bold">Ixiptla</span>
-          </div>
-        </div>
-      )}
-
-      {isIOS && (
-        <div class="ios-content">
+      <div class="mask">
+        <div class="knockout-content">
           <Logo />
           <span class="text-[15vw] font-bold">Ixiptla</span>
         </div>
-      )}
+      </div>
+
+      <div class="ios-content" style="display: none;">
+        <Logo />
+        <span class="text-[15vw] font-bold">Ixiptla</span>
+      </div>
     </div>
 
-    <div class={`spacer ${isIOS ? 'ios-spacer' : ''}`}></div>
+    <div class="spacer"></div>
   </div>
 </section>
 
@@ -156,6 +149,11 @@ const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") ||
       gap: 2rem;
       color: white;
       z-index: 1;
+      transform-origin: var(--transform-origin);
+      animation: shrink both ease-out;
+      animation-timeline: --reveal;
+      animation-range: entry;
+      will-change: transform;
     }
 
     @media (max-width: 768px) {
@@ -224,3 +222,40 @@ const isIOS = Astro.request.headers.get("user-agent")?.includes("iPhone") ||
     </filter>
   </defs>
 </svg>
+
+<script>
+  function adaptToDevice() {
+    const isIOSClient = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+
+    const artworkContainer = document.querySelector('.artwork-container') as HTMLElement | null;
+    const maskElement = document.querySelector('.mask') as HTMLElement | null;
+    const iosContentElement = document.querySelector('.ios-content') as HTMLElement | null;
+    const spacerElement = document.querySelector('.spacer') as HTMLElement | null;
+
+    if (!artworkContainer || !maskElement || !iosContentElement || !spacerElement) {
+      // console.warn("Hero component elements not found for device adaptation.");
+      return;
+    }
+
+    if (isIOSClient) {
+      maskElement.style.display = 'none';
+      iosContentElement.style.display = 'flex'; // Default visible display for ios-content
+      iosContentElement.style.backgroundColor = '#000000';
+      iosContentElement.style.mixBlendMode = 'multiply';
+
+      artworkContainer.classList.add('ios-fallback');
+      spacerElement.classList.add('ios-spacer'); // This class has display: none
+    } else {
+      maskElement.style.display = 'grid'; // Default visible display for mask
+      iosContentElement.style.display = 'none';
+      iosContentElement.style.backgroundColor = ''; // Reset style
+      iosContentElement.style.mixBlendMode = ''; // Reset style
+
+      artworkContainer.classList.remove('ios-fallback');
+      spacerElement.classList.remove('ios-spacer');
+    }
+  }
+
+  document.addEventListener('astro:page-load', adaptToDevice);
+  // astro:page-load also fires on initial page load.
+</script>
