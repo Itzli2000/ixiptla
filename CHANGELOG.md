@@ -1,3 +1,19 @@
+### 0.3.0 (2025-05-11)
+
+##### Chores
+
+* **release:**  simplify changelog generation command by removing unnecessary flags (5a22551a)
+
+##### New Features
+
+* **3D Experience:**  add new 3D model for Yax Pasaj Chan Yopaat and update collection data (8a85f28f)
+
+##### Refactors
+
+* **Hero Component:**
+  *  enhance iOS adaptation logic and improve layout handling for better responsiveness (8c413e32)
+  *  streamline iOS detection and improve conditional rendering for better device adaptation (505720ec)
+
 ### 0.2.0 (2025-05-10)
 
 ##### New Features
