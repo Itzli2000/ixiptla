@@ -3,24 +3,21 @@ import { Scene3D } from "../../../components/Scene3D";
 import ExperienceLayout from "../../../layouts/ExperienceLayout.astro";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 
-// Solo los modelos que quieras generar
 export async function getStaticPaths() {
   return [
     { params: { model: "colibri" } },
     { params: { model: "sedente" } },
-    // Agrega aquí más modelos si los tienes
+    { params: { model: "yax" } },
   ];
 }
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
-// Obtener el modelo de los parámetros de la ruta
 const { model } = Astro.params;
 const modelPath = model ? `/images/models/${model}.glb` : null;
 
-// Mapeo de títulos y descripciones según el modelo
-const modelInfo = {
+const modelInfo = { 
   colibri: {
     title: "Colibrí - Ixiptla",
     description: "Experiencia 3D del Colibrí",

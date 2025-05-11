@@ -31,11 +31,10 @@ const nextArtifact =
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
-// Mapeo de slugs a modelos 3D
-const slugToModel = {
+const slugToModel: Record<string, string> = {
   "copa-colibri": "colibri",
   "figura-antropomorfa-masculina": "sedente",
-  // Agrega más relaciones si tienes más modelos
+  "yax-pasaj-chan-yopaat": "yax",
 };
 const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
 ---

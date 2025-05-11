@@ -60,7 +60,7 @@ async function main() {
 
     // Generate changelog
     shell.echo(chalk.blue('\n📖 Generating changelog...'));
-    if (shell.exec(`yarn changelog ${releaseType} -x other,build,ci,chore,refactor,revert && git add CHANGELOG.md`).code !== 0) {
+    if (shell.exec(`yarn changelog ${releaseType} && git add CHANGELOG.md`).code !== 0) {
       shell.echo(chalk.red('🚨 Error: Failed to generate changelog'));
       shell.exit(1);
     }
