@@ -39,9 +39,36 @@ const slugToModel: Record<string, string> = {
 
 type ModelKey = keyof typeof slugToModel;
 const model3D = artifact.slug in slugToModel ? slugToModel[artifact.slug as ModelKey] : undefined;
+
+// SEO metadata
+const title = `${artifact.name[lang]} - Colección Ixiptla`;
+const description = artifact.description[lang];
+
+let canonicalURL: string | URL = `/${lang}/coleccion/${artifact.slug}`;
+let imageURL: string | URL = artifact.image.src;
+let alternateURLs: { en: string | URL; es: string | URL } = {
+  en: `/en/collection/${artifact.slug}`,
+  es: `/es/coleccion/${artifact.slug}`,
+};
+
+if (Astro.site) {
+  canonicalURL = new URL(`/${lang}/coleccion/${artifact.slug}`, Astro.site);
+  imageURL = new URL(artifact.image.src, Astro.site);
+  alternateURLs = {
+    en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
+    es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
+  };
+}
 ---
 
-<Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
+<Layout 
+  title={title} 
+  description={description} 
+  lang={lang}
+  image={imageURL}
+  canonicalURL={canonicalURL}
+  alternateURLs={alternateURLs}
+>
   <article class="pt-24 pb-16 px-4" role="main">
     <div class="mx-auto max-w-6xl">
       <nav class="mb-8" aria-label="Breadcrumb">

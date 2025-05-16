@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 // Language types
 export type Language = 'en' | 'es';
 
@@ -51,6 +53,12 @@ export interface LayoutProps {
   description: string;
   lang: Language;
   showHeader?: boolean;
+  image?: ImageMetadata;
+  canonicalURL?: URL;
+  alternateURLs?: {
+    [key in Language]: URL;
+  };
+  currentArtifact?: ArtifactItem;
 }
 
 // Experience types

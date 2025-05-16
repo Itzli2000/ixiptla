@@ -5,11 +5,21 @@ import mainImage from "../assets/images/colibri.png";
 import '../styles/global.css';
 import type { LayoutProps, Language } from '../types';
 
-const { title, description, lang = "en" as Language, showHeader = true } = Astro.props as LayoutProps;
+const { 
+  title, 
+  description, 
+  lang = "en" as Language, 
+  showHeader = true,
+  image = mainImage,
+  canonicalURL,
+  alternateURLs,
+  currentArtifact
+} = Astro.props as LayoutProps;
+
 const currentPath = Astro.url.pathname.replace(/^\/?/, "/");
-const siteUrl = Astro.site
+const siteUrl = canonicalURL?.toString() || (Astro.site
   ? new URL(currentPath, Astro.site).toString()
-  : currentPath;
+  : currentPath);
 ---
 
 <!doctype html>
@@ -21,19 +31,32 @@ const siteUrl = Astro.site
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<link rel="canonical" href={siteUrl} />
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
+		
+		{/* Alternate language links */}
+		{alternateURLs && Object.entries(alternateURLs).map(([lang, url]) => (
+			<link rel="alternate" hreflang={lang} href={url.toString()} />
+		))}
+		<link rel="alternate" hreflang="x-default" href={alternateURLs?.en?.toString() || siteUrl} />
+
+		{/* Open Graph / Facebook */}
+		<meta property="og:type" content={currentArtifact ? "article" : "website"} />
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={mainImage.src} />
+		<meta property="og:image" content={image.src} />
+		{currentArtifact && (
+			<>
+				<meta property="article:section" content={currentArtifact.culture} />
+				<meta property="article:tag" content={currentArtifact.period} />
+			</>
+		)}
 	
-		<!-- Twitter -->
+		{/* Twitter */}
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={siteUrl} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={mainImage.src} />
+		<meta property="twitter:image" content={image.src} />
 
 		<title>{title}</title>
 		<ClientRouter />
