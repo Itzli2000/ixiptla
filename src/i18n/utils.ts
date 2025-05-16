@@ -6,7 +6,7 @@ const supportedLangs = ["en", "es"];
 
 export function getLangFromUrl(url: URL) {
   const [, lang] = url.pathname.split("/");
-  if (supportedLangs.includes(lang)) return lang;
+  if (lang && supportedLangs.includes(lang)) return lang;
   return defaultLang;
 }
 
@@ -27,8 +27,7 @@ export function useTranslations(lang: "en" | "es") {
 
 export function detectBrowserLanguage(): string {
   if (typeof window === 'undefined') return defaultLang;
-  
-  const browserLang = navigator.language.split('-')[0];
+  const browserLang = navigator.language?.split('-')[0] || '';
   return supportedLangs.includes(browserLang) ? browserLang : defaultLang;
 }
 

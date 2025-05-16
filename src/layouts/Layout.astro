@@ -1,17 +1,11 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Navigation from '../components/Navigation.astro';
+import Navigation from '../components/layout/Navigation/Navigation.astro';
 import mainImage from "../assets/images/colibri.png";
 import '../styles/global.css';
+import type { LayoutProps, Language } from '../types';
 
-export interface Props {
-  title: string;
-  description: string;
-  lang: string;
-  showHeader?: boolean;
-}
-
-const { title, description, lang = "en", showHeader = true } = Astro.props;
+const { title, description, lang = "en" as Language, showHeader = true } = Astro.props as LayoutProps;
 const currentPath = Astro.url.pathname.replace(/^\/?/, "/");
 const siteUrl = Astro.site
   ? new URL(currentPath, Astro.site).toString()

@@ -1,12 +1,12 @@
 import React, { useState, Suspense, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Loader } from "@react-three/drei";
-import { Model3D } from "./Model3D";
+import { Model3D } from "../Model3D/Model3D";
 
 export function Scene3D({ modelPath = '/images/models/colibri.glb' }) {
   const [isLoading, setIsLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(false);
-  const controlsRef = useRef();
+  const controlsRef = useRef<OrbitControls>();
 
   useEffect(() => {
     const handleResetCamera = () => {
