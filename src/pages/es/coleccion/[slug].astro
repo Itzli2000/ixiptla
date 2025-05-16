@@ -63,7 +63,7 @@ if (Astro.site) {
   alternateURLs={alternateURLs}
 >
   <article class="pt-24 pb-16 px-4 bg-gradient-to-b from-quaternary/5 to-white" role="main">
-    <div class="mx-auto max-w-6xl">
+    <div class="mx-auto max-w-7xl">
       <nav class="mb-12" aria-label="Breadcrumb">
         <ol class="flex items-center space-x-2 text-sm text-dark/70" role="list">
           <li><a href="/" class="hover:text-main transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
@@ -79,10 +79,10 @@ if (Astro.site) {
         </ol>
       </nav>
 
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
-        <div class="space-y-6">
+      <div class="grid lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start">
+        <div class="lg:col-span-5 space-y-6">
           <div
-            class="aspect-square rounded-3xl overflow-hidden shadow-2xl bg-light flex items-center justify-center cursor-zoom-in group relative"
+            class="aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl bg-light flex items-center justify-center cursor-zoom-in group relative"
             role="img"
             aria-label={artifact.name[lang]}
             id="main-image"
@@ -138,25 +138,25 @@ if (Astro.site) {
           }
         </div>
 
-        <div class="space-y-10">
+        <div class="lg:col-span-7 space-y-8 md:space-y-10">
           <div>
-            <h1 class="text-5xl font-bold text-tertiary mb-6 leading-tight">
+            <h1 class="text-4xl md:text-5xl font-bold text-tertiary mb-4 md:mb-6 leading-tight">
               {artifact.name[lang]}
             </h1>
-            <div class="flex flex-wrap gap-4 text-dark/80" role="list" aria-label={t("artifact.details")}>
-              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-6 py-3 rounded-xl backdrop-blur-sm border border-secondary/20" role="listitem">
+            <div class="flex flex-wrap gap-3 md:gap-4 text-dark/80" role="list" aria-label={t("artifact.details")}>
+              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-4 md:px-6 py-2 md:py-3 rounded-xl backdrop-blur-sm border border-secondary/20" role="listitem">
                 <span class="font-medium text-tertiary">{t("artifact.culture")}:</span>
                 <span class="ml-2">{artifact.culture}</span>
               </div>
-              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-6 py-3 rounded-xl backdrop-blur-sm border border-secondary/20" role="listitem">
+              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-4 md:px-6 py-2 md:py-3 rounded-xl backdrop-blur-sm border border-secondary/20" role="listitem">
                 <span class="font-medium text-tertiary">{t("artifact.period")}:</span>
                 <span class="ml-2">{artifact.period}</span>
               </div>
             </div>
           </div>
 
-          <div class="prose prose-lg max-w-none">
-            <h2 class="text-3xl font-bold text-tertiary mb-6 flex items-center gap-3">
+          <div class="prose prose-lg md:prose-xl max-w-none">
+            <h2 class="text-2xl md:text-3xl font-bold text-tertiary mb-4 md:mb-6 flex items-center gap-3">
               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -167,7 +167,7 @@ if (Astro.site) {
             </p>
           </div>
 
-          <div class="sticky top-24 grid md:grid-cols-2 gap-8 bg-gradient-to-br from-light to-white rounded-2xl p-8 shadow-xl border border-light/50" role="complementary" aria-labelledby="artifact-info-title">
+          <div class="sticky top-24 grid md:grid-cols-2 gap-6 md:gap-8 bg-gradient-to-br from-light to-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg md:shadow-xl border border-light/50" role="complementary" aria-labelledby="artifact-info-title">
             <div>
               <h3 id="artifact-info-title" class="text-xl font-bold text-tertiary mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -293,40 +293,16 @@ if (Astro.site) {
 
       {
         relatedArtifacts.length > 0 && (
-          <section class="mt-32" aria-labelledby="related-artifacts-title">
-            <h2 id="related-artifacts-title" class="text-4xl font-bold text-tertiary mb-12 text-center">
+          <section class="mt-24 md:mt-32" aria-labelledby="related-artifacts-title">
+            <h2 id="related-artifacts-title" class="text-3xl md:text-4xl font-bold text-tertiary mb-8 md:mb-12 text-center">
               {t("artifact.related")}
             </h2>
-            <div class="relative" role="region" aria-label={t("artifact.relatedItems")}>
-              <div class="overflow-hidden px-4">
-                <div id="related-carousel" class="flex gap-8 transition-transform duration-500 ease-in-out">
-                  {relatedArtifacts.map((related) => (
-                    <div class="min-w-[350px] flex-shrink-0 transform transition-transform duration-300 hover:scale-105" role="listitem">
-                      <ArtifactCard artifact={related} />
-                    </div>
-                  ))}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" role="region" aria-label={t("artifact.relatedItems")}>
+              {relatedArtifacts.map((related) => (
+                <div class="transform transition-transform duration-300 hover:scale-105" role="listitem">
+                  <ArtifactCard artifact={related} />
                 </div>
-              </div>
-              
-              <button
-                id="prev-related"
-                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
-                aria-label={t("artifact.previousRelated")}
-              >
-                <svg class="w-6 h-6 text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              
-              <button
-                id="next-related"
-                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
-                aria-label={t("artifact.nextRelated")}
-              >
-                <svg class="w-6 h-6 text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+              ))}
             </div>
           </section>
         )
@@ -378,39 +354,4 @@ if (Astro.site) {
       document.body.style.overflow = '';
     });
   });
-
-  // Carousel functionality
-  const carousel = document.getElementById('related-carousel');
-  const prevButton = document.getElementById('prev-related');
-  const nextButton = document.getElementById('next-related');
-  
-  if (carousel && prevButton && nextButton) {
-    let currentPosition = 0;
-    const itemWidth = 350 + 32; // card width + gap
-    const totalItems = carousel.children.length;
-    const maxPosition = -(totalItems - 3) * itemWidth;
-
-    const updateCarousel = () => {
-      carousel.style.transform = `translateX(${currentPosition}px)`;
-      prevButton.style.opacity = currentPosition === 0 ? '0.5' : '1';
-      nextButton.style.opacity = currentPosition <= maxPosition ? '0.5' : '1';
-    };
-
-    prevButton.addEventListener('click', () => {
-      if (currentPosition < 0) {
-        currentPosition = Math.min(currentPosition + itemWidth, 0);
-        updateCarousel();
-      }
-    });
-
-    nextButton.addEventListener('click', () => {
-      if (currentPosition > maxPosition) {
-        currentPosition = Math.max(currentPosition - itemWidth, maxPosition);
-        updateCarousel();
-      }
-    });
-
-    // Initialize carousel state
-    updateCarousel();
-  }
 </script>
