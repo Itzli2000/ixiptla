@@ -32,8 +32,8 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
 const slugToModel: Record<string, string> = {
-  "copa-colibri": "colibri",
-  "figura-antropomorfa-masculina": "sedente",
+  "hummingbird-cup": "colibri",
+  "male-anthropomorphic-figurine": "sedente",
   "yax-pasaj-chan-yopaat": "yax",
 };
 const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
