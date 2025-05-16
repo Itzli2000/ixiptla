@@ -2,10 +2,9 @@
 import ArtifactCard from '../../common/ArtifactCard/ArtifactCard.astro';
 import Button from '../../common/Button/Button.astro';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
-import type { CollectionProps, Language } from '../../../types';
+import type { Language, ArtifactItem } from '../../../types';
 
 const { items } = Astro.props;
-
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 ---
@@ -21,7 +20,7 @@ const t = useTranslations(lang);
       </p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-      {items.map((item: CollectionProps) => (
+      {items.map((item: ArtifactItem) => (
         <ArtifactCard artifact={item} />
       ))}
     </div>

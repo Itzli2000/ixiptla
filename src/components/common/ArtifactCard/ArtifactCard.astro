@@ -1,11 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
-import type { ArtifactCardProps, Language } from '../../../types';
+import { getLangFromUrl } from '../../../i18n/utils';
+import type { Language } from '../../../types';
 
 const { artifact } = Astro.props;
 const lang = getLangFromUrl(Astro.url) as Language;
-const t = useTranslations(lang);
 ---
 
 <a

@@ -1,12 +1,19 @@
-import React, { useState, Suspense, useEffect, useRef } from "react";
+import { Environment, Loader, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, Loader } from "@react-three/drei";
+import { Suspense, useEffect, useRef, useState } from "react";
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
+import type { Scene3DProps } from "../../../types";
 import { Model3D } from "../Model3D/Model3D";
 
-export function Scene3D({ modelPath = '/images/models/colibri.glb' }) {
-  const [isLoading, setIsLoading] = useState(true);
+interface CustomEventDetail {
+  enabled: boolean;
+}
+
+type CustomEventType = CustomEvent<CustomEventDetail>;
+
+export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DProps) {
   const [autoRotate, setAutoRotate] = useState(false);
-  const controlsRef = useRef<OrbitControls>();
+  const controlsRef = useRef<OrbitControlsImpl>(null);
 
   useEffect(() => {
     const handleResetCamera = () => {
@@ -15,8 +22,9 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }) {
       }
     };
 
-    const handleToggleAutoRotate = (event) => {
-      setAutoRotate(event.detail.enabled);
+    const handleToggleAutoRotate = (event: Event) => {
+      const customEvent = event as CustomEventType;
+      setAutoRotate(customEvent.detail.enabled);
     };
 
     window.addEventListener('reset-camera', handleResetCamera);
@@ -42,7 +50,7 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }) {
           <hemisphereLight
             intensity={0.7}
             groundColor="#203a43"
-            skyColor="#ffffff"
+            color="#ffffff"
           />
 
           {/* Luces direccionales para mejor definición */}
@@ -72,7 +80,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }) {
         </Suspense>
       </Canvas>
       <Loader 
-        onLoad={() => setIsLoading(false)}
         containerStyles={{
           background: 'rgba(0,0,0,0.8)',
           backdropFilter: 'blur(10px)'
