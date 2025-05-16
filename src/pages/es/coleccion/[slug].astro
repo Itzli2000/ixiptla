@@ -40,7 +40,6 @@ const slugToModel: Record<string, string> = {
 type ModelKey = keyof typeof slugToModel;
 const model3D = artifact.slug in slugToModel ? slugToModel[artifact.slug as ModelKey] : undefined;
 
-// SEO metadata
 const title = `${artifact.name[lang]} - Colección Ixiptla`;
 const description = artifact.description[lang];
 

@@ -1,14 +1,11 @@
 import type { ImageMetadata } from 'astro';
 
-// Language types
 export type Language = 'en' | 'es';
 
-// Translation types
 export interface Translation {
   [key: string]: string | Translation;
 }
 
-// Artifact types
 export interface ArtifactName {
   en: string;
   es: string;
@@ -40,14 +37,12 @@ export interface ArtifactItem {
   has3DModel?: boolean;
 }
 
-// Collection types
 export interface CollectionData {
   fullCollection: ArtifactItem[];
   featuredArtifacts: ArtifactItem[];
   cultures: string[];
 }
 
-// Layout props
 export interface LayoutProps {
   title: string;
   description: string;
@@ -61,7 +56,6 @@ export interface LayoutProps {
   currentArtifact?: ArtifactItem;
 }
 
-// Experience types
 export interface ModelInfo {
   title: string;
   description: string;
@@ -72,7 +66,6 @@ export interface ExperienceProps {
   lang: Language;
 }
 
-// Component props
 export interface ButtonProps {
   href: string;
   variant?: 'primary' | 'secondary';
@@ -88,21 +81,18 @@ export interface CollectionProps {
   items: ArtifactItem[];
 }
 
-// Navigation types
 export interface NavigationItem {
   label: string;
   href: string;
   lang: Language;
 }
 
-// 3D Model types
 export interface Scene3DProps {
   modelPath: string;
   autoRotate?: boolean;
   initialCameraPosition?: [number, number, number];
 }
 
-// Error types
 export interface ErrorPageProps {
   type: 'piece' | 'generic';
   lang: Language;

@@ -45,7 +45,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
         }}
       >
         <Suspense fallback={null}>
-          {/* Iluminación ambiental mejorada */}
           <ambientLight intensity={1} />
           <hemisphereLight
             intensity={0.7}
@@ -53,7 +52,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
             color="#ffffff"
           />
 
-          {/* Luces direccionales para mejor definición */}
           <directionalLight position={[5, 5, 2]} intensity={0.8} castShadow />
           <directionalLight position={[-5, -5, -2]} intensity={0.4} />
 
