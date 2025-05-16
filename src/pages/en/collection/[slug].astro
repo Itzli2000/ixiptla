@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import ArtifactCard from "../../../components/ArtifactCard.astro";
+import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
 import {
     fullCollection,
     getArtifactsByCulture
@@ -32,27 +32,57 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
 const slugToModel: Record<string, string> = {
-  "copa-colibri": "colibri",
-  "figura-antropomorfa-masculina": "sedente",
+  "hummingbird-cup": "colibri",
+  "male-anthropomorphic-figurine": "sedente",
   "yax-pasaj-chan-yopaat": "yax",
+} as const;
+
+type ModelKey = keyof typeof slugToModel;
+const model3D = artifact.slug in slugToModel ? slugToModel[artifact.slug as ModelKey] : undefined;
+
+// SEO metadata
+const title = `${artifact.name[lang]} - Ixiptla Collection`;
+const description = artifact.description[lang];
+
+let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
+let imageURL: string | URL = artifact.image.src;
+let alternateURLs: { en: string | URL; es: string | URL } = {
+  en: `/en/collection/${artifact.slug}`,
+  es: `/es/coleccion/${artifact.slug}`,
 };
-const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
+
+if (Astro.site) {
+  canonicalURL = new URL(`/${lang}/collection/${artifact.slug}`, Astro.site);
+  imageURL = new URL(artifact.image.src, Astro.site);
+  alternateURLs = {
+    en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
+    es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
+  };
+}
 ---
 
-<Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
-  <article class="pt-24 pb-16 px-4">
+<Layout 
+  title={title} 
+  description={description} 
+  lang={lang}
+  image={imageURL}
+  canonicalURL={canonicalURL}
+  alternateURLs={alternateURLs}
+>
+  <article class="pt-24 pb-16 px-4" role="main">
     <div class="mx-auto max-w-6xl">
       <nav class="mb-8" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-sm text-dark/70">
-          <li><a href="/" class="hover:text-main">{t("artifact.home")}</a></li>
-          <li><span class="mx-2">/</span></li>
+        <ol class="flex items-center space-x-2 text-sm text-dark/70" role="list">
+          <li><a href="/" class="hover:text-main" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
+          <li aria-hidden="true"><span class="mx-2">/</span></li>
           <li>
             <a
               href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}`}
-              class="hover:text-main">{t("artifact.collection")}</a>
+              class="hover:text-main"
+              aria-label={t("artifact.collection")}>{t("artifact.collection")}</a>
           </li>
-          <li><span class="mx-2">/</span></li>
-          <li class="text-main font-medium">{artifact.name[lang]}</li>
+          <li aria-hidden="true"><span class="mx-2">/</span></li>
+          <li class="text-main font-medium" aria-current="page">{artifact.name[lang]}</li>
         </ol>
       </nav>
 
@@ -60,6 +90,8 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
         <div class="space-y-4">
           <div
             class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-light flex items-center justify-center"
+            role="img"
+            aria-label={artifact.name[lang]}
           >
             <Image
               transition:name={artifact.name[lang]}
@@ -71,8 +103,8 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
           </div>
           {
             model3D && (
-              <div class="bg-secondary/30 p-6 rounded-xl">
-                <h3 class="text-xl font-bold text-tertiary mb-4">
+              <div class="bg-secondary/30 p-6 rounded-xl" role="complementary" aria-labelledby="3d-model-title">
+                <h3 id="3d-model-title" class="text-xl font-bold text-tertiary mb-4">
                   {t("artifact.explore3D")}
                 </h3>
                 <p class="text-dark/80 mb-4">
@@ -81,6 +113,7 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                 <a
                   href={`/${lang}/experience/${model3D}`}
                   class="inline-flex items-center text-main hover:text-dark transition-colors"
+                  aria-label={`${t("artifact.viewExperience")} - ${artifact.name[lang]}`}
                 >
                   {t("artifact.viewExperience")}
                   <svg
@@ -88,6 +121,7 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       stroke-linecap="round"
@@ -107,12 +141,12 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
             <h1 class="text-4xl font-bold text-tertiary mb-4">
               {artifact.name[lang]}
             </h1>
-            <div class="flex flex-wrap gap-4 text-dark/80">
-              <div class="bg-secondary/30 px-4 py-2 rounded-lg">
+            <div class="flex flex-wrap gap-4 text-dark/80" role="list" aria-label={t("artifact.details")}>
+              <div class="bg-secondary/30 px-4 py-2 rounded-lg" role="listitem">
                 <span class="font-medium">{t("artifact.culture")}:</span>
                 {artifact.culture}
               </div>
-              <div class="bg-secondary/30 px-4 py-2 rounded-lg">
+              <div class="bg-secondary/30 px-4 py-2 rounded-lg" role="listitem">
                 <span class="font-medium">{t("artifact.period")}:</span>
                 {artifact.period}
               </div>
@@ -128,9 +162,9 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
             </p>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-6 bg-light rounded-xl p-6">
+          <div class="grid md:grid-cols-2 gap-6 bg-light rounded-xl p-6" role="complementary" aria-labelledby="artifact-info-title">
             <div>
-              <h3 class="text-lg font-bold text-tertiary mb-2">
+              <h3 id="artifact-info-title" class="text-lg font-bold text-tertiary mb-2">
                 {t("artifact.location")}
               </h3>
               <p class="text-dark/80">
@@ -165,18 +199,20 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
             </div>
           </div>
 
-          <div class="flex justify-between pt-8 border-t border-dark/10">
+          <nav class="flex justify-between pt-8 border-t border-dark/10" aria-label={t("artifact.navigation")}>
             {
               prevArtifact ? (
                 <a
                   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.slug}`}
                   class="flex items-center text-main hover:text-dark transition-colors"
+                  aria-label={`${t("artifact.previous")}: ${prevArtifact.name[lang]}`}
                 >
                   <svg
                     class="w-5 h-5 mr-2"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       stroke-linecap="round"
@@ -197,6 +233,7 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                 <a
                   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.slug}`}
                   class="flex items-center text-main hover:text-dark transition-colors"
+                  aria-label={`${t("artifact.next")}: ${nextArtifact.name[lang]}`}
                 >
                   {nextArtifact.name[lang]}
                   <svg
@@ -204,6 +241,7 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       stroke-linecap="round"
@@ -217,19 +255,21 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                 <div />
               )
             }
-          </div>
+          </nav>
         </div>
       </div>
 
       {
         relatedArtifacts.length > 0 && (
-          <section class="mt-24">
-            <h2 class="text-3xl font-bold text-tertiary mb-8">
+          <section class="mt-24" aria-labelledby="related-artifacts-title">
+            <h2 id="related-artifacts-title" class="text-3xl font-bold text-tertiary mb-8">
               {t("artifact.related")}
             </h2>
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8" role="list" aria-label={t("artifact.relatedItems")}>
               {relatedArtifacts.map((related) => (
-                <ArtifactCard artifact={related} />
+                <div role="listitem">
+                  <ArtifactCard artifact={related} />
+                </div>
               ))}
             </div>
           </section>

@@ -5,8 +5,9 @@ const defaultLang = "es";
     <script>
       function detectBrowserLanguage() {
         const supportedLangs = ["en", "es"];
-        const browserLang = navigator.language.split('-')[0];
-        return supportedLangs.includes(browserLang) ? browserLang : "es";
+        const browserLang = navigator.language?.split('-')[0];
+        const defaultLang = "es";
+        return supportedLangs.includes(browserLang || '') ? browserLang : defaultLang;
       }
 
       const lang = detectBrowserLanguage();

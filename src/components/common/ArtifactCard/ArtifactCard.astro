@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import { getLangFromUrl } from '../../../i18n/utils';
+import type { Language } from '../../../types';
+
+const { artifact } = Astro.props;
+const lang = getLangFromUrl(Astro.url) as Language;
+---
+
+<article class="group block bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+  <a
+    href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`}
+    class="block"
+    aria-label={`${artifact.name[lang]} - ${artifact.culture}, ${artifact.period}`}
+  >
+    <div class="aspect-square relative overflow-hidden" role="img" aria-label={artifact.name[lang]}>
+      <Image
+        src={artifact.image}
+        alt={artifact.name[lang]}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        width={400}
+        height={400}
+      />
+    </div>
+    <div class="p-6">
+      <h3 class="text-xl font-bold text-tertiary mb-2 group-hover:text-main transition-colors">
+        {artifact.name[lang]}
+      </h3>
+      <div class="flex flex-wrap gap-2 text-sm text-dark/70" role="list" aria-label="Artifact details">
+        <span class="bg-secondary/30 px-3 py-1 rounded-full" role="listitem">
+          {artifact.culture}
+        </span>
+        <span class="bg-secondary/30 px-3 py-1 rounded-full" role="listitem">
+          {artifact.period}
+        </span>
+      </div>
+    </div>
+  </a>
+</article>

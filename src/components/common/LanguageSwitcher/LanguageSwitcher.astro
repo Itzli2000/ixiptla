@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl } from "../i18n/utils";
+import { getLangFromUrl } from "../../../i18n/utils";
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const currentPath = Astro.url.pathname;
@@ -30,12 +30,17 @@ if (lang === "en") {
 if (otherLangPath === currentPath) {
   otherLangPath = lang === "en" ? "/es" : "/en";
 }
+
+const otherLang = lang === "en" ? "Español" : "English";
 ---
 
-<div class="language-switcher">
+<div class="language-switcher" role="navigation" aria-label="Language switcher">
   <a
     href={otherLangPath}
     class="px-2 py-1 bg-dark text-light hover:bg-secondary hover:text-dark rounded transition-colors duration-300"
+    aria-label={`Switch to ${otherLang}`}
+    hreflang={lang === "en" ? "es" : "en"}
+    lang={lang === "en" ? "es" : "en"}
   >
     {lang === "en" ? "ES" : "EN"}
   </a>
