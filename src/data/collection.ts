@@ -5,10 +5,11 @@ import sedente from "../assets/images/sedente.png";
 import mono from "../assets/images/mono.png";
 import sacerdotisa from "../assets/images/sacerdotisa.png";
 import yax from "../assets/images/yax.png";
+import mictlantecuhtli from "../assets/images/yax.png";
 
 export const featuredArtifacts: ArtifactItem[] = [
   {
-    id: "0",
+    id: "550e8400-e29b-41d4-a716-446655440000",
     name: {
       es: "Copa del colibrí",
       en: "Hummingbird Cup",
@@ -31,7 +32,30 @@ export const featuredArtifacts: ArtifactItem[] = [
     technique: "Modelado y pintado",
   },
   {
-    id: "1",
+    id: "6ba7b810-9dad-11d1-80b4-00c04fd430d0",
+    name: {
+      es: "Mictlantecuhtli, dios de la muerte",
+      en: "Mictlantecuhtli, God of Death",
+    },
+    culture: "Mexica",
+    period: "Posclásico Tardío (1325-1521 d.C.)",
+    image: mictlantecuhtli,
+    slug: "mictlantecuhtli-god-of-death",
+    description: {
+      es: "Representación en piedra de Mictlantecuhtli, el señor del inframundo en la cosmovisión mexica. La figura se presenta de frente en posición sedente con los brazos cruzados al frente, característica distintiva de las representaciones de deidades de la muerte. El rostro descarnado y el tocado elaborado son elementos iconográficos que refuerzan su identidad como deidad del Mictlán, el reino de los muertos. Esta representación forma parte de la rica tradición escultórica mexica que buscaba materializar conceptos cosmológicos y religiosos fundamentales.",
+      en: "Stone representation of Mictlantecuhtli, the lord of the underworld in Mexica cosmology. The figure is shown frontally in a seated position with crossed arms, a distinctive feature of death deity representations. The skeletal face and elaborate headdress are iconographic elements that reinforce his identity as a deity of Mictlán, the realm of the dead. This representation is part of the rich Mexica sculptural tradition that sought to materialize fundamental cosmological and religious concepts.",
+    },
+    museum: "Museo Nacional de Antropología",
+    location: {
+      es: "Ciudad de México",
+      en: "Mexico City",
+    },
+    dimensions: "8.8 x 13.2 cm",
+    material: "Piedra",
+    technique: "Tallado en piedra",
+  },
+  {
+    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
     name: {
       es: "Figura antropomorfa masculina",
       en: "Male Anthropomorphic Figurine",
@@ -54,7 +78,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     technique: "Moldeado con retoque manual",
   },
   {
-    id: "2",
+    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c9",
     name: {
       es: "Vaso monito de obsidiana",
       en: "Obsidian Monkey Vessel",
@@ -77,7 +101,7 @@ export const featuredArtifacts: ArtifactItem[] = [
     technique: "Tallado y pulido con materiales líticos y abrasivos",
   },
   {
-    id: "3",
+    id: "6ba7b810-9dad-11d1-80b4-00c04fd430ca",
     name: {
       es: "Figurilla mujer sacerdote",
       en: "Female Priest Figurine",
@@ -104,7 +128,7 @@ export const featuredArtifacts: ArtifactItem[] = [
 export const fullCollection: ArtifactItem[] = [
   ...featuredArtifacts,
   {
-    id: "7",
+    id: "6ba7b810-9dad-11d1-80b4-00c04fd430cb",
     name: {
       es: "Yax Pasaj Chan Yopaat",
       en: "Yax Pasaj Chan Yopaat",

@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   name: 'Ixiptla',
-  description: 'Digital Museum of Mexican Artifacts',
+  description: 'Personal Collection of Mexican Artifact Replicas',
   defaultLanguage: 'es',
   supportedLanguages: ['es', 'en'],
 } as const;
