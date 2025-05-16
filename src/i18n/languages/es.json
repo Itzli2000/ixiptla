@@ -28,7 +28,12 @@
     "maya": "Maya",
     "teotihuacán": "Teotihuacán",
     "acolhua": "Acolhua",
-    "mixteca": "Mixteca"
+    "mixteca": "Mixteca",
+    "results": "resultados encontrados",
+    "gridView": "Vista en cuadrícula",
+    "listView": "Vista en lista",
+    "sortBy": "Ordenar por",
+    "search": "Buscar artefactos..."
   },
   "artifact": {
     "title": "Pieza",

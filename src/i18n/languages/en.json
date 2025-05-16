@@ -28,7 +28,12 @@
     "maya": "Maya",
     "teotihuacán": "Teotihuacán",
     "acolhua": "Acolhua",
-    "mixteca": "Mixtec"
+    "mixteca": "Mixtec",
+    "results": "results found",
+    "gridView": "Grid view",
+    "listView": "List view",
+    "sortBy": "Sort by",
+    "search": "Search artifacts..."
   },
   "artifact": {
     "title": "Piece",
