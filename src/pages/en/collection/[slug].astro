@@ -88,9 +88,10 @@ if (Astro.site) {
       <div class="grid lg:grid-cols-2 gap-12 items-start">
         <div class="space-y-4">
           <div
-            class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-light flex items-center justify-center"
+            class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-light flex items-center justify-center cursor-zoom-in"
             role="img"
             aria-label={artifact.name[lang]}
+            id="main-image"
           >
             <Image
               transition:name={artifact.name[lang]}
@@ -98,6 +99,7 @@ if (Astro.site) {
               alt={artifact.name[lang]}
               width={500}
               height={500}
+              class="hover:scale-105 transition-transform duration-300"
             />
           </div>
           {
@@ -161,7 +163,7 @@ if (Astro.site) {
             </p>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-6 bg-light rounded-xl p-6" role="complementary" aria-labelledby="artifact-info-title">
+          <div class="sticky top-24 grid md:grid-cols-2 gap-6 bg-light rounded-xl p-6 shadow-lg" role="complementary" aria-labelledby="artifact-info-title">
             <div>
               <h3 id="artifact-info-title" class="text-lg font-bold text-tertiary mb-2">
                 {t("artifact.location")}
@@ -258,18 +260,62 @@ if (Astro.site) {
         </div>
       </div>
 
+      <button
+        id="back-to-top"
+        class="fixed bottom-8 right-8 bg-main text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-dark focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
+        aria-label={t("artifact.backToTop")}
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width={2}
+            d="M5 10l7-7m0 0l7 7m-7-7v18"
+          />
+        </svg>
+      </button>
+
       {
         relatedArtifacts.length > 0 && (
           <section class="mt-24" aria-labelledby="related-artifacts-title">
             <h2 id="related-artifacts-title" class="text-3xl font-bold text-tertiary mb-8">
               {t("artifact.related")}
             </h2>
-            <div class="grid md:grid-cols-3 gap-8" role="list" aria-label={t("artifact.relatedItems")}>
-              {relatedArtifacts.map((related) => (
-                <div role="listitem">
-                  <ArtifactCard artifact={related} />
+            <div class="relative" role="region" aria-label={t("artifact.relatedItems")}>
+              <div class="overflow-hidden">
+                <div id="related-carousel" class="flex gap-8 transition-transform duration-300 ease-in-out">
+                  {relatedArtifacts.map((related) => (
+                    <div class="min-w-[300px] flex-shrink-0" role="listitem">
+                      <ArtifactCard artifact={related} />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+              
+              <button
+                id="prev-related"
+                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
+                aria-label={t("artifact.previousRelated")}
+              >
+                <svg class="w-6 h-6 text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <button
+                id="next-related"
+                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
+                aria-label={t("artifact.nextRelated")}
+              >
+                <svg class="w-6 h-6 text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </section>
         )
@@ -277,3 +323,83 @@ if (Astro.site) {
     </div>
   </article>
 </Layout>
+
+<script>
+  // Back to top button functionality
+  const backToTopButton = document.getElementById('back-to-top');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopButton?.classList.remove('opacity-0');
+    } else {
+      backToTopButton?.classList.add('opacity-0');
+    }
+  });
+
+  backToTopButton?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Image zoom functionality
+  const mainImage = document.getElementById('main-image');
+  mainImage?.addEventListener('click', () => {
+    // Create modal for image zoom
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/90 z-50 flex items-center justify-center';
+    modal.innerHTML = `
+      <div class="relative w-full h-full flex items-center justify-center">
+        <img src="${mainImage.querySelector('img')?.src}" alt="${mainImage.getAttribute('aria-label')}" class="max-w-full max-h-full object-contain">
+        <button class="absolute top-4 right-4 text-white p-2 rounded-full hover:bg-white/20" aria-label="Close">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    modal.querySelector('button')?.addEventListener('click', () => {
+      modal.remove();
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Carousel functionality
+  const carousel = document.getElementById('related-carousel');
+  const prevButton = document.getElementById('prev-related');
+  const nextButton = document.getElementById('next-related');
+  
+  if (carousel && prevButton && nextButton) {
+    let currentPosition = 0;
+    const itemWidth = 300 + 32; // card width + gap
+    const totalItems = carousel.children.length;
+    const maxPosition = -(totalItems - 3) * itemWidth;
+
+    const updateCarousel = () => {
+      carousel.style.transform = `translateX(${currentPosition}px)`;
+      prevButton.style.opacity = currentPosition === 0 ? '0.5' : '1';
+      nextButton.style.opacity = currentPosition <= maxPosition ? '0.5' : '1';
+    };
+
+    prevButton.addEventListener('click', () => {
+      if (currentPosition < 0) {
+        currentPosition = Math.min(currentPosition + itemWidth, 0);
+        updateCarousel();
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      if (currentPosition > maxPosition) {
+        currentPosition = Math.max(currentPosition - itemWidth, maxPosition);
+        updateCarousel();
+      }
+    });
+
+    // Initialize carousel state
+    updateCarousel();
+  }
+</script>

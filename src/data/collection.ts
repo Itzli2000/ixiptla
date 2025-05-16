@@ -137,7 +137,7 @@ export const getArtifactsByCulture = (culture: string) => {
 export const cultures: string[] = [
   "All",
   "Mixteca",
-  "Maya",
-  "Azteca",
-  "Olmeca",
+  "Teotihuacán",
+  "Acolhua",
+  "Maya"
 ];
