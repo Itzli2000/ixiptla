@@ -35,8 +35,10 @@ const slugToModel: Record<string, string> = {
   "hummingbird-cup": "colibri",
   "male-anthropomorphic-figurine": "sedente",
   "yax-pasaj-chan-yopaat": "yax",
-};
-const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
+} as const;
+
+type ModelKey = keyof typeof slugToModel;
+const model3D = artifact.slug in slugToModel ? slugToModel[artifact.slug as ModelKey] : undefined;
 ---
 
 <Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
