@@ -17,6 +17,7 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
   <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex gap-6 items-center"}>
     <div class={variant === "grid" ? "w-full h-full" : "w-48 h-48 flex-shrink-0"}>
       <Image
+        transition:name={artifact.name[lang]}
         src={artifact.image}
         alt={artifact.name[lang]}
         width={variant === "grid" ? 800 : 400}

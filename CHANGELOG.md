@@ -1,3 +1,14 @@
+### 1.1.0 (2025-05-17)
+
+##### Documentation Changes
+
+* **README:**  update project description and enhance structure with new technologies (2fa265aa)
+
+##### Refactors
+
+* **Scene3D:**  remove unused Environment component to optimize rendering (2530ca7c)
+* **ArtifactCard:**  enhance image transition and improve layout responsiveness (cbb75cac)
+
 ## 1.0.0 (2025-05-17)
 
 ##### Chores
