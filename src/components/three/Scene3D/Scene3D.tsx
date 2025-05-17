@@ -5,12 +5,26 @@ import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import type { Scene3DProps } from "../../../types";
 import { Model3D } from "../Model3D/Model3D";
 
+/**
+ * Interface for the custom event detail that controls auto-rotation
+ */
 interface CustomEventDetail {
   enabled: boolean;
 }
 
 type CustomEventType = CustomEvent<CustomEventDetail>;
 
+/**
+ * A 3D scene component that renders a 3D model with interactive controls.
+ * Features include:
+ * - Auto-rotation toggle
+ * - Camera reset functionality
+ * - Orbit controls for model interaction
+ * - Environment lighting and shadows
+ * - Loading indicator
+ * 
+ * @param modelPath - The path to the 3D model file (defaults to colibri.glb)
+ */
 export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DProps) {
   const [autoRotate, setAutoRotate] = useState(false);
   const controlsRef = useRef<OrbitControlsImpl>(null);
@@ -45,7 +59,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
         }}
       >
         <Suspense fallback={null}>
-          {/* Iluminación ambiental mejorada */}
           <ambientLight intensity={1} />
           <hemisphereLight
             intensity={0.7}
@@ -53,7 +66,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
             color="#ffffff"
           />
 
-          {/* Luces direccionales para mejor definición */}
           <directionalLight position={[5, 5, 2]} intensity={0.8} castShadow />
           <directionalLight position={[-5, -5, -2]} intensity={0.4} />
 

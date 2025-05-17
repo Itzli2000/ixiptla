@@ -2,42 +2,27 @@
 import { Scene3D } from "../../../components/three/Scene3D/Scene3D";
 import ExperienceLayout from "../../../layouts/ExperienceLayout.astro";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import { AVAILABLE_MODELS, getModelPath, getModelInfo } from "../../../data/models";
 
 export async function getStaticPaths() {
-  return [
-    { params: { model: "colibri" } },
-    { params: { model: "sedente" } },
-    { params: { model: "yax" } },
-  ];
+  return AVAILABLE_MODELS.map(model => ({
+    params: { model }
+  }));
 }
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
 const { model } = Astro.params;
-const modelPath = model ? `/images/models/${model}.glb` : null;
-
-const modelInfo = { 
-  colibri: {
-    title: "Colibrí - Ixiptla",
-    description: "Experiencia 3D del Colibrí",
-  },
-  sedente: {
-    title: "Figura Sedente - Ixiptla",
-    description: "Experiencia 3D de la Figura Sedente",
-  },
-};
-
-const info =
-  model && modelInfo[model as keyof typeof modelInfo]
-    ? modelInfo[model as keyof typeof modelInfo]
-    : {
-        title: "Modelo no encontrado - Ixiptla",
-        description: "El modelo solicitado no está disponible",
-      };
+const modelPath = model ? getModelPath(model) : null;
+const info = model ? getModelInfo(model, lang) : null;
 ---
 
-<ExperienceLayout title={info.title} description={info.description} lang={lang}>
+<ExperienceLayout 
+  title={info?.title[lang] ?? "Modelo no encontrado - Ixiptla"} 
+  description={info?.description[lang] ?? "El modelo solicitado no está disponible"} 
+  lang={lang}
+>
   <div class="relative w-full h-[calc(100vh-4rem)] text-white">
     <button
       onclick="history.back()"

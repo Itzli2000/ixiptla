@@ -44,5 +44,4 @@ export function Model3D({
   );
 }
 
-// Preload common models
 useGLTF.preload('/images/models/colibri.glb'); 

@@ -41,20 +41,17 @@ const siteUrl = canonicalURL?.toString() || (Astro.site
 		<meta name="description" content={description} />
 		<link rel="canonical" href={siteUrl} />
 		
-		{/* Alternate language links */}
 		{alternateURLs && Object.entries(alternateURLs).map(([lang, url]) => (
 			<link rel="alternate" hreflang={lang} href={url.toString()} />
 		))}
 		<link rel="alternate" hreflang="x-default" href={alternateURLs?.en?.toString() || siteUrl} />
 
-		{/* Open Graph / Facebook */}
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={image.src} />
 	
-		{/* Twitter */}
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={siteUrl} />
 		<meta property="twitter:title" content={title} />
