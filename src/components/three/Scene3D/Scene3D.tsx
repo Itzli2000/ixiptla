@@ -1,4 +1,4 @@
-import { Environment, Loader, OrbitControls } from "@react-three/drei";
+import { Loader, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
@@ -68,8 +68,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
 
           <directionalLight position={[5, 5, 2]} intensity={0.8} castShadow />
           <directionalLight position={[-5, -5, -2]} intensity={0.4} />
-
-          <Environment preset="sunset" />
 
           <Model3D 
             modelPath={modelPath}
