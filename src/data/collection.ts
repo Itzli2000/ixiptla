@@ -157,7 +157,7 @@ export const fullCollection: ArtifactItem[] = [
       es: "Figura mono",
       en: "Monkey Figure",
     },
-    culture: "Azteca o Teotihuacana",
+    culture: "Teotihuacán",
     period: "Desconocido",
     image: mono2,
     slug: "monkey-figure",
@@ -187,5 +187,6 @@ export const cultures: string[] = [
   "Mixteca",
   "Teotihuacán",
   "Acolhua",
-  "Maya"
+  "Maya",
+  "Mexica"
 ];

@@ -14,8 +14,8 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
       : "bg-white rounded-xl shadow-md hover:shadow-lg p-4"
   }`}
 >
-  <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex gap-6 items-center"}>
-    <div class={variant === "grid" ? "w-full h-full" : "w-48 h-48 flex-shrink-0"}>
+  <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center"}>
+    <div class={variant === "grid" ? "w-full h-full" : "w-full sm:w-48 h-48 flex-shrink-0"}>
       <Image
         transition:name={artifact.name[lang]}
         src={artifact.image}

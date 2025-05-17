@@ -26,5 +26,5 @@
     "allowUnreachableCode": false
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "**/*.astro"]
 }
