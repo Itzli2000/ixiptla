@@ -85,5 +85,27 @@
         "secondary": "Ver Colección"
       }
     }
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "description": "¿Tienes preguntas o quieres saber más sobre nuestros servicios? Nos encantaría escucharte.",
+    "getInTouch": {
+      "title": "Ponte en Contacto",
+      "description": "Estamos aquí para ayudar y responder cualquier pregunta que puedas tener. Esperamos saber de ti."
+    },
+    "email": "Correo Electrónico",
+    "responseTime": {
+      "title": "Tiempo de Respuesta",
+      "description": "Normalmente respondemos dentro de 24 horas"
+    },
+    "whyContactUs": {
+      "title": "¿Por qué Contactarnos?",
+      "reasons": {
+        "technical": "Soporte técnico",
+        "product": "Consultas sobre productos",
+        "partnership": "Oportunidades de colaboración",
+        "general": "Preguntas generales"
+      }
+    }
   }
 }
