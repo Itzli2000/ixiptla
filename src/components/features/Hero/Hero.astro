@@ -1,0 +1,321 @@
+---
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import { Image } from "astro:assets";
+import colibri from "../../../assets/images/colibri.png";
+import Logo from "/public/favicon.svg";
+
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+---
+
+<section class="min-h-[90vh] bg-quaternary w-full">
+  <div class="w-full flex flex-col items-center gap-10">
+    <div class="artwork-container">
+      <div class="artwork-bg"></div>
+      <div class="image-wrapper">
+        <Image
+          src={colibri}
+          alt={t("hero.imageAlt")}
+          class="relative mx-auto transition-opacity duration-500"
+          width={900}
+          height={900}
+        />
+      </div>
+
+      <div class="mask">
+        <div class="knockout-content">
+          <Logo />
+          <span class="text-[15vw] font-bold">Ixiptla</span>
+        </div>
+      </div>
+
+      <div class="ios-content">
+        <Logo />
+        <span class="text-[15vw] font-bold">Ixiptla</span>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+</section>
+
+<style>
+  @layer animation;
+
+  @layer animation {
+    :root {
+      timeline-scope: --reveal;
+      --knockout-scale-initial: 100;
+      --transform-origin: 49% 50%;
+    }
+
+    @media (max-width: 1024px) {
+      :root {
+        --knockout-scale-initial: 100;
+        --transform-origin: 39% 50%;
+      }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --knockout-scale-initial: 180;
+        --transform-origin: 49% 50%;
+      }
+    }
+    @media (max-width: 480px) {
+      :root {
+        --knockout-scale-initial: 110;
+        --transform-origin: 49% 50%;
+      }
+    }
+
+    .artwork-container {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .artwork-container.ios-fallback {
+      position: relative;
+      height: auto;
+      min-height: 100vh;
+    }
+
+    .artwork-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    
+    .ios-fallback .image-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .ios-fallback .image-wrapper img {
+      margin: auto;
+    }
+
+    .spacer {
+      height: 50vh;
+      margin-top: 60vh;
+      view-timeline: --reveal;
+    }
+
+    .mask {
+      height: 100vh;
+      position: absolute;
+      z-index: 1;
+      background-color: #000000;
+      color: white;
+      display: grid;
+      place-items: center;
+      filter: url(#knockout-filter);
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .knockout-content {
+      color: white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      scale: 1;
+      transform-origin: var(--transform-origin);
+      animation: shrink both ease-out;
+      animation-timeline: --reveal;
+      animation-range: entry;
+      will-change: transform;
+    }
+
+    .ios-content {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      color: white;
+      z-index: 1;
+      transform-origin: var(--transform-origin);
+      background-color: #000000;
+      mix-blend-mode: multiply;
+      transform: scale(var(--knockout-scale-initial));
+    }
+
+    .ios-content.animated {
+      animation: ios-shrink 1s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes ios-shrink {
+      from {
+        transform: scale(var(--knockout-scale-initial));
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .knockout-content,
+      .ios-content {
+        gap: 1rem;
+      }
+      
+      .knockout-content svg,
+      .ios-content svg {
+        width: 15vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .knockout-content,
+      .ios-content {
+        gap: 0.5rem;
+      }
+      
+      .knockout-content svg,
+      .ios-content svg {
+        width: 12vw;
+      }
+    }
+
+    .knockout-content svg,
+    .ios-content svg {
+      width: 20vw;
+      fill: white;
+      will-change: transform;
+    }
+
+    @keyframes shrink {
+      from {
+        transform: scale(var(--knockout-scale-initial));
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+  }
+</style>
+
+<svg class="svg-filter hidden">
+  <defs>
+    <filter id="knockout-filter" color-interpolation-filters="sRGB">
+      <feColorMatrix
+        result="knocked"
+        type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                -1 -1 -1 1 0"
+      ></feColorMatrix>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="3" intercept="-1"></feFuncR>
+        <feFuncG type="linear" slope="3" intercept="-1"></feFuncG>
+        <feFuncB type="linear" slope="3" intercept="-1"></feFuncB>
+      </feComponentTransfer>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncR>
+        <feFuncG type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncG>
+        <feFuncB type="table" tableValues="0 0 0 0 0 1 1 1 1 1"></feFuncB>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+</svg>
+
+<script>
+  function setupHeroComponent() {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+
+    const artworkContainer = document.querySelector('.artwork-container') as HTMLElement | null;
+    const maskElement = document.querySelector('.mask') as HTMLElement | null;
+    const iosContentElement = document.querySelector('.ios-content') as HTMLElement | null;
+    const spacerElement = document.querySelector('.spacer') as HTMLElement | null;
+    const imageWrapper = document.querySelector('.image-wrapper') as HTMLElement | null;
+    const heroImage = document.querySelector('.image-wrapper img') as HTMLElement | null;
+
+    if (!artworkContainer || !maskElement || !iosContentElement || !spacerElement || !imageWrapper) {
+      return;
+    }
+
+    imageWrapper.style.display = 'grid';
+    imageWrapper.style.placeItems = 'center';
+
+    if (isIOS) {
+      maskElement.style.display = 'none';
+      iosContentElement.style.display = 'flex';
+      
+      spacerElement.style.display = 'none';
+      spacerElement.style.height = '0';
+      spacerElement.style.marginTop = '0';
+      
+      artworkContainer.classList.add('ios-fallback');
+      artworkContainer.style.position = 'relative';
+      artworkContainer.style.height = '100vh';
+      artworkContainer.style.minHeight = '100vh';
+      artworkContainer.style.display = 'flex';
+      artworkContainer.style.alignItems = 'center';
+      artworkContainer.style.justifyContent = 'center';
+      
+      imageWrapper.style.height = '100%';
+      imageWrapper.style.display = 'flex';
+      imageWrapper.style.flexDirection = 'column';
+      imageWrapper.style.justifyContent = 'center';
+      
+      if (heroImage) {
+        heroImage.style.marginTop = '0';
+        heroImage.style.marginBottom = '0';
+        heroImage.style.alignSelf = 'center';
+      }
+      
+      setTimeout(() => {
+        iosContentElement.classList.add('animated');
+      }, 100);
+    } else {
+      maskElement.style.display = 'grid';
+      iosContentElement.style.display = 'none';
+      
+      artworkContainer.classList.remove('ios-fallback');
+      artworkContainer.style.position = 'sticky';
+      artworkContainer.style.top = '0';
+      artworkContainer.style.height = '100vh';
+      artworkContainer.style.minHeight = '';
+      artworkContainer.style.display = '';
+      artworkContainer.style.alignItems = '';
+      artworkContainer.style.justifyContent = '';
+      
+      imageWrapper.style.height = '100%';
+      imageWrapper.style.display = 'grid';
+      imageWrapper.style.placeItems = 'center';
+      imageWrapper.style.flexDirection = '';
+      imageWrapper.style.justifyContent = '';
+      
+      spacerElement.style.display = '';
+      spacerElement.style.height = '';
+      spacerElement.style.marginTop = '';
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupHeroComponent);
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHeroComponent);
+  } else {
+    setupHeroComponent();
+  }
+</script>

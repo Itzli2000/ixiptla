@@ -1,8 +1,8 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import ArtifactCard from "../../../components/ArtifactCard.astro";
-import { fullCollection, cultures } from "../../../data/collection";
+import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
+import { cultures, fullCollection } from "../../../data/collection";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import Layout from "../../../layouts/Layout.astro";
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
@@ -24,25 +24,71 @@ const artifacts = fullCollection;
         {t("collection.description")}
       </p>
 
-      <div class="flex flex-wrap gap-4 justify-center mb-12">
-        {
-          cultures.map((culture) => (
+      <div class="flex flex-col items-center gap-6 mb-12">
+        <div class="flex flex-wrap gap-4 justify-center">
+          {
+            cultures.map((culture) => (
+              <button
+                data-culture={culture}
+                class="filter-btn px-6 py-2 rounded-full transition-all duration-300
+                bg-secondary/50 text-dark hover:bg-secondary"
+                aria-pressed="false"
+              >
+                {t(`collection.${culture.toLowerCase()}`)}
+              </button>
+            ))
+          }
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
             <button
-              data-culture={culture}
-              class={`px-6 py-2 rounded-full transition-colors filter-btn
-              bg-secondary/50 text-dark hover:bg-secondary`}
+              id="grid-view"
+              class="p-2 rounded-lg bg-secondary/50 text-dark hover:bg-secondary transition-colors"
+              aria-label={t("collection.gridView")}
+              aria-pressed="true"
             >
-              {t(`collection.${culture.toLowerCase()}`)}
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
             </button>
+            <button
+              id="list-view"
+              class="p-2 rounded-lg bg-secondary/50 text-dark hover:bg-secondary transition-colors"
+              aria-label={t("collection.listView")}
+              aria-pressed="false"
+            >
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+          <div class="text-dark/80">
+            <span id="results-count">{artifacts.length}</span> {t("collection.results")}
+          </div>
+        </div>
+      </div>
+
+      <div id="artifacts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500">
+        {
+          artifacts.map((artifact) => (
+            <div 
+              class="artifact-card transform transition-all duration-500" 
+              data-culture={artifact.culture}
+            >
+              <ArtifactCard artifact={artifact} />
+            </div>
           ))
         }
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="artifacts-list" class="hidden space-y-6">
         {
           artifacts.map((artifact) => (
-            <div class="artifact-card" data-culture={artifact.culture}>
-              <ArtifactCard artifact={artifact} />
+            <div 
+              class="artifact-card transform transition-all duration-500" 
+              data-culture={artifact.culture}
+            >
+              <ArtifactCard artifact={artifact} variant="list" />
             </div>
           ))
         }
@@ -53,47 +99,91 @@ const artifacts = fullCollection;
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    function handleFilter(culture: string) {
-      const cards = document.querySelectorAll(".artifact-card");
-      const buttons = document.querySelectorAll(".filter-btn");
+    const gridView = document.getElementById("grid-view");
+    const listView = document.getElementById("list-view");
+    const artifactsGrid = document.getElementById("artifacts-grid");
+    const artifactsList = document.getElementById("artifacts-list");
+    const resultsCount = document.getElementById("results-count");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    let currentFilter = "all";
 
-      buttons.forEach((btn) => {
+    function updateView(view: "grid" | "list") {
+      if (view === "grid") {
+        artifactsGrid?.classList.remove("hidden");
+        artifactsList?.classList.add("hidden");
+        gridView?.setAttribute("aria-pressed", "true");
+        listView?.setAttribute("aria-pressed", "false");
+      } else {
+        artifactsGrid?.classList.add("hidden");
+        artifactsList?.classList.remove("hidden");
+        gridView?.setAttribute("aria-pressed", "false");
+        listView?.setAttribute("aria-pressed", "true");
+      }
+      handleFilter(currentFilter);
+    }
+
+    function handleFilter(culture: string) {
+      let visibleCount = 0;
+
+      filterButtons.forEach((btn) => {
         if (btn instanceof HTMLElement) {
           const btnCulture = btn.dataset.culture;
           if (btnCulture === culture) {
             btn.classList.add("bg-main", "text-quaternary");
             btn.classList.remove("bg-secondary/50", "text-dark");
+            btn.setAttribute("aria-pressed", "true");
           } else {
             btn.classList.remove("bg-main", "text-quaternary");
             btn.classList.add("bg-secondary/50", "text-dark");
+            btn.setAttribute("aria-pressed", "false");
           }
         }
       });
 
-      cards.forEach((card) => {
+      // Solo contar las tarjetas visibles en la vista actual
+      const activeView = artifactsGrid?.classList.contains("hidden") ? artifactsList : artifactsGrid;
+      const visibleCards = activeView?.querySelectorAll(".artifact-card") || [];
+
+      visibleCards.forEach((card) => {
         if (card instanceof HTMLElement) {
           const cardCulture = card.dataset.culture;
           if (
-            culture === "All" ||
+            culture === "all" ||
             cardCulture?.toLowerCase().includes(culture.toLowerCase())
           ) {
             card.style.display = "block";
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+            visibleCount++;
           } else {
-            card.style.display = "none";
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              card.style.display = "none";
+            }, 300);
           }
         }
       });
+
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount.toString();
+      }
     }
 
-    document.querySelectorAll(".filter-btn").forEach((btn) => {
+    gridView?.addEventListener("click", () => updateView("grid"));
+    listView?.addEventListener("click", () => updateView("list"));
+
+    filterButtons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         if (e.currentTarget instanceof HTMLElement) {
-          const culture = e.currentTarget.dataset.culture || "All";
+          const culture = e.currentTarget.dataset.culture || "all";
+          currentFilter = culture;
           handleFilter(culture);
         }
       });
     });
 
-    handleFilter("All");
+    // Initialize with "all" filter
+    handleFilter("all");
   });
 </script>

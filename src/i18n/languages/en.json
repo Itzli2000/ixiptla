@@ -26,9 +26,14 @@
     "cta": "View Collection",
     "all": "All",
     "maya": "Maya",
-    "azteca": "Azteca",
-    "olmeca": "Olmeca",
-    "mixteca": "Mixteca"
+    "teotihuacán": "Teotihuacán",
+    "acolhua": "Acolhua",
+    "mixteca": "Mixtec",
+    "results": "results found",
+    "gridView": "Grid view",
+    "listView": "List view",
+    "sortBy": "Sort by",
+    "search": "Search artifacts..."
   },
   "artifact": {
     "title": "Piece",
@@ -45,13 +50,22 @@
     "material": "Material",
     "technique": "Technique",
     "related": "Related Pieces",
+    "relatedItems": "Related Artifacts",
     "explore3D": "Explore in 3D",
     "explore3DDescription": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
     "viewExperience": "View Experience",
     "back": "Back",
     "resetView": "Reset View",
     "autoRotate": "Auto Rotate",
-    "instructions": "Use mouse to rotate, scroll to zoom, and drag to pan"
+    "instructions": "Use mouse to rotate, scroll to zoom, and drag to pan",
+    "backToTop": "Back to top",
+    "previousRelated": "Previous related piece",
+    "nextRelated": "Next related piece",
+    "close": "Close",
+    "navigation": "Navigation between pieces",
+    "previous": "Previous piece",
+    "next": "Next piece",
+    "details": "Artifact details"
   },
   "404": {
     "title": "Page Not Found",

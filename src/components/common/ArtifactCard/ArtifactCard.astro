@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import { getLangFromUrl } from "../../../i18n/utils";
+
+const { artifact, variant = "grid" } = Astro.props;
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+---
+
+<a
+  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`}
+  class={`block group transition-all duration-300 ${
+    variant === "grid"
+      ? "bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden"
+      : "bg-white rounded-xl shadow-md hover:shadow-lg p-4"
+  }`}
+>
+  <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex gap-6 items-center"}>
+    <div class={variant === "grid" ? "w-full h-full" : "w-48 h-48 flex-shrink-0"}>
+      <Image
+        src={artifact.image}
+        alt={artifact.name[lang]}
+        width={variant === "grid" ? 800 : 400}
+        height={variant === "grid" ? 800 : 400}
+        class={`w-full h-full object-cover transition-transform duration-500 ${
+          variant === "grid" ? "group-hover:scale-110" : "rounded-lg"
+        }`}
+      />
+    </div>
+    <div class={variant === "grid" ? "p-6" : "flex-1"}>
+      <h3 class={`font-bold text-tertiary mb-2 ${variant === "grid" ? "text-xl" : "text-2xl"}`}>
+        {artifact.name[lang]}
+      </h3>
+      <p class={`text-dark/80 ${variant === "grid" ? "line-clamp-2" : "line-clamp-3"}`}>
+        {artifact.description[lang]}
+      </p>
+      {variant === "list" && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-secondary/20 text-dark rounded-full text-sm">
+            {artifact.culture}
+          </span>
+          <span class="px-3 py-1 bg-secondary/20 text-dark rounded-full text-sm">
+            {artifact.period}
+          </span>
+        </div>
+      )}
+    </div>
+  </div>
+</a>

@@ -1,0 +1,170 @@
+---
+import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+import LanguageSwitcher from '../../common/LanguageSwitcher/LanguageSwitcher.astro';
+const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const t = useTranslations(lang);
+
+const routes = {
+  home: lang === 'en' ? '/en/' : '/es/',
+  collection: lang === 'en' ? '/en/collection' : '/es/coleccion',
+  contact: lang === 'en' ? '/en/contact' : '/es/contacto',
+};
+---
+
+<nav class="bg-quaternary shadow-md fixed top-0 left-0 right-0 w-full z-50" role="navigation" aria-label="Main navigation">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex-shrink-0">
+        <a href={routes.home} class="text-xl font-bold" aria-label="Ixiptla Home">
+          <img src="/images/logo.svg" alt="Ixiptla" class="h-10" />
+        </a>
+      </div>
+
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-center space-x-4" role="menubar" aria-label="Main menu">
+          <a 
+            href={routes.home} 
+            class="px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+            role="menuitem"
+            aria-current={Astro.url.pathname === routes.home ? 'page' : undefined}
+          >
+            {t('navigation.home')}
+          </a>
+          <a 
+            href={routes.collection} 
+            class="px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+            role="menuitem"
+            aria-current={Astro.url.pathname === routes.collection ? 'page' : undefined}
+          >
+            {t('navigation.collection')}
+          </a>
+          <a 
+            href={routes.contact} 
+            class="px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+            role="menuitem"
+            aria-current={Astro.url.pathname === routes.contact ? 'page' : undefined}
+          >
+            {t('navigation.contact')}
+          </a>
+        </div>
+      </div>
+
+      <div class="hidden md:block">
+        <LanguageSwitcher />
+      </div>
+
+      <div class="md:hidden flex items-center">
+        <button 
+          class="mobile-menu-button p-2 rounded-md hover:bg-secondary/30 transition-colors" 
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="hidden md:hidden mobile-menu" id="mobile-menu" role="menu" aria-label="Mobile menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a 
+          href={routes.home} 
+          class="block px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+          role="menuitem"
+          aria-current={Astro.url.pathname === routes.home ? 'page' : undefined}
+        >
+          {t('navigation.home')}
+        </a>
+        <a 
+          href={routes.collection} 
+          class="block px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+          role="menuitem"
+          aria-current={Astro.url.pathname === routes.collection ? 'page' : undefined}
+        >
+          {t('navigation.collection')}
+        </a>
+        <a 
+          href={routes.contact} 
+          class="block px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+          role="menuitem"
+          aria-current={Astro.url.pathname === routes.contact ? 'page' : undefined}
+        >
+          {t('navigation.contact')}
+        </a>
+        <div class="px-3 py-2">
+          <LanguageSwitcher />
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener("click", () => {
+        const isExpanded = mobileMenu.classList.toggle("hidden");
+        mobileMenu.classList.toggle("open");
+        
+        // Actualizar aria-expanded
+        mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+      });
+
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("open");
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Cerrar menú al hacer clic fuera
+      document.addEventListener('click', (event) => {
+        if (!mobileMenuButton.contains(event.target as Node) && 
+            !mobileMenu.contains(event.target as Node) && 
+            !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("open");
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Cerrar menú con la tecla Escape
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("open");
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .mobile-menu {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .mobile-menu.open {
+    max-height: 300px;
+  }
+
+  :global(body) {
+    padding-top: 4rem;
+  }
+
+  :global(a:focus-visible),
+  :global(button:focus-visible) {
+    outline: 2px solid var(--color-main);
+    outline-offset: 2px;
+  }
+</style>

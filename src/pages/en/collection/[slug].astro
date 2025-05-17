@@ -1,10 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import ArtifactCard from "../../../components/ArtifactCard.astro";
+import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
 import {
     fullCollection,
     getArtifactsByCulture
 } from "../../../data/collection";
+import { getModelForSlug } from "../../../data/models";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
 
@@ -31,63 +32,99 @@ const nextArtifact =
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
-const slugToModel: Record<string, string> = {
-  "copa-colibri": "colibri",
-  "figura-antropomorfa-masculina": "sedente",
-  "yax-pasaj-chan-yopaat": "yax",
+const model3D = getModelForSlug(artifact.slug);
+
+const title = `${artifact.name[lang]} - Ixiptla Collection`;
+const description = artifact.description[lang];
+
+let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
+let imageURL: string | URL = artifact.image.src;
+let alternateURLs: { en: string | URL; es: string | URL } = {
+  en: `/en/collection/${artifact.slug}`,
+  es: `/es/coleccion/${artifact.slug}`,
 };
-const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
+
+if (Astro.site) {
+  canonicalURL = new URL(`/${lang}/collection/${artifact.slug}`, Astro.site);
+  imageURL = new URL(artifact.image.src, Astro.site);
+  alternateURLs = {
+    en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
+    es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
+  };
+}
 ---
 
-<Layout title={artifact.name[lang]} description={artifact.description[lang]} lang={lang}>
-  <article class="pt-24 pb-16 px-4">
-    <div class="mx-auto max-w-6xl">
-      <nav class="mb-8" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-sm text-dark/70">
-          <li><a href="/" class="hover:text-main">{t("artifact.home")}</a></li>
-          <li><span class="mx-2">/</span></li>
+<Layout 
+  title={title} 
+  description={description} 
+  lang={lang}
+  image={imageURL}
+  canonicalURL={canonicalURL}
+  alternateURLs={alternateURLs}
+>
+  <article class="pt-24 pb-16 px-4 bg-gradient-to-b from-quaternary/5 to-white" role="main">
+    <div class="mx-auto max-w-7xl">
+      <nav class="mb-12" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 text-sm text-dark/70" role="list">
+          <li><a href="/" class="hover:text-main transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
+          <li aria-hidden="true"><span class="mx-2">/</span></li>
           <li>
             <a
               href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}`}
-              class="hover:text-main">{t("artifact.collection")}</a>
+              class="hover:text-main transition-colors"
+              aria-label={t("artifact.collection")}>{t("artifact.collection")}</a>
           </li>
-          <li><span class="mx-2">/</span></li>
-          <li class="text-main font-medium">{artifact.name[lang]}</li>
+          <li aria-hidden="true"><span class="mx-2">/</span></li>
+          <li class="text-main font-medium" aria-current="page">{artifact.name[lang]}</li>
         </ol>
       </nav>
 
-      <div class="grid lg:grid-cols-2 gap-12 items-start">
-        <div class="space-y-4">
+      <div class="grid lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start">
+        {/* Left column - Image and 3D */}
+        <div class="lg:col-span-5 space-y-6">
           <div
-            class="aspect-square rounded-2xl overflow-hidden shadow-2xl bg-light flex items-center justify-center"
+            class="aspect-square rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl bg-light flex items-center justify-center cursor-zoom-in group relative"
+            role="img"
+            aria-label={artifact.name[lang]}
+            id="main-image"
           >
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10"></div>
             <Image
               transition:name={artifact.name[lang]}
               src={artifact.image}
               alt={artifact.name[lang]}
-              width={500}
-              height={500}
+              width={800}
+              height={800}
+              class="group-hover:scale-105 transition-transform duration-500"
             />
+            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {t("artifact.clickToZoom")}
+            </div>
           </div>
           {
             model3D && (
-              <div class="bg-secondary/30 p-6 rounded-xl">
-                <h3 class="text-xl font-bold text-tertiary mb-4">
+              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 p-8 rounded-2xl backdrop-blur-sm border border-secondary/20" role="complementary" aria-labelledby="3d-model-title">
+                <h3 id="3d-model-title" class="text-2xl font-bold text-tertiary mb-4 flex items-center gap-3">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                   {t("artifact.explore3D")}
                 </h3>
-                <p class="text-dark/80 mb-4">
+                <p class="text-dark/80 mb-6 text-lg">
                   {t("artifact.explore3DDescription")}
                 </p>
                 <a
                   href={`/${lang}/experience/${model3D}`}
-                  class="inline-flex items-center text-main hover:text-dark transition-colors"
+                  class="inline-flex items-center gap-2 bg-main text-white px-6 py-3 rounded-xl hover:bg-dark transition-colors duration-300 shadow-lg hover:shadow-xl"
+                  aria-label={`${t("artifact.viewExperience")} - ${artifact.name[lang]}`}
                 >
                   {t("artifact.viewExperience")}
                   <svg
-                    class="w-5 h-5 ml-2"
+                    class="w-5 h-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       stroke-linecap="round"
@@ -102,25 +139,29 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
           }
         </div>
 
-        <div class="space-y-8">
+        {/* Right column - Information */}
+        <div class="lg:col-span-7 space-y-8 md:space-y-10">
           <div>
-            <h1 class="text-4xl font-bold text-tertiary mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-tertiary mb-4 md:mb-6 leading-tight">
               {artifact.name[lang]}
             </h1>
-            <div class="flex flex-wrap gap-4 text-dark/80">
-              <div class="bg-secondary/30 px-4 py-2 rounded-lg">
-                <span class="font-medium">{t("artifact.culture")}:</span>
-                {artifact.culture}
+            <div class="flex flex-wrap gap-3 md:gap-4 text-dark/80" role="list" aria-label={t("artifact.details")}>
+              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-4 md:px-6 py-2 md:py-3 rounded-xl backdrop-blur-sm border border-secondary/20" role="listitem">
+                <span class="font-medium text-tertiary">{t("artifact.culture")}:</span>
+                <span class="ml-2">{artifact.culture}</span>
               </div>
-              <div class="bg-secondary/30 px-4 py-2 rounded-lg">
-                <span class="font-medium">{t("artifact.period")}:</span>
-                {artifact.period}
+              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-4 md:px-6 py-2 md:py-3 rounded-xl backdrop-blur-sm border border-secondary/20" role="listitem">
+                <span class="font-medium text-tertiary">{t("artifact.period")}:</span>
+                <span class="ml-2">{artifact.period}</span>
               </div>
             </div>
           </div>
 
-          <div class="prose prose-lg max-w-none">
-            <h2 class="text-2xl font-bold text-tertiary mb-4">
+          <div class="prose prose-lg md:prose-xl max-w-none">
+            <h2 class="text-2xl md:text-3xl font-bold text-tertiary mb-4 md:mb-6 flex items-center gap-3">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               {t("artifact.description")}
             </h2>
             <p class="text-lg text-dark/80 leading-relaxed">
@@ -128,36 +169,43 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
             </p>
           </div>
 
-          <div class="grid md:grid-cols-2 gap-6 bg-light rounded-xl p-6">
+          <div class="sticky top-24 grid md:grid-cols-2 gap-6 md:gap-8 bg-gradient-to-br from-light to-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg md:shadow-xl border border-light/50" role="complementary" aria-labelledby="artifact-info-title">
             <div>
-              <h3 class="text-lg font-bold text-tertiary mb-2">
+              <h3 id="artifact-info-title" class="text-xl font-bold text-tertiary mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
                 {t("artifact.location")}
               </h3>
-              <p class="text-dark/80">
+              <p class="text-dark/80 text-lg">
                 {artifact.museum}<br />
                 {artifact.location[lang]}
               </p>
             </div>
             <div>
-              <h3 class="text-lg font-bold text-tertiary mb-2">
+              <h3 class="text-xl font-bold text-tertiary mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
                 {t("artifact.technicalInfo")}
               </h3>
-              <div class="space-y-2 text-dark/80">
+              <div class="space-y-3 text-dark/80 text-lg">
                 {artifact.dimensions && (
                   <p>
-                    <span class="font-medium">{t("artifact.dimensions")}:</span>{" "}
+                    <span class="font-medium text-tertiary">{t("artifact.dimensions")}:</span>{" "}
                     {artifact.dimensions}
                   </p>
                 )}
                 {artifact.material && (
                   <p>
-                    <span class="font-medium">{t("artifact.material")}:</span>{" "}
+                    <span class="font-medium text-tertiary">{t("artifact.material")}:</span>{" "}
                     {artifact.material}
                   </p>
                 )}
                 {artifact.technique && (
                   <p>
-                    <span class="font-medium">{t("artifact.technique")}:</span>{" "}
+                    <span class="font-medium text-tertiary">{t("artifact.technique")}:</span>{" "}
                     {artifact.technique}
                   </p>
                 )}
@@ -165,18 +213,20 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
             </div>
           </div>
 
-          <div class="flex justify-between pt-8 border-t border-dark/10">
+          <nav class="flex justify-between pt-8 border-t border-dark/10" aria-label={t("artifact.navigation")}>
             {
               prevArtifact ? (
                 <a
                   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.slug}`}
-                  class="flex items-center text-main hover:text-dark transition-colors"
+                  class="flex items-center gap-2 text-main hover:text-dark transition-colors group"
+                  aria-label={`${t("artifact.previous")}: ${prevArtifact.name[lang]}`}
                 >
                   <svg
-                    class="w-5 h-5 mr-2"
+                    class="w-5 h-5 group-hover:-translate-x-1 transition-transform"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       stroke-linecap="round"
@@ -185,7 +235,7 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  {prevArtifact.name[lang]}
+                  <span class="max-w-[200px] truncate">{prevArtifact.name[lang]}</span>
                 </a>
               ) : (
                 <div />
@@ -196,14 +246,16 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
               nextArtifact ? (
                 <a
                   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.slug}`}
-                  class="flex items-center text-main hover:text-dark transition-colors"
+                  class="flex items-center gap-2 text-main hover:text-dark transition-colors group"
+                  aria-label={`${t("artifact.next")}: ${nextArtifact.name[lang]}`}
                 >
-                  {nextArtifact.name[lang]}
+                  <span class="max-w-[200px] truncate">{nextArtifact.name[lang]}</span>
                   <svg
-                    class="w-5 h-5 ml-2"
+                    class="w-5 h-5 group-hover:translate-x-1 transition-transform"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path
                       stroke-linecap="round"
@@ -217,19 +269,41 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
                 <div />
               )
             }
-          </div>
+          </nav>
         </div>
       </div>
 
+      <button
+        id="back-to-top"
+        class="fixed bottom-8 right-8 bg-main text-white p-4 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-dark hover:scale-110 focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
+        aria-label={t("artifact.backToTop")}
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width={2}
+            d="M5 10l7-7m0 0l7 7m-7-7v18"
+          />
+        </svg>
+      </button>
+
       {
         relatedArtifacts.length > 0 && (
-          <section class="mt-24">
-            <h2 class="text-3xl font-bold text-tertiary mb-8">
+          <section class="mt-24 md:mt-32" aria-labelledby="related-artifacts-title">
+            <h2 id="related-artifacts-title" class="text-3xl md:text-4xl font-bold text-tertiary mb-8 md:mb-12 text-center">
               {t("artifact.related")}
             </h2>
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" role="region" aria-label={t("artifact.relatedItems")}>
               {relatedArtifacts.map((related) => (
-                <ArtifactCard artifact={related} />
+                <div class="transform transition-transform duration-300 hover:scale-105" role="listitem">
+                  <ArtifactCard artifact={related} />
+                </div>
               ))}
             </div>
           </section>
@@ -238,3 +312,48 @@ const model3D = slugToModel[artifact.slug as keyof typeof slugToModel];
     </div>
   </article>
 </Layout>
+
+<script>
+  // Back to top button functionality
+  const backToTopButton = document.getElementById('back-to-top');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopButton?.classList.remove('opacity-0');
+    } else {
+      backToTopButton?.classList.add('opacity-0');
+    }
+  });
+
+  backToTopButton?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Image zoom functionality
+  const mainImage = document.getElementById('main-image');
+  mainImage?.addEventListener('click', () => {
+    // Create modal for image zoom
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center backdrop-blur-sm';
+    modal.innerHTML = `
+      <div class="relative w-full h-full flex items-center justify-center">
+        <img src="${mainImage.querySelector('img')?.src}" alt="${mainImage.getAttribute('aria-label')}" class="max-w-full max-h-full object-contain">
+        <button class="absolute top-4 right-4 text-white p-3 rounded-full hover:bg-white/20 transition-colors" aria-label="Close">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    modal.querySelector('button')?.addEventListener('click', () => {
+      modal.remove();
+      document.body.style.overflow = '';
+    });
+  });
+</script>
