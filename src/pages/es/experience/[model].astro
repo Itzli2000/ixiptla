@@ -26,7 +26,7 @@ const info = model ? getModelInfo(model, lang) : null;
   <div class="relative w-full min-h-screen h-full text-white">
     <button
       onclick="history.back()"
-      class="absolute top-4 left-4 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full flex items-center gap-2 hover:bg-white/20 transition-all text-sm sm:text-base"
+      class="absolute top-4 left-4 z-50 bg-tertiary/80 backdrop-blur-md border border-tertiary/20 text-quaternary px-4 sm:px-6 py-2 sm:py-3 rounded-full flex items-center gap-2 hover:bg-tertiary transition-all text-sm sm:text-base"
     >
       <svg
         width="16"
@@ -47,13 +47,13 @@ const info = model ? getModelInfo(model, lang) : null;
     <div class="absolute top-4 right-4 z-50 flex flex-col sm:flex-row gap-2">
       <button
         id="resetView"
-        class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full hover:bg-white/20 transition-all text-sm sm:text-base whitespace-nowrap"
+        class="bg-tertiary/80 backdrop-blur-md border border-tertiary/20 text-quaternary px-4 py-2 rounded-full hover:bg-tertiary transition-all text-sm sm:text-base whitespace-nowrap"
       >
         {t("artifact.resetView")}
       </button>
       <button
         id="toggleAutoRotate"
-        class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full hover:bg-white/20 transition-all text-sm sm:text-base whitespace-nowrap"
+        class="bg-tertiary/80 backdrop-blur-md border border-tertiary/20 text-quaternary px-4 py-2 rounded-full hover:bg-tertiary transition-all text-sm sm:text-base whitespace-nowrap"
       >
         {t("artifact.autoRotate")}
       </button>
@@ -72,7 +72,7 @@ const info = model ? getModelInfo(model, lang) : null;
     </div>
 
     <div
-      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full max-w-[90%] sm:max-w-none"
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-tertiary/80 backdrop-blur-md border border-tertiary/20 text-quaternary px-4 sm:px-6 py-2 sm:py-3 rounded-full max-w-[90%] sm:max-w-none"
     >
       <p class="text-xs sm:text-sm text-center">
         {t("artifact.instructions")}
