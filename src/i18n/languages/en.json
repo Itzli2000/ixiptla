@@ -28,7 +28,8 @@
     "maya": "Maya",
     "teotihuacán": "Teotihuacán",
     "acolhua": "Acolhua",
-    "mixteca": "Mixtec",
+    "mixteca": "Mixteca",
+    "mexica": "Mexica",
     "results": "results found",
     "gridView": "Grid view",
     "listView": "List view",
@@ -83,6 +84,28 @@
       "cta": {
         "primary": "Go to Home",
         "secondary": "View Collection"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Have questions or want to learn more about our services? We'd love to hear from you.",
+    "getInTouch": {
+      "title": "Get in Touch",
+      "description": "We're here to help and answer any questions you might have. We look forward to hearing from you."
+    },
+    "email": "Email",
+    "responseTime": {
+      "title": "Response Time",
+      "description": "We typically respond within 24 hours"
+    },
+    "whyContactUs": {
+      "title": "Why Contact Us?",
+      "reasons": {
+        "technical": "Technical support",
+        "product": "Product inquiries",
+        "partnership": "Partnership opportunities",
+        "general": "General questions"
       }
     }
   }

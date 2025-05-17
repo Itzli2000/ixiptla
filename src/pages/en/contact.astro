@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContactSection from '../../components/contact/ContactSection.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+---
+
+<Layout title={t('contact.title')} lang="en">
+  <main class="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div class="container mx-auto px-4 py-16">
+      <h1 class="text-4xl font-bold text-center text-gray-900 mb-8">{t('contact.title')}</h1>
+      <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-12">
+        {t('contact.description')}
+      </p>
+      <ContactSection lang="en" />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    background-color: #ffffff;
+    background-image: 
+      radial-gradient(#e5e7eb 1px, transparent 1px),
+      radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    background-repeat: repeat;
+  }
+</style> 
