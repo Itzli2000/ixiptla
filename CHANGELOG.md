@@ -1,3 +1,30 @@
+## 1.0.0 (2025-05-17)
+
+##### Chores
+
+*  update image assets in the collection (3231a0c2)
+*  update 3D model assets in the public directory (625751d3)
+*  update Tailwind CSS and related dependencies to version 4.1.7 (fc097f0b)
+
+##### New Features
+
+*  add new artifact image and details for Monkey Figure (eea209af)
+*  expand 3D model support and enhance artifact details (9f523c61)
+*  introduce model mapping and retrieval for artifacts in collection pages (98bc95fb)
+
+##### Refactors
+
+*  improve layout and styling of collection pages for better user experience (0be394e0)
+*  enhance ArtifactCard component and improve collection page UI (2d92ff84)
+*  update cultural references and enhance UI components in collection pages (3a3d1ae6)
+*  clean up comments and improve code clarity in layout and 3D components (f83a6437)
+*  enhance SEO metadata handling and type safety in layout components (2f24046d)
+*  enhance accessibility and semantic structure in components (625fe147)
+*  enhance slug handling and type safety in collection pages (d4123aee)
+*  update artifact IDs and slugs for consistency in collection data (37fc5177)
+*  optimize imports and enhance type definitions in ArtifactCard and Collection components (27922931)
+*  restructure components and enhance TypeScript configuration for improved maintainability and performance (40b7af1f)
+
 ### 0.3.0 (2025-05-11)
 
 ##### Chores
