@@ -2,10 +2,10 @@ import type { ArtifactItem } from "../types";
 
 import colibri from "../assets/images/colibri.png";
 import sedente from "../assets/images/sedente.png";
-import mono from "../assets/images/mono.png";
+import mono from "../assets/images/monito.png";
 import sacerdotisa from "../assets/images/sacerdotisa.png";
 import yax from "../assets/images/yax.png";
-import mictlantecuhtli from "../assets/images/yax.png";
+import mictlantecuhtli from "../assets/images/mictlan.png";
 
 export const featuredArtifacts: ArtifactItem[] = [
   {
