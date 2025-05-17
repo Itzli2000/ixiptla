@@ -1,3 +1,14 @@
+### 1.2.0 (2025-05-17)
+
+##### New Features
+
+* **Contact:**  add contact section with multilingual support and layout (80a88747)
+
+##### Refactors
+
+* **Experience:**  update styling for buttons and improve multilingual support (ff2f9700)
+* **ArtifactCard:**  improve layout responsiveness and update cultural references (b7cdb379)
+
 ### 1.1.0 (2025-05-17)
 
 ##### Documentation Changes
