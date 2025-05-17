@@ -6,6 +6,7 @@ import mono from "../assets/images/monito.png";
 import sacerdotisa from "../assets/images/sacerdotisa.png";
 import yax from "../assets/images/yax.png";
 import mictlantecuhtli from "../assets/images/mictlan.png";
+import mono2 from "../assets/images/mono2.png";
 
 export const featuredArtifacts: ArtifactItem[] = [
   {
@@ -149,6 +150,29 @@ export const fullCollection: ArtifactItem[] = [
     dimensions: "No especificadas",
     material: "Piedra tallada",
     technique: "Escultura y glifos mayas",
+  },
+  {
+    id: "mono2-azteca-teotihuacana",
+    name: {
+      es: "Figura mono",
+      en: "Monkey Figure",
+    },
+    culture: "Azteca o Teotihuacana",
+    period: "Desconocido",
+    image: mono2,
+    slug: "monkey-figure",
+    description: {
+      es: "No hay información disponible. Puede ser azteca o teotihuacana.",
+      en: "No information available. Possibly Aztec or Teotihuacan.",
+    },
+    museum: "Desconocido",
+    location: {
+      es: "Desconocido",
+      en: "Unknown",
+    },
+    dimensions: "Desconocidas",
+    material: "Desconocido",
+    technique: "Desconocida",
   },
 ];
 
