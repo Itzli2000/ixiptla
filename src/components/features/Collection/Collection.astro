@@ -1,6 +1,5 @@
 ---
 import ArtifactCard from '../../common/ArtifactCard/ArtifactCard.astro';
-import Button from '../../common/Button/Button.astro';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 import type { Language, ArtifactItem } from '../../../types';
 
@@ -25,9 +24,9 @@ const t = useTranslations(lang);
       ))}
     </div>
     <div class="text-center">
-      <Button href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} size="lg">
+      <a href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} class="btn btn-lg">
         {t('collection.cta')}
-      </Button>
+      </a>
     </div>
   </div>
 </section>

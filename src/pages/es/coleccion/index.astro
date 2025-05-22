@@ -30,8 +30,7 @@ const artifacts = fullCollection;
             cultures.map((culture) => (
               <button
                 data-culture={culture}
-                class="filter-btn px-6 py-2 rounded-full transition-all duration-300
-                bg-secondary/50 text-base-content hover:bg-secondary hover:text-secondary-content"
+                class="btn btn-sm btn-secondary btn-outline filter-btn"
                 aria-pressed="false"
               >
                 {t(`collection.${culture.toLowerCase()}`)}
@@ -43,7 +42,7 @@ const artifacts = fullCollection;
           <div class="flex items-center gap-2">
             <button
               id="grid-view"
-              class="p-2 rounded-lg bg-secondary/50 text-base-content hover:bg-secondary hover:text-secondary-content transition-colors"
+              class="btn btn-square btn-sm btn-secondary btn-outline"
               aria-label={t("collection.gridView")}
               aria-pressed="true"
             >
@@ -53,7 +52,7 @@ const artifacts = fullCollection;
             </button>
             <button
               id="list-view"
-              class="p-2 rounded-lg bg-secondary/50 text-base-content hover:bg-secondary hover:text-secondary-content transition-colors"
+              class="btn btn-square btn-sm btn-secondary btn-outline"
               aria-label={t("collection.listView")}
               aria-pressed="false"
             >
@@ -62,33 +61,21 @@ const artifacts = fullCollection;
               </svg>
             </button>
           </div>
-          <div class="text-base-content/80">
+          <div class="text-secondary">
             <span id="results-count">{artifacts.length}</span> {t("collection.results")}
           </div>
         </div>
       </div>
 
-      <div id="artifacts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500">
+      <div id="artifacts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 max-w-full">
         {
           artifacts.map((artifact) => (
             <div 
               class="artifact-card transform transition-all duration-500" 
               data-culture={artifact.culture}
+              data-variant="grid"
             >
-              <ArtifactCard artifact={artifact} />
-            </div>
-          ))
-        }
-      </div>
-
-      <div id="artifacts-list" class="hidden space-y-6">
-        {
-          artifacts.map((artifact) => (
-            <div 
-              class="artifact-card transform transition-all duration-500" 
-              data-culture={artifact.culture}
-            >
-              <ArtifactCard artifact={artifact} variant="list" />
+              <ArtifactCard artifact={artifact} variant="grid" />
             </div>
           ))
         }
@@ -97,28 +84,121 @@ const artifacts = fullCollection;
   </section>
 </Layout>
 
+<style is:inline>
+  /* Vista de lista */
+  .list-view {
+    @apply grid-cols-1 !important;
+    @apply gap-4 !important;
+    @apply max-w-full !important;
+    @apply md:grid-cols-1 !important;
+    @apply lg:grid-cols-1 !important;
+  }
+
+  .list-view .artifact-card {
+    @apply w-full;
+  }
+
+  .list-view .card {
+    @apply flex-row !important;
+    @apply h-48 !important;
+    @apply w-full !important;
+  }
+
+  .list-view .card figure {
+    @apply w-48 h-full !important;
+    @apply shrink-0;
+  }
+
+  .list-view .card figure img {
+    @apply h-full w-full object-cover;
+  }
+
+  .list-view .card-body {
+    @apply flex-1 !important;
+    @apply flex flex-col justify-between !important;
+    @apply p-4 !important;
+    @apply w-full !important;
+  }
+
+  /* Vista de grid */
+  .grid-view .card {
+    @apply flex-col !important;
+    @apply h-auto;
+  }
+
+  .grid-view .card figure {
+    @apply w-full !important;
+    @apply h-48;
+  }
+
+  .grid-view .card figure img {
+    @apply h-full w-full object-cover;
+  }
+
+  .grid-view .card-body {
+    @apply flex-col !important;
+    @apply p-6 !important;
+  }
+</style>
+
 <script>
   document.addEventListener("astro:page-load", () => {
     const gridView = document.getElementById("grid-view");
     const listView = document.getElementById("list-view");
-    const artifactsGrid = document.getElementById("artifacts-grid");
-    const artifactsList = document.getElementById("artifacts-list");
+    const artifactsContainer = document.getElementById("artifacts-container");
     const resultsCount = document.getElementById("results-count");
     const filterButtons = document.querySelectorAll(".filter-btn");
     let currentFilter = "all";
 
     function updateView(view: "grid" | "list") {
+      if (!artifactsContainer) return;
+
+      // Actualizar el contenedor principal
       if (view === "grid") {
-        artifactsGrid?.classList.remove("hidden");
-        artifactsList?.classList.add("hidden");
+        artifactsContainer.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500";
         gridView?.setAttribute("aria-pressed", "true");
         listView?.setAttribute("aria-pressed", "false");
+        gridView?.classList.add("btn-active");
+        listView?.classList.remove("btn-active");
       } else {
-        artifactsGrid?.classList.add("hidden");
-        artifactsList?.classList.remove("hidden");
+        artifactsContainer.className = "grid grid-cols-1 gap-4 transition-all duration-500 w-full";
         gridView?.setAttribute("aria-pressed", "false");
         listView?.setAttribute("aria-pressed", "true");
+        gridView?.classList.remove("btn-active");
+        listView?.classList.add("btn-active");
       }
+
+      // Actualizar las tarjetas
+      const cards = document.querySelectorAll(".artifact-card");
+      cards.forEach((card) => {
+        if (card instanceof HTMLElement) {
+          // Actualizar el atributo data-variant
+          card.dataset.variant = view;
+          
+          // Actualizar el componente ArtifactCard
+          const artifactCard = card.querySelector("a");
+          if (artifactCard) {
+            if (view === "grid") {
+              artifactCard.classList.remove("bg-white", "rounded-xl", "shadow-md", "hover:shadow-lg", "p-4");
+              artifactCard.classList.add("bg-white", "rounded-2xl", "shadow-lg", "hover:shadow-xl", "overflow-hidden");
+            } else {
+              artifactCard.classList.remove("bg-white", "rounded-2xl", "shadow-lg", "hover:shadow-xl", "overflow-hidden");
+              artifactCard.classList.add("bg-white", "rounded-xl", "shadow-md", "hover:shadow-lg", "p-4");
+            }
+
+            // Actualizar la estructura interna
+            const contentDiv = artifactCard.querySelector("div");
+            if (contentDiv) {
+              if (view === "grid") {
+                contentDiv.className = "aspect-square relative overflow-hidden";
+              } else {
+                contentDiv.className = "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center";
+              }
+            }
+          }
+        }
+      });
+
       handleFilter(currentFilter);
     }
 
@@ -130,12 +210,10 @@ const artifacts = fullCollection;
         if (btn instanceof HTMLElement) {
           const btnCulture = btn.dataset.culture;
           if (btnCulture === culture) {
-            btn.classList.add("bg-primary", "text-primary-content");
-            btn.classList.remove("bg-secondary/50", "text-base-content");
+            btn.classList.add("btn-active");
             btn.setAttribute("aria-pressed", "true");
           } else {
-            btn.classList.remove("bg-primary", "text-primary-content");
-            btn.classList.add("bg-secondary/50", "text-base-content");
+            btn.classList.remove("btn-active");
             btn.setAttribute("aria-pressed", "false");
           }
         }
@@ -180,7 +258,7 @@ const artifacts = fullCollection;
       });
     });
 
-    // Initialize with "all" filter
-    handleFilter("all");
+    // Initialize view on page load
+    updateView("grid");
   });
 </script>

@@ -33,7 +33,7 @@ const info = model ? getModelInfo(model, lang) : null;
   >
     <button
       onclick="history.back()"
-      class="absolute top-4 left-4 z-50 bg-base-200/80 backdrop-blur-md border border-base-200/20 text-base-content px-4 sm:px-6 py-2 sm:py-3 rounded-full flex items-center gap-2 hover:bg-base-200 transition-all text-sm sm:text-base"
+      class="btn btn-ghost btn-sm absolute top-4 left-4 z-50 gap-2 backdrop-blur-md"
     >
       <svg
         width="16"
@@ -54,13 +54,13 @@ const info = model ? getModelInfo(model, lang) : null;
     <div class="absolute top-4 right-4 z-50 flex flex-col sm:flex-row gap-2">
       <button
         id="resetView"
-        class="bg-base-200/80 backdrop-blur-md border border-base-200/20 text-base-content px-4 py-2 rounded-full hover:bg-base-200 transition-all text-sm sm:text-base whitespace-nowrap"
+        class="btn btn-ghost btn-sm backdrop-blur-md"
       >
         {t("artifact.resetView")}
       </button>
       <button
         id="toggleAutoRotate"
-        class="bg-base-200/80 backdrop-blur-md border border-base-200/20 text-base-content px-4 py-2 rounded-full hover:bg-base-200 transition-all text-sm sm:text-base whitespace-nowrap"
+        class="btn btn-ghost btn-sm backdrop-blur-md"
       >
         {t("artifact.autoRotate")}
       </button>
@@ -79,7 +79,7 @@ const info = model ? getModelInfo(model, lang) : null;
     </div>
 
     <div
-      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-base-200/80 backdrop-blur-md border border-base-200/20 text-base-content px-4 sm:px-6 py-2 sm:py-3 rounded-full max-w-[90%] sm:max-w-none"
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-base-200/80 backdrop-blur-md text-base-content px-4 sm:px-6 py-2 sm:py-3 rounded-full max-w-[90%] sm:max-w-none"
     >
       <p class="text-xs sm:text-sm text-center">
         {t("artifact.instructions")}
@@ -116,8 +116,8 @@ const info = model ? getModelInfo(model, lang) : null;
         });
         window.dispatchEvent(event);
         autoRotateButton.textContent = isAutoRotating
-          ? "Detener Rotación"
-          : "Rotación Automática";
+          ? "Stop Rotation"
+          : "Auto Rotate";
       });
     }
   });
