@@ -15,12 +15,12 @@ const artifacts = fullCollection;
   description={t("collection.description")}
   lang={lang}
 >
-  <section class="pt-10 lg:pt-24 pb-16 px-4 bg-quaternary">
+  <section class="pt-10 lg:pt-24 pb-16 px-4 bg-base-100">
     <div class="mx-auto max-w-7xl">
-      <h1 class="text-4xl md:text-5xl font-bold text-tertiary text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-base-content text-center mb-8">
         {t("collection.title")}
       </h1>
-      <p class="text-xl text-dark/80 text-center max-w-3xl mx-auto mb-12">
+      <p class="text-xl text-base-content/80 text-center max-w-3xl mx-auto mb-12">
         {t("collection.description")}
       </p>
 
@@ -31,7 +31,7 @@ const artifacts = fullCollection;
               <button
                 data-culture={culture}
                 class="filter-btn px-6 py-2 rounded-full transition-all duration-300
-                bg-secondary/50 text-dark hover:bg-secondary"
+                bg-secondary/50 text-base-content hover:bg-secondary hover:text-secondary-content"
                 aria-pressed="false"
               >
                 {t(`collection.${culture.toLowerCase()}`)}
@@ -43,7 +43,7 @@ const artifacts = fullCollection;
           <div class="flex items-center gap-2">
             <button
               id="grid-view"
-              class="p-2 rounded-lg bg-secondary/50 text-dark hover:bg-secondary transition-colors"
+              class="p-2 rounded-lg bg-secondary/50 text-base-content hover:bg-secondary hover:text-secondary-content transition-colors"
               aria-label="Grid view"
               aria-pressed="true"
             >
@@ -53,7 +53,7 @@ const artifacts = fullCollection;
             </button>
             <button
               id="list-view"
-              class="p-2 rounded-lg bg-secondary/50 text-dark hover:bg-secondary transition-colors"
+              class="p-2 rounded-lg bg-secondary/50 text-base-content hover:bg-secondary hover:text-secondary-content transition-colors"
               aria-label="List view"
               aria-pressed="false"
             >
@@ -62,7 +62,7 @@ const artifacts = fullCollection;
               </svg>
             </button>
           </div>
-          <div class="text-dark/80">
+          <div class="text-base-content/80">
             <span id="results-count">{artifacts.length}</span> {t("collection.results")}
           </div>
         </div>
@@ -130,12 +130,12 @@ const artifacts = fullCollection;
         if (btn instanceof HTMLElement) {
           const btnCulture = btn.dataset.culture;
           if (btnCulture === culture) {
-            btn.classList.add("bg-main", "text-quaternary");
-            btn.classList.remove("bg-secondary/50", "text-dark");
+            btn.classList.add("bg-primary", "text-primary-content");
+            btn.classList.remove("bg-secondary/50", "text-base-content");
             btn.setAttribute("aria-pressed", "true");
           } else {
-            btn.classList.remove("bg-main", "text-quaternary");
-            btn.classList.add("bg-secondary/50", "text-dark");
+            btn.classList.remove("bg-primary", "text-primary-content");
+            btn.classList.add("bg-secondary/50", "text-base-content");
             btn.setAttribute("aria-pressed", "false");
           }
         }

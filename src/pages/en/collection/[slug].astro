@@ -63,20 +63,20 @@ if (Astro.site) {
   alternateURLs={alternateURLs}
 >
 <main>
-  <article class="w-full pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 bg-gradient-to-b from-quaternary/5 to-white overflow-x-hidden" role="main">
+  <article class="w-full pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 bg-gradient-to-b from-base-100/5 to-base-100 overflow-x-hidden" role="main">
     <div class="mx-auto max-w-7xl w-full">
       <nav class="mb-8 sm:mb-12" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-sm text-dark/70 overflow-x-auto pb-2 whitespace-nowrap scrollbar-hide" role="list">
-          <li><a href="/" class="hover:text-main transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
+        <ol class="flex items-center space-x-2 text-sm text-base-content/70 overflow-x-auto pb-2 whitespace-nowrap scrollbar-hide" role="list">
+          <li><a href="/" class="hover:text-primary transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
           <li aria-hidden="true"><span class="mx-2">/</span></li>
           <li>
             <a
               href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}`}
-              class="hover:text-main transition-colors"
+              class="hover:text-primary transition-colors"
               aria-label={t("artifact.collection")}>{t("artifact.collection")}</a>
           </li>
           <li aria-hidden="true"><span class="mx-2">/</span></li>
-          <li class="text-main font-medium" aria-current="page">{artifact.name[lang]}</li>
+          <li class="text-primary font-medium" aria-current="page">{artifact.name[lang]}</li>
         </ol>
       </nav>
 
@@ -84,7 +84,7 @@ if (Astro.site) {
         {/* Left column - Image and 3D */}
         <div class="w-full lg:col-span-5 space-y-4 sm:space-y-6">
           <div
-            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-light flex items-center justify-center cursor-zoom-in group relative w-full"
+            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center cursor-zoom-in group relative w-full"
             role="img"
             aria-label={artifact.name[lang]}
             id="main-image"
@@ -98,25 +98,25 @@ if (Astro.site) {
               height={800}
               class="group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="absolute bottom-4 right-4 bg-base-100/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-base-content/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               {t("artifact.clickToZoom")}
             </div>
           </div>
           {
             model3D && (
-              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 p-8 rounded-2xl backdrop-blur-sm border border-secondary/20" role="complementary" aria-labelledby="3d-model-title">
-                <h3 id="3d-model-title" class="text-2xl font-bold text-tertiary mb-4 flex items-center gap-3">
+              <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 p-8 rounded-2xl backdrop-blur-sm border border-base-200/20" role="complementary" aria-labelledby="3d-model-title">
+                <h3 id="3d-model-title" class="text-2xl font-bold text-base-content mb-4 flex items-center gap-3">
                   <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   {t("artifact.explore3D")}
                 </h3>
-                <p class="text-dark/80 mb-6 text-lg">
+                <p class="text-base-content/80 mb-6 text-lg">
                   {t("artifact.explore3DDescription")}
                 </p>
                 <a
                   href={`/${lang}/experience/${model3D}`}
-                  class="inline-flex items-center gap-2 bg-main text-white px-6 py-3 rounded-xl hover:bg-dark transition-colors duration-300 shadow-lg hover:shadow-xl"
+                  class="inline-flex items-center gap-2 bg-primary text-primary-content px-6 py-3 rounded-xl hover:bg-primary/80 transition-colors duration-300 shadow-lg hover:shadow-xl"
                   aria-label={`${t("artifact.viewExperience")} - ${artifact.name[lang]}`}
                 >
                   {t("artifact.viewExperience")}
@@ -143,70 +143,70 @@ if (Astro.site) {
         {/* Right column - Information */}
         <div class="lg:col-span-7 space-y-6 sm:space-y-8 md:space-y-10 w-full">
           <div>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-tertiary mb-3 sm:mb-4 md:mb-6 leading-tight break-words">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6 leading-tight break-words">
               {artifact.name[lang]}
             </h1>
-            <div class="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-dark/80 w-full" role="list" aria-label={t("artifact.details")}>
-              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-secondary/20 w-full sm:w-auto" role="listitem">
-                <span class="font-medium text-tertiary">{t("artifact.culture")}:</span>
+            <div class="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-base-content/80 w-full" role="list" aria-label={t("artifact.details")}>
+              <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-base-200/20 w-full sm:w-auto" role="listitem">
+                <span class="font-medium text-base-content">{t("artifact.culture")}:</span>
                 <span class="ml-2">{artifact.culture}</span>
               </div>
-              <div class="bg-gradient-to-br from-secondary/20 to-secondary/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-secondary/20 w-full sm:w-auto" role="listitem">
-                <span class="font-medium text-tertiary">{t("artifact.period")}:</span>
+              <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-base-200/20 w-full sm:w-auto" role="listitem">
+                <span class="font-medium text-base-content">{t("artifact.period")}:</span>
                 <span class="ml-2">{artifact.period}</span>
               </div>
             </div>
           </div>
 
           <div class="prose prose-lg md:prose-xl max-w-none">
-            <h2 class="text-2xl md:text-3xl font-bold text-tertiary mb-4 md:mb-6 flex items-center gap-3">
+            <h2 class="text-2xl md:text-3xl font-bold text-base-content mb-4 md:mb-6 flex items-center gap-3">
               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               {t("artifact.description")}
             </h2>
-            <p class="text-lg text-dark/80 leading-relaxed">
+            <p class="text-lg text-base-content/80 leading-relaxed">
               {artifact.description[lang]}
             </p>
           </div>
 
-          <div class="sticky top-20 sm:top-24 grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 bg-gradient-to-br from-light to-white rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 shadow-md sm:shadow-lg md:shadow-xl border border-light/50 w-full" role="complementary" aria-labelledby="artifact-info-title">
+          <div class="sticky top-20 sm:top-24 grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 bg-gradient-to-br from-base-200 to-base-100 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 shadow-md sm:shadow-lg md:shadow-xl border border-base-200/50 w-full" role="complementary" aria-labelledby="artifact-info-title">
             <div>
-              <h3 id="artifact-info-title" class="text-xl font-bold text-tertiary mb-4 flex items-center gap-2">
+              <h3 id="artifact-info-title" class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 {t("artifact.location")}
               </h3>
-              <p class="text-dark/80 text-lg">
+              <p class="text-base-content/80 text-lg">
                 {artifact.museum}<br />
                 {artifact.location[lang]}
               </p>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-tertiary mb-4 flex items-center gap-2">
+              <h3 class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                 </svg>
                 {t("artifact.technicalInfo")}
               </h3>
-              <div class="space-y-3 text-dark/80 text-lg">
+              <div class="space-y-3 text-base-content/80 text-lg">
                 {artifact.dimensions && (
                   <p>
-                    <span class="font-medium text-tertiary">{t("artifact.dimensions")}:</span>{" "}
+                    <span class="font-medium text-base-content">{t("artifact.dimensions")}:</span>{" "}
                     {artifact.dimensions}
                   </p>
                 )}
                 {artifact.material && (
                   <p>
-                    <span class="font-medium text-tertiary">{t("artifact.material")}:</span>{" "}
+                    <span class="font-medium text-base-content">{t("artifact.material")}:</span>{" "}
                     {artifact.material}
                   </p>
                 )}
                 {artifact.technique && (
                   <p>
-                    <span class="font-medium text-tertiary">{t("artifact.technique")}:</span>{" "}
+                    <span class="font-medium text-base-content">{t("artifact.technique")}:</span>{" "}
                     {artifact.technique}
                   </p>
                 )}
@@ -214,12 +214,12 @@ if (Astro.site) {
             </div>
           </div>
 
-          <nav class="flex justify-between pt-8 border-t border-dark/10 w-full" aria-label={t("artifact.navigation")}>
+          <nav class="flex justify-between pt-8 border-t border-base-content/10 w-full" aria-label={t("artifact.navigation")}>
             {
               prevArtifact ? (
                 <a
                   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.slug}`}
-                  class="flex items-center gap-2 text-main hover:text-dark transition-colors group max-w-[45%]"
+                  class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
                   aria-label={`${t("artifact.previous")}: ${prevArtifact.name[lang]}`}
                 >
                   <svg
@@ -247,7 +247,7 @@ if (Astro.site) {
               nextArtifact ? (
                 <a
                   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.slug}`}
-                  class="flex items-center gap-2 text-main hover:text-dark transition-colors group max-w-[45%]"
+                  class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
                   aria-label={`${t("artifact.next")}: ${nextArtifact.name[lang]}`}
                 >
                   <span class="truncate">{nextArtifact.name[lang]}</span>
@@ -276,7 +276,7 @@ if (Astro.site) {
 
       <button
         id="back-to-top"
-        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 bg-main text-white p-3 sm:p-4 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-dark hover:scale-110 focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2"
+        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 bg-primary text-primary-content p-3 sm:p-4 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-primary/80 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         aria-label={t("artifact.backToTop")}
       >
         <svg
@@ -297,7 +297,7 @@ if (Astro.site) {
       {
         relatedArtifacts.length > 0 && (
           <section class="mt-16 sm:mt-24 md:mt-32 w-full" aria-labelledby="related-artifacts-title">
-            <h2 id="related-artifacts-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-tertiary mb-6 sm:mb-8 md:mb-12 text-center break-words">
+            <h2 id="related-artifacts-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-base-content mb-6 sm:mb-8 md:mb-12 text-center break-words">
               {t("artifact.related")}
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full" role="region" aria-label={t("artifact.relatedItems")}>

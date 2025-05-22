@@ -54,9 +54,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
     <>
       <Canvas
         camera={{ position: [0, 0, 3], fov: 50 }}
-        style={{
-          background: "linear-gradient(to bottom, var(--color-light), var(--color-secondary), var(--color-quaternary))",
-        }}
       >
         <Suspense fallback={null}>
           <ambientLight intensity={1} />
