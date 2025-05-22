@@ -74,6 +74,7 @@ const artifacts = fullCollection;
               class="artifact-card transform transition-all duration-500" 
               data-culture={artifact.culture}
               data-variant="grid"
+              transition:name={`artifact-${artifact.id}`}
             >
               <ArtifactCard artifact={artifact} variant="grid" />
             </div>
