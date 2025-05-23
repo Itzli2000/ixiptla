@@ -1,0 +1,78 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Performance Standards
+
+## Image Optimization
+
+1. Format Requirements
+   - Use WebP format
+   - Maximum dimensions: 1200x1200
+   - Quality: 80%
+   - Progressive loading
+
+2. Loading Strategy
+   ```typescript
+   // Example implementation in ArtifactCard
+   <Image 
+     src={artifact.image}
+     alt={artifact.name}
+     width={1200}
+     height={800}
+     loading="lazy"
+     decoding="async"
+     format="webp"
+   />
+   ```
+
+## Data Loading
+
+1. Collection Handling
+   ```typescript
+   // Example of paginated collection loading
+   const artifacts = await getCollection('artifacts-en', {
+     paginate: true,
+     pageSize: 12
+   });
+   ```
+
+2. Performance Metrics
+   - Page load < 3s
+   - First Contentful Paint < 1.5s
+   - Time to Interactive < 3.5s
+   - Largest Contentful Paint < 2.5s
+
+## Optimization Techniques
+
+1. Component Level
+   ```typescript
+   // Example of optimized filtering
+   const filteredArtifacts = useMemo(() => {
+     return artifacts.filter(artifact => 
+       artifact.culture === selectedCulture
+     );
+   }, [artifacts, selectedCulture]);
+   ```
+
+2. Build Optimization
+   - Enable proper chunking
+   - Optimize asset loading
+   - Minimize bundle size
+
+## Monitoring
+
+1. Performance Monitoring
+   ```typescript
+   // Example of performance monitoring
+   if (typeof window !== 'undefined') {
+     web_vitals.onCLS(console.log);
+     web_vitals.onFID(console.log);
+     web_vitals.onLCP(console.log);
+   }
+   ```
+
+## Referenced Files
+@src/components/common/ArtifactCard/ArtifactCard.astro
+@src/pages/[lang]/collection/index.astro

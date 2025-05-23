@@ -1,0 +1,108 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Core architecture and development standards for the archaeological artifacts collection
+globs: ["src/content/**/*", "src/pages/**/*", "src/components/**/*"]
+alwaysApply: true
+---
+
+# Project Architecture Standards
+
+## Content Collections Structure
+
+Collections are language-based and stored in `src/content/`:
+
+```typescript
+src/content/
+├── artifacts-en/     # English collection
+├── artifacts-es/     # Spanish collection
+└── config.ts        # Collections configuration
+```
+
+## Core Rules
+
+### Content Parity
+- Each artifact MUST exist in all supported languages
+- IDs MUST be consistent across languages
+- Common metadata MUST be identical across translations
+
+### Schema Definition
+```typescript
+// @src/content/config.ts
+const artifactSchema = defineCollection({
+  type: 'data',
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    culture: z.string(),
+    period: z.string(),
+    image: z.string(),
+    description: z.string(),
+    museum: z.string(),
+    location: z.string(),
+    dimensions: z.string().optional(),
+    material: z.string().optional(),
+    technique: z.string().optional(),
+    has3DModel: z.boolean().optional(),
+  })
+});
+```
+
+## Naming Standards
+
+### Files
+- Collection files: `kebab-case.json`
+- Image files: `{id}-{type}.webp`
+- Components: `PascalCase.astro`
+
+### Git Commits
+Format: `type(scope): description`
+```bash
+feat(content): add new mayan artifacts
+fix(i18n): correct spanish translations
+refactor(components): improve artifact card performance
+```
+
+## Development Workflow
+
+### Adding New Content
+1. Create artifact files in all languages
+2. Add optimized images
+3. Run validation
+4. Create PR
+
+### Content Updates
+1. Update all language versions
+2. Validate content parity
+3. Test in development
+4. Submit PR
+
+## Quality Requirements
+
+### Images
+- Format: WebP
+- Max dimensions: 1200x1200
+- Quality: 80%
+- Lazy loading required
+
+### Content
+- All translations must be reviewed
+- Images must be optimized
+- Metadata must be complete
+- HTML in descriptions must be sanitized
+
+## Performance Standards
+
+- Implement pagination for collections
+- Cache filter results
+- Lazy load off-screen content
+- Monitor load times
+
+## Referenced Files
+
+@src/content/config.ts
+@src/components/common/ArtifactCard/ArtifactCard.astro
+@src/pages/[lang]/collection/index.astro

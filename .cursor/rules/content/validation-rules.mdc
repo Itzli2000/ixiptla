@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Content Validation Standards
+
+## Required Fields
+
+All artifacts must include:
+
+1. Core Information
+   - `id`: Unique identifier
+   - `name`: Artifact name
+   - `culture`: Cultural origin
+   - `period`: Historical period
+
+2. Media Content
+   - `image`: Primary image reference
+   - Additional images (optional)
+   - 3D model references (if applicable)
+
+3. Descriptive Content
+   - `description`: Detailed description
+   - `museum`: Current location
+   - `location`: Discovery location
+
+## Validation Rules
+
+### Content Parity
+- All artifacts must exist in all supported languages
+- IDs must match across languages
+- Common metadata must be identical
+
+### Data Integrity
+- No missing required fields
+- Valid image references
+- Proper JSON formatting
+- Consistent data types
+
+### Translation Quality
+- Complete translations
+- Culturally appropriate content
+- Consistent terminology
+- Professional language use
+
+## Validation Process
+
+1. Automated Checks
+   ```typescript
+   // @scripts/validate-content.ts
+   async function validateContent() {
+     const enArtifacts = await getCollection('artifacts-en');
+     const esArtifacts = await getCollection('artifacts-es');
+     
+     // Validate parity
+     validateContentParity(enArtifacts, esArtifacts);
+     
+     // Validate data integrity
+     validateDataIntegrity([...enArtifacts, ...esArtifacts]);
+     
+     // Validate images
+     validateImageReferences([...enArtifacts, ...esArtifacts]);
+   }
+   ```
+
+2. Manual Review
+   - Peer review required
+   - Expert verification
+   - Cultural sensitivity check
+
+## Referenced Files
+@scripts/validate-content.ts
