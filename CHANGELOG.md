@@ -1,3 +1,29 @@
+### 1.3.0 (2025-05-24)
+
+##### Chores
+
+* **dependencies:**  update package versions and improve dependency management (f3928bad)
+
+##### New Features
+
+* **sitemap:**  integrate sitemap functionality and update robots.txt (0801439b)
+* **Collection:**
+  *  integrate MDX support and enhance artifact data management (5959ce63)
+  *  add transition effect for artifact cards in English and Spanish pages (7d3fda5d)
+* **architecture:**  establish comprehensive project architecture and development standards (4d89ae5a)
+
+##### Bug Fixes
+
+* **styles:**  correct import order for Tailwind CSS (5a4fdd24)
+
+##### Refactors
+
+* **Collection:**  simplify artifact description and location handling (ab59f5ea)
+* **Navigation:**  adjust layout and styling for improved responsiveness (2fdf09d4)
+* **HummingbirdIsland:**  remove HummingbirdIsland component and associated GLTF model (7570d861)
+* **Button:**  remove Button component and replace with anchor tags in Collection and 404 pages (ce928fb4)
+* **ui:**  integrate daisyUI and enhance component styling (c82311c4)
+
 ### 1.2.0 (2025-05-17)
 
 ##### New Features
