@@ -37,7 +37,7 @@ const t = useTranslations(lang);
 const model3D = getModelForSlug(artifact.slug);
 
 const title = `${artifact.title} - Ixiptla Collection`;
-const description = artifact.description[lang];
+const description = artifact.description;
 
 let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
 let imageURL: string | URL = artifact.image;
@@ -170,7 +170,7 @@ if (Astro.site) {
               {t("artifact.description")}
             </h2>
             <p class="text-lg text-base-content/80 leading-relaxed">
-              {artifact.description[lang]}
+              {artifact.description}
             </p>
           </div>
 
@@ -185,7 +185,7 @@ if (Astro.site) {
               </h3>
               <p class="text-base-content/80 text-lg">
                 {artifact.museum}<br />
-                {artifact.location[lang]}
+                {artifact.location}
               </p>
             </div>
             <div>
