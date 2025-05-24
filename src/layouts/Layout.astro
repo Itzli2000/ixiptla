@@ -34,6 +34,7 @@ const siteUrl = canonicalURL?.toString() || (Astro.site
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<link rel="canonical" href={siteUrl} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		
 		{alternateURLs && Object.entries(alternateURLs).map(([lang, url]) => (
 			<link rel="alternate" hreflang={lang} href={url.toString()} />
