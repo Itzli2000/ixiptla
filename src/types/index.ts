@@ -65,7 +65,7 @@ export interface LayoutProps {
   description: string;
   lang: Language;
   showHeader?: boolean;
-  image?: ImageMetadata;
+  image?: string;
   canonicalURL?: URL;
   alternateURLs?: {
     [key in Language]: URL;

@@ -1,32 +1,34 @@
 ---
 import { Image } from "astro:assets";
 import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
-import {
-    fullCollection,
-    getArtifactsByCulture
-} from "../../../data/collection";
 import { getModelForSlug } from "../../../data/models";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
+import { CollectionEntry, getCollection } from "astro:content";
+import type { ArtifactEntry } from "../../../content.config";
+import { getImageByFilename } from "../../../utils/imageMapping";
+
+const artifacts = await getCollection('artifacts');
 
 export async function getStaticPaths() {
-  return fullCollection.map((artifact) => ({
-    params: { slug: artifact.slug },
-    props: { artifact },
+  const artifacts = await getCollection('artifacts');
+  return artifacts.map((artifact) => ({
+    params: { slug: artifact.data.slug },
+    props: { artifact: artifact.data },
   }));
 }
 
-const { artifact } = Astro.props;
+const { artifact } = Astro.props as { artifact: ArtifactEntry };
 
-const relatedArtifacts = getArtifactsByCulture(artifact.culture)
-  .filter((a) => a.id !== artifact.id)
+const relatedArtifacts: CollectionEntry<"artifacts">[] = artifacts
+  .filter((a) => a.data.culture === artifact.culture && a.data.id !== artifact.id)
   .slice(0, 3);
 
-const currentIndex = fullCollection.findIndex((a) => a.id === artifact.id);
-const prevArtifact = currentIndex > 0 ? fullCollection[currentIndex - 1] : null;
+const currentIndex = artifacts.findIndex((a) => a.data.id === artifact.id);
+const prevArtifact = currentIndex > 0 ? artifacts[currentIndex - 1] : null;
 const nextArtifact =
-  currentIndex < fullCollection.length - 1
-    ? fullCollection[currentIndex + 1]
+  currentIndex < artifacts.length - 1
+    ? artifacts[currentIndex + 1]
     : null;
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
@@ -34,19 +36,20 @@ const t = useTranslations(lang);
 
 const model3D = getModelForSlug(artifact.slug);
 
-const title = `${artifact.name[lang]} - Ixiptla Collection`;
+const title = `${artifact.title} - Ixiptla Collection`;
 const description = artifact.description[lang];
 
 let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
-let imageURL: string | URL = artifact.image.src;
+let imageURL: string | URL = artifact.image;
 let alternateURLs: { en: string | URL; es: string | URL } = {
   en: `/en/collection/${artifact.slug}`,
   es: `/es/coleccion/${artifact.slug}`,
 };
+const image = getImageByFilename(artifact.image);
 
 if (Astro.site) {
   canonicalURL = new URL(`/${lang}/collection/${artifact.slug}`, Astro.site);
-  imageURL = new URL(artifact.image.src, Astro.site);
+  imageURL = new URL(artifact.image, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
     es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
@@ -76,7 +79,7 @@ if (Astro.site) {
               aria-label={t("artifact.collection")}>{t("artifact.collection")}</a>
           </li>
           <li aria-hidden="true"><span class="mx-2">/</span></li>
-          <li class="text-primary font-medium" aria-current="page">{artifact.name[lang]}</li>
+          <li class="text-primary font-medium" aria-current="page">{artifact.title}</li>
         </ol>
       </nav>
 
@@ -86,14 +89,14 @@ if (Astro.site) {
           <div
             class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center cursor-zoom-in group relative w-full"
             role="img"
-            aria-label={artifact.name[lang]}
+            aria-label={artifact.title}
             id="main-image"
           >
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10"></div>
             <Image
-              transition:name={artifact.name[lang]}
-              src={artifact.image}
-              alt={artifact.name[lang]}
+              transition:name={artifact.title}
+              src={image}
+              alt={artifact.title}
               width={800}
               height={800}
               class="group-hover:scale-105 transition-transform duration-500"
@@ -117,7 +120,7 @@ if (Astro.site) {
                 <a
                   href={`/${lang}/experience/${model3D}`}
                   class="inline-flex items-center gap-2 bg-primary text-primary-content px-6 py-3 rounded-xl hover:bg-primary/80 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                  aria-label={`${t("artifact.viewExperience")} - ${artifact.name[lang]}`}
+                  aria-label={`${t("artifact.viewExperience")} - ${artifact.title}`}
                 >
                   {t("artifact.viewExperience")}
                   <svg
@@ -144,7 +147,7 @@ if (Astro.site) {
         <div class="lg:col-span-7 space-y-6 sm:space-y-8 md:space-y-10 w-full">
           <div>
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6 leading-tight break-words">
-              {artifact.name[lang]}
+              {artifact.title}
             </h1>
             <div class="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-base-content/80 w-full" role="list" aria-label={t("artifact.details")}>
               <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-base-200/20 w-full sm:w-auto" role="listitem">
@@ -218,9 +221,9 @@ if (Astro.site) {
             {
               prevArtifact ? (
                 <a
-                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.slug}`}
+                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.data.slug}`}
                   class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
-                  aria-label={`${t("artifact.previous")}: ${prevArtifact.name[lang]}`}
+                  aria-label={`${t("artifact.previous")}: ${prevArtifact.data.title}`}
                 >
                   <svg
                     class="w-5 h-5 group-hover:-translate-x-1 transition-transform flex-shrink-0"
@@ -236,7 +239,7 @@ if (Astro.site) {
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  <span class="truncate">{prevArtifact.name[lang]}</span>
+                  <span class="truncate">{prevArtifact.data.title}</span>
                 </a>
               ) : (
                 <div />
@@ -246,11 +249,11 @@ if (Astro.site) {
             {
               nextArtifact ? (
                 <a
-                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.slug}`}
+                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.data.slug}`}
                   class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
-                  aria-label={`${t("artifact.next")}: ${nextArtifact.name[lang]}`}
+                  aria-label={`${t("artifact.next")}: ${nextArtifact.data.title}`}
                 >
-                  <span class="truncate">{nextArtifact.name[lang]}</span>
+                  <span class="truncate">{nextArtifact.data.title}</span>
                   <svg
                     class="w-5 h-5 group-hover:translate-x-1 transition-transform flex-shrink-0"
                     fill="none"
@@ -303,7 +306,7 @@ if (Astro.site) {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full" role="region" aria-label={t("artifact.relatedItems")}>
               {relatedArtifacts.map((related) => (
                 <div class="transform transition-transform duration-300 hover:scale-105" role="listitem">
-                  <ArtifactCard artifact={related} />
+                  <ArtifactCard artifact={related.data} />
                 </div>
               ))}
             </div>

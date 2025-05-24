@@ -1,13 +1,16 @@
 ---
+import { getCollection } from "astro:content";
 import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
-import { cultures, fullCollection } from "../../../data/collection";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
 const t = useTranslations(lang);
 
-const artifacts = fullCollection;
+const artifacts = await getCollection("artefactos");
+const cultures = artifacts
+  .map((artifact) => artifact.data.culture)
+  .filter((culture, index, self) => self.indexOf(culture) === index);
 ---
 
 <Layout
@@ -17,15 +20,26 @@ const artifacts = fullCollection;
 >
   <section class="pt-10 lg:pt-24 pb-16 px-4 bg-base-100">
     <div class="mx-auto max-w-7xl">
-      <h1 class="text-4xl md:text-5xl font-bold text-base-content text-center mb-8">
+      <h1
+        class="text-4xl md:text-5xl font-bold text-base-content text-center mb-8"
+      >
         {t("collection.title")}
       </h1>
-      <p class="text-xl text-base-content/80 text-center max-w-3xl mx-auto mb-12">
+      <p
+        class="text-xl text-base-content/80 text-center max-w-3xl mx-auto mb-12"
+      >
         {t("collection.description")}
       </p>
 
       <div class="flex flex-col items-center gap-6 mb-12">
         <div class="flex flex-wrap gap-4 justify-center">
+          <button
+            data-culture="all"
+            class="btn btn-sm btn-secondary btn-outline filter-btn"
+            aria-pressed="false"
+          >
+            {t(`collection.all`)}
+          </button>
           {
             cultures.map((culture) => (
               <button
@@ -43,40 +57,63 @@ const artifacts = fullCollection;
             <button
               id="grid-view"
               class="btn btn-square btn-sm btn-secondary btn-outline"
-              aria-label={t("collection.gridView")}
+              aria-label="Grid view"
               aria-pressed="true"
             >
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width={2}
+                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                ></path>
               </svg>
             </button>
             <button
               id="list-view"
               class="btn btn-square btn-sm btn-secondary btn-outline"
-              aria-label={t("collection.listView")}
+              aria-label="List view"
               aria-pressed="false"
             >
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width={2}
+                  d="M4 6h16M4 12h16M4 18h16"></path>
               </svg>
             </button>
           </div>
           <div class="text-secondary">
-            <span id="results-count">{artifacts.length}</span> {t("collection.results")}
+            <span id="results-count">{artifacts.length}</span>
+            {t("collection.results")}
           </div>
         </div>
       </div>
 
-      <div id="artifacts-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 max-w-full">
+      <div
+        id="artifacts-container"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 max-w-full"
+      >
         {
           artifacts.map((artifact) => (
-            <div 
-              class="artifact-card transform transition-all duration-500" 
-              data-culture={artifact.culture}
+            <div
+              class="artifact-card transform transition-all duration-500"
+              data-culture={artifact.data.culture}
               data-variant="grid"
               transition:name={`artifact-${artifact.id}`}
             >
-              <ArtifactCard artifact={artifact} variant="grid" />
+              <ArtifactCard artifact={artifact.data} variant="grid" />
             </div>
           ))
         }
@@ -156,13 +193,15 @@ const artifacts = fullCollection;
 
       // Actualizar el contenedor principal
       if (view === "grid") {
-        artifactsContainer.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500";
+        artifactsContainer.className =
+          "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500";
         gridView?.setAttribute("aria-pressed", "true");
         listView?.setAttribute("aria-pressed", "false");
         gridView?.classList.add("btn-active");
         listView?.classList.remove("btn-active");
       } else {
-        artifactsContainer.className = "grid grid-cols-1 gap-4 transition-all duration-500 w-full";
+        artifactsContainer.className =
+          "grid grid-cols-1 gap-4 transition-all duration-500 w-full";
         gridView?.setAttribute("aria-pressed", "false");
         listView?.setAttribute("aria-pressed", "true");
         gridView?.classList.remove("btn-active");
@@ -175,16 +214,40 @@ const artifacts = fullCollection;
         if (card instanceof HTMLElement) {
           // Actualizar el atributo data-variant
           card.dataset.variant = view;
-          
+
           // Actualizar el componente ArtifactCard
           const artifactCard = card.querySelector("a");
           if (artifactCard) {
             if (view === "grid") {
-              artifactCard.classList.remove("bg-white", "rounded-xl", "shadow-md", "hover:shadow-lg", "p-4");
-              artifactCard.classList.add("bg-white", "rounded-2xl", "shadow-lg", "hover:shadow-xl", "overflow-hidden");
+              artifactCard.classList.remove(
+                "bg-white",
+                "rounded-xl",
+                "shadow-md",
+                "hover:shadow-lg",
+                "p-4"
+              );
+              artifactCard.classList.add(
+                "bg-white",
+                "rounded-2xl",
+                "shadow-lg",
+                "hover:shadow-xl",
+                "overflow-hidden"
+              );
             } else {
-              artifactCard.classList.remove("bg-white", "rounded-2xl", "shadow-lg", "hover:shadow-xl", "overflow-hidden");
-              artifactCard.classList.add("bg-white", "rounded-xl", "shadow-md", "hover:shadow-lg", "p-4");
+              artifactCard.classList.remove(
+                "bg-white",
+                "rounded-2xl",
+                "shadow-lg",
+                "hover:shadow-xl",
+                "overflow-hidden"
+              );
+              artifactCard.classList.add(
+                "bg-white",
+                "rounded-xl",
+                "shadow-md",
+                "hover:shadow-lg",
+                "p-4"
+              );
             }
 
             // Actualizar la estructura interna
@@ -193,7 +256,8 @@ const artifacts = fullCollection;
               if (view === "grid") {
                 contentDiv.className = "aspect-square relative overflow-hidden";
               } else {
-                contentDiv.className = "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center";
+                contentDiv.className =
+                  "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center";
               }
             }
           }

@@ -1,9 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import { getLangFromUrl } from "../../../i18n/utils";
+import { getImageByFilename } from "../../../utils/imageMapping";
 
 const { artifact, variant = "grid" } = Astro.props;
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
+
+const image = getImageByFilename(artifact.image);
 ---
 
 <a
@@ -17,9 +20,9 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
   <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center"}>
     <div class={variant === "grid" ? "w-full h-full" : "w-full sm:w-48 h-48 flex-shrink-0"}>
       <Image
-        transition:name={artifact.name[lang]}
-        src={artifact.image}
-        alt={artifact.name[lang]}
+        transition:name={artifact.title}
+        src={image}
+        alt={artifact.title || artifact.name}
         width={variant === "grid" ? 800 : 400}
         height={variant === "grid" ? 800 : 400}
         class={`w-full h-full object-cover transition-transform duration-500 ${
@@ -29,10 +32,10 @@ const lang = getLangFromUrl(Astro.url) as "en" | "es";
     </div>
     <div class={variant === "grid" ? "p-6" : "flex-1"}>
       <h3 class={`font-bold text-tertiary mb-2 ${variant === "grid" ? "text-xl" : "text-2xl"}`}>
-        {artifact.name[lang]}
+        {artifact.title}
       </h3>
       <p class={`text-dark/80 ${variant === "grid" ? "line-clamp-2" : "line-clamp-3"}`}>
-        {artifact.description[lang]}
+        {artifact.description}
       </p>
       {variant === "list" && (
         <div class="mt-4 flex flex-wrap gap-2">

@@ -12,10 +12,11 @@
     "prepare-release:major": "node scripts/prepare-release.js --major"
   },
   "dependencies": {
-    "@astrojs/react": "^4.2.7",
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/react": "4.3.0",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
-    "astro": "^5.7.10",
+    "astro": "5.8.0",
     "daisyui": "^5.0.37",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
