@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/common/Button/Button.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url) as "en" | "es";
@@ -23,12 +22,12 @@ const collectionPath = lang === 'es' ? 'coleccion' : 'collection';
         {t(`404.${type}.description`)}
       </p>
       <div class="flex gap-4 justify-center">
-        <Button href={`/${lang}`} variant="primary">
+        <a href={`/${lang}`} class="btn btn-primary">
           {t(`404.${type}.cta.primary`)}
-        </Button>
-        <Button href={`/${lang}/${collectionPath}`} variant="secondary">
+        </a>
+        <a href={`/${lang}/${collectionPath}`} class="btn btn-secondary">
           {t(`404.${type}.cta.secondary`)}
-        </Button>
+        </a>
       </div>
     </div>
   </div>

@@ -11,8 +11,8 @@ const routes = {
 };
 ---
 
-<nav class="bg-quaternary shadow-md fixed top-0 left-0 right-0 w-full z-50" role="navigation" aria-label="Main navigation">
-  <div class="max-w-6xl mx-auto px-4">
+<nav class="bg-base-100 shadow-md fixed top-0 left-0 right-0 w-full z-50 px-4" role="navigation" aria-label="Main navigation">
+  <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center h-16">
       <div class="flex-shrink-0">
         <a href={routes.home} class="text-xl font-bold" aria-label="Ixiptla Home">
@@ -24,7 +24,7 @@ const routes = {
         <div class="ml-10 flex items-center space-x-4" role="menubar" aria-label="Main menu">
           <a 
             href={routes.home} 
-            class="px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+            class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
             role="menuitem"
             aria-current={Astro.url.pathname === routes.home ? 'page' : undefined}
           >
@@ -32,7 +32,7 @@ const routes = {
           </a>
           <a 
             href={routes.collection} 
-            class="px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+            class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
             role="menuitem"
             aria-current={Astro.url.pathname === routes.collection ? 'page' : undefined}
           >
@@ -40,7 +40,7 @@ const routes = {
           </a>
           <a 
             href={routes.contact} 
-            class="px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+            class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
             role="menuitem"
             aria-current={Astro.url.pathname === routes.contact ? 'page' : undefined}
           >
@@ -55,7 +55,7 @@ const routes = {
 
       <div class="md:hidden flex items-center">
         <button 
-          class="mobile-menu-button p-2 rounded-md hover:bg-secondary/30 transition-colors" 
+          class="mobile-menu-button p-2 rounded-md hover:bg-base-200 transition-colors" 
           aria-label="Toggle menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -71,7 +71,7 @@ const routes = {
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a 
           href={routes.home} 
-          class="block px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+          class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
           role="menuitem"
           aria-current={Astro.url.pathname === routes.home ? 'page' : undefined}
         >
@@ -79,7 +79,7 @@ const routes = {
         </a>
         <a 
           href={routes.collection} 
-          class="block px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+          class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
           role="menuitem"
           aria-current={Astro.url.pathname === routes.collection ? 'page' : undefined}
         >
@@ -87,7 +87,7 @@ const routes = {
         </a>
         <a 
           href={routes.contact} 
-          class="block px-3 py-2 rounded-md hover:bg-secondary/30 transition-colors"
+          class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
           role="menuitem"
           aria-current={Astro.url.pathname === routes.contact ? 'page' : undefined}
         >
@@ -164,7 +164,7 @@ const routes = {
 
   :global(a:focus-visible),
   :global(button:focus-visible) {
-    outline: 2px solid var(--color-main);
+    outline: 2px solid hsl(var(--color-primary));
     outline-offset: 2px;
   }
 </style>

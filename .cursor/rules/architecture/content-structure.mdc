@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Content Structure Standards
+
+## Collections Organization
+
+Collections are language-based and follow strict organization rules:
+
+```typescript
+src/content/
+├── artifacts-en/     # English collection
+├── artifacts-es/     # Spanish collection
+└── config.ts        # Collections configuration
+```
+
+## Schema Definition
+
+```typescript
+// @src/content/config.ts
+const artifactSchema = defineCollection({
+  type: 'data',
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    culture: z.string(),
+    period: z.string(),
+    image: z.string(),
+    description: z.string(),
+    museum: z.string(),
+    location: z.string(),
+    dimensions: z.string().optional(),
+    material: z.string().optional(),
+    technique: z.string().optional(),
+    has3DModel: z.boolean().optional(),
+  })
+});
+```
+
+## Content Organization Rules
+
+1. Language Separation
+   - Each language has its own collection
+   - Collections must maintain parity
+   - IDs must be consistent across languages
+
+2. File Structure
+   - One artifact per file
+   - JSON format for all entries
+   - Consistent file naming across languages
+
+3. Metadata Handling
+   - Common metadata shared across languages
+   - Language-specific content properly separated
+   - References maintained consistently
+
+## Referenced Files
+@src/content/config.ts

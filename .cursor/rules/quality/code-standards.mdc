@@ -1,0 +1,117 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Code Quality Standards
+
+## Naming Conventions
+
+1. Files and Directories
+   - Components: `PascalCase.astro`
+   - Utilities: `camelCase.ts`
+   - Constants: `SCREAMING_SNAKE_CASE`
+   - Collections: `kebab-case.json`
+
+2. Variables and Functions
+   ```typescript
+   // Example of naming conventions
+   const MAX_ITEMS_PER_PAGE = 12;
+   const currentFilter = 'culture';
+   function handleFilterChange() {}
+   const ArtifactCard = () => {};
+   ```
+
+## Git Workflow
+
+1. Commit Messages
+   ```bash
+   # Format: type(scope): description
+   feat(content): add new mayan artifacts
+   fix(i18n): correct spanish translations
+   refactor(components): improve artifact card performance
+   ```
+
+2. Branch Naming
+   ```bash
+   feature/add-mayan-artifacts
+   fix/translation-errors
+   refactor/performance-improvements
+   ```
+
+## Code Organization
+
+1. Component Structure
+   ```typescript
+   // Example component structure
+   ---
+   // 1. Imports
+   import { getCollection } from 'astro:content';
+   
+   // 2. Props interface
+   interface Props {
+     artifact: ArtifactItem;
+     variant?: 'grid' | 'list';
+   }
+   
+   // 3. Data fetching
+   const { artifact, variant = 'grid' } = Astro.props;
+   
+   // 4. Component logic
+   const imageUrl = artifact.image;
+   ---
+   
+   <!-- 5. Template -->
+   <div class={variant === 'grid' ? 'grid-layout' : 'list-layout'}>
+     <!-- Content -->
+   </div>
+   
+   <!-- 6. Styles -->
+   <style>
+     .grid-layout { /* ... */ }
+     .list-layout { /* ... */ }
+   </style>
+   ```
+
+## Testing Requirements
+
+1. Unit Tests
+   ```typescript
+   // Example test structure
+   describe('ArtifactCard', () => {
+     it('should render in grid layout by default', () => {
+       // Test implementation
+     });
+     
+     it('should handle missing optional props', () => {
+       // Test implementation
+     });
+   });
+   ```
+
+2. Integration Tests
+   - Page navigation
+   - Content loading
+   - Filter functionality
+
+## Error Handling
+
+1. Content Errors
+   ```typescript
+   try {
+     const artifacts = await getCollection('artifacts-en');
+   } catch (error) {
+     console.error('Failed to load artifacts:', error);
+     return new Response(null, { status: 500 });
+   }
+   ```
+
+2. User Feedback
+   - Clear error messages
+   - Fallback content
+   - Recovery options
+
+## Referenced Files
+@src/components/common/ArtifactCard/ArtifactCard.astro
+@src/pages/[lang]/collection/index.astro
+@src/content/config.ts

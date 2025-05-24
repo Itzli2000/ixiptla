@@ -1,10 +1,11 @@
 ---
 import ArtifactCard from '../../common/ArtifactCard/ArtifactCard.astro';
-import Button from '../../common/Button/Button.astro';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 import type { Language, ArtifactItem } from '../../../types';
+import { CollectionEntry, getCollection } from 'astro:content';
 
-const { items } = Astro.props;
+const artifacts = await getCollection('artifacts');
+
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 ---
@@ -20,14 +21,14 @@ const t = useTranslations(lang);
       </p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-      {items.map((item: ArtifactItem) => (
-        <ArtifactCard artifact={item} />
+      {artifacts?.map((item: CollectionEntry<"artifacts">) => (
+        <ArtifactCard artifact={item.data} />
       ))}
     </div>
     <div class="text-center">
-      <Button href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} size="lg">
+      <a href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} class="btn btn-lg">
         {t('collection.cta')}
-      </Button>
+      </a>
     </div>
   </div>
 </section>
