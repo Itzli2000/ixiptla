@@ -1,3 +1,9 @@
+#### 1.3.1 (2025-05-25)
+
+##### New Features
+
+* **Layout:**  add Open Graph and Twitter image support (b3012d7a)
+
 ### 1.3.0 (2025-05-24)
 
 ##### Chores
