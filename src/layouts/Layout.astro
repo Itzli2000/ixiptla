@@ -9,7 +9,7 @@ const {
   description, 
   lang = "en" as Language, 
   showHeader = true,
-  image = "../assets/images/colibri.png",
+  image = '/images/og-image.png',
   canonicalURL,
   alternateURLs,
   currentArtifact
@@ -19,10 +19,6 @@ const currentPath = Astro.url.pathname.replace(/^\/?/, "/");
 const siteUrl = canonicalURL?.toString() || (Astro.site
   ? new URL(currentPath, Astro.site).toString()
   : currentPath);
-
-// // Import and extract the image URL properly
-// const imageModule = await import(image);
-// const imageUrl = imageModule.default;
 ---
 
 <!doctype html>
@@ -45,7 +41,7 @@ const siteUrl = canonicalURL?.toString() || (Astro.site
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<!-- <meta property="og:image" content={imageUrl} /> -->
+		<meta property="og:image" content={new URL(image, siteUrl).href} />	
 		{currentArtifact && (
 			<>
 				<meta property="article:section" content={currentArtifact.culture} />
@@ -57,7 +53,7 @@ const siteUrl = canonicalURL?.toString() || (Astro.site
 		<meta property="twitter:url" content={siteUrl} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<!-- <meta property="twitter:image" content={imageUrl} /> -->
+		<meta property="twitter:image" content={new URL(image, siteUrl).href} />
 
 		<title>{title}</title>
 		<ClientRouter />
