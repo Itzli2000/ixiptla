@@ -54,6 +54,8 @@ if (Astro.site) {
     en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
     es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
   };
+} else {
+  imageURL = `/images/${artifact.image}`;
 }
 ---
 

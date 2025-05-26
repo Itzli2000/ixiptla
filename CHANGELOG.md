@@ -1,3 +1,9 @@
+### 1.5.0 (2025-05-26)
+
+##### Refactors
+
+* **SEO:**  update canonical and image URL construction for collection pages (4cb60b33)
+
 ### 1.4.0 (2025-05-26)
 
 ##### New Features
