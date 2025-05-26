@@ -1,3 +1,9 @@
+### 1.4.0 (2025-05-26)
+
+##### New Features
+
+* **images:**  add new image assets for collection and update layout references (2375b9bc)
+
 #### 1.3.1 (2025-05-25)
 
 ##### New Features
