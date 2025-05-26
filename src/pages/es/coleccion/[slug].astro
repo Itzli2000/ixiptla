@@ -39,7 +39,7 @@ const model3D = getModelForSlug(artifact.slug);
 const title = `${artifact.title} - Ixiptla Collection`;
 const description = artifact.description;
 
-let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
+let canonicalURL: string | URL = `/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`;
 let imageURL: string | URL = artifact.image;
 let alternateURLs: { en: string | URL; es: string | URL } = {
   en: `/en/collection/${artifact.slug}`,
@@ -49,12 +49,14 @@ let alternateURLs: { en: string | URL; es: string | URL } = {
 const image = getImageByFilename(artifact.image);
 
 if (Astro.site) {
-  canonicalURL = new URL(`/${lang}/collection/${artifact.slug}`, Astro.site);
+  canonicalURL = new URL(`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`, Astro.site);
   imageURL = new URL(`/images/${artifact.image}`, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
     es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
   };
+} else {
+  imageURL = `/images/${artifact.image}`;
 }
 ---
 
