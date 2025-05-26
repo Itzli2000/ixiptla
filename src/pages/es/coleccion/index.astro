@@ -11,12 +11,32 @@ const artifacts = await getCollection("artefactos");
 const cultures = artifacts
   .map((artifact) => artifact.data.culture)
   .filter((culture, index, self) => self.indexOf(culture) === index);
+
+// Configurar URLs para metatags
+let canonicalURL: string | URL = `/es/coleccion`;
+let imageURL: string | URL = `/images/og-image.png`;
+let alternateURLs: { en: string | URL; es: string | URL } = {
+  en: `/en/collection`,
+  es: `/es/coleccion`,
+};
+
+if (Astro.site) {
+  canonicalURL = new URL(`/es/coleccion`, Astro.site);
+  imageURL = new URL(`/images/og-image.png`, Astro.site);
+  alternateURLs = {
+    en: new URL(`/en/collection`, Astro.site),
+    es: new URL(`/es/coleccion`, Astro.site),
+  };
+}
 ---
 
 <Layout
   title={t("collection.title")}
   description={t("collection.description")}
   lang={lang}
+  image={imageURL}
+  canonicalURL={canonicalURL}
+  alternateURLs={alternateURLs}
 >
   <section class="pt-10 lg:pt-24 pb-16 px-4 bg-base-100">
     <div class="mx-auto max-w-7xl">
