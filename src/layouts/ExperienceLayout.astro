@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import mainImage from "../assets/images/colibri.png";
 import '../styles/global.css';
 import type { Language } from '../types';
 import type { ImageMetadata } from 'astro';
@@ -9,7 +8,7 @@ export interface Props {
   title: string;
   description: string;
   lang: Language;
-  image?: ImageMetadata;
+  image?: string;
   canonicalURL?: URL;
   alternateURLs?: {
     [key in Language]: URL;
@@ -20,7 +19,7 @@ const {
   title, 
   description, 
   lang = "en",
-  image = mainImage,
+  image = '/images/og-image.png',
   canonicalURL,
   alternateURLs
 } = Astro.props;
@@ -51,13 +50,13 @@ const siteUrl = canonicalURL?.toString() || (Astro.site
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={image.src} />
+		{image && <meta property="og:image" content={new URL(image, siteUrl).href} />}
 	
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={siteUrl} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={image.src} />
+		{image && <meta property="twitter:image" content={new URL(image, siteUrl).href} />}
 
 		<title>{title}</title>
 		<ClientRouter />

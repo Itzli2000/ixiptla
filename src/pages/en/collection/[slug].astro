@@ -49,7 +49,7 @@ const image = getImageByFilename(artifact.image);
 
 if (Astro.site) {
   canonicalURL = new URL(`/${lang}/collection/${artifact.slug}`, Astro.site);
-  imageURL = new URL(artifact.image, Astro.site);
+  imageURL = new URL(`/images/${artifact.image}`, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
     es: new URL(`/es/coleccion/${artifact.slug}`, Astro.site),
