@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: "ixpitla" --default, "ixpitla-dark" --prefersdark;
+}
 
 @plugin "daisyui/theme" {
   name: "ixpitla";
@@ -8,26 +10,26 @@
   color-scheme: light;
 
   /* Base colors */
-  --color-base-100: oklch(97% 0.01 83.24); /* #f9f6f1 (quaternary) */
-  --color-base-200: oklch(85% 0.04 83.24); /* #eae3da (light) */
-  --color-base-300: oklch(80% 0.06 83.24); /* #d6c6b3 (secondary) */
-  --color-base-content: oklch(20% 0.02 83.24); /* #2b1f1a (tertiary) */
+  --color-base-100: oklch(97% 0.01 83.24);
+  --color-base-200: oklch(85% 0.04 83.24);
+  --color-base-300: oklch(80% 0.06 83.24);
+  --color-base-content: oklch(20% 0.02 83.24);
 
   /* Primary colors */
-  --color-primary: oklch(55% 0.15 40.24); /* #a35a32 (main) */
-  --color-primary-content: oklch(97% 0.01 83.24); /* #f9f6f1 */
+  --color-primary: oklch(55% 0.15 40.24);
+  --color-primary-content: oklch(97% 0.01 83.24);
 
   /* Secondary colors */
-  --color-secondary: oklch(80% 0.06 83.24); /* #d6c6b3 */
-  --color-secondary-content: oklch(20% 0.02 83.24); /* #2b1f1a */
+  --color-secondary: oklch(80% 0.06 83.24);
+  --color-secondary-content: oklch(20% 0.02 83.24);
 
   /* Accent colors */
-  --color-accent: oklch(35% 0.08 40.24); /* #4a2e1e (dark) */
-  --color-accent-content: oklch(97% 0.01 83.24); /* #f9f6f1 */
+  --color-accent: oklch(35% 0.08 40.24);
+  --color-accent-content: oklch(97% 0.01 83.24);
 
   /* Neutral colors */
-  --color-neutral: oklch(20% 0.02 83.24); /* #2b1f1a */
-  --color-neutral-content: oklch(97% 0.01 83.24); /* #f9f6f1 */
+  --color-neutral: oklch(20% 0.02 83.24);
+  --color-neutral-content: oklch(97% 0.01 83.24);
 
   /* State colors */
   --color-info: oklch(65% 0.2 220);
@@ -45,6 +47,33 @@
   --radius-selector: 0.25rem;
   --border: 1px;
   --depth: 1;
+}
+
+@plugin "daisyui/theme" {
+  name: "ixpitla-dark";
+  color-scheme: dark;
+
+  --color-base-100: oklch(0.2032 0.0362 83.24);
+  --color-base-200: oklch(20% 0.04 83.24);
+  --color-base-300: oklch(30% 0.06 83.24);
+  --color-base-content: oklch(80% 0.02 83.24);
+
+  --color-primary: oklch(95% 0.15 40.24);
+  --color-primary-content: oklch(0.2032 0.0362 83.24);
+
+  --color-secondary: oklch(30% 0.06 83.24);
+  --color-secondary-content: oklch(80% 0.02 83.24);
+
+  --color-accent: oklch(75% 0.08 40.24);
+  --color-accent-content: oklch(0.2032 0.0362 83.24);
+
+  --color-neutral: oklch(80% 0.02 83.24);
+  --color-neutral-content: oklch(0.2032 0.0362 83.24);
+
+  --color-info: oklch(65% 0.2 220);
+  --color-info-content: oklch(10% 0.01 220);
+  --color-success: oklch(65% 0.25 140);
+  --color-success-content: oklch(10% 0.01 140);
 }
 
 body {
