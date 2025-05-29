@@ -76,6 +76,19 @@
   --color-success-content: oklch(10% 0.01 140);
 }
 
+:root {
+  --theme-transition-duration: 0.3s;
+  --theme-transition-timing: ease-in-out;
+}
+
+:root {
+  * {
+    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
+                border-color var(--theme-transition-duration) var(--theme-transition-timing),
+                box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
+  }
+}
+
 body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
