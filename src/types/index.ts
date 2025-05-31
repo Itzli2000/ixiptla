@@ -19,7 +19,6 @@ export interface LayoutProps {
   title: string;
   description: string;
   lang: Language;
-  showHeader?: boolean;
   image?: string;
   canonicalURL?: URL;
   alternateURLs?: {

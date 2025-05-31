@@ -33,39 +33,86 @@ const { class: className = "" } = Astro.props;
 </label>
 
 <script is:inline>
-  const getSystemTheme = () => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'ixpitla-dark' : 'ixpitla';
-  };
+  function initializeTheme() {
+    const getSystemTheme = () => {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'ixpitla-dark' : 'ixpitla';
+    };
 
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme');
-    }
-    return getSystemTheme();
-  })();
+    const theme = (() => {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      return getSystemTheme();
+    })();
 
-  if (theme === 'ixpitla-dark') {
-    document.documentElement.setAttribute('data-theme', 'ixpitla-dark');
-    document.querySelector('.theme-controller')?.setAttribute('checked', '');
-  } else {
-    document.documentElement.setAttribute('data-theme', 'ixpitla');
-  }
-
-  const themeToggle = document.querySelector('.theme-controller');
-  themeToggle?.addEventListener('change', (e) => {
-    const target = e.target;
-    if (target instanceof HTMLInputElement && target.checked) {
+    // Apply theme immediately
+    if (theme === 'ixpitla-dark') {
       document.documentElement.setAttribute('data-theme', 'ixpitla-dark');
-      localStorage.setItem('theme', 'ixpitla-dark');
+      const controller = document.querySelector('.theme-controller');
+      if (controller) controller.setAttribute('checked', '');
     } else {
       document.documentElement.setAttribute('data-theme', 'ixpitla');
-      localStorage.setItem('theme', 'ixpitla');
+      const controller = document.querySelector('.theme-controller');
+      if (controller) controller.removeAttribute('checked');
     }
+  }
+
+  function setupThemeListeners() {
+    const themeToggle = document.querySelector('.theme-controller');
+    
+    // Remove existing listeners to prevent duplicates
+    const newToggle = themeToggle?.cloneNode(true);
+    if (themeToggle && newToggle) {
+      themeToggle.parentNode?.replaceChild(newToggle, themeToggle);
+    }
+
+    const currentToggle = document.querySelector('.theme-controller');
+    currentToggle?.addEventListener('change', (e) => {
+      const target = e.target;
+      if (target instanceof HTMLInputElement && target.checked) {
+        document.documentElement.setAttribute('data-theme', 'ixpitla-dark');
+        localStorage.setItem('theme', 'ixpitla-dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'ixpitla');
+        localStorage.setItem('theme', 'ixpitla');
+      }
+    });
+
+    // System theme change listener
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        const newTheme = e.matches ? 'ixpitla-dark' : 'ixpitla';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        const toggle = document.querySelector('.theme-controller');
+        if (toggle) {
+          if (e.matches) {
+            toggle.setAttribute('checked', '');
+          } else {
+            toggle.removeAttribute('checked');
+          }
+        }
+      }
+    });
+  }
+
+  // Initialize on page load
+  initializeTheme();
+  
+  // Setup listeners when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupThemeListeners);
+  } else {
+    setupThemeListeners();
+  }
+
+  // Re-initialize on view transitions (Astro specific)
+  document.addEventListener('astro:page-load', () => {
+    initializeTheme();
+    setupThemeListeners();
   });
 
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-      const newTheme = e.matches ? 'ixpitla-dark' : 'ixpitla';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      themeToggle?.click();
+  // Also handle before swap to prevent FOUC
+  document.addEventListener('astro:before-swap', () => {
+    initializeTheme();
   });
 </script> 

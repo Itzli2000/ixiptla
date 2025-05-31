@@ -6,7 +6,6 @@
 
 @plugin "daisyui/theme" {
   name: "ixpitla";
-  default: true;
   color-scheme: light;
 
   /* Base colors */

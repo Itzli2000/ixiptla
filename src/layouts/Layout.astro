@@ -8,7 +8,6 @@ const {
   title, 
   description, 
   lang = "en" as Language, 
-  showHeader = true,
   image = '/images/og-image.png',
   canonicalURL,
   alternateURLs,
@@ -59,7 +58,7 @@ const siteUrl = canonicalURL?.toString() || (Astro.site
 		<ClientRouter />
 	</head>
 	<body class="bg-base-100 text-base-content">
-		{showHeader && <Navigation />}
+		<Navigation />
 		<slot />
 	</body>
 </html>
