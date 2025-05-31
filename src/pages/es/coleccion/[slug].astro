@@ -7,6 +7,7 @@ import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
 import { getImageByFilename } from "../../../utils/imageMapping";
 import type { Language } from "../../../types";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   params: {
@@ -43,17 +44,16 @@ const model3D = getModelForSlug(artifact.slug);
 const title = `${artifact.title} - Ixiptla Collection`;
 const description = artifact.description;
 
-let canonicalURL: string | URL = `/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`;
+let canonicalURL: string | URL = `/${lang}/coleccion/${artifact.slug}`;
 let imageURL: string | URL = artifact.image;
 let alternateURLs: { en: string | URL; es: string | URL } = {
   en: `/en/collection/${artifact.slug}`,
   es: `/es/coleccion/${artifact.slug}`,
 };
-
 const image = getImageByFilename(artifact.image);
 
 if (Astro.site) {
-  canonicalURL = new URL(`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`, Astro.site);
+  canonicalURL = new URL(`/${lang}/coleccion/${artifact.slug}`, Astro.site);
   imageURL = new URL(`/images/${artifact.image}`, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
@@ -81,7 +81,7 @@ if (Astro.site) {
           <li aria-hidden="true"><span class="mx-2">/</span></li>
           <li>
             <a
-              href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}`}
+              href={`/${lang}/coleccion`}
               class="hover:text-primary transition-colors"
               aria-label={t("artifact.collection")}>{t("artifact.collection")}</a>
           </li>
@@ -94,7 +94,7 @@ if (Astro.site) {
         {/* Left column - Image and 3D */}
         <div class="w-full lg:col-span-5 space-y-4 sm:space-y-6">
           <div
-            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center cursor-zoom-in group relative w-full"
+            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center group relative w-full"
             role="img"
             aria-label={artifact.title}
             id="main-image"
@@ -108,9 +108,6 @@ if (Astro.site) {
               height={800}
               class="group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute bottom-4 right-4 bg-base-100/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-base-content/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {t("artifact.clickToZoom")}
-            </div>
           </div>
           {
             model3D && (
@@ -286,22 +283,10 @@ if (Astro.site) {
 
       <button
         id="back-to-top"
-        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 bg-primary text-primary-content p-3 sm:p-4 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-primary/80 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 btn btn-circle btn-primary btn-outline btn-sm"
         aria-label={t("artifact.backToTop")}
       >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width={2}
-            d="M5 10l7-7m0 0l7 7m-7-7v18"
-          />
-        </svg>
+        <Icon name="mdi:arrow-up" class="w-6 h-6" />
       </button>
 
       {
@@ -341,31 +326,6 @@ if (Astro.site) {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-    });
-  });
-
-  // Image zoom functionality
-  const mainImage = document.getElementById('main-image');
-  mainImage?.addEventListener('click', () => {
-    // Create modal for image zoom
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center backdrop-blur-sm';
-    modal.innerHTML = `
-      <div class="relative w-full h-full flex items-center justify-center">
-        <img src="${mainImage.querySelector('img')?.src}" alt="${mainImage.getAttribute('aria-label')}" class="max-w-full max-h-full object-contain">
-        <button class="absolute top-4 right-4 text-white p-3 rounded-full hover:bg-white/20 transition-colors" aria-label="Close">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
-
-    modal.querySelector('button')?.addEventListener('click', () => {
-      modal.remove();
-      document.body.style.overflow = '';
     });
   });
 </script>
