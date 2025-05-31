@@ -276,6 +276,23 @@ if (Astro.site) {
                   "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center";
               }
             }
+
+            const imageDiv = artifactCard.querySelector("img");
+            if (imageDiv) {
+              if (view === "grid") {
+                imageDiv.className = "w-full h-full";
+              } else {
+                imageDiv.className = "max-w-[300px] max-h-[300px]";
+              }
+              if (imageDiv.parentElement) {
+                if (view === "grid") {
+                  imageDiv.parentElement.className = "w-full h-full";
+                } else {
+                  imageDiv.parentElement.className = "max-w-[300px] max-h-[300px]";
+                }
+              }
+            }
+
           }
         }
       });
