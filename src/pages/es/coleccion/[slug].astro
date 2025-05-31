@@ -1,30 +1,33 @@
 ---
 import { Image } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
 import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
 import { getModelForSlug } from "../../../data/models";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
-import { CollectionEntry, getCollection } from "astro:content";
-import type { ArtifactEntry } from "../../../content.config";
 import { getImageByFilename } from "../../../utils/imageMapping";
 
-const artifacts = await getCollection('artefactos');
+interface Props {
+  params: {
+    slug: string;
+  };
+}
 
 export async function getStaticPaths() {
   const artifacts = await getCollection('artefactos');
   return artifacts.map((artifact) => ({
     params: { slug: artifact.data.slug },
-    props: { artifact: artifact.data },
   }));
 }
+const { slug } = Astro.params;
+const artifacts = await getCollection('artefactos');
+const { data: artifact } = await getEntry('artefactos', slug);
 
-const { artifact } = Astro.props as { artifact: ArtifactEntry };
-
-const relatedArtifacts: CollectionEntry<"artefactos">[] = artifacts
-  .filter((a) => a.data.culture === artifact.culture && a.data.id !== artifact.id)
+const relatedArtifacts = artifacts
+  .filter((a) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug)
   .slice(0, 3);
 
-const currentIndex = artifacts.findIndex((a) => a.data.id === artifact.id);
+const currentIndex = artifacts.findIndex((a) => a.data.slug === artifact.slug);
 const prevArtifact = currentIndex > 0 ? artifacts[currentIndex - 1] : null;
 const nextArtifact =
   currentIndex < artifacts.length - 1

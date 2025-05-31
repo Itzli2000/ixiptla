@@ -1,8 +1,8 @@
 ---
+import { CollectionEntry, getCollection } from 'astro:content';
 import ArtifactCard from '../../common/ArtifactCard/ArtifactCard.astro';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
-import type { Language, ArtifactItem } from '../../../types';
-import { CollectionEntry, getCollection } from 'astro:content';
+import type { Language } from '../../../types';
 
 const artifacts = await getCollection('artifacts');
 

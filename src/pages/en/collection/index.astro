@@ -12,7 +12,6 @@ const cultures = artifacts
   .map((artifact) => artifact.data.culture)
   .filter((culture, index, self) => self.indexOf(culture) === index);
 
-// Configurar URLs para metatags
 let canonicalURL: string | URL = `/en/collection`;
 let imageURL: string | URL = `/images/og-image.png`;
 let alternateURLs: { en: string | URL; es: string | URL } = {
