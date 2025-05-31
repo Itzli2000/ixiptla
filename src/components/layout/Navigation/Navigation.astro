@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import LanguageSwitcher from "../../common/LanguageSwitcher/LanguageSwitcher.astro";
 import ThemeSwitcher from "../../common/ThemeSwitcher/ThemeSwitcher.astro";
@@ -26,7 +27,7 @@ const routes = {
           class="text-xl font-bold"
           aria-label="Ixiptla Home"
         >
-          <img src="/images/logo.svg" alt="Ixiptla" class="h-10" />
+        <Icon name="logo" class="w-auto h-10 md:h-12 lg:h-[50px]" />
         </a>
       </div>
 

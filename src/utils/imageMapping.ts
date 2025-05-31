@@ -1,11 +1,11 @@
 // Static imports for all artifact images
-import colibriImg from '../assets/images/colibri.png';
-import mictlanImg from '../assets/images/mictlan.png';
-import sedenteImg from '../assets/images/sedente.png';
-import monitoImg from '../assets/images/monito.png';
-import sacerdotisaImg from '../assets/images/sacerdotisa.png';
-import yaxImg from '../assets/images/yax.png';
-import mono2Img from '../assets/images/mono2.png';
+import colibriImg from 'public/images/colibri.png';
+import mictlanImg from 'public/images/mictlan.png';
+import sedenteImg from 'public/images/sedente.png';
+import monitoImg from 'public/images/monito.png';
+import sacerdotisaImg from 'public/images/sacerdotisa.png';
+import yaxImg from 'public/images/yax.png';
+import mono2Img from 'public/images/mono2.png';
 
 // Image mapping object
 const imageMap = {
