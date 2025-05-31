@@ -244,7 +244,6 @@ if (Astro.site) {
                 "rounded-xl",
                 "shadow-md",
                 "hover:shadow-lg",
-                "p-4"
               );
               artifactCard.classList.add(
                 "rounded-2xl",
@@ -263,7 +262,6 @@ if (Astro.site) {
                 "rounded-xl",
                 "shadow-md",
                 "hover:shadow-lg",
-                "p-4"
               );
             }
 
@@ -281,9 +279,9 @@ if (Astro.site) {
             const imageDiv = artifactCard.querySelector("img");
             if (imageDiv) {
               if (view === "grid") {
-                imageDiv.className = "w-full h-full";
+                imageDiv.className = "w-full h-full object-contain";
               } else {
-                imageDiv.className = "max-w-[300px] max-h-[300px]";
+                imageDiv.className = "object-contain max-w-[300px] max-h-[300px]";
               }
               if (imageDiv.parentElement) {
                 if (view === "grid") {
