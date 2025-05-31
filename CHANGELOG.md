@@ -1,3 +1,27 @@
+### 1.6.0 (2025-05-31)
+
+##### New Features
+
+* **icons:**  add @iconify-json/mdi dependency and integrate icon component (bcf51536)
+* **artifacts:**  migrate artifact data to markdown files and update collection logic (3f3aaf2d)
+* **assets:**  integrate astro-icon and update image references (68a490a5)
+* **styles:**  add theme transition properties for smoother theme changes (6612b27b)
+* **ThemeSwitcher:**  add theme switcher component and integrate into navigation (d1b62035)
+
+##### Refactors
+
+* **icons:**  replace SVG icons with Icon component for consistency (7c8635e3)
+* **Collection:**  limit displayed artifacts and enhance button styling (a7c74149)
+* **ArtifactCard:**
+  *  improve image handling for better responsiveness (343ec1cb)
+  *  enhance card styling and structure (04979328)
+* **Hero:**  update image dimensions for improved responsiveness (b2aeaa17)
+* **collection:**  enhance image handling in artifact cards (90fb6aee)
+* **ThemeSwitcher:**
+  *  improve theme initialization and event handling (3b4a9194)
+  *  enhance theme initialization and listener setup (c2f87ad0)
+* **i18n:**  replace hardcoded language types with Language type (9e37bb5d)
+
 ### 1.5.0 (2025-05-26)
 
 ##### Refactors
