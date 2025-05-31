@@ -1,8 +1,9 @@
 ---
+import { CollectionEntry, getCollection } from 'astro:content';
 import ArtifactCard from '../../common/ArtifactCard/ArtifactCard.astro';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
-import type { Language, ArtifactItem } from '../../../types';
-import { CollectionEntry, getCollection } from 'astro:content';
+import type { Language } from '../../../types';
+import { Icon } from 'astro-icon/components';
 
 const artifacts = await getCollection('artifacts');
 
@@ -21,13 +22,14 @@ const t = useTranslations(lang);
       </p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-      {artifacts?.map((item: CollectionEntry<"artifacts">) => (
+      {artifacts?.slice(0, 6).map((item: CollectionEntry<"artifacts">) => (
         <ArtifactCard artifact={item.data} />
       ))}
     </div>
     <div class="text-center">
-      <a href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} class="btn btn-lg">
+      <a href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`} class="btn btn-primary btn-outline">
         {t('collection.cta')}
+        <Icon name="mdi:arrow-right" class="w-4 h-4" />
       </a>
     </div>
   </div>

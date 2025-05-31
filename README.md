@@ -1,4 +1,4 @@
-![Ixiptla Logo](public/images/logo.svg)
+![Ixiptla Logo](src/assets/icons/logo.svg)
 
 # 🏺 Ixiptla
 

@@ -1,10 +1,11 @@
 ---
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import { Image } from "astro:assets";
-import colibri from "../../../assets/images/colibri.png";
+import colibri from "public/images/colibri.png";
 import Logo from "/public/favicon.svg";
+import type { Language } from "../../../types";
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 ---
 
@@ -16,9 +17,9 @@ const t = useTranslations(lang);
         <Image
           src={colibri}
           alt={t("hero.imageAlt")}
-          class="relative mx-auto transition-opacity duration-500"
-          width={900}
-          height={900}
+          class="relative mx-auto transition-opacity duration-500 max-w-[600px] max-h-[600px]"
+          width={600}
+          height={600}
         />
       </div>
 

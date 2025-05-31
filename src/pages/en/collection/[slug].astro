@@ -1,37 +1,42 @@
 ---
 import { Image } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
 import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
 import { getModelForSlug } from "../../../data/models";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
-import { CollectionEntry, getCollection } from "astro:content";
-import type { ArtifactEntry } from "../../../content.config";
 import { getImageByFilename } from "../../../utils/imageMapping";
+import type { Language } from "../../../types";
+import { Icon } from "astro-icon/components";
 
-const artifacts = await getCollection('artifacts');
+interface Props {
+  params: {
+    slug: string;
+  };
+}
 
 export async function getStaticPaths() {
   const artifacts = await getCollection('artifacts');
   return artifacts.map((artifact) => ({
     params: { slug: artifact.data.slug },
-    props: { artifact: artifact.data },
   }));
 }
+const { slug } = Astro.params;
+const artifacts = await getCollection('artifacts');
+const { data: artifact } = await getEntry('artifacts', slug);
 
-const { artifact } = Astro.props as { artifact: ArtifactEntry };
-
-const relatedArtifacts: CollectionEntry<"artifacts">[] = artifacts
-  .filter((a) => a.data.culture === artifact.culture && a.data.id !== artifact.id)
+const relatedArtifacts = artifacts
+  .filter((a) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug)
   .slice(0, 3);
 
-const currentIndex = artifacts.findIndex((a) => a.data.id === artifact.id);
+const currentIndex = artifacts.findIndex((a) => a.data.slug === artifact.slug);
 const prevArtifact = currentIndex > 0 ? artifacts[currentIndex - 1] : null;
 const nextArtifact =
   currentIndex < artifacts.length - 1
     ? artifacts[currentIndex + 1]
     : null;
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const model3D = getModelForSlug(artifact.slug);
@@ -89,7 +94,7 @@ if (Astro.site) {
         {/* Left column - Image and 3D */}
         <div class="w-full lg:col-span-5 space-y-4 sm:space-y-6">
           <div
-            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center cursor-zoom-in group relative w-full"
+            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center group relative w-full"
             role="img"
             aria-label={artifact.title}
             id="main-image"
@@ -103,17 +108,12 @@ if (Astro.site) {
               height={800}
               class="group-hover:scale-105 transition-transform duration-500"
             />
-            <div class="absolute bottom-4 right-4 bg-base-100/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-base-content/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {t("artifact.clickToZoom")}
-            </div>
           </div>
           {
             model3D && (
               <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 p-8 rounded-2xl backdrop-blur-sm border border-base-200/20" role="complementary" aria-labelledby="3d-model-title">
                 <h3 id="3d-model-title" class="text-2xl font-bold text-base-content mb-4 flex items-center gap-3">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
+                  <Icon name="mdi:computer" class="w-6 h-6" />
                   {t("artifact.explore3D")}
                 </h3>
                 <p class="text-base-content/80 mb-6 text-lg">
@@ -125,20 +125,7 @@ if (Astro.site) {
                   aria-label={`${t("artifact.viewExperience")} - ${artifact.title}`}
                 >
                   {t("artifact.viewExperience")}
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
+                  <Icon name="mdi:arrow-right" class="w-5 h-5" />
                 </a>
               </div>
             )
@@ -165,9 +152,7 @@ if (Astro.site) {
 
           <div class="prose prose-lg md:prose-xl max-w-none">
             <h2 class="text-2xl md:text-3xl font-bold text-base-content mb-4 md:mb-6 flex items-center gap-3">
-              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <Icon name="mdi:information" class="w-7 h-7" />
               {t("artifact.description")}
             </h2>
             <p class="text-lg text-base-content/80 leading-relaxed">
@@ -178,10 +163,7 @@ if (Astro.site) {
           <div class="sticky top-20 sm:top-24 grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 bg-gradient-to-br from-base-200 to-base-100 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 shadow-md sm:shadow-lg md:shadow-xl border border-base-200/50 w-full" role="complementary" aria-labelledby="artifact-info-title">
             <div>
               <h3 id="artifact-info-title" class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+                <Icon name="mdi:map-marker" class="w-5 h-5" />
                 {t("artifact.location")}
               </h3>
               <p class="text-base-content/80 text-lg">
@@ -191,9 +173,7 @@ if (Astro.site) {
             </div>
             <div>
               <h3 class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                </svg>
+                <Icon name="mdi:puzzle" class="w-5 h-5" />
                 {t("artifact.technicalInfo")}
               </h3>
               <div class="space-y-3 text-base-content/80 text-lg">
@@ -227,20 +207,7 @@ if (Astro.site) {
                   class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
                   aria-label={`${t("artifact.previous")}: ${prevArtifact.data.title}`}
                 >
-                  <svg
-                    class="w-5 h-5 group-hover:-translate-x-1 transition-transform flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
+                  <Icon name="mdi:chevron-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform flex-shrink-0" />
                   <span class="truncate">{prevArtifact.data.title}</span>
                 </a>
               ) : (
@@ -256,20 +223,7 @@ if (Astro.site) {
                   aria-label={`${t("artifact.next")}: ${nextArtifact.data.title}`}
                 >
                   <span class="truncate">{nextArtifact.data.title}</span>
-                  <svg
-                    class="w-5 h-5 group-hover:translate-x-1 transition-transform flex-shrink-0"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  <Icon name="mdi:chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                 </a>
               ) : (
                 <div />
@@ -281,22 +235,10 @@ if (Astro.site) {
 
       <button
         id="back-to-top"
-        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 bg-primary text-primary-content p-3 sm:p-4 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-primary/80 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 btn btn-circle btn-primary btn-outline btn-sm"
         aria-label={t("artifact.backToTop")}
       >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width={2}
-            d="M5 10l7-7m0 0l7 7m-7-7v18"
-          />
-        </svg>
+        <Icon name="mdi:arrow-up" class="w-6 h-6" />
       </button>
 
       {
@@ -336,31 +278,6 @@ if (Astro.site) {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-    });
-  });
-
-  // Image zoom functionality
-  const mainImage = document.getElementById('main-image');
-  mainImage?.addEventListener('click', () => {
-    // Create modal for image zoom
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center backdrop-blur-sm';
-    modal.innerHTML = `
-      <div class="relative w-full h-full flex items-center justify-center">
-        <img src="${mainImage.querySelector('img')?.src}" alt="${mainImage.getAttribute('aria-label')}" class="max-w-full max-h-full object-contain">
-        <button class="absolute top-4 right-4 text-white p-3 rounded-full hover:bg-white/20 transition-colors" aria-label="Close">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
-
-    modal.querySelector('button')?.addEventListener('click', () => {
-      modal.remove();
-      document.body.style.overflow = '';
     });
   });
 </script>

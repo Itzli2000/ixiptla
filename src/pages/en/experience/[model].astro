@@ -7,6 +7,8 @@ import {
   getModelPath,
   getModelInfo,
 } from "../../../data/models";
+import type { Language } from "../../../types";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
   return AVAILABLE_MODELS.map((model) => ({
@@ -14,7 +16,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const { model } = Astro.params;
@@ -33,35 +35,17 @@ const info = model ? getModelInfo(model, lang) : null;
   >
     <button
       onclick="history.back()"
-      class="btn btn-ghost btn-sm absolute top-4 left-4 z-50 gap-2 backdrop-blur-md"
+      class="btn btn-ghost btn-sm absolute top-4 left-4 z-50 gap-2"
     >
-      <svg
-        width="16"
-        height="16"
-        class="sm:w-5 sm:h-5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M19 12H5M12 19l-7-7 7-7"></path>
-      </svg>
+      <Icon name="mdi:arrow-left" class="w-4 h-4" />
       {t("artifact.back")}
     </button>
 
     <div class="absolute top-4 right-4 z-50 flex flex-col sm:flex-row gap-2">
-      <button
-        id="resetView"
-        class="btn btn-ghost btn-sm backdrop-blur-md"
-      >
+      <button id="resetView" class="btn btn-ghost btn-sm">
         {t("artifact.resetView")}
       </button>
-      <button
-        id="toggleAutoRotate"
-        class="btn btn-ghost btn-sm backdrop-blur-md"
-      >
+      <button id="toggleAutoRotate" class="btn btn-ghost btn-sm">
         {t("artifact.autoRotate")}
       </button>
     </div>
@@ -79,7 +63,7 @@ const info = model ? getModelInfo(model, lang) : null;
     </div>
 
     <div
-      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-base-200/80 backdrop-blur-md text-base-content px-4 sm:px-6 py-2 sm:py-3 rounded-full max-w-[90%] sm:max-w-none"
+      class="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 bg-base-200/80 text-base-content px-4 sm:px-6 py-2 sm:py-3 rounded-full max-w-[90%] sm:max-w-none"
     >
       <p class="text-xs sm:text-sm text-center">
         {t("artifact.instructions")}
