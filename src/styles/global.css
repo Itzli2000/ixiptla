@@ -8,29 +8,23 @@
   name: "ixpitla";
   color-scheme: light;
 
-  /* Base colors */
   --color-base-100: oklch(97% 0.01 83.24);
   --color-base-200: oklch(85% 0.04 83.24);
   --color-base-300: oklch(80% 0.06 83.24);
   --color-base-content: oklch(20% 0.02 83.24);
 
-  /* Primary colors */
   --color-primary: oklch(55% 0.15 40.24);
   --color-primary-content: oklch(97% 0.01 83.24);
 
-  /* Secondary colors */
   --color-secondary: oklch(80% 0.06 83.24);
   --color-secondary-content: oklch(20% 0.02 83.24);
 
-  /* Accent colors */
   --color-accent: oklch(35% 0.08 40.24);
   --color-accent-content: oklch(97% 0.01 83.24);
 
-  /* Neutral colors */
   --color-neutral: oklch(20% 0.02 83.24);
   --color-neutral-content: oklch(97% 0.01 83.24);
 
-  /* State colors */
   --color-info: oklch(65% 0.2 220);
   --color-info-content: oklch(98% 0.01 220);
   --color-success: oklch(65% 0.25 140);
@@ -40,7 +34,6 @@
   --color-error: oklch(65% 0.3 30);
   --color-error-content: oklch(98% 0.01 30);
 
-  /* Component styling */
   --radius-box: 0.5rem;
   --radius-field: 0.375rem;
   --radius-selector: 0.25rem;
@@ -52,27 +45,37 @@
   name: "ixpitla-dark";
   color-scheme: dark;
 
-  --color-base-100: oklch(0.2032 0.0362 83.24);
-  --color-base-200: oklch(20% 0.04 83.24);
-  --color-base-300: oklch(30% 0.06 83.24);
-  --color-base-content: oklch(80% 0.02 83.24);
+  --color-base-100: oklch(18% 0.01 83.24);
+  --color-base-200: oklch(24% 0.015 83.24);
+  --color-base-300: oklch(30% 0.02 83.24);
+  --color-base-content: oklch(95% 0.01 83.24);
 
-  --color-primary: oklch(95% 0.15 40.24);
-  --color-primary-content: oklch(0.2032 0.0362 83.24);
+  --color-primary: oklch(65% 0.15 40.24);
+  --color-primary-content: oklch(15% 0.015 40.24);
 
-  --color-secondary: oklch(30% 0.06 83.24);
-  --color-secondary-content: oklch(80% 0.02 83.24);
+  --color-secondary: oklch(50% 0.05 83.24);
+  --color-secondary-content: oklch(95% 0.01 83.24);
 
-  --color-accent: oklch(75% 0.08 40.24);
-  --color-accent-content: oklch(0.2032 0.0362 83.24);
+  --color-accent: oklch(75% 0.1 60.24);
+  --color-accent-content: oklch(15% 0.01 60.24);
 
-  --color-neutral: oklch(80% 0.02 83.24);
-  --color-neutral-content: oklch(0.2032 0.0362 83.24);
+  --color-neutral: oklch(30% 0.01 83.24);
+  --color-neutral-content: oklch(90% 0.01 83.24);
 
-  --color-info: oklch(65% 0.2 220);
-  --color-info-content: oklch(10% 0.01 220);
-  --color-success: oklch(65% 0.25 140);
-  --color-success-content: oklch(10% 0.01 140);
+  --color-info: oklch(70% 0.2 220);
+  --color-info-content: oklch(15% 0.01 220);
+  --color-success: oklch(70% 0.25 140);
+  --color-success-content: oklch(15% 0.01 140);
+  --color-warning: oklch(85% 0.2 80);
+  --color-warning-content: oklch(20% 0.05 80);
+  --color-error: oklch(70% 0.3 30);
+  --color-error-content: oklch(15% 0.01 30);
+
+  --radius-box: 0.5rem;
+  --radius-field: 0.375rem;
+  --radius-selector: 0.25rem;
+  --border: 1px;
+  --depth: 1;
 }
 
 :root {

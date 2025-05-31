@@ -12,10 +12,10 @@ const image = getImageByFilename(artifact.image);
 
 <a
   href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`}
-  class={`block group transition-all duration-300 ${
+  class={`card bg-base-200/30 block group transition-all duration-300 ${
     variant === "grid"
-      ? "bg-white rounded-2xl shadow-lg hover:shadow-xl overflow-hidden"
-      : "bg-white rounded-xl shadow-md hover:shadow-lg p-4"
+      ? "rounded-2xl shadow-lg hover:shadow-xl overflow-hidden"
+      : "rounded-xl shadow-md hover:shadow-lg p-4"
   }`}
 >
   <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center"}>
