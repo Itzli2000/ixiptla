@@ -2,9 +2,10 @@
 import { Image } from "astro:assets";
 import { getLangFromUrl } from "../../../i18n/utils";
 import { getImageByFilename } from "../../../utils/imageMapping";
+import type { Language } from "../../../types";
 
 const { artifact, variant = "grid" } = Astro.props;
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 
 const image = getImageByFilename(artifact.image);
 ---

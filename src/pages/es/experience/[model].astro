@@ -7,6 +7,7 @@ import {
   getModelPath,
   getModelInfo,
 } from "../../../data/models";
+import type { Language } from "../../../types";
 
 export async function getStaticPaths() {
   return AVAILABLE_MODELS.map((model) => ({
@@ -14,7 +15,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const { model } = Astro.params;

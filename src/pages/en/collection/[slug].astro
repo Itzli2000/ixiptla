@@ -6,6 +6,7 @@ import { getModelForSlug } from "../../../data/models";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
 import { getImageByFilename } from "../../../utils/imageMapping";
+import type { Language } from "../../../types";
 
 interface Props {
   params: {
@@ -34,7 +35,7 @@ const nextArtifact =
     ? artifacts[currentIndex + 1]
     : null;
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const model3D = getModelForSlug(artifact.slug);

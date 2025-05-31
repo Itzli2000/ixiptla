@@ -3,8 +3,9 @@ import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import LanguageSwitcher from "../../common/LanguageSwitcher/LanguageSwitcher.astro";
 import ThemeSwitcher from "../../common/ThemeSwitcher/ThemeSwitcher.astro";
+import type { Language } from "../../../types";
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const routes = {

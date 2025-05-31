@@ -4,8 +4,9 @@ import Hero from '../../components/features/Hero/Hero.astro';
 import IxiptlaSection from '../../components/features/IxiptlaSection/IxiptlaSection.astro';
 import Collection from '../../components/features/Collection/Collection.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import type { Language } from '../../types';
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 ---
 

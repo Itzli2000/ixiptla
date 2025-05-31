@@ -3,8 +3,9 @@ import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import { Image } from "astro:assets";
 import colibri from "public/images/colibri.png";
 import Logo from "/public/favicon.svg";
+import type { Language } from "../../../types";
 
-const lang = getLangFromUrl(Astro.url) as "en" | "es";
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 ---
 
