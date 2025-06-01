@@ -1,3 +1,13 @@
+### 1.7.0 (2025-06-01)
+
+##### Chores
+
+* **Project:**  add .npmrc and .yarnrc.yml for package management (5db276fc)
+
+##### Refactors
+
+* **styles:**  update CSS variables for design tokens integration (517f16e3)
+
 ### 1.6.0 (2025-05-31)
 
 ##### New Features
