@@ -6,10 +6,20 @@ import Layout from "../../../layouts/Layout.astro";
 import type { Language } from "../../../types";
 import { Icon } from "astro-icon/components";
 
+export const prerender = true;
+
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
-const artifacts = await getCollection("artifacts");
+// Use explicit async collection loading with error handling
+let artifacts;
+try {
+  artifacts = await getCollection("artifacts");
+} catch (error) {
+  console.error("Error loading artifacts collection:", error);
+  artifacts = [];
+}
+
 const cultures = artifacts
   .map((artifact) => artifact.data.culture)
   .filter((culture, index, self) => self.indexOf(culture) === index);
