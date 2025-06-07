@@ -116,7 +116,7 @@ if (Astro.site) {
               class="artifact-card transform transition-all duration-500"
               data-culture={artifact.data.culture}
               data-variant="grid"
-              transition:name={`artifact-${artifact.id}`}
+              transition:name={"artifact-" + artifact.id}
             >
               <ArtifactCard artifact={artifact.data} variant="grid" />
             </div>
