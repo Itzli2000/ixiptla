@@ -10,9 +10,6 @@ const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const artifacts = await getCollection("artifacts");
-const cultures = artifacts
-  .map((artifact) => artifact.data.culture)
-  .filter((culture, index, self) => self.indexOf(culture) === index);
 
 let canonicalURL: string | URL = `/en/collection`;
 let imageURL: string | URL = `/images/og-image.png`;
@@ -62,15 +59,18 @@ if (Astro.site) {
             {t(`collection.all`)}
           </button>
           {
-            cultures.map((culture) => (
-              <button
-                data-culture={culture}
-                class="btn btn-sm btn-secondary btn-outline filter-btn"
-                aria-pressed="false"
-              >
-                {t(`collection.${culture.toLowerCase()}`)}
-              </button>
-            ))
+            artifacts
+              .map((artifact) => artifact.data.culture)
+              .filter((culture, index, self) => self.indexOf(culture) === index)
+              .map((culture) => (
+                <button
+                  data-culture={culture}
+                  class="btn btn-sm btn-secondary btn-outline filter-btn"
+                  aria-pressed="false"
+                >
+                  {t(`collection.${culture.toLowerCase()}`)}
+                </button>
+              ))
           }
         </div>
         <div class="flex items-center gap-4">
@@ -220,7 +220,7 @@ if (Astro.site) {
               artifactCard.classList.remove(
                 "rounded-xl",
                 "shadow-md",
-                "hover:shadow-lg",
+                "hover:shadow-lg"
               );
               artifactCard.classList.add(
                 "rounded-2xl",
@@ -238,7 +238,7 @@ if (Astro.site) {
               artifactCard.classList.add(
                 "rounded-xl",
                 "shadow-md",
-                "hover:shadow-lg",
+                "hover:shadow-lg"
               );
             }
 
@@ -258,17 +258,18 @@ if (Astro.site) {
               if (view === "grid") {
                 imageDiv.className = "w-full h-full object-contain";
               } else {
-                imageDiv.className = "object-contain max-w-[300px] max-h-[300px]";
+                imageDiv.className =
+                  "object-contain max-w-[300px] max-h-[300px]";
               }
               if (imageDiv.parentElement) {
                 if (view === "grid") {
                   imageDiv.parentElement.className = "w-full h-full";
                 } else {
-                  imageDiv.parentElement.className = "max-w-[300px] max-h-[300px]";
+                  imageDiv.parentElement.className =
+                    "max-w-[300px] max-h-[300px]";
                 }
               }
             }
-
           }
         }
       });
