@@ -29,4 +29,4 @@ const artefactos = defineCollection({
 export const collections = {
   artifacts,
   artefactos,
-} as const;
+};
