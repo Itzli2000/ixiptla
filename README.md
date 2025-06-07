@@ -1,5 +1,7 @@
 ![Ixiptla Logo](src/assets/icons/logo.svg)
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Itzli2000/ixiptla)
+
 # 🏺 Ixiptla
 
 A modern web application showcasing a curated collection of handcrafted archaeological replicas. Built with Astro.js and React, this platform combines performance with stunning visual presentation to bring ancient artifacts to life in the digital age.
