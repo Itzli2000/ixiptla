@@ -14,6 +14,12 @@ const cultures = artifacts
   .map((artifact) => artifact.data.culture)
   .filter((culture, index, self) => self.indexOf(culture) === index);
 
+// Pre-generate culture translations to avoid template literal issues in JSX
+const cultureTranslations = cultures.map((culture) => ({
+  key: culture,
+  label: t(`collection.${culture.toLowerCase()}`)
+}));
+
 let canonicalURL: string | URL = `/en/collection`;
 let imageURL: string | URL = `/images/og-image.png`;
 let alternateURLs: { en: string | URL; es: string | URL } = {
@@ -59,16 +65,16 @@ if (Astro.site) {
             class="btn btn-sm btn-secondary btn-outline filter-btn"
             aria-pressed="false"
           >
-            {t(`collection.all`)}
+            {t("collection.all")}
           </button>
           {
-            cultures.map((culture) => (
+            cultureTranslations.map((culture) => (
               <button
-                data-culture={culture}
+                data-culture={culture.key}
                 class="btn btn-sm btn-secondary btn-outline filter-btn"
                 aria-pressed="false"
               >
-                {t(`collection.${culture.toLowerCase()}`)}
+                {culture.label}
               </button>
             ))
           }
