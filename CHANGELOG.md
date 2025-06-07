@@ -1,3 +1,9 @@
+#### 1.8.1 (2025-06-07)
+
+##### Refactors
+
+* **content:**  fix missing newline at end of file in content.config.ts (b198d62d)
+
 ### 1.8.0 (2025-06-07)
 
 ##### Documentation Changes
