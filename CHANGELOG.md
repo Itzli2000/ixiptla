@@ -1,3 +1,9 @@
+#### 1.8.1 (2025-06-07)
+
+##### Refactors
+
+* **collection:**  pre-generate culture translations for improved rendering (11cd5d40)
+
 ### 1.8.0 (2025-06-07)
 
 ##### Documentation Changes
