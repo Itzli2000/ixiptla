@@ -1,3 +1,9 @@
+### 1.8.0 (2025-06-07)
+
+##### Documentation Changes
+
+* **README:**  add DeepWiki badge for enhanced visibility (0aa49f2e)
+
 ### 1.7.0 (2025-06-01)
 
 ##### Chores
