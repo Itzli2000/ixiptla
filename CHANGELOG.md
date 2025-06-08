@@ -1,3 +1,9 @@
+#### 1.8.1 (2025-06-08)
+
+##### New Features
+
+* **collection:**  implement CollectionView component for artifact display (0fbe84d9)
+
 ### 1.8.0 (2025-06-07)
 
 ##### Documentation Changes

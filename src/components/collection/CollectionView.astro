@@ -1,0 +1,337 @@
+---
+import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import Layout from "../../layouts/Layout.astro";
+import { Language } from "../../types";
+import ArtifactCard from "../common/ArtifactCard/ArtifactCard.astro";
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+const artifacts = await getCollection(
+  lang === "es" ? "artefactos" : "artifacts"
+);
+const cultures = artifacts
+  .map((artifact) => artifact.data.culture)
+  .filter((culture, index, self) => self.indexOf(culture) === index);
+
+let canonicalURL: string | URL = `/es/coleccion`;
+let imageURL: string | URL = `/images/og-image.png`;
+let alternateURLs: { en: string | URL; es: string | URL } = {
+  en: `/en/collection`,
+  es: `/es/coleccion`,
+};
+
+if (Astro.site) {
+  canonicalURL = new URL(`/es/coleccion`, Astro.site);
+  imageURL = new URL(`/images/og-image.png`, Astro.site);
+  alternateURLs = {
+    en: new URL(`/en/collection`, Astro.site),
+    es: new URL(`/es/coleccion`, Astro.site),
+  };
+}
+---
+
+<Layout
+  title={t("collection.title")}
+  description={t("collection.description")}
+  lang={lang}
+  image={imageURL}
+  canonicalURL={canonicalURL}
+  alternateURLs={alternateURLs}
+>
+  <section class="pt-10 lg:pt-24 pb-16 px-4 bg-base-100">
+    <div class="mx-auto max-w-7xl">
+      <h1
+        class="text-4xl md:text-5xl font-bold text-base-content text-center mb-8"
+      >
+        {t("collection.title")}
+      </h1>
+      <p
+        class="text-xl text-base-content/80 text-center max-w-3xl mx-auto mb-12"
+      >
+        {t("collection.description")}
+      </p>
+
+      <div class="flex flex-col items-center gap-6 mb-12">
+        <div class="flex flex-wrap gap-4 justify-center">
+          <button
+            data-culture="all"
+            class="btn btn-sm btn-secondary btn-outline filter-btn"
+          >
+            {t(`collection.all`)}
+          </button>
+          {
+            cultures.map((culture) => (
+              <button
+                class="btn btn-sm btn-secondary btn-outline filter-btn"
+                data-culture={culture.toLowerCase()}
+              >
+                {t(`collection.${culture.toLowerCase()}`)}
+              </button>
+            ))
+          }
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <button
+              id="grid-view"
+              class="btn btn-square btn-sm btn-secondary btn-outline"
+              aria-label="Grid view"
+              aria-pressed="true"
+            >
+              <Icon name="mdi:view-grid" class="w-5 h-5" />
+            </button>
+            <button
+              id="list-view"
+              class="btn btn-square btn-sm btn-secondary btn-outline"
+              aria-label="List view"
+              aria-pressed="false"
+            >
+              <Icon name="mdi:view-list" class="w-5 h-5" />
+            </button>
+          </div>
+          <div class="text-secondary">
+            <span id="results-count">{artifacts.length}</span>
+            {t("collection.results")}
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="artifacts-container"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 max-w-full"
+      >
+        {
+          artifacts.map((artifact) => (
+            <div
+              class="artifact-card transform transition-all duration-500"
+              data-variant="grid"
+              data-culture={artifact.data.culture.toLowerCase()}
+            >
+              <ArtifactCard artifact={artifact.data} variant="grid" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:inline>
+  /* Vista de lista */
+  .list-view {
+    @apply grid-cols-1 !important;
+    @apply gap-4 !important;
+    @apply max-w-full !important;
+    @apply md:grid-cols-1 !important;
+    @apply lg:grid-cols-1 !important;
+  }
+
+  .list-view .artifact-card {
+    @apply w-full;
+  }
+
+  .list-view .card {
+    @apply flex-row !important;
+    @apply h-48 !important;
+    @apply w-full !important;
+  }
+
+  .list-view .card figure {
+    @apply w-48 h-full !important;
+    @apply shrink-0;
+  }
+
+  .list-view .card figure img {
+    @apply h-full w-full object-cover;
+  }
+
+  .list-view .card-body {
+    @apply flex-1 !important;
+    @apply flex flex-col justify-between !important;
+    @apply p-4 !important;
+    @apply w-full !important;
+  }
+
+  /* Vista de grid */
+  .grid-view .card {
+    @apply flex-col !important;
+    @apply h-auto;
+  }
+
+  .grid-view .card figure {
+    @apply w-full !important;
+    @apply h-48;
+  }
+
+  .grid-view .card figure img {
+    @apply h-full w-full object-cover;
+  }
+
+  .grid-view .card-body {
+    @apply flex-col !important;
+    @apply p-6 !important;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const gridView = document.getElementById("grid-view");
+    const listView = document.getElementById("list-view");
+    const artifactsContainer = document.getElementById("artifacts-container");
+    const resultsCount = document.getElementById("results-count");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    let currentFilter = "all";
+
+    function updateView(view: "grid" | "list") {
+      if (!artifactsContainer) return;
+
+      // Actualizar el contenedor principal
+      if (view === "grid") {
+        artifactsContainer.className =
+          "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500";
+        gridView?.setAttribute("aria-pressed", "true");
+        listView?.setAttribute("aria-pressed", "false");
+        gridView?.classList.add("btn-active");
+        listView?.classList.remove("btn-active");
+      } else {
+        artifactsContainer.className =
+          "grid grid-cols-1 gap-4 transition-all duration-500 w-full";
+        gridView?.setAttribute("aria-pressed", "false");
+        listView?.setAttribute("aria-pressed", "true");
+        gridView?.classList.remove("btn-active");
+        listView?.classList.add("btn-active");
+      }
+
+      // Actualizar las tarjetas
+      const cards = document.querySelectorAll(".artifact-card");
+      cards.forEach((card) => {
+        if (card instanceof HTMLElement) {
+          // Actualizar el atributo data-variant
+          card.dataset.variant = view;
+
+          // Actualizar el componente ArtifactCard
+          const artifactCard = card.querySelector("a");
+          if (artifactCard) {
+            if (view === "grid") {
+              artifactCard.classList.remove(
+                "rounded-xl",
+                "shadow-md",
+                "hover:shadow-lg"
+              );
+              artifactCard.classList.add(
+                "rounded-2xl",
+                "shadow-lg",
+                "hover:shadow-xl",
+                "overflow-hidden"
+              );
+            } else {
+              artifactCard.classList.remove(
+                "rounded-2xl",
+                "shadow-lg",
+                "hover:shadow-xl",
+                "overflow-hidden"
+              );
+              artifactCard.classList.add(
+                "rounded-xl",
+                "shadow-md",
+                "hover:shadow-lg"
+              );
+            }
+
+            // Actualizar la estructura interna
+            const contentDiv = artifactCard.querySelector("div");
+            if (contentDiv) {
+              if (view === "grid") {
+                contentDiv.className = "aspect-square relative overflow-hidden";
+              } else {
+                contentDiv.className =
+                  "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center";
+              }
+            }
+
+            const imageDiv = artifactCard.querySelector("img");
+            if (imageDiv) {
+              if (view === "grid") {
+                imageDiv.className = "w-full h-full object-contain";
+              } else {
+                imageDiv.className =
+                  "object-contain max-w-[300px] max-h-[300px]";
+              }
+              if (imageDiv.parentElement) {
+                if (view === "grid") {
+                  imageDiv.parentElement.className = "w-full h-full";
+                } else {
+                  imageDiv.parentElement.className =
+                    "max-w-[300px] max-h-[300px]";
+                }
+              }
+            }
+          }
+        }
+      });
+
+      handleFilter(currentFilter);
+    }
+
+    function handleFilter(culture: string) {
+      const cards = document.querySelectorAll(".artifact-card");
+      let visibleCount = 0;
+
+      filterButtons.forEach((btn) => {
+        if (btn instanceof HTMLElement) {
+          const btnCulture = btn.dataset.culture;
+          if (btnCulture === culture) {
+            btn.classList.add("btn-active");
+            btn.setAttribute("aria-pressed", "true");
+          } else {
+            btn.classList.remove("btn-active");
+            btn.setAttribute("aria-pressed", "false");
+          }
+        }
+      });
+
+      cards.forEach((card) => {
+        if (card instanceof HTMLElement) {
+          const cardCulture = card.dataset.culture;
+          if (
+            culture === "all" ||
+            cardCulture?.toLowerCase().includes(culture.toLowerCase())
+          ) {
+            card.style.display = "block";
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+            visibleCount++;
+          } else {
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              card.style.display = "none";
+            }, 300);
+          }
+        }
+      });
+
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount.toString();
+      }
+    }
+
+    gridView?.addEventListener("click", () => updateView("grid"));
+    listView?.addEventListener("click", () => updateView("list"));
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        if (e.currentTarget instanceof HTMLElement) {
+          const culture = e.currentTarget.dataset.culture || "all";
+          currentFilter = culture;
+          handleFilter(culture);
+        }
+      });
+    });
+
+    // Initialize view on page load
+    updateView("grid");
+  });
+</script>
