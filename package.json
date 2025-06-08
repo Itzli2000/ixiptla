@@ -1,7 +1,7 @@
 {
   "name": "ixiptla",
   "type": "module",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -14,12 +14,12 @@
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
     "@astrojs/react": "4.3.0",
-    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/sitemap": "3.4.1",
     "@codigo-obsidiana/design-tokens": "^0.0.8",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
     "@tailwindcss/vite": "^4.1.7",
-    "astro": "5.8.0",
+    "astro": "5.9.1",
     "astro-icon": "^1.1.5",
     "daisyui": "^5.0.37",
     "react": "^19.1.0",
