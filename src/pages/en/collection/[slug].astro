@@ -41,8 +41,16 @@ const t = useTranslations(lang);
 
 const model3D = getModelForSlug(artifact.slug);
 
-const title = `${artifact.title} - Ixiptla Collection`;
-const description = artifact.description;
+// Generate SEO-optimized title and description using templates
+const title = t('seo.artifact.titleTemplate')
+  .replace('{title}', artifact.title)
+  .replace('{culture}', artifact.culture);
+
+const description = t('seo.artifact.descriptionTemplate')
+  .replace('{title}', artifact.title)
+  .replace('{culture}', artifact.culture)
+  .replace('{period}', artifact.period)
+  .replace('{description}', artifact.description.slice(0, 120) + '...');
 
 let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
 let imageURL: string | URL = artifact.image;
@@ -71,6 +79,7 @@ if (Astro.site) {
   image={imageURL}
   canonicalURL={canonicalURL}
   alternateURLs={alternateURLs}
+  currentArtifact={artifact}
 >
 <main>
   <article class="w-full pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 bg-gradient-to-b from-base-100/5 to-base-100 overflow-x-hidden" role="main">

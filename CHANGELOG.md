@@ -1,3 +1,9 @@
+### 1.9.0 (2025-06-10)
+
+##### New Features
+
+* **seo:**  enhance SEO implementation across components (c32aac38)
+
 #### 1.8.1 (2025-06-08)
 
 ##### New Features
