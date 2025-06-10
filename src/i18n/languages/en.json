@@ -4,8 +4,9 @@
     "es": "Spanish"
   },
   "home": {
-    "title": "Ixiptla",
-    "description": "The art of the Ixiptla"
+    "title": "Ixiptla - Mesoamerican Archaeological Replicas Collection",
+    "description": "Discover ancient Mesoamerican art through archaeological replicas from Maya, Mexica, Acolhua cultures and more. Virtual museum with interactive 3D experiences.",
+    "keywords": "archaeological replicas, mesoamerican art, maya culture, mexica, acolhua, virtual museum, prehispanic artifacts"
   },
   "navigation": {
     "home": "Home",
@@ -13,7 +14,7 @@
     "contact": "Contact"
   },
   "hero": {
-    "imageAlt": "Ixiptla"
+    "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted ceramic motifs"
   },
   "ixiptla": {
     "title": "What is Ixiptla?",
@@ -21,8 +22,9 @@
     "description2": "In this exhibition, we explore these sacred vessels through a curated collection of replicas. Each piece tells a story of our ancestral heritage, offering a window into the deep cultural significance of Mesoamerican artistry."
   },
   "collection": {
-    "title": "Collection",
-    "description": "Explore some of our most iconic Mexican cultural reproductions",
+    "title": "Archaeological Artifacts Collection - Ixiptla Museum",
+    "description": "Explore our curated collection of Mesoamerican archaeological replicas: Maya vessels, Mexica sculptures, Teotihuacan figurines and more historical pieces.",
+    "pageDescription": "Complete catalog of archaeological replicas from pre-Columbian Mexican cultures. Each piece includes historical information, crafting techniques and cultural context.",
     "cta": "View Collection",
     "all": "All",
     "maya": "Maya",
@@ -88,8 +90,8 @@
     }
   },
   "contact": {
-    "title": "Contact Us",
-    "description": "Have questions or want to learn more about our services? We'd love to hear from you.",
+    "title": "Contact - Ixiptla Virtual Museum",
+    "description": "Connect with our team of Mesoamerican art experts. Inquiries about archaeological replicas, exhibitions and educational services.",
     "getInTouch": {
       "title": "Get in Touch",
       "description": "We're here to help and answer any questions you might have. We look forward to hearing from you."
@@ -107,6 +109,19 @@
         "partnership": "Partnership opportunities",
         "general": "General questions"
       }
+    }
+  },
+  "seo": {
+    "site": {
+      "name": "Ixiptla Virtual Museum",
+      "description": "Digital collection of Mesoamerican archaeological replicas with interactive 3D experiences",
+      "author": "Ixiptla Team",
+      "keywords": "virtual museum, mesoamerican archaeology, historical replicas, maya culture, mexica, prehispanic art"
+    },
+    "artifact": {
+      "titleTemplate": "{title} - {culture} | Ixiptla Museum",
+      "descriptionTemplate": "Discover {title}, {culture} artifact from {period} period. {description}",
+      "keywordsTemplate": "{culture}, {period}, mesoamerican archaeology, {material}, prehispanic art"
     }
   }
 }
