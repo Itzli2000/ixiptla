@@ -110,7 +110,7 @@ if (Astro.site) {
           >
             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10"></div>
             <Image
-              transition:name={artifact.title}
+              transition:name={artifact.title.split(" ").join("-")}
               src={image}
               alt={artifact.title}
               width={800}
