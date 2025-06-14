@@ -1,3 +1,13 @@
+#### 1.9.1 (2025-06-14)
+
+##### Bug Fixes
+
+* **content:**  update title from "Copa Colibrí" to "Hummingbird Cup" in hummingbird-cup.mdx (96fd5cdc)
+
+##### Refactors
+
+* **ArtifactCard:**  update transition name formatting for artifact titles (440c4667)
+
 ### 1.9.0 (2025-06-10)
 
 ##### New Features
