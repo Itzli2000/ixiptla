@@ -1,3 +1,9 @@
+### 1.10.0 (2025-06-15)
+
+##### Refactors
+
+* **README, i18n, constants:**  update terminology for archaeological replicas (dae6b26a)
+
 #### 1.9.1 (2025-06-14)
 
 ##### Bug Fixes

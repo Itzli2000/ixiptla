@@ -6,7 +6,7 @@
   "home": {
     "title": "Ixiptla - Mesoamerican Archaeological Replicas Collection",
     "description": "Discover ancient Mesoamerican art through archaeological replicas from Maya, Mexica, Acolhua cultures and more. Virtual museum with interactive 3D experiences.",
-    "keywords": "archaeological replicas, mesoamerican art, maya culture, mexica, acolhua, virtual museum, prehispanic artifacts"
+    "keywords": "archaeological replicas, mesoamerican art, maya culture, mexica, acolhua, virtual museum, prehispanic replicas"
   },
   "navigation": {
     "home": "Home",
@@ -22,7 +22,7 @@
     "description2": "In this exhibition, we explore these sacred vessels through a curated collection of replicas. Each piece tells a story of our ancestral heritage, offering a window into the deep cultural significance of Mesoamerican artistry."
   },
   "collection": {
-    "title": "Archaeological Artifacts Collection - Ixiptla Museum",
+    "title": "Archaeological Replicas Collection - Ixiptla Museum",
     "description": "Explore our curated collection of Mesoamerican archaeological replicas: Maya vessels, Mexica sculptures, Teotihuacan figurines and more historical pieces.",
     "pageDescription": "Complete catalog of archaeological replicas from pre-Columbian Mexican cultures. Each piece includes historical information, crafting techniques and cultural context.",
     "cta": "View Collection",
@@ -36,7 +36,7 @@
     "gridView": "Grid view",
     "listView": "List view",
     "sortBy": "Sort by",
-    "search": "Search artifacts..."
+    "search": "Search replicas..."
   },
   "artifact": {
     "title": "Piece",
@@ -53,7 +53,7 @@
     "material": "Material",
     "technique": "Technique",
     "related": "Related Pieces",
-    "relatedItems": "Related Artifacts",
+    "relatedItems": "Related Replicas",
     "explore3D": "Explore in 3D",
     "explore3DDescription": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
     "viewExperience": "View Experience",
@@ -68,7 +68,7 @@
     "navigation": "Navigation between pieces",
     "previous": "Previous piece",
     "next": "Next piece",
-    "details": "Artifact details"
+    "details": "Replica details"
   },
   "404": {
     "title": "Page Not Found",
@@ -120,7 +120,7 @@
     },
     "artifact": {
       "titleTemplate": "{title} - {culture} | Ixiptla Museum",
-      "descriptionTemplate": "Discover {title}, {culture} artifact from {period} period. {description}",
+      "descriptionTemplate": "Discover {title}, {culture} replica from {period} period. {description}",
       "keywordsTemplate": "{culture}, {period}, mesoamerican archaeology, {material}, prehispanic art"
     }
   }
