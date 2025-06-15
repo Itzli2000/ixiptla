@@ -1,3 +1,16 @@
+### 1.11.0 (2025-06-15)
+
+##### New Features
+
+* **Hero:**
+  *  adjust logo mask background and implement responsive mask size (939acf36)
+  *  integrate GSAP for scroll-triggered animations and update hero section layout (3df189bf)
+
+##### Refactors
+
+* **ArtifactCard:**  update transition name to use artifact slug (822efdd6)
+* **Hero:**  adjust scroll-trigger end position and animation durations (95fc421c)
+
 ### 1.10.0 (2025-06-15)
 
 ##### Refactors

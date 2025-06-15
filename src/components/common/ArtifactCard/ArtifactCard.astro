@@ -24,7 +24,7 @@ const altText = `${artifact.title || artifact.name} - ${artifact.culture} ${arti
   <div class={variant === "grid" ? "aspect-square relative overflow-hidden" : "flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center"}>
     <div class={variant === "grid" ? "w-full h-full" : "w-full sm:w-48 h-48 flex-shrink-0"}>
       <Image
-        transition:name={artifact.title.split(" ").join("-")}
+        transition:name={`artifact-${artifact.slug}`}
         src={image}
         alt={altText}
         width={variant === "grid" ? 800 : 400}
