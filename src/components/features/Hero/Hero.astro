@@ -30,7 +30,7 @@ const t = useTranslations(lang);
   }
 
   #logo-mask {
-    background: var(--color-base-300);
+    background: var(--color-base-200);
     mask-image: url("/logo-mask.svg");
     mask-repeat: no-repeat;
     mask-position: 25% center;
@@ -67,6 +67,25 @@ const t = useTranslations(lang);
   document.addEventListener("astro:page-load", () => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // Detectar el tamaño de pantalla para ajustar solo el tamaño final
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const isTablet = window.matchMedia("(max-width: 1024px) and (min-width: 769px)").matches;
+    const isTabletPortrait = window.matchMedia("(max-width: 1024px) and (min-width: 769px) and (orientation: portrait)").matches;
+    const isSmallMobile = window.matchMedia("(max-width: 480px)").matches;
+
+    // Solo cambiar el tamaño final del mask según el dispositivo
+    let finalMaskSize = "clamp(100vh, 30%, 40vh)"; // Desktop default
+
+    if (isSmallMobile) {
+      finalMaskSize = "clamp(45vh, 15%, 25vh)";
+    } else if (isMobile) {
+      finalMaskSize = "clamp(50vh, 20%, 30vh)";
+    } else if (isTabletPortrait) {
+      finalMaskSize = "clamp(60vh, 22%, 32vh)";
+    } else if (isTablet) {
+      finalMaskSize = "clamp(70vh, 25%, 35vh)";
+    }
+
     const tl = gsap.timeline({
       ease: "power2.out",
       scrollTrigger: {
@@ -82,8 +101,8 @@ const t = useTranslations(lang);
       scale: 1,
     })
     .to("#logo-mask", {
-      maskSize: "clamp(100vh, 30%, 40vh)",
-      webkitMaskSize: "clamp(100vh, 30%, 40vh)",
+      maskSize: finalMaskSize,
+      webkitMaskSize: finalMaskSize,
       duration: 0.5,
     }, "<")
     .to("#hero-image", {
