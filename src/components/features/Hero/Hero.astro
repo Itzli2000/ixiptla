@@ -91,7 +91,7 @@ const t = useTranslations(lang);
       scrollTrigger: {
         trigger: ".hero-section",
         start: "top bottom",
-        end: "bottom center",
+        end: "bottom top",
         scrub: 1,
       },
     });
@@ -103,14 +103,15 @@ const t = useTranslations(lang);
     .to("#logo-mask", {
       maskSize: finalMaskSize,
       webkitMaskSize: finalMaskSize,
-      duration: 0.5,
+      duration: 0.75,
     }, "<")
     .to("#hero-image", {
       opacity: 0,
       duration: 0.1,
-    }, 0.75)
+    }, 0.8)
     .to("#logo-mask", {
       opacity: 0,
+      zIndex: -1,
       duration: 0.5,
     }, 0.9);
   });
