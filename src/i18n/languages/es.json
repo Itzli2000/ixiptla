@@ -6,7 +6,7 @@
   "home": {
     "title": "Ixiptla - Colección de Réplicas Arqueológicas Mesoamericanas",
     "description": "Descubre el arte ancestral mesoamericano a través de réplicas arqueológicas de culturas Maya, Mexica, Acolhua y más. Museo virtual con experiencias 3D interactivas.",
-    "keywords": "réplicas arqueológicas, arte mesoamericano, cultura maya, mexica, acolhua, museo virtual, artefactos prehispánicos"
+    "keywords": "réplicas arqueológicas, arte mesoamericano, cultura maya, mexica, acolhua, museo virtual, réplicas prehispánicas"
   },
   "navigation": {
     "home": "Inicio",
@@ -22,7 +22,7 @@
     "description2": "En esta exposición, exploramos estos recipientes sagrados a través de una colección curada de réplicas. Cada pieza narra una historia de nuestro patrimonio ancestral, ofreciendo una ventana hacia el profundo significado cultural del arte mesoamericano."
   },
   "collection": {
-    "title": "Colección de Artefactos Arqueológicos - Museo Ixiptla",
+    "title": "Colección de Réplicas Arqueológicas - Museo Ixiptla",
     "description": "Explora nuestra colección curada de réplicas arqueológicas mesoamericanas: vasijas mayas, esculturas mexicas, figurillas teotihuacanas y más piezas históricas.",
     "pageDescription": "Catálogo completo de réplicas arqueológicas de culturas precolombinas mexicanas. Cada pieza incluye información histórica, técnicas de elaboración y contexto cultural.",
     "cta": "Ver Colección",
@@ -36,7 +36,7 @@
     "gridView": "Vista en cuadrícula",
     "listView": "Vista en lista",
     "sortBy": "Ordenar por",
-    "search": "Buscar artefactos..."
+    "search": "Buscar réplicas..."
   },
   "artifact": {
     "title": "Pieza",
@@ -53,7 +53,7 @@
     "material": "Material",
     "technique": "Técnica",
     "related": "Piezas Relacionadas",
-    "relatedItems": "Artefactos Relacionados",
+    "relatedItems": "Réplicas Relacionadas",
     "explore3D": "Explorar en 3D",
     "explore3DDescription": "Descubre esta pieza en una experiencia inmersiva 3D que te permite explorar cada detalle desde todos los ángulos.",
     "viewExperience": "Ver Experiencia",
@@ -68,7 +68,7 @@
     "navigation": "Navegación entre piezas",
     "previous": "Pieza anterior",
     "next": "Pieza siguiente",
-    "details": "Detalles del artefacto"
+    "details": "Detalles de la réplica"
   },
   "404": {
     "title": "Página No Encontrada",
@@ -120,7 +120,7 @@
     },
     "artifact": {
       "titleTemplate": "{title} - {culture} | Museo Ixiptla",
-      "descriptionTemplate": "Descubre {title}, artefacto {culture} del período {period}. {description}",
+      "descriptionTemplate": "Descubre {title}, réplica {culture} del período {period}. {description}",
       "keywordsTemplate": "{culture}, {period}, arqueología mesoamericana, {material}, arte prehispánico"
     }
   }

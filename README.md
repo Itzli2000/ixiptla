@@ -2,9 +2,11 @@
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Itzli2000/ixiptla)
 
-# 🏺 Ixiptla
+# 🏺 Ixiptla - Mesoamerican Archaeological Replicas Collection
 
-A modern web application showcasing a curated collection of handcrafted archaeological replicas. Built with Astro.js and React, this platform combines performance with stunning visual presentation to bring ancient artifacts to life in the digital age.
+*A modern, responsive web application showcasing a curated collection of Mesoamerican art.*
+
+A modern web application showcasing a curated collection of handcrafted archaeological replicas. Built with Astro.js and React, this platform combines performance with stunning visual presentation to bring ancient replicas to life in the digital age.
 
 
 ## 🎯 About
@@ -16,7 +18,7 @@ Ixiptla is designed to present our collection of meticulously crafted archaeolog
 - 🖼️ Responsive gallery of archaeological replicas
 - 📱 Mobile-first design approach
 - 🚀 Lightning-fast performance with Astro.js
-- 📖 Detailed information for each artifact
+- 📖 Detailed information for each replica
 - 🎨 Beautiful, user-friendly interface
 - 🌐 Internationalization support
 - 🎮 Interactive 3D model viewing with Three.js
