@@ -18,7 +18,7 @@ const t = useTranslations(lang);
     <!-- Sección 1: Texto a la derecha -->
     <section class="section-content section-right h-screen flex items-center relative" data-section="1">
       <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-content text-content-right w-11/12 lg:w-5/12 ml-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+        <div class="text-content text-content-right w-11/12 md:w-5/12 md:ml-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
           <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
             {t('ixiptla.title')}
           </h2>
@@ -37,7 +37,7 @@ const t = useTranslations(lang);
     <!-- Sección 2: Texto a la izquierda -->
     <section class="section-content section-left h-screen flex items-center relative" data-section="2">
       <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-content text-content-left w-11/12 lg:w-5/12 mr-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+        <div class="text-content text-content-left w-11/12 md:w-5/12 md-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
           <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
             {t('hero3d.digitalArchaeology.title')}
           </h2>
@@ -56,7 +56,7 @@ const t = useTranslations(lang);
     <!-- Sección 3: Texto a la derecha -->
     <section class="section-content section-right h-screen flex items-center relative" data-section="3">
       <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-content text-content-right w-11/12 lg:w-5/12 ml-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+        <div class="text-content text-content-right w-11/12 md:w-5/12 md:ml-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
           <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
             {t('hero3d.mayaCollection.title')}
           </h2>
@@ -75,7 +75,7 @@ const t = useTranslations(lang);
     <!-- Sección 4: Texto a la izquierda -->
     <section class="section-content section-left h-screen flex items-center relative" data-section="4">
       <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-content text-content-left w-11/12 lg:w-5/12 mr-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+        <div class="text-content text-content-left w-11/12 md:w-5/12 md-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
           <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
             {t('hero3d.experience3d.title')}
           </h2>
@@ -131,19 +131,6 @@ const t = useTranslations(lang);
     position: relative;
     z-index: 20;
     background: hsl(var(--color-base-100));
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .model-3d-container {
-      transform: scale(0.75);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .model-3d-container {
-      transform: scale(0.5);
-    }
   }
 </style>
 
