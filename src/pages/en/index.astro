@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Hero from '../../components/features/Hero/Hero.astro';
-import IxiptlaSection from '../../components/features/IxiptlaSection/IxiptlaSection.astro';
+import Hero3DInteractive from '../../components/features/Hero3DInteractive/Hero3DInteractive.astro';
 import Collection from '../../components/features/Collection/Collection.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import type { Language } from '../../types';
@@ -11,7 +10,6 @@ const t = useTranslations(lang);
 ---
 
 <Layout title={t('home.title')} description={t('home.description')} lang={lang}>
-	<Hero />
-	<IxiptlaSection />
+	<Hero3DInteractive />
 	<Collection />	
 </Layout>
