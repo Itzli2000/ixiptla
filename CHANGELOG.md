@@ -1,3 +1,9 @@
+### 1.13.0 (2025-06-21)
+
+##### Refactors
+
+* **Hero3DInteractive:**  improve responsiveness and animation logic (67491a30)
+
 ### 1.12.0 (2025-06-21)
 
 ##### New Features
