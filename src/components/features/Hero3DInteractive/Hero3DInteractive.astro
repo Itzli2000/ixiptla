@@ -1,0 +1,150 @@
+---
+import { ScrollAnimated3DModel } from './ScrollAnimated3DModel';
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../types";
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+---
+
+<div class="hero-3d-interactive z-1">
+  <!-- Modelo 3D fijo usando isla de Astro -->
+  <div class="model-3d-container">
+    <ScrollAnimated3DModel client:only="react" />
+  </div>
+
+  <!-- Secciones de contenido -->
+  <div class="content-sections">
+    <!-- Sección 1: Texto a la derecha -->
+    <section class="section-content section-right h-screen flex items-center relative" data-section="1">
+      <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-content text-content-right w-11/12 lg:w-5/12 ml-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
+            {t('ixiptla.title')}
+          </h2>
+          <div class="prose prose-lg max-w-none text-base-content/90">
+            <p class="text-xl leading-relaxed mb-6">
+              {t('ixiptla.description')}
+            </p>
+            <p class="text-lg leading-relaxed">
+              {t('ixiptla.description2')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: Texto a la izquierda -->
+    <section class="section-content section-left h-screen flex items-center relative" data-section="2">
+      <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-content text-content-left w-11/12 lg:w-5/12 mr-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
+            {t('hero3d.digitalArchaeology.title')}
+          </h2>
+          <div class="prose prose-lg max-w-none text-base-content/90">
+            <p class="text-xl leading-relaxed mb-6">
+              {t('hero3d.digitalArchaeology.description')}
+            </p>
+            <p class="text-lg leading-relaxed">
+              {t('hero3d.digitalArchaeology.description2')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3: Texto a la derecha -->
+    <section class="section-content section-right h-screen flex items-center relative" data-section="3">
+      <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-content text-content-right w-11/12 lg:w-5/12 ml-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
+            {t('hero3d.mayaCollection.title')}
+          </h2>
+          <div class="prose prose-lg max-w-none text-base-content/90">
+            <p class="text-xl leading-relaxed mb-6">
+              {t('hero3d.mayaCollection.description')}
+            </p>
+            <p class="text-lg leading-relaxed">
+              {t('hero3d.mayaCollection.description2')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 4: Texto a la izquierda -->
+    <section class="section-content section-left h-screen flex items-center relative" data-section="4">
+      <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-content text-content-left w-11/12 lg:w-5/12 mr-auto opacity-0 translate-y-12 transition-all duration-300 ease-out card card-body shadow-xl bg-base-100/95 backdrop-blur border border-base-300/30">
+          <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">
+            {t('hero3d.experience3d.title')}
+          </h2>
+          <div class="prose prose-lg max-w-none text-base-content/90">
+            <p class="text-xl leading-relaxed mb-6">
+              {t('hero3d.experience3d.description')}
+            </p>
+            <p class="text-lg leading-relaxed">
+              {t('hero3d.experience3d.description2')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de transición/espaciado antes de Collection -->
+    <section class="transition-section h-screen flex items-center relative" style="background: linear-gradient(to bottom, transparent, hsl(var(--color-base-200) / 0.1));">
+      <div class="content-wrapper w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="transition-content w-full text-center opacity-30" style="color: hsl(var(--color-base-content) / 0.5);">
+          <!-- Contenido de transición opcional o simplemente espacio -->
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+  .hero-3d-interactive {
+    position: relative;
+    /* Removida la altura fija de 500vh */
+  }
+
+  .model-3d-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5; /* Reducido para estar debajo de Collection */
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content-sections {
+    position: relative;
+    z-index: 10; /* Asegurar que esté por encima del modelo 3D */
+  }
+
+  /* Asegurar que Collection esté por encima */
+  :global(.hero-3d-interactive + *) {
+    position: relative;
+    z-index: 20;
+    background: hsl(var(--color-base-100));
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .model-3d-container {
+      transform: scale(0.75);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .model-3d-container {
+      transform: scale(0.5);
+    }
+  }
+</style>
+
+<!-- Script removido: el componente React se maneja via isla de Astro --> 
