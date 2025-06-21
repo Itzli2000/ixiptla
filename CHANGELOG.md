@@ -1,3 +1,9 @@
+### 1.12.0 (2025-06-21)
+
+##### New Features
+
+* **Hero3DInteractive:**  add interactive 3D hero section with scroll animations (dd5f4708)
+
 ### 1.11.0 (2025-06-15)
 
 ##### New Features
