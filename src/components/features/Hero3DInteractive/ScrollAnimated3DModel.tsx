@@ -9,6 +9,10 @@ function RotatingModel() {
   const modelRef = useRef<Group>(null);
   const positionRef = useRef({ x: 0, y: 0, rotation: 0 });
 
+  // Detect mobile devices
+  const isMobile = window.innerWidth <= 768;
+  const isTablet = window.innerWidth <= 1024;
+
   useFrame(() => {
     if (modelRef.current) {
       modelRef.current.position.x = positionRef.current.x;
@@ -53,11 +57,13 @@ function RotatingModel() {
       end: 'bottom center',
       scrub: 1,
       onEnter: () => {
-        gsap.to(positionRef.current, {
-          x: -0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: -0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="1"] .text-content', {
           opacity: 1,
           y: 0,
@@ -75,11 +81,13 @@ function RotatingModel() {
         });
       },
       onEnterBack: () => {
-        gsap.to(positionRef.current, {
-          x: -0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: -0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="1"] .text-content', {
           opacity: 1,
           y: 0,
@@ -88,11 +96,13 @@ function RotatingModel() {
         });
       },
       onLeaveBack: () => {
-        gsap.to(positionRef.current, {
-          x: 0,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: 0,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="1"] .text-content', {
           opacity: 0,
           y: 50,
@@ -108,11 +118,13 @@ function RotatingModel() {
       end: 'bottom center',
       scrub: 1,
       onEnter: () => {
-        gsap.to(positionRef.current, {
-          x: 0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: 0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="2"] .text-content', {
           opacity: 1,
           y: 0,
@@ -130,11 +142,13 @@ function RotatingModel() {
         });
       },
       onEnterBack: () => {
-        gsap.to(positionRef.current, {
-          x: 0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: 0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="2"] .text-content', {
           opacity: 1,
           y: 0,
@@ -158,11 +172,13 @@ function RotatingModel() {
       end: 'bottom center',
       scrub: 1,
       onEnter: () => {
-        gsap.to(positionRef.current, {
-          x: -0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: -0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="3"] .text-content', {
           opacity: 1,
           y: 0,
@@ -180,11 +196,13 @@ function RotatingModel() {
         });
       },
       onEnterBack: () => {
-        gsap.to(positionRef.current, {
-          x: -0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: -0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="3"] .text-content', {
           opacity: 1,
           y: 0,
@@ -208,11 +226,13 @@ function RotatingModel() {
       end: 'bottom center',
       scrub: 1,
       onEnter: () => {
-        gsap.to(positionRef.current, {
-          x: 0.8,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: 0.8,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="4"] .text-content', {
           opacity: 1,
           y: 0,
@@ -228,20 +248,24 @@ function RotatingModel() {
           duration: 0.8,
           ease: 'power2.in'
         });
-        gsap.to(positionRef.current, {
-          x: 0,
-          y: -0.5,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: 0,
+            y: -0.5,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
       },
       onEnterBack: () => {
-        gsap.to(positionRef.current, {
-          x: 0.8,
-          y: 0,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
+        if (!isMobile) {
+          gsap.to(positionRef.current, {
+            x: 0.8,
+            y: 0,
+            duration: 1.5,
+            ease: 'power2.out'
+          });
+        }
         gsap.to('[data-section="4"] .text-content', {
           opacity: 1,
           y: 0,
@@ -295,7 +319,7 @@ function RotatingModel() {
     <group ref={modelRef}>
       <Model3D 
         modelPath="/images/models/colibri.glb"
-        scale={[2, 2, 2]}
+        scale={isMobile ? [1, 1, 1] : isTablet ? [1.5, 1.5, 1.5] : [2, 2, 2]}
         position={[0, -0.3, 0]}
         rotation={[0, 0, -0.2]}
       />
