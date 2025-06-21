@@ -21,6 +21,23 @@
     "description": "Rooted in Nahuatl wisdom, Ixiptla embodies the profound concept of sacred representation. More than mere replication, it captures the essence of transformation - where an object or being becomes a vessel of divine presence, bridging the physical and spiritual realms.",
     "description2": "In this exhibition, we explore these sacred vessels through a curated collection of replicas. Each piece tells a story of our ancestral heritage, offering a window into the deep cultural significance of Mesoamerican artistry."
   },
+  "hero3d": {
+    "digitalArchaeology": {
+      "title": "Digital Archaeology",
+      "description": "We explore Mesoamerican cultural heritage through cutting-edge technology, creating immersive experiences that connect past and present.",
+      "description2": "Each archaeological piece tells a unique story that we preserve digitally for future generations."
+    },
+    "mayaCollection": {
+      "title": "Maya Collection",
+      "description": "Discover extraordinary artifacts from Maya civilization, from ceremonial vessels to anthropomorphic figures that reveal the complexity of their worldview.",
+      "description2": "Each object is a window to the past, meticulously documented and presented in high resolution for study and contemplation."
+    },
+    "experience3d": {
+      "title": "3D Experience",
+      "description": "Immerse yourself in a unique three-dimensional experience where you can interact with artifacts from every angle, appreciating details beyond traditional photography.",
+      "description2": "Modern web technology allows us to create virtual museums accessible from any device."
+    }
+  },
   "collection": {
     "title": "Archaeological Replicas Collection - Ixiptla Museum",
     "description": "Explore our curated collection of Mesoamerican archaeological replicas: Maya vessels, Mexica sculptures, Teotihuacan figurines and more historical pieces.",

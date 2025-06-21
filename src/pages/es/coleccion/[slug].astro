@@ -86,7 +86,7 @@ if (Astro.site) {
     <div class="mx-auto max-w-7xl w-full">
       <nav class="mb-8 sm:mb-12" aria-label="Breadcrumb">
         <ol class="flex items-center space-x-2 text-sm text-base-content/70 overflow-x-auto pb-2 whitespace-nowrap scrollbar-hide" role="list">
-          <li><a href="/" class="hover:text-primary transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
+          <li><a href={`/${lang}#collection`} class="hover:text-primary transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
           <li aria-hidden="true"><span class="mx-2">/</span></li>
           <li>
             <a
