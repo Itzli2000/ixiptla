@@ -128,6 +128,26 @@
       }
     }
   },
+  "errors": {
+    "general": {
+      "title": "Error de Carga",
+      "description": "Ocurrió un problema al cargar este contenido.",
+      "retry": "Reintentar",
+      "reload": "Recargar Página"
+    },
+    "model": {
+      "title": "Modelo No Disponible",
+      "failedToLoad": "No se pudo cargar el modelo 3D",
+      "noModelData": "No se encontraron datos del modelo",
+      "retryLoad": "Reintentar Carga"
+    },
+    "canvas": {
+      "initError": "Error al inicializar la escena 3D",
+      "loadError": "Error al cargar la escena 3D",
+      "interactiveError": "Error al cargar el modelo 3D interactivo",
+      "animationError": "Error en la animación 3D"
+    }
+  },
   "seo": {
     "site": {
       "name": "Museo Virtual Ixiptla",

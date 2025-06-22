@@ -3,7 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import type { Scene3DProps } from "../../../types";
-import { Model3D } from "../Model3D/Model3D";
+import Model3DWithErrorBoundary from "../Model3DWithErrorBoundary/Model3DWithErrorBoundary";
+import ErrorBoundary from "../../common/ErrorBoundary/ErrorBoundary";
+import ModelError from "../../common/ModelError/ModelError";
+import { useLanguageDetection } from "../../common/LanguageProvider/useLanguageDetection";
+import { Model3DFallback } from "../Model3DFallback/Model3DFallback";
 
 /**
  * Interface for the custom event detail that controls auto-rotation
@@ -25,9 +29,21 @@ type CustomEventType = CustomEvent<CustomEventDetail>;
  * 
  * @param modelPath - The path to the 3D model file (defaults to colibri.glb)
  */
-export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DProps) {
+export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scene3DProps & { lang?: 'en' | 'es' }) {
   const [autoRotate, setAutoRotate] = useState(false);
+  const [hasCanvasError, setHasCanvasError] = useState(false);
   const controlsRef = useRef<OrbitControlsImpl>(null);
+
+  // Use the safe language detection hook
+  const currentLang = useLanguageDetection(lang);
+
+  const handleCanvasError = () => {
+    setHasCanvasError(true);
+  };
+
+  const handleRetryCanvas = () => {
+    setHasCanvasError(false);
+  };
 
   useEffect(() => {
     const handleResetCamera = () => {
@@ -50,10 +66,41 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
     };
   }, []);
 
+  if (hasCanvasError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <ModelError 
+          onRetry={handleRetryCanvas}
+          lang={currentLang}
+          errorType="initError"
+        />
+      </div>
+    );
+  }
+
   return (
-    <>
+    <ErrorBoundary
+      fallback={
+        <div className="w-full h-full flex items-center justify-center">
+          <ModelError 
+            onRetry={handleRetryCanvas}
+            lang={currentLang}
+            errorType="loadError"
+          />
+        </div>
+      }
+      onError={handleCanvasError}
+      lang={currentLang}
+    >
       <Canvas
         camera={{ position: [0, 0, 3], fov: 50 }}
+        onCreated={({ gl }) => {
+          try {
+            gl.getContext();
+          } catch (err) {
+            handleCanvasError();
+          }
+        }}
       >
         <Suspense fallback={null}>
           <ambientLight intensity={1} />
@@ -66,10 +113,11 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
           <directionalLight position={[5, 5, 2]} intensity={0.8} castShadow />
           <directionalLight position={[-5, -5, -2]} intensity={0.4} />
 
-          <Model3D 
+          <Model3DWithErrorBoundary 
             modelPath={modelPath}
             scale={[1.5, 1.5, 1.5]}
             position={[0, -0.5, 0]}
+            lang={currentLang}
           />
 
           <OrbitControls
@@ -98,6 +146,6 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb' }: Scene3DPro
           background: '#2c5364'
         }}
       />
-    </>
+    </ErrorBoundary>
   );
 }

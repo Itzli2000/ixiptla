@@ -1,5 +1,6 @@
 ---
 import { ScrollAnimated3DModel } from './ScrollAnimated3DModel';
+import { ModelPreloader } from '../../three/ModelPreloader/ModelPreloader';
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import type { Language } from "../../../types";
 
@@ -10,7 +11,8 @@ const t = useTranslations(lang);
 <div class="hero-3d-interactive z-1">
   <!-- Modelo 3D fijo usando isla de Astro -->
   <div class="model-3d-container">
-    <ScrollAnimated3DModel client:only="react" />
+    <ScrollAnimated3DModel client:only="react" lang={lang} />
+    <ModelPreloader client:only="react" />
   </div>
 
   <!-- Secciones de contenido -->

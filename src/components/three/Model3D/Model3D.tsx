@@ -1,20 +1,23 @@
 import { useGLTF } from '@react-three/drei';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { Group, Mesh } from 'three';
+import { useLanguageDetection } from '../../common/LanguageProvider/useLanguageDetection';
 
 interface Model3DProps {
   modelPath: string;
   scale?: [number, number, number];
   position?: [number, number, number];
   rotation?: [number, number, number];
+  lang?: 'en' | 'es';
 }
 
-export function Model3D({ 
+// Simple wrapper component that handles the GLTF loading
+function Model3DContent({ 
   modelPath, 
   scale = [1, 1, 1], 
-  position = [0, 0, 0],
-  rotation = [0, 0, 0]
-}: Model3DProps) {
+  position = [0, 0, 0], 
+  rotation = [0, 0, 0] 
+}: Omit<Model3DProps, 'lang'>) {
   const groupRef = useRef<Group>(null);
   const { nodes } = useGLTF(modelPath);
 
@@ -41,6 +44,38 @@ export function Model3D({
         return null;
       })}
     </group>
+  );
+}
+
+export function Model3D({ 
+  modelPath, 
+  scale = [1, 1, 1], 
+  position = [0, 0, 0],
+  rotation = [0, 0, 0],
+  lang
+}: Model3DProps) {
+  return (
+    <Suspense fallback={
+      <group>
+        <mesh>
+          <sphereGeometry args={[0.1, 8, 8]} />
+          <meshStandardMaterial 
+            color="#4299e1" 
+            transparent 
+            opacity={0.6}
+            emissive="#2b6cb0"
+            emissiveIntensity={0.2}
+          />
+        </mesh>
+      </group>
+    }>
+      <Model3DContent 
+        modelPath={modelPath}
+        scale={scale}
+        position={position}
+        rotation={rotation}
+      />
+    </Suspense>
   );
 }
 
