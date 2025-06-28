@@ -1,12 +1,12 @@
 import React, { Component, type ReactNode } from 'react';
-import es from '../../../i18n/languages/es.json';
-import en from '../../../i18n/languages/en.json';
+import { useTranslations, type TranslationFunction } from '../../../i18n/utils';
 
-interface Props {
+interface ErrorBoundaryClassProps {
   children: ReactNode;
   fallback?: ReactNode;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
   lang?: 'en' | 'es';
+  t: TranslationFunction;
 }
 
 interface State {
@@ -14,26 +14,10 @@ interface State {
   error?: Error;
 }
 
-export default class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+class ErrorBoundaryClass extends Component<ErrorBoundaryClassProps, State> {
+  constructor(props: ErrorBoundaryClassProps) {
     super(props);
     this.state = { hasError: false };
-  }
-
-  private getTranslation(key: string, lang: 'en' | 'es'): string {
-    const translations = lang === 'es' ? es : en;
-    const keys = key.split('.');
-    let value: unknown = translations;
-    
-    for (const k of keys) {
-      if (typeof value === 'object' && value !== null && k in value) {
-        value = (value as Record<string, unknown>)[k];
-      } else {
-        return key; // Return key if path doesn't exist
-      }
-    }
-    
-    return typeof value === 'string' ? value : key;
   }
 
   static getDerivedStateFromError(error: Error): State {
@@ -54,20 +38,20 @@ export default class ErrorBoundary extends Component<Props, State> {
         return this.props.fallback;
       }
 
-      const lang = this.props.lang || 'es';
+      const t = this.props.t;
 
       return (
         <div className="flex flex-col items-center justify-center p-8 bg-base-200 rounded-xl">
           <div className="text-error text-6xl mb-4">⚠</div>
-          <h3 className="text-xl font-semibold mb-2">{this.getTranslation('errors.general.title', lang)}</h3>
+          <h3 className="text-xl font-semibold mb-2">{t('errors.general.title')}</h3>
           <p className="text-base-content/70 text-center mb-4">
-            {this.getTranslation('errors.general.description', lang)}
+            {t('errors.general.description')}
           </p>
           <button 
             className="btn btn-primary btn-sm"
             onClick={() => this.setState({ hasError: false })}
           >
-            {this.getTranslation('errors.general.retry', lang)}
+            {t('errors.general.retry')}
           </button>
         </div>
       );
@@ -75,4 +59,18 @@ export default class ErrorBoundary extends Component<Props, State> {
 
     return this.props.children;
   }
+}
+
+interface ErrorBoundaryProps {
+  children: ReactNode;
+  fallback?: ReactNode;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+  lang?: 'en' | 'es';
+}
+
+export default function ErrorBoundary(props: ErrorBoundaryProps) {
+  const { lang = 'es', ...restProps } = props;
+  const t = useTranslations(lang);
+
+  return <ErrorBoundaryClass {...restProps} lang={lang} t={t} />;
 }
