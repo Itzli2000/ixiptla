@@ -30,7 +30,7 @@ type CustomEventType = CustomEvent<CustomEventDetail>;
  * 
  * @param modelPath - The path to the 3D model file (defaults to colibri.glb)
  */
-export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scene3DProps & { lang?: 'en' | 'es' }) {
+export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scene3DProps & { lang?: 'en' | 'es' }): JSX.Element {
   const [autoRotate, setAutoRotate] = useState(false);
   const [hasCanvasError, setHasCanvasError] = useState(false);
   const controlsRef = useRef<OrbitControlsImpl>(null);

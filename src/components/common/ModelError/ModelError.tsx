@@ -1,12 +1,10 @@
 import React from 'react';
 import { useTranslations } from '../../../i18n/utils';
+import type { ModelErrorProps as BaseModelErrorProps, Language } from '../../../types';
 
-interface ModelErrorProps {
+interface ModelErrorProps extends BaseModelErrorProps {
   message?: string;
-  onRetry?: () => void;
   variant?: 'default' | 'compact';
-  lang?: 'en' | 'es';
-  errorType?: 'failedToLoad' | 'noModelData' | 'initError' | 'loadError' | 'interactiveError' | 'animationError';
 }
 
 export default function ModelError({ 
@@ -14,8 +12,8 @@ export default function ModelError({
   onRetry,
   variant = 'default',
   lang = 'es',
-  errorType = 'failedToLoad'
-}: ModelErrorProps) {
+  errorType = 'loadError'
+}: ModelErrorProps): JSX.Element {
   const t = useTranslations(lang);
   
   const getErrorMessage = () => {

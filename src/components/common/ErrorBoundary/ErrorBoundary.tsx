@@ -23,12 +23,17 @@ export default class ErrorBoundary extends Component<Props, State> {
   private getTranslation(key: string, lang: 'en' | 'es'): string {
     const translations = lang === 'es' ? es : en;
     const keys = key.split('.');
-    let value: any = translations;
+    let value: unknown = translations;
+    
     for (const k of keys) {
-      value = value[k];
-      if (value === undefined) return key;
+      if (typeof value === 'object' && value !== null && k in value) {
+        value = (value as Record<string, unknown>)[k];
+      } else {
+        return key; // Return key if path doesn't exist
+      }
     }
-    return value as string;
+    
+    return typeof value === 'string' ? value : key;
   }
 
   static getDerivedStateFromError(error: Error): State {

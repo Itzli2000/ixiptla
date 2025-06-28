@@ -2,14 +2,7 @@ import { useGLTF } from '@react-three/drei';
 import { useRef, Suspense } from 'react';
 import { Group, Mesh } from 'three';
 import { useLanguageDetection } from '../../common/LanguageProvider/useLanguageDetection';
-
-interface Model3DProps {
-  modelPath: string;
-  scale?: [number, number, number];
-  position?: [number, number, number];
-  rotation?: [number, number, number];
-  lang?: 'en' | 'es';
-}
+import type { Model3DBaseProps } from '../../../types';
 
 // Simple wrapper component that handles the GLTF loading
 function Model3DContent({ 
@@ -17,7 +10,7 @@ function Model3DContent({
   scale = [1, 1, 1], 
   position = [0, 0, 0], 
   rotation = [0, 0, 0] 
-}: Omit<Model3DProps, 'lang'>) {
+}: Omit<Model3DBaseProps, 'lang'>): JSX.Element {
   const groupRef = useRef<Group>(null);
   const { nodes } = useGLTF(modelPath);
 
@@ -53,7 +46,7 @@ export function Model3D({
   position = [0, 0, 0],
   rotation = [0, 0, 0],
   lang
-}: Model3DProps) {
+}: Model3DBaseProps): JSX.Element {
   return (
     <Suspense fallback={
       <group>
