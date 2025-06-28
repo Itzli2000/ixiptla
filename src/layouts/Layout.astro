@@ -107,6 +107,13 @@ if (currentArtifact) {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="apple-touch-icon" href="/favicon.svg" />
 		
+		<!-- Performance optimizations -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		{currentArtifact?.has3DModel && (
+			<link rel="prefetch" href={`/images/models/${currentArtifact.slug}.glb`} as="fetch" crossorigin />
+		)}
+		
 		<!-- SEO Meta Tags -->
 		<title>{title}</title>
 		<meta name="description" content={description} />

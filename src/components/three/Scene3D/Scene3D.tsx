@@ -8,6 +8,7 @@ import ErrorBoundary from "../../common/ErrorBoundary/ErrorBoundary";
 import ModelError from "../../common/ModelError/ModelError";
 import { useLanguageDetection } from "../../common/LanguageProvider/useLanguageDetection";
 import { Model3DFallback } from "../Model3DFallback/Model3DFallback";
+import { useDeviceDetection } from "../../../hooks/useDeviceDetection";
 
 /**
  * Interface for the custom event detail that controls auto-rotation
@@ -36,6 +37,9 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scen
 
   // Use the safe language detection hook
   const currentLang = useLanguageDetection(lang);
+  
+  // Device detection for mobile optimization
+  const { isMobile, prefersReducedMotion } = useDeviceDetection();
 
   const handleCanvasError = () => {
     setHasCanvasError(true);
@@ -54,17 +58,43 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scen
 
     const handleToggleAutoRotate = (event: Event) => {
       const customEvent = event as CustomEventType;
-      setAutoRotate(customEvent.detail.enabled);
+      // Respect reduced motion preference
+      if (!prefersReducedMotion) {
+        setAutoRotate(customEvent.detail.enabled);
+      }
+    };
+
+    // Keyboard controls for accessibility
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!controlsRef.current) return;
+      
+      switch (event.key) {
+        case 'r':
+        case 'R':
+          if (event.ctrlKey || event.metaKey) {
+            event.preventDefault();
+            controlsRef.current.reset();
+          }
+          break;
+        case ' ':
+          event.preventDefault();
+          if (!prefersReducedMotion) {
+            setAutoRotate(prev => !prev);
+          }
+          break;
+      }
     };
 
     window.addEventListener('reset-camera', handleResetCamera);
     window.addEventListener('toggle-auto-rotate', handleToggleAutoRotate);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('reset-camera', handleResetCamera);
       window.removeEventListener('toggle-auto-rotate', handleToggleAutoRotate);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   if (hasCanvasError) {
     return (
@@ -92,16 +122,30 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scen
       onError={handleCanvasError}
       lang={currentLang}
     >
-      <Canvas
-        camera={{ position: [0, 0, 3], fov: 50 }}
-        onCreated={({ gl }) => {
-          try {
-            gl.getContext();
-          } catch (err) {
-            handleCanvasError();
-          }
-        }}
+      <div 
+        role="img" 
+        aria-label={currentLang === 'es' 
+          ? "Modelo 3D interactivo. Usa el ratón para rotar, la rueda para hacer zoom. Presiona espacio para auto-rotación o Ctrl+R para resetear la cámara."
+          : "Interactive 3D model. Use mouse to rotate, wheel to zoom. Press space for auto-rotation or Ctrl+R to reset camera."
+        }
+        tabIndex={0}
+        className="w-full h-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
       >
+        <Canvas
+          camera={{ position: [0, 0, 3], fov: isMobile ? 60 : 50 }}
+          onCreated={({ gl }) => {
+            try {
+              gl.getContext();
+              // Mobile optimizations
+              if (isMobile) {
+                gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+              }
+            } catch (err) {
+              handleCanvasError();
+            }
+          }}
+          performance={{ min: isMobile ? 0.5 : 0.75 }}
+        >
         <Suspense fallback={null}>
           <ambientLight intensity={1} />
           <hemisphereLight
@@ -122,30 +166,31 @@ export function Scene3D({ modelPath = '/images/models/colibri.glb', lang }: Scen
 
           <OrbitControls
             ref={controlsRef}
-            enablePan={true}
+            enablePan={!isMobile}
             minPolarAngle={0}
             maxPolarAngle={Math.PI / 1.4}
             enableDamping={true}
-            dampingFactor={0.05}
+            dampingFactor={isMobile ? 0.1 : 0.05}
             minDistance={1}
             maxDistance={3}
-            autoRotate={autoRotate}
-            autoRotateSpeed={2}
+            autoRotate={autoRotate && !prefersReducedMotion}
+            autoRotateSpeed={prefersReducedMotion ? 0 : 2}
           />
         </Suspense>
-      </Canvas>
-      <Loader 
-        containerStyles={{
-          background: 'rgba(0,0,0,0.8)',
-          backdropFilter: 'blur(10px)'
-        }}
-        innerStyles={{
-          background: 'white'
-        }}
-        barStyles={{
-          background: '#2c5364'
-        }}
-      />
+        </Canvas>
+        <Loader 
+          containerStyles={{
+            background: 'rgba(0,0,0,0.8)',
+            backdropFilter: 'blur(10px)'
+          }}
+          innerStyles={{
+            background: 'white'
+          }}
+          barStyles={{
+            background: '#2c5364'
+          }}
+        />
+      </div>
     </ErrorBoundary>
   );
 }

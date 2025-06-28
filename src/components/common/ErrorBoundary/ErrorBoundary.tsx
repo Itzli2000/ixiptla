@@ -1,5 +1,6 @@
 import React, { Component, type ReactNode } from 'react';
-import { useTranslations } from '../../../i18n/utils';
+import es from '../../../i18n/languages/es.json';
+import en from '../../../i18n/languages/en.json';
 
 interface Props {
   children: ReactNode;
@@ -17,6 +18,17 @@ export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
+  }
+
+  private getTranslation(key: string, lang: 'en' | 'es'): string {
+    const translations = lang === 'es' ? es : en;
+    const keys = key.split('.');
+    let value: any = translations;
+    for (const k of keys) {
+      value = value[k];
+      if (value === undefined) return key;
+    }
+    return value as string;
   }
 
   static getDerivedStateFromError(error: Error): State {
@@ -38,20 +50,19 @@ export default class ErrorBoundary extends Component<Props, State> {
       }
 
       const lang = this.props.lang || 'es';
-      const t = useTranslations(lang);
 
       return (
         <div className="flex flex-col items-center justify-center p-8 bg-base-200 rounded-xl">
           <div className="text-error text-6xl mb-4">⚠</div>
-          <h3 className="text-xl font-semibold mb-2">{t('errors.general.title')}</h3>
+          <h3 className="text-xl font-semibold mb-2">{this.getTranslation('errors.general.title', lang)}</h3>
           <p className="text-base-content/70 text-center mb-4">
-            {t('errors.general.description')}
+            {this.getTranslation('errors.general.description', lang)}
           </p>
           <button 
             className="btn btn-primary btn-sm"
             onClick={() => this.setState({ hasError: false })}
           >
-            {t('errors.general.retry')}
+            {this.getTranslation('errors.general.retry', lang)}
           </button>
         </div>
       );
