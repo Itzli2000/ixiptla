@@ -128,6 +128,26 @@
       }
     }
   },
+  "errors": {
+    "general": {
+      "title": "Loading Error",
+      "description": "A problem occurred while loading this content.",
+      "retry": "Retry",
+      "reload": "Reload Page"
+    },
+    "model": {
+      "title": "Model Not Available",
+      "failedToLoad": "Failed to load 3D model",
+      "noModelData": "No model data found",
+      "retryLoad": "Retry Load"
+    },
+    "canvas": {
+      "initError": "Error initializing 3D scene",
+      "loadError": "Error loading 3D scene",
+      "interactiveError": "Error loading interactive 3D model",
+      "animationError": "Error in 3D animation"
+    }
+  },
   "seo": {
     "site": {
       "name": "Ixiptla Virtual Museum",
