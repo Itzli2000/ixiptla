@@ -1,17 +1,35 @@
-import React, { useRef, useEffect, Suspense } from 'react';
+import React, { useRef, useEffect, Suspense, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Model3D } from '../../three/Model3D/Model3D';
+import Model3DWithErrorBoundary from '../../three/Model3DWithErrorBoundary/Model3DWithErrorBoundary';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { Group } from 'three';
+import ErrorBoundary from '../../common/ErrorBoundary/ErrorBoundary';
+import ModelError from '../../common/ModelError/ModelError';
+import { useLanguageDetection } from '../../common/LanguageProvider/useLanguageDetection';
 
-function RotatingModel() {
+function RotatingModel({ lang }: { lang?: 'en' | 'es' }) {
   const modelRef = useRef<Group>(null);
   const positionRef = useRef({ x: 0, y: 0, rotation: 0 });
 
-  // Detect mobile devices
-  const isMobile = window.innerWidth <= 768;
-  const isTablet = window.innerWidth <= 1024;
+  // Use the safe language detection hook
+  const currentLang = useLanguageDetection(lang);
+
+  // Detect mobile devices safely
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkDeviceType = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIsTablet(window.innerWidth <= 1024);
+    };
+
+    checkDeviceType();
+    window.addEventListener('resize', checkDeviceType);
+    
+    return () => window.removeEventListener('resize', checkDeviceType);
+  }, []);
 
   useFrame(() => {
     if (modelRef.current) {
@@ -313,39 +331,86 @@ function RotatingModel() {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [isMobile, isTablet]);
 
   return (
     <group ref={modelRef}>
-      <Model3D 
+      <Model3DWithErrorBoundary 
         modelPath="/images/models/colibri.glb"
         scale={isMobile ? [1, 1, 1] : isTablet ? [1.5, 1.5, 1.5] : [2, 2, 2]}
         position={[0, -0.3, 0]}
         rotation={[0, 0, -0.2]}
+        lang={currentLang}
       />
     </group>
   );
 }
 
-export function ScrollAnimated3DModel() {
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 4], fov: 50 }}
-      style={{ width: '100%', height: '100%' }}
-    >
-      <Suspense fallback={null}>
-        <ambientLight intensity={0.7} />
-        <hemisphereLight
-          intensity={0.9}
-          groundColor="#2c5364"
-          color="#ffffff"
-        />
-        <directionalLight position={[5, 5, 2]} intensity={1.0} castShadow />
-        <directionalLight position={[-5, -5, -2]} intensity={0.6} />
-        <directionalLight position={[0, 10, 0]} intensity={0.3} />
+export function ScrollAnimated3DModel({ lang }: { lang?: 'en' | 'es' }) {
+  const [hasCanvasError, setHasCanvasError] = useState(false);
 
-        <RotatingModel />
-      </Suspense>
-    </Canvas>
+  // Use the safe language detection hook
+  const currentLang = useLanguageDetection(lang);
+
+  const handleCanvasError = () => {
+    setHasCanvasError(true);
+  };
+
+  const handleRetryCanvas = () => {
+    setHasCanvasError(false);
+  };
+
+  if (hasCanvasError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <ModelError 
+          onRetry={handleRetryCanvas}
+          lang={currentLang}
+          errorType="interactiveError"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <ErrorBoundary
+      fallback={
+        <div className="w-full h-full flex items-center justify-center">
+          <ModelError 
+            onRetry={handleRetryCanvas}
+            lang={currentLang}
+            errorType="animationError"
+          />
+        </div>
+      }
+      onError={handleCanvasError}
+      lang={currentLang}
+    >
+      <Canvas
+        camera={{ position: [0, 0, 4], fov: 50 }}
+        style={{ width: '100%', height: '100%' }}
+        onCreated={({ gl }) => {
+          try {
+            gl.getContext();
+          } catch (err) {
+            handleCanvasError();
+          }
+        }}
+      >
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.7} />
+          <hemisphereLight
+            intensity={0.9}
+            groundColor="#2c5364"
+            color="#ffffff"
+          />
+          <directionalLight position={[5, 5, 2]} intensity={1.0} castShadow />
+          <directionalLight position={[-5, -5, -2]} intensity={0.6} />
+          <directionalLight position={[0, 10, 0]} intensity={0.3} />
+
+          <RotatingModel lang={currentLang} />
+        </Suspense>
+      </Canvas>
+    </ErrorBoundary>
   );
 } 

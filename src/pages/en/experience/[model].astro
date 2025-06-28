@@ -53,10 +53,10 @@ const info = model ? getModelInfo(model, lang) : null;
     <div class="w-full h-full">
       {
         modelPath ? (
-          <Scene3D client:only="react" modelPath={modelPath} />
+          <Scene3D client:only="react" modelPath={modelPath} lang={lang} />
         ) : (
           <div class="w-full h-full flex items-center justify-center">
-            <p class="text-xl text-base-content">Modelo no encontrado</p>
+            <p class="text-xl text-base-content">Model not found</p>
           </div>
         )
       }

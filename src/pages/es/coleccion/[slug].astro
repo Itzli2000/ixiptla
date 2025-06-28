@@ -17,7 +17,7 @@ interface Props {
 
 export async function getStaticPaths() {
   const artifacts = await getCollection('artefactos');
-  return artifacts.map((artifact) => ({
+  return artifacts.map((artifact: { data: { slug: string } }) => ({
     params: { slug: artifact.data.slug },
   }));
 }
@@ -26,10 +26,10 @@ const artifacts = await getCollection('artefactos');
 const { data: artifact } = await getEntry('artefactos', slug);
 
 const relatedArtifacts = artifacts
-  .filter((a) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug)
+  .filter((a: { data: { culture: string; slug: string } }) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug)
   .slice(0, 3);
 
-const currentIndex = artifacts.findIndex((a) => a.data.slug === artifact.slug);
+const currentIndex = artifacts.findIndex((a: { data: { slug: string } }) => a.data.slug === artifact.slug);
 const prevArtifact = currentIndex > 0 ? artifacts[currentIndex - 1] : null;
 const nextArtifact =
   currentIndex < artifacts.length - 1
