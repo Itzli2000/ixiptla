@@ -37,5 +37,9 @@
     "@types/three": "^0.176.0",
     "generate-changelog": "^1.8.0",
     "shelljs": "^0.10.0"
+  },
+  "resolutions": {
+    "css-select": "4.3.0",
+    "cheerio-select": "1.6.0"
   }
 }

@@ -12,22 +12,6 @@ import icon from "astro-icon";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'three-core': ['three', '@react-three/fiber'],
-            'three-helpers': ['@react-three/drei'],
-            'animations': ['gsap'],
-            'vendor': ['react', 'react-dom']
-          }
-        }
-      },
-      chunkSizeWarningLimit: 1000
-    },
-    ssr: {
-      noExternal: ['three', '@react-three/fiber', '@react-three/drei']
-    }
   },
   integrations: [
     icon({
