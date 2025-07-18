@@ -1,13 +1,18 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
-import ArtifactCard from "../../../components/common/ArtifactCard/ArtifactCard.astro";
-import { getModelForSlug } from "../../../data/models";
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import Layout from "../../../layouts/Layout.astro";
-import { getImageByFilename } from "../../../utils/imageMapping";
 import type { Language } from "../../../types";
-import { Icon } from "astro-icon/components";
+
+// New enhanced components
+import ArtifactHero from "../../../components/artifact/ArtifactHero.astro";
+import ArtifactMetadata from "../../../components/artifact/ArtifactMetadata.astro";
+import CulturalContext from "../../../components/artifact/CulturalContext.astro";
+import RelatedArtifacts from "../../../components/artifact/RelatedArtifacts.astro";
+import BreadcrumbNavigation from "../../../components/ui/BreadcrumbNavigation.astro";
+import ArtifactNavigation from "../../../components/artifact/ArtifactNavigation.astro";
+import BackToTopButton from "../../../components/ui/BackToTopButton.astro";
+import type { BreadcrumbItem } from "../../../types/artifact";
 
 interface Props {
   params: {
@@ -21,27 +26,31 @@ export async function getStaticPaths() {
     params: { slug: artifact.data.slug },
   }));
 }
+
 const { slug } = Astro.params;
 const artifacts = await getCollection('artifacts');
 const { data: artifact } = await getEntry('artifacts', slug);
 
-const relatedArtifacts = artifacts
+// Get related artifacts (same culture + different cultures)
+const sameCultureArtifacts = artifacts
   .filter((a) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug)
   .slice(0, 3);
 
+const differentCultureArtifacts = artifacts
+  .filter((a) => a.data.culture !== artifact.culture)
+  .slice(0, 3);
+
+const allRelatedArtifacts = [...sameCultureArtifacts, ...differentCultureArtifacts];
+
+// Navigation artifacts
 const currentIndex = artifacts.findIndex((a) => a.data.slug === artifact.slug);
 const prevArtifact = currentIndex > 0 ? artifacts[currentIndex - 1] : null;
-const nextArtifact =
-  currentIndex < artifacts.length - 1
-    ? artifacts[currentIndex + 1]
-    : null;
+const nextArtifact = currentIndex < artifacts.length - 1 ? artifacts[currentIndex + 1] : null;
 
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
-const model3D = getModelForSlug(artifact.slug);
-
-// Generate SEO-optimized title and description using templates
+// SEO and metadata
 const title = t('seo.artifact.titleTemplate')
   .replace('{title}', artifact.title)
   .replace('{culture}', artifact.culture);
@@ -52,16 +61,16 @@ const description = t('seo.artifact.descriptionTemplate')
   .replace('{period}', artifact.period)
   .replace('{description}', artifact.description.slice(0, 120) + '...');
 
-let canonicalURL: string | URL = `/${lang}/collection/${artifact.slug}`;
+// URLs
+let canonicalURL: string | URL = `/en/collection/${artifact.slug}`;
 let imageURL: string | URL = artifact.image;
 let alternateURLs: { en: string | URL; es: string | URL } = {
   en: `/en/collection/${artifact.slug}`,
   es: `/es/coleccion/${artifact.slug}`,
 };
-const image = getImageByFilename(artifact.image);
 
 if (Astro.site) {
-  canonicalURL = new URL(`/${lang}/collection/${artifact.slug}`, Astro.site);
+  canonicalURL = new URL(`/en/collection/${artifact.slug}`, Astro.site);
   imageURL = new URL(`/images/${artifact.image}`, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection/${artifact.slug}`, Astro.site),
@@ -70,6 +79,13 @@ if (Astro.site) {
 } else {
   imageURL = `/images/${artifact.image}`;
 }
+
+// Breadcrumb navigation
+const breadcrumbItems: BreadcrumbItem[] = [
+  { label: t("artifact.home"), href: `/${lang}#collection` },
+  { label: t("artifact.collection"), href: `/${lang}/collection` },
+  { label: artifact.title, current: true, ariaCurrent: "page" }
+];
 ---
 
 <Layout 
@@ -81,212 +97,97 @@ if (Astro.site) {
   alternateURLs={alternateURLs}
   currentArtifact={artifact}
 >
-<main>
-  <article class="w-full pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 bg-gradient-to-b from-base-100/5 to-base-100 overflow-x-hidden" role="main">
-    <div class="mx-auto max-w-7xl w-full">
-      <nav class="mb-8 sm:mb-12" aria-label="Breadcrumb">
-        <ol class="flex items-center space-x-2 text-sm text-base-content/70 overflow-x-auto pb-2 whitespace-nowrap scrollbar-hide" role="list">
-          <li><a href={`/${lang}#collection`} class="hover:text-primary transition-colors" aria-label={t("artifact.home")}>{t("artifact.home")}</a></li>
-          <li aria-hidden="true"><span class="mx-2">/</span></li>
-          <li>
-            <a
-              href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}`}
-              class="hover:text-primary transition-colors"
-              aria-label={t("artifact.collection")}>{t("artifact.collection")}</a>
-          </li>
-          <li aria-hidden="true"><span class="mx-2">/</span></li>
-          <li class="text-primary font-medium" aria-current="page">{artifact.title}</li>
-        </ol>
-      </nav>
+  <main class="min-h-screen">
+    <!-- Skip to content link for accessibility -->
+    <a 
+      href="#main-content" 
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-content px-4 py-2 rounded-lg z-50"
+    >
+      {t("artifact.accessibility.skipToContent")}
+    </a>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8 lg:gap-16 items-start w-full">
-        {/* Left column - Image and 3D */}
-        <div class="w-full lg:col-span-5 space-y-4 sm:space-y-6">
-          <div
-            class="aspect-square rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl bg-base-200 flex items-center justify-center group relative w-full"
-            role="img"
-            aria-label={artifact.title}
-            id="main-image"
-          >
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10"></div>
-            <Image
-              transition:name={`artifact-${artifact.slug}`}
-              src={image}
-              alt={artifact.title}
-              width={800}
-              height={800}
-              class="group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-          {
-            model3D && (
-              <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 p-8 rounded-2xl backdrop-blur-sm border border-base-200/20" role="complementary" aria-labelledby="3d-model-title">
-                <h3 id="3d-model-title" class="text-2xl font-bold text-base-content mb-4 flex items-center gap-3">
-                  <Icon name="mdi:computer" class="w-6 h-6" />
-                  {t("artifact.explore3D")}
-                </h3>
-                <p class="text-base-content/80 mb-6 text-lg">
-                  {t("artifact.explore3DDescription")}
-                </p>
-                <a
-                  href={`/${lang}/experience/${model3D}`}
-                  class="inline-flex items-center gap-2 bg-primary text-primary-content px-6 py-3 rounded-xl hover:bg-primary/80 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                  aria-label={`${t("artifact.viewExperience")} - ${artifact.title}`}
-                >
-                  {t("artifact.viewExperience")}
-                  <Icon name="mdi:arrow-right" class="w-5 h-5" />
-                </a>
-              </div>
-            )
-          }
-        </div>
-
-        {/* Right column - Information */}
-        <div class="lg:col-span-7 space-y-6 sm:space-y-8 md:space-y-10 w-full">
-          <div>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-base-content mb-3 sm:mb-4 md:mb-6 leading-tight break-words">
-              {artifact.title}
-            </h1>
-            <div class="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-base-content/80 w-full" role="list" aria-label={t("artifact.details")}>
-              <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-base-200/20 w-full sm:w-auto" role="listitem">
-                <span class="font-medium text-base-content">{t("artifact.culture")}:</span>
-                <span class="ml-2">{artifact.culture}</span>
-              </div>
-              <div class="bg-gradient-to-br from-base-200/20 to-base-200/10 px-3 sm:px-4 md:px-6 py-2 md:py-3 rounded-lg sm:rounded-xl backdrop-blur-sm border border-base-200/20 w-full sm:w-auto" role="listitem">
-                <span class="font-medium text-base-content">{t("artifact.period")}:</span>
-                <span class="ml-2">{artifact.period}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="prose prose-lg md:prose-xl max-w-none">
-            <h2 class="text-2xl md:text-3xl font-bold text-base-content mb-4 md:mb-6 flex items-center gap-3">
-              <Icon name="mdi:information" class="w-7 h-7" />
-              {t("artifact.description")}
-            </h2>
-            <p class="text-lg text-base-content/80 leading-relaxed">
-              {artifact.description}
-            </p>
-          </div>
-
-          <div class="sticky top-20 sm:top-24 grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 bg-gradient-to-br from-base-200 to-base-100 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 shadow-md sm:shadow-lg md:shadow-xl border border-base-200/50 w-full" role="complementary" aria-labelledby="artifact-info-title">
-            <div>
-              <h3 id="artifact-info-title" class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
-                <Icon name="mdi:map-marker" class="w-5 h-5" />
-                {t("artifact.location")}
-              </h3>
-              <p class="text-base-content/80 text-lg">
-                {artifact.museum}<br />
-                {artifact.location}
-              </p>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
-                <Icon name="mdi:puzzle" class="w-5 h-5" />
-                {t("artifact.technicalInfo")}
-              </h3>
-              <div class="space-y-3 text-base-content/80 text-lg">
-                {artifact.dimensions && (
-                  <p>
-                    <span class="font-medium text-base-content">{t("artifact.dimensions")}:</span>{" "}
-                    {artifact.dimensions}
-                  </p>
-                )}
-                {artifact.material && (
-                  <p>
-                    <span class="font-medium text-base-content">{t("artifact.material")}:</span>{" "}
-                    {artifact.material}
-                  </p>
-                )}
-                {artifact.technique && (
-                  <p>
-                    <span class="font-medium text-base-content">{t("artifact.technique")}:</span>{" "}
-                    {artifact.technique}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <nav class="flex justify-between pt-8 border-t border-base-content/10 w-full" aria-label={t("artifact.navigation")}>
-            {
-              prevArtifact ? (
-                <a
-                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${prevArtifact.data.slug}`}
-                  class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
-                  aria-label={`${t("artifact.previous")}: ${prevArtifact.data.title}`}
-                >
-                  <Icon name="mdi:chevron-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform flex-shrink-0" />
-                  <span class="truncate">{prevArtifact.data.title}</span>
-                </a>
-              ) : (
-                <div />
-              )
-            }
-
-            {
-              nextArtifact ? (
-                <a
-                  href={`/${lang}/${lang === "es" ? "coleccion" : "collection"}/${nextArtifact.data.slug}`}
-                  class="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group max-w-[45%]"
-                  aria-label={`${t("artifact.next")}: ${nextArtifact.data.title}`}
-                >
-                  <span class="truncate">{nextArtifact.data.title}</span>
-                  <Icon name="mdi:chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
-                </a>
-              ) : (
-                <div />
-              )
-            }
-          </nav>
-        </div>
+    <!-- Breadcrumb Navigation -->
+    <section class="pt-20 sm:pt-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-base-100/5 to-transparent">
+      <div class="max-w-7xl mx-auto">
+        <BreadcrumbNavigation items={breadcrumbItems} lang={lang} t={t} />
       </div>
+    </section>
 
-      <button
-        id="back-to-top"
-        class="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 btn btn-circle btn-primary btn-outline btn-sm"
-        aria-label={t("artifact.backToTop")}
-      >
-        <Icon name="mdi:arrow-up" class="w-6 h-6" />
-      </button>
+    <!-- Hero Section -->
+    <section id="main-content" class="px-4 sm:px-6 lg:px-8" aria-labelledby="artifact-title">
+      <div class="max-w-7xl mx-auto">
+        <ArtifactHero artifact={artifact} lang={lang} t={t} />
+      </div>
+    </section>
 
-      {
-        relatedArtifacts.length > 0 && (
-          <section class="mt-16 sm:mt-24 md:mt-32 w-full" aria-labelledby="related-artifacts-title">
-            <h2 id="related-artifacts-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-base-content mb-6 sm:mb-8 md:mb-12 text-center break-words">
-              {t("artifact.related")}
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full" role="region" aria-label={t("artifact.relatedItems")}>
-              {relatedArtifacts.map((related) => (
-                <div class="transform transition-transform duration-300 hover:scale-105" role="listitem">
-                  <ArtifactCard artifact={related.data} />
-                </div>
-              ))}
-            </div>
-          </section>
-        )
-      }
-    </div>
-  </article>
-</main>
+    <!-- Artifact Metadata -->
+    <section class="px-4 sm:px-6 lg:px-8 py-16 lg:py-24" aria-labelledby="metadata-title">
+      <div class="max-w-7xl mx-auto">
+        <ArtifactMetadata artifact={artifact} lang={lang} t={t} />
+      </div>
+    </section>
+
+    <!-- Cultural Context -->
+    <section class="px-4 sm:px-6 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-base-100/5 to-base-200/10" aria-labelledby="cultural-context-title">
+      <CulturalContext artifact={artifact} lang={lang} t={t} />
+    </section>
+
+    <!-- Related Artifacts -->
+    <section class="px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-base-200/10 to-base-100/5" aria-labelledby="related-artifacts-title">
+      <RelatedArtifacts 
+        relatedArtifacts={allRelatedArtifacts} 
+        currentCulture={artifact.culture} 
+        lang={lang} 
+        t={t} 
+      />
+    </section>
+
+    <!-- Navigation Between Artifacts -->
+    <ArtifactNavigation 
+      prevArtifact={prevArtifact}
+      nextArtifact={nextArtifact}
+      lang={lang}
+      t={t}
+    />
+
+    <!-- Back to top button -->
+    <BackToTopButton lang={lang} t={t} />
+  </main>
 </Layout>
 
-<script>
-  // Back to top button functionality
-  const backToTopButton = document.getElementById('back-to-top');
+<style>
+  /* Custom scrollbar for better UX */
+  html {
+    scroll-behavior: smooth;
+  }
   
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopButton?.classList.remove('opacity-0');
-    } else {
-      backToTopButton?.classList.add('opacity-0');
-    }
-  });
-
-  backToTopButton?.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
-</script>
+  /* Improved focus styles */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+  }
+  
+  /* Screen reader only utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  .sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+</style>

@@ -1,0 +1,240 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Language } from "../../types";
+
+interface Props {
+  artifact: {
+    title: string;
+    culture: string;
+    period: string;
+    description: string;
+    museum: string;
+    location: string;
+  };
+  lang: Language;
+  t: (key: string) => string;
+}
+
+const { artifact, lang, t } = Astro.props;
+
+// Generate cultural context based on culture type
+const getCulturalContext = (culture: string, lang: Language) => {
+  const contexts = {
+    Maya: {
+      es: {
+        significance: "La civilización maya desarrolló una de las culturas más sofisticadas de Mesoamérica, con avances extraordinarios en astronomía, matemáticas, escritura y arte.",
+        artistry: "Sus obras reflejan una profunda conexión con el cosmos, la naturaleza y las deidades, utilizando simbolismos complejos que narran historias sagradas.",
+        legacy: "El legado maya perdura en la actualidad, influenciando el arte contemporáneo y manteniendo viva una tradición milenaria."
+      },
+      en: {
+        significance: "The Maya civilization developed one of the most sophisticated cultures in Mesoamerica, with extraordinary advances in astronomy, mathematics, writing, and art.",
+        artistry: "Their works reflect a deep connection with the cosmos, nature, and deities, using complex symbolisms that tell sacred stories.",
+        legacy: "The Maya legacy endures today, influencing contemporary art and keeping alive a millennial tradition."
+      }
+    },
+    Mexica: {
+      es: {
+        significance: "La cultura mexica representó el apogeo del poder político y artístico en el México prehispánico, creando obras de gran simbolismo religioso y social.",
+        artistry: "Su arte combina elementos naturalistas con abstracciones geométricas, reflejando su compleja cosmovisión y estructura social.",
+        legacy: "Las técnicas y motivos mexicas han influido profundamente en el arte mexicano contemporáneo y en la identidad cultural nacional."
+      },
+      en: {
+        significance: "The Mexica culture represented the pinnacle of political and artistic power in pre-Hispanic Mexico, creating works of great religious and social symbolism.",
+        artistry: "Their art combines naturalistic elements with geometric abstractions, reflecting their complex worldview and social structure.",
+        legacy: "Mexica techniques and motifs have profoundly influenced contemporary Mexican art and national cultural identity."
+      }
+    },
+    Teotihuacán: {
+      es: {
+        significance: "Teotihuacán fue la primera gran metrópolis de América, desarrollando un estilo artístico distintivo que influyó en toda Mesoamérica.",
+        artistry: "Su arte se caracteriza por la monumentalidad, el uso de colores vibrantes y la representación de deidades y símbolos cosmológicos.",
+        legacy: "La influencia teotihuacana se extendió por siglos, estableciendo patrones estéticos que perduran en el arte mesoamericano."
+      },
+      en: {
+        significance: "Teotihuacán was the first great metropolis of America, developing a distinctive artistic style that influenced all of Mesoamerica.",
+        artistry: "Its art is characterized by monumentality, the use of vibrant colors, and the representation of deities and cosmological symbols.",
+        legacy: "Teotihuacán influence extended for centuries, establishing aesthetic patterns that endure in Mesoamerican art."
+      }
+    },
+    Acolhua: {
+      es: {
+        significance: "Los acolhua desarrollaron una rica tradición artística en el Valle de México, conocidos por su refinamiento técnico y innovación estilística.",
+        artistry: "Su arte refleja la influencia de múltiples culturas mesoamericanas, creando un estilo único que combina tradición e innovación.",
+        legacy: "Las técnicas acolhua influyeron en el desarrollo del arte del período posclásico en el centro de México."
+      },
+      en: {
+        significance: "The Acolhua developed a rich artistic tradition in the Valley of Mexico, known for their technical refinement and stylistic innovation.",
+        artistry: "Their art reflects the influence of multiple Mesoamerican cultures, creating a unique style that combines tradition and innovation.",
+        legacy: "Acolhua techniques influenced the development of Postclassic period art in central Mexico."
+      }
+    }
+  };
+
+  return contexts[culture as keyof typeof contexts]?.[lang] || contexts.Maya[lang];
+};
+
+const culturalContext = getCulturalContext(artifact.culture, lang);
+---
+
+<section class="max-w-4xl mx-auto py-12 lg:py-16" role="region">
+  <!-- Section Header -->
+  <div class="text-center mb-12">
+    <h2 
+      class="text-4xl lg:text-5xl font-normal text-base-content mb-4"
+      style="font-family: var(--font-serif, serif); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
+    >
+      {t("artifact.context.title")}
+    </h2>
+    <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-6" aria-hidden="true"></div>
+    <p class="text-lg text-base-content/80 max-w-2xl mx-auto leading-relaxed">
+      {lang === 'es' 
+        ? 'Descubre el significado profundo y el contexto histórico de esta extraordinaria pieza arqueológica.'
+        : 'Discover the profound meaning and historical context of this extraordinary archaeological piece.'
+      }
+    </p>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+    <!-- Primary Description -->
+    <div class="lg:col-span-2 space-y-8">
+      <!-- Artifact Description -->
+      <div class="bg-gradient-to-br from-base-100 to-base-200/50 rounded-2xl p-8 shadow-lg border border-base-200/30">
+        <h3 class="text-2xl font-semibold text-base-content mb-4 flex items-center gap-3">
+          <Icon name="mdi:scroll-text" class="w-6 h-6 text-primary" />
+          {t("artifact.context.description")}
+        </h3>
+        <div class="prose prose-lg max-w-none">
+          <p class="text-base-content/90 leading-relaxed mb-6" style="line-height: 1.6;">
+            {artifact.description}
+          </p>
+        </div>
+      </div>
+
+      <!-- Historical Significance -->
+      <div class="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 border border-primary/20">
+        <h3 class="text-2xl font-semibold text-base-content mb-4 flex items-center gap-3">
+          <Icon name="mdi:book-open-page-variant" class="w-6 h-6 text-primary" />
+          {t("artifact.context.historicalSignificance")}
+        </h3>
+        <p class="text-base-content/90 leading-relaxed" style="line-height: 1.6;">
+          {culturalContext.significance}
+        </p>
+      </div>
+
+      <!-- Artistic Context -->
+      <div class="bg-gradient-to-br from-secondary/5 to-secondary/10 rounded-2xl p-8 border border-secondary/20">
+        <h3 class="text-2xl font-semibold text-base-content mb-4 flex items-center gap-3">
+          <Icon name="mdi:palette" class="w-6 h-6 text-secondary" />
+          {t("artifact.context.culturalImportance")}
+        </h3>
+        <p class="text-base-content/90 leading-relaxed" style="line-height: 1.6;">
+          {culturalContext.artistry}
+        </p>
+      </div>
+    </div>
+
+    <!-- Sidebar Information -->
+    <div class="space-y-6">
+      <!-- Culture Info Card -->
+      <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-6 shadow-lg border border-base-200/30">
+        <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
+          <Icon name="mdi:temple-hindu" class="w-5 h-5 text-primary" />
+          {artifact.culture}
+        </h4>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center gap-2 text-base-content/80">
+            <Icon name="mdi:calendar" class="w-4 h-4" />
+            <span>{artifact.period}</span>
+          </div>
+          <div class="flex items-start gap-2 text-base-content/80">
+            <Icon name="mdi:map-marker" class="w-4 h-4 mt-0.5" />
+            <div>
+              <div class="font-medium">{artifact.museum}</div>
+              <div class="text-xs">{artifact.location}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legacy Impact -->
+      <div class="bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 border border-accent/20">
+        <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
+          <Icon name="mdi:timeline" class="w-5 h-5 text-accent" />
+          {lang === 'es' ? 'Legado Cultural' : 'Cultural Legacy'}
+        </h4>
+        <p class="text-sm text-base-content/80 leading-relaxed">
+          {culturalContext.legacy}
+        </p>
+      </div>
+
+      <!-- Educational Resources -->
+      <div class="bg-gradient-to-br from-info/5 to-info/10 rounded-2xl p-6 border border-info/20">
+        <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
+          <Icon name="mdi:school" class="w-5 h-5 text-info" />
+          {lang === 'es' ? 'Recursos Educativos' : 'Educational Resources'}
+        </h4>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center gap-2 text-base-content/80">
+            <Icon name="mdi:book" class="w-4 h-4" />
+            <span>{lang === 'es' ? 'Contexto Histórico' : 'Historical Context'}</span>
+          </div>
+          <div class="flex items-center gap-2 text-base-content/80">
+            <Icon name="mdi:map" class="w-4 h-4" />
+            <span>{lang === 'es' ? 'Ubicación Geográfica' : 'Geographic Location'}</span>
+          </div>
+          <div class="flex items-center gap-2 text-base-content/80">
+            <Icon name="mdi:account-group" class="w-4 h-4" />
+            <span>{lang === 'es' ? 'Contexto Social' : 'Social Context'}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="text-center mt-12 pt-8 border-t border-base-content/10">
+    <p class="text-base-content/80 mb-4">
+      {lang === 'es' 
+        ? 'Explora más piezas de esta fascinante cultura mesoamericana'
+        : 'Explore more pieces from this fascinating Mesoamerican culture'
+      }
+    </p>
+    <a 
+      href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?culture=${artifact.culture}`}
+      class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+    >
+      <Icon name="mdi:arrow-right" class="w-5 h-5" />
+      {t("artifact.related.exploreMore")}
+    </a>
+  </div>
+</section>
+
+<style>
+  /* Typography scaling */
+  .prose {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .prose p {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Smooth transitions */
+  .bg-gradient-to-br:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1023px) {
+    .lg\:col-span-2 {
+      grid-column: span 1;
+    }
+    
+    .lg\:grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

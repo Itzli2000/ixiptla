@@ -85,7 +85,68 @@
     "navigation": "Navigation between pieces",
     "previous": "Previous piece",
     "next": "Next piece",
-    "details": "Replica details"
+    "details": "Replica details",
+    "metadata": {
+      "culture": "Culture",
+      "period": "Period",
+      "dimensions": "Dimensions",
+      "material": "Material",
+      "technique": "Technique",
+      "location": "Museum Location"
+    },
+    "interaction": {
+      "instructions": "Use mouse to rotate, scroll to zoom, drag to pan",
+      "mobileInstructions": "Touch to rotate, pinch to zoom, drag to pan",
+      "resetView": "Reset View",
+      "autoRotate": "Auto Rotate",
+      "fullscreen": "Fullscreen",
+      "loading": "Loading 3D model...",
+      "help": "3D Controls Help",
+      "keyboardShortcuts": "Keyboard Shortcuts",
+      "spaceToRotate": "Space: Toggle auto-rotation",
+      "ctrlRToReset": "Ctrl+R: Reset camera view"
+    },
+    "experience": {
+      "title": "Explore in 3D",
+      "cta": "View Experience",
+      "description": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
+      "enhancedDescription": "Experience museum-quality 3D rendering with professional lighting and detailed texture mapping.",
+      "interactiveFeatures": "Interactive Features",
+      "zoomDetail": "Zoom to see fine details",
+      "rotateView": "Rotate for complete view",
+      "immersiveMode": "Immersive Mode"
+    },
+    "context": {
+      "title": "Cultural Context",
+      "description": "Piece Description",
+      "historicalSignificance": "Historical Significance",
+      "culturalImportance": "Cultural Importance",
+      "archaeologicalContext": "Archaeological Context",
+      "craftsmanshipDetails": "Craftsmanship Details"
+    },
+    "related": {
+      "title": "Related Artifacts",
+      "sameCulture": "More from {culture}",
+      "samePeriod": "From the same period",
+      "similarType": "Similar artifacts",
+      "exploreMore": "Explore More",
+      "viewAll": "View All",
+      "noRelated": "No related artifacts found"
+    },
+    "navigation": {
+      "previous": "Previous Artifact",
+      "next": "Next Artifact",
+      "backToCollection": "Back to Collection",
+      "breadcrumb": "Breadcrumb Navigation",
+      "currentPage": "Current page"
+    },
+    "accessibility": {
+      "mainImage": "Main artifact image",
+      "threeDModel": "Interactive 3D model",
+      "controlsHelp": "3D interaction controls",
+      "skipToContent": "Skip to content",
+      "artifactDetails": "Artifact details section"
+    }
   },
   "404": {
     "title": "Page Not Found",

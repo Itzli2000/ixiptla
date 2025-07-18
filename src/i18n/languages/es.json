@@ -85,7 +85,68 @@
     "navigation": "Navegación entre piezas",
     "previous": "Pieza anterior",
     "next": "Pieza siguiente",
-    "details": "Detalles de la réplica"
+    "details": "Detalles de la réplica",
+    "metadata": {
+      "culture": "Cultura",
+      "period": "Período",
+      "dimensions": "Dimensiones",
+      "material": "Material",
+      "technique": "Técnica",
+      "location": "Ubicación del Museo"
+    },
+    "interaction": {
+      "instructions": "Usa el ratón para rotar, desplaza para hacer zoom, arrastra para mover",
+      "mobileInstructions": "Toca para rotar, pellizca para hacer zoom, arrastra para mover",
+      "resetView": "Restablecer Vista",
+      "autoRotate": "Rotación Automática",
+      "fullscreen": "Pantalla Completa",
+      "loading": "Cargando modelo 3D...",
+      "help": "Ayuda de Controles 3D",
+      "keyboardShortcuts": "Atajos de Teclado",
+      "spaceToRotate": "Espacio: Alternar rotación automática",
+      "ctrlRToReset": "Ctrl+R: Restablecer vista de cámara"
+    },
+    "experience": {
+      "title": "Explorar en 3D",
+      "cta": "Ver Experiencia",
+      "description": "Descubre esta pieza en una experiencia 3D inmersiva que te permite explorar cada detalle desde todos los ángulos.",
+      "enhancedDescription": "Experimenta renderizado 3D de calidad museística con iluminación profesional y mapeo de texturas detallado.",
+      "interactiveFeatures": "Características Interactivas",
+      "zoomDetail": "Acerca para ver detalles finos",
+      "rotateView": "Rota para vista completa",
+      "immersiveMode": "Modo Inmersivo"
+    },
+    "context": {
+      "title": "Contexto Cultural",
+      "description": "Descripción de la Pieza",
+      "historicalSignificance": "Significado Histórico",
+      "culturalImportance": "Importancia Cultural",
+      "archaeologicalContext": "Contexto Arqueológico",
+      "craftsmanshipDetails": "Detalles de Artesanía"
+    },
+    "related": {
+      "title": "Artefactos Relacionados",
+      "sameCulture": "Más de {culture}",
+      "samePeriod": "Del mismo período",
+      "similarType": "Artefactos similares",
+      "exploreMore": "Explorar Más",
+      "viewAll": "Ver Todo",
+      "noRelated": "No se encontraron artefactos relacionados"
+    },
+    "navigation": {
+      "previous": "Artefacto Anterior",
+      "next": "Siguiente Artefacto",
+      "backToCollection": "Volver a la Colección",
+      "breadcrumb": "Navegación de Ruta",
+      "currentPage": "Página actual"
+    },
+    "accessibility": {
+      "mainImage": "Imagen principal del artefacto",
+      "threeDModel": "Modelo 3D interactivo",
+      "controlsHelp": "Controles de interacción 3D",
+      "skipToContent": "Saltar al contenido",
+      "artifactDetails": "Sección de detalles del artefacto"
+    }
   },
   "404": {
     "title": "Página No Encontrada",
