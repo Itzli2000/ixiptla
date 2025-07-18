@@ -1,0 +1,493 @@
+---
+import { getCollection } from "astro:content";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import Layout from "../../layouts/Layout.astro";
+import CollectionHeader from "./CollectionHeader.astro";
+import FilterToolbarAstro from "./FilterToolbarAstro.astro";
+import SearchBoxAstro from "./SearchBoxAstro.astro";
+import ResultsSummary from "./ResultsSummary.astro";
+import EnhancedArtifactCard from "./EnhancedArtifactCard.astro";
+import EmptyState from "./EmptyState.astro";
+import LoadingSkeleton from "./LoadingSkeleton.astro";
+import type { Language } from "../../types";
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+// Get artifacts from the appropriate collection
+const artifacts = await getCollection(
+  lang === "es" ? "artefactos" : "artifacts"
+);
+
+// Sort artifacts alphabetically by title
+const sortedArtifacts = artifacts.sort((a: any, b: any) => 
+  a.data.title.localeCompare(b.data.title)
+);
+
+// SEO metadata
+const pageTitle = `${t("collection.title")} - ${t("collection.subtitle")}`;
+const pageDescription = t("collection.description");
+
+let canonicalURL: string | URL = lang === "es" ? `/es/coleccion` : `/en/collection`;
+let imageURL: string | URL = `/images/og-image.png`;
+let alternateURLs: { en: string | URL; es: string | URL } = {
+  en: `/en/collection`,
+  es: `/es/coleccion`,
+};
+
+if (Astro.site) {
+  canonicalURL = new URL(lang === "es" ? `/es/coleccion` : `/en/collection`, Astro.site);
+  imageURL = new URL(`/images/og-image.png`, Astro.site);
+  alternateURLs = {
+    en: new URL(`/en/collection`, Astro.site),
+    es: new URL(`/es/coleccion`, Astro.site),
+  };
+}
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  lang={lang}
+  image={imageURL}
+  canonicalURL={canonicalURL}
+  alternateURLs={alternateURLs}
+>
+  <!-- Collection Header -->
+  <CollectionHeader />
+
+  <!-- Main Collection Content -->
+  <main class="collection-main">
+    <div class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
+      
+      <!-- Controls Section -->
+      <section class="controls-section mb-8 lg:mb-12">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          
+          <!-- Search Box -->
+          <div class="search-container">
+            <SearchBoxAstro 
+              placeholder={t("collection.search.placeholder")}
+              className="w-full lg:w-96"
+            />
+          </div>
+          
+          <!-- View Toggle -->
+          <div class="view-controls">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-medium text-base-content/80">
+                {t("collection.view.toggleView")}:
+              </span>
+              <div class="btn-group" role="group" aria-label={t("collection.view.toggleView")}>
+                <button
+                  class="btn btn-sm btn-outline view-btn active"
+                  data-view="grid"
+                  aria-pressed="true"
+                  aria-label={t("collection.view.grid")}
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
+                  </svg>
+                  <span class="hidden sm:inline">{t("collection.view.grid")}</span>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline view-btn"
+                  data-view="list"
+                  aria-pressed="false"
+                  aria-label={t("collection.view.list")}
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+                  </svg>
+                  <span class="hidden sm:inline">{t("collection.view.list")}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Toolbar -->
+      <FilterToolbarAstro 
+        artifacts={sortedArtifacts.map((artifact: any) => artifact.data)}
+        className="mb-8 lg:mb-12"
+      />
+
+      <!-- Results Summary -->
+      <ResultsSummary 
+        totalCount={sortedArtifacts.length}
+        filteredCount={sortedArtifacts.length}
+        hasActiveFilters={false}
+      />
+
+      <!-- Loading Skeleton (hidden by default) -->
+      <LoadingSkeleton 
+        count={6}
+        variant="grid"
+        className="loading-skeleton hidden"
+      />
+
+      <!-- Collection Grid -->
+      <section 
+        class="collection-grid"
+        aria-label={t("collection.title")}
+        data-collection-grid
+      >
+        <div 
+          class="artifacts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 transition-all duration-500"
+          data-view-mode="grid"
+        >
+          {sortedArtifacts.map((artifact: any, index: number) => (
+            <div 
+              class="artifact-item"
+              data-culture={artifact.data.culture.toLowerCase()}
+              data-period={artifact.data.period.toLowerCase()}
+              data-material={artifact.data.material?.toLowerCase() || ''}
+              data-has-3d={Boolean(artifact.data.has3DModel || false)}
+              data-search-text={`${artifact.data.title} ${artifact.data.description} ${artifact.data.culture} ${artifact.data.period} ${artifact.data.material || ''} ${artifact.data.museum}`.toLowerCase()}
+            >
+              <EnhancedArtifactCard 
+                artifact={artifact.data}
+                variant="grid"
+                index={index}
+              />
+            </div>
+          ))}
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <EmptyState 
+          type="no-results"
+          className="empty-state !hidden"
+        />
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .collection-main {
+    min-height: 60vh;
+  }
+
+  .controls-section {
+    background: hsl(var(--b1));
+    border: 1px solid hsl(var(--b3) / 0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px hsl(var(--shadow) / 0.1);
+  }
+
+  .view-controls {
+    flex-shrink: 0;
+  }
+
+  .btn-group {
+    display: flex;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .btn-group .btn {
+    border-radius: 0;
+    border-right: none;
+  }
+
+  .btn-group .btn:first-child {
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+
+  .btn-group .btn:last-child {
+    border-radius: 0 0.5rem 0.5rem 0;
+    border-right: 1px solid hsl(var(--b3));
+  }
+
+  .view-btn.active {
+    background: hsl(var(--p));
+    border-color: hsl(var(--p));
+    color: hsl(var(--pc));
+  }
+
+  .artifacts-grid {
+    min-height: 400px;
+  }
+
+  .artifacts-grid[data-view-mode="list"] {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .artifact-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .artifact-item.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .loading-skeleton.visible {
+    display: block;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .controls-section {
+      padding: 1rem;
+    }
+
+    .controls-section > div {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .view-controls {
+      align-self: stretch;
+    }
+
+    .btn-group {
+      width: 100%;
+    }
+
+    .btn-group .btn {
+      flex: 1;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .controls-section {
+      border-width: 2px;
+    }
+
+    .btn-group .btn {
+      border-width: 2px;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .artifacts-grid,
+    .artifact-item {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  interface FilterState {
+    culture: string;
+    period: string;
+    material: string;
+    has3D: boolean | null;
+    searchQuery: string;
+  }
+
+  class CollectionManager {
+    private grid: HTMLElement | null;
+    private emptyState: HTMLElement | null;
+    private viewButtons: NodeListOf<HTMLElement>;
+    private artifactItems: NodeListOf<HTMLElement>;
+    
+    private currentView: 'grid' | 'list' = 'grid';
+    private filters: FilterState = {
+      culture: 'all',
+      period: 'all',
+      material: 'all',
+      has3D: null,
+      searchQuery: ''
+    };
+
+    constructor() {
+      this.grid = document.querySelector('[data-collection-grid] .artifacts-grid');
+      this.emptyState = document.querySelector('.empty-state');
+      this.viewButtons = document.querySelectorAll('.view-btn');
+      this.artifactItems = document.querySelectorAll('.artifact-item');
+      
+      this.init();
+    }
+
+    init() {
+      // Setup view toggle buttons
+      this.viewButtons.forEach(btn => {
+        btn.addEventListener('click', this.handleViewChange.bind(this));
+      });
+
+      // Listen for filter and search events
+      document.addEventListener('filtersChanged', this.handleFiltersChanged.bind(this));
+      document.addEventListener('collectionSearch', this.handleSearch.bind(this));
+      document.addEventListener('clearAllFilters', this.clearAllFilters.bind(this));
+
+      // Initial render
+      this.applyFiltersAndSearch();
+    }
+
+    private handleViewChange(event: Event) {
+      const button = event.currentTarget as HTMLElement;
+      const newView = button.getAttribute('data-view') as 'grid' | 'list';
+      
+      if (newView === this.currentView) return;
+
+      this.currentView = newView;
+      this.updateViewMode();
+    }
+
+    private updateViewMode() {
+      // Update button states
+      this.viewButtons.forEach(btn => {
+        const view = btn.getAttribute('data-view');
+        if (view === this.currentView) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      });
+
+      // Update grid layout
+      if (this.grid) {
+        this.grid.setAttribute('data-view-mode', this.currentView);
+        
+        if (this.currentView === 'grid') {
+          this.grid.className = 'artifacts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 transition-all duration-500';
+        } else {
+          this.grid.className = 'artifacts-grid grid grid-cols-1 gap-4 transition-all duration-500';
+        }
+      }
+
+      // Update artifact cards
+      this.artifactItems.forEach(item => {
+        const card = item.querySelector('.artifact-card');
+        if (card instanceof HTMLElement) {
+          card.setAttribute('data-variant', this.currentView);
+        }
+      });
+    }
+
+    private handleFiltersChanged(event: CustomEvent) {
+      const { filters } = event.detail;
+      this.filters = { ...this.filters, ...filters };
+      this.applyFiltersAndSearch();
+    }
+
+    private handleSearch(event: CustomEvent) {
+      const { query } = event.detail;
+      this.filters.searchQuery = query;
+      this.applyFiltersAndSearch();
+    }
+
+    private clearAllFilters() {
+      this.filters = {
+        culture: 'all',
+        period: 'all',
+        material: 'all',
+        has3D: null,
+        searchQuery: ''
+      };
+      this.applyFiltersAndSearch();
+    }
+
+    private applyFiltersAndSearch() {
+      let visibleCount = 0;
+      const searchQuery = this.filters.searchQuery.toLowerCase().trim();
+
+      this.artifactItems.forEach(item => {
+        let visible = true;
+
+        // Culture filter
+        if (this.filters.culture !== 'all') {
+          const itemCulture = item.getAttribute('data-culture');
+          visible = visible && itemCulture === this.filters.culture;
+        }
+
+        // Period filter
+        if (this.filters.period !== 'all') {
+          const itemPeriod = item.getAttribute('data-period');
+          visible = visible && itemPeriod?.includes(this.filters.period) || false;
+        }
+
+        // Material filter
+        if (this.filters.material !== 'all') {
+          const itemMaterial = item.getAttribute('data-material');
+          visible = visible && itemMaterial?.includes(this.filters.material) || false;
+        }
+
+        // 3D filter
+        if (this.filters.has3D !== null) {
+          const itemHas3D = item.getAttribute('data-has-3d') === 'true';
+          visible = visible && (itemHas3D === Boolean(this.filters.has3D));
+        }
+
+        // Search filter
+        if (searchQuery) {
+          const searchText = item.getAttribute('data-search-text') || '';
+          visible = visible && searchText.includes(searchQuery);
+        }
+
+        // Apply visibility
+        if (visible) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Update results count
+      this.updateResultsDisplay(visibleCount);
+
+      // Show/hide empty state
+      this.toggleEmptyState(visibleCount === 0);
+    }
+
+    private updateResultsDisplay(count: number) {
+      // Dispatch event for results summary
+      document.dispatchEvent(new CustomEvent('resultsUpdated', {
+        detail: { 
+          filteredCount: count,
+          totalCount: this.artifactItems.length,
+          hasActiveFilters: this.hasActiveFilters()
+        }
+      }));
+    }
+
+    private toggleEmptyState(show: boolean) {
+      if (this.emptyState && this.grid) {
+        if (show) {
+          this.emptyState.classList.remove('!hidden');
+          this.emptyState.classList.add('visible');
+          this.grid.style.display = 'none';
+        } else {
+          this.emptyState.classList.add('!hidden');
+          this.emptyState.classList.remove('visible');
+          this.grid.style.display = 'grid';
+        }
+      }
+    }
+
+    private hasActiveFilters(): boolean {
+      return this.filters.culture !== 'all' ||
+             this.filters.period !== 'all' ||
+             this.filters.material !== 'all' ||
+             this.filters.has3D !== null ||
+             this.filters.searchQuery.trim() !== '';
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new CollectionManager();
+  });
+
+  // Re-initialize on Astro page navigation
+  document.addEventListener('astro:page-load', () => {
+    new CollectionManager();
+  });
+</script>

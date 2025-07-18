@@ -39,21 +39,72 @@
     }
   },
   "collection": {
-    "title": "Archaeological Replicas Collection - Ixiptla Museum",
+    "title": "Archaeological Replicas Collection",
+    "subtitle": "Ixiptla Museum",
     "description": "Explore our curated collection of Mesoamerican archaeological replicas: Maya vessels, Mexica sculptures, Teotihuacan figurines and more historical pieces.",
     "pageDescription": "Complete catalog of archaeological replicas from pre-Columbian Mexican cultures. Each piece includes historical information, crafting techniques and cultural context.",
     "cta": "View Collection",
-    "all": "All",
-    "maya": "Maya",
-    "teotihuacán": "Teotihuacán",
-    "acolhua": "Acolhua",
-    "mixteca": "Mixteca",
-    "mexica": "Mexica",
-    "results": "results found",
-    "gridView": "Grid view",
-    "listView": "List view",
-    "sortBy": "Sort by",
-    "search": "Search replicas..."
+    "filters": {
+      "title": "Filter Collection",
+      "culture": "Culture",
+      "period": "Period",
+      "material": "Material",
+      "has3D": "3D Available",
+      "clear": "Clear Filters",
+      "apply": "Apply Filters",
+      "only3D": "3D Only",
+      "all": "All"
+    },
+    "search": {
+      "placeholder": "Search artifacts...",
+      "results": "{count} results found",
+      "noResults": "No artifacts found matching your criteria"
+    },
+    "cultures": {
+      "maya": "Maya",
+      "mexica": "Mexica",
+      "acolhua": "Acolhua",
+      "mixteca": "Mixteca",
+      "teotihuacan": "Teotihuacan",
+      "all": "All Cultures"
+    },
+    "view": {
+      "grid": "Grid View",
+      "list": "List View",
+      "toggleView": "Toggle View"
+    },
+    "loading": "Loading collection...",
+    "empty": {
+      "title": "No artifacts found",
+      "description": "Try adjusting your filters or search terms",
+      "action": "Clear all filters",
+      "noFilters": "Try using different search terms",
+      "exploreAll": "Explore entire collection",
+      "suggestions": {
+        "title": "Suggestions:",
+        "checkSpelling": "Check your search spelling",
+        "useGeneral": "Try more general words",
+        "searchCulture": "Search by culture (Maya, Mexica, Acolhua)",
+        "searchMaterial": "Search by materials (ceramic, jade, obsidian)"
+      }
+    },
+    "errors": {
+      "noArtifacts": {
+        "title": "Collection unavailable",
+        "description": "Could not load artifacts at this time"
+      },
+      "loadingError": {
+        "title": "Loading error",
+        "description": "There was a problem loading the collection"
+      },
+      "unknown": {
+        "title": "Unknown state",
+        "description": "Something went wrong"
+      },
+      "retry": "Retry",
+      "goHome": "Go home"
+    },
+    "3DAvailable": "3D view available"
   },
   "artifact": {
     "title": "Piece",
@@ -69,7 +120,6 @@
     "dimensions": "Dimensions",
     "material": "Material",
     "technique": "Technique",
-    "related": "Related Pieces",
     "relatedItems": "Related Replicas",
     "explore3D": "Explore in 3D",
     "explore3DDescription": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
@@ -82,7 +132,6 @@
     "previousRelated": "Previous related piece",
     "nextRelated": "Next related piece",
     "close": "Close",
-    "navigation": "Navigation between pieces",
     "previous": "Previous piece",
     "next": "Next piece",
     "details": "Replica details",

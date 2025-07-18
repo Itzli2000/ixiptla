@@ -39,21 +39,72 @@
     }
   },
   "collection": {
-    "title": "Colección de Réplicas Arqueológicas - Museo Ixiptla",
+    "title": "Colección de Réplicas Arqueológicas",
+    "subtitle": "Museo Ixiptla",
     "description": "Explora nuestra colección curada de réplicas arqueológicas mesoamericanas: vasijas mayas, esculturas mexicas, figurillas teotihuacanas y más piezas históricas.",
     "pageDescription": "Catálogo completo de réplicas arqueológicas de culturas precolombinas mexicanas. Cada pieza incluye información histórica, técnicas de elaboración y contexto cultural.",
     "cta": "Ver Colección",
-    "all": "Todos",
-    "maya": "Maya",
-    "teotihuacán": "Teotihuacán",
-    "acolhua": "Acolhua",
-    "mixteca": "Mixteca",
-    "mexica": "Mexica",
-    "results": "resultados encontrados",
-    "gridView": "Vista en cuadrícula",
-    "listView": "Vista en lista",
-    "sortBy": "Ordenar por",
-    "search": "Buscar réplicas..."
+    "filters": {
+      "title": "Filtrar Colección",
+      "culture": "Cultura",
+      "period": "Período",
+      "material": "Material",
+      "has3D": "3D Disponible",
+      "clear": "Limpiar Filtros",
+      "apply": "Aplicar Filtros",
+      "only3D": "Solo 3D",
+      "all": "Todos"
+    },
+    "search": {
+      "placeholder": "Buscar artefactos...",
+      "results": "{count} resultados encontrados",
+      "noResults": "No se encontraron artefactos que coincidan con tus criterios"
+    },
+    "cultures": {
+      "maya": "Maya",
+      "mexica": "Mexica",
+      "acolhua": "Acolhua",
+      "mixteca": "Mixteca",
+      "teotihuacan": "Teotihuacana",
+      "all": "Todas las Culturas"
+    },
+    "view": {
+      "grid": "Vista de Cuadrícula",
+      "list": "Vista de Lista",
+      "toggleView": "Cambiar Vista"
+    },
+    "loading": "Cargando colección...",
+    "empty": {
+      "title": "No se encontraron artefactos",
+      "description": "Intenta ajustar tus filtros o términos de búsqueda",
+      "action": "Limpiar todos los filtros",
+      "noFilters": "Intenta usar diferentes términos de búsqueda",
+      "exploreAll": "Explorar toda la colección",
+      "suggestions": {
+        "title": "Sugerencias:",
+        "checkSpelling": "Verifica la ortografía de tu búsqueda",
+        "useGeneral": "Intenta con palabras más generales",
+        "searchCulture": "Busca por cultura (Maya, Mexica, Acolhua)",
+        "searchMaterial": "Busca por materiales (cerámica, jade, obsidiana)"
+      }
+    },
+    "errors": {
+      "noArtifacts": {
+        "title": "Colección no disponible",
+        "description": "No se pudieron cargar los artefactos en este momento"
+      },
+      "loadingError": {
+        "title": "Error de carga",
+        "description": "Hubo un problema al cargar la colección"
+      },
+      "unknown": {
+        "title": "Estado desconocido",
+        "description": "Algo salió mal"
+      },
+      "retry": "Reintentar",
+      "goHome": "Volver al inicio"
+    },
+    "3DAvailable": "Vista 3D disponible"
   },
   "artifact": {
     "title": "Pieza",
@@ -69,7 +120,6 @@
     "dimensions": "Dimensiones",
     "material": "Material",
     "technique": "Técnica",
-    "related": "Piezas Relacionadas",
     "relatedItems": "Réplicas Relacionadas",
     "explore3D": "Explorar en 3D",
     "explore3DDescription": "Descubre esta pieza en una experiencia inmersiva 3D que te permite explorar cada detalle desde todos los ángulos.",
@@ -82,7 +132,6 @@
     "previousRelated": "Pieza relacionada anterior",
     "nextRelated": "Pieza relacionada siguiente",
     "close": "Cerrar",
-    "navigation": "Navegación entre piezas",
     "previous": "Pieza anterior",
     "next": "Pieza siguiente",
     "details": "Detalles de la réplica",

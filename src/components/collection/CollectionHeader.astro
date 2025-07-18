@@ -1,0 +1,127 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import BreadcrumbNavigation from "../ui/BreadcrumbNavigation.astro";
+import type { Language } from "../../types";
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+const breadcrumbItems = [
+  {
+    label: t("navigation.home"),
+    href: lang === "es" ? "/" : "/en",
+  },
+  {
+    label: t("navigation.collection"),
+    href: lang === "es" ? "/es/coleccion" : "/en/collection",
+    current: true,
+  },
+];
+---
+
+<header class="collection-header bg-gradient-to-b from-base-200 to-base-100 border-b border-base-300">
+  <div class="max-w-7xl mx-auto px-4 py-8 lg:py-16">
+    <!-- Breadcrumb Navigation -->
+    <BreadcrumbNavigation 
+      items={breadcrumbItems} 
+      lang={lang} 
+      t={t}
+      className="mb-6"
+    />
+    
+    <!-- Page Header -->
+    <div class="text-center max-w-4xl mx-auto">
+      <h1 class="collection-title font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-base-content mb-4">
+        {t("collection.title")}
+      </h1>
+      
+      <p class="collection-subtitle text-lg md:text-xl text-primary font-medium mb-6">
+        {t("collection.subtitle")}
+      </p>
+      
+      <p class="collection-description text-base md:text-lg text-base-content/80 leading-relaxed max-w-3xl mx-auto">
+        {t("collection.description")}
+      </p>
+    </div>
+  </div>
+</header>
+
+<style>
+  .collection-header {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--b2) / 1),
+      hsl(var(--b1) / 1)
+    );
+  }
+  
+  .collection-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .collection-subtitle {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  }
+  
+  .collection-description {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.6;
+  }
+  
+  /* Responsive spacing */
+  @media (max-width: 768px) {
+    .collection-header {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+  
+  /* Animation on load */
+  .collection-title {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .collection-subtitle {
+    animation: fadeInUp 0.6s ease-out 0.1s both;
+  }
+  
+  .collection-description {
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Cultural design elements */
+  .collection-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--p) / 0.8),
+      hsl(var(--s) / 0.8),
+      hsl(var(--a) / 0.8)
+    );
+  }
+  
+  /* Focus management */
+  .collection-title:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+</style>
