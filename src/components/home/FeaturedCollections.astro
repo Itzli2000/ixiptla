@@ -69,7 +69,7 @@ const availableCultures = getCulturesWithArtifacts();
                 <div class="text-right">
                   <div class="text-sm text-base-content/60 mb-1">{artifactCountText}</div>
                   <div class="text-xs text-primary font-medium px-2 py-1 rounded-full bg-primary/10">
-                    {lang === 'es' ? 'Disponible' : 'Available'}
+                    {t('home.featuredCollections.available')}
                   </div>
                 </div>
               </div>
@@ -141,18 +141,18 @@ const availableCultures = getCulturesWithArtifacts();
         <div class="divider"></div>
         <div class="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <strong class="text-base-content/70">{lang === 'es' ? 'Artefactos:' : 'Artifacts:'}</strong>
+            <strong class="text-base-content/70">{t('home.featuredCollections.modal.artifacts')}</strong>
             <div id="modal-artifacts" class="text-base-content"></div>
           </div>
           <div>
-            <strong class="text-base-content/70">{lang === 'es' ? 'Época:' : 'Period:'}</strong>
+            <strong class="text-base-content/70">{t('home.featuredCollections.modal.period')}</strong>
             <div id="modal-period" class="text-base-content"></div>
           </div>
         </div>
       </div>
       <div class="modal-action">
         <form method="dialog">
-          <button class="btn">{lang === 'es' ? 'Cerrar' : 'Close'}</button>
+          <button class="btn">{t('home.featuredCollections.modal.close')}</button>
         </form>
         <a id="modal-explore-link" href="#" class="btn btn-primary">
           {t('home.featuredCollections.exploreCollectionCTA')}

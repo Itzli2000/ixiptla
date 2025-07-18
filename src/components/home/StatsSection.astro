@@ -102,7 +102,7 @@ const t = useTranslations(lang);
         </div>
         <div class="mb-4">
           <div class="text-3xl lg:text-4xl font-bold text-neutral mb-2">
-            {lang === 'es' ? 'Inmersiva' : 'Immersive'}
+{t('home.common.experience')}
           </div>
           <div class="text-lg font-semibold text-base-content">
             {t('home.stats.labels.experiences')}
@@ -117,10 +117,7 @@ const t = useTranslations(lang);
     <!-- Additional Info -->
     <div class="text-center mt-16">
       <p class="text-base-content/60 text-sm max-w-2xl mx-auto">
-        {lang === 'es'
-          ? 'Estas cifras representan nuestro crecimiento continuo en la preservación digital del patrimonio mesoamericano.'
-          : 'These figures represent our continuous growth in digital preservation of Mesoamerican heritage.'
-        }
+        {t('home.stats.additionalInfo')}
       </p>
     </div>
   </div>

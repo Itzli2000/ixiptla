@@ -63,14 +63,31 @@
       "viewAllCTA": "Ver Todas las Culturas",
       "exploreCollectionCTA": "Explorar Colección",
       "artifactCount": "{count} artefactos",
-      "learnMore": "Conocer Más"
+      "learnMore": "Conocer Más",
+      "available": "Disponible",
+      "modal": {
+        "artifacts": "Artefactos:",
+        "period": "Época:",
+        "close": "Cerrar"
+      }
     },
     "technology": {
       "title": "Tecnología al Servicio del Patrimonio",
       "subtitle": "Innovación con Propósito Cultural",
       "description": "Empleamos tecnologías de vanguardia para crear experiencias museísticas que respetan la sacralidad de cada pieza mientras facilitan el aprendizaje interactivo y la contemplación profunda.",
       "cta": "Experimentar Modelos 3D",
-      "learnMoreCTA": "Conocer Nuestra Tecnología"
+      "learnMoreCTA": "Conocer Nuestra Tecnología",
+      "demo": {
+        "title": "Modelo 3D Interactivo",
+        "controls": "Rotar • Acercar • Explorar",
+        "loading": "Cargando...",
+        "rotate": "Rotar",
+        "zoom": "Zoom", 
+        "models3D": "Modelos 3D",
+        "resolution": "Resolución",
+        "rotateDesc": "Arrastra para rotar el modelo y verlo desde todos los ángulos",
+        "zoomDesc": "Usa la rueda del mouse para acercar y examinar los detalles"
+      }
     },
     "stats": {
       "title": "Ixiptla en Números",
@@ -81,14 +98,33 @@
         "cultures": "Culturas Documentadas",
         "models3D": "Modelos 3D Disponibles",
         "experiences": "Experiencia Inmersiva"
-      }
+      },
+      "additionalInfo": "Estas cifras representan nuestro crecimiento continuo en la preservación digital del patrimonio mesoamericano."
     },
     "finalCTA": {
       "title": "Comienza tu Viaje Cultural",
       "subtitle": "El Patrimonio Mesoamericano te Espera",
       "description": "Sumérgete en milenios de sabiduría ancestral. Cada réplica cuenta una historia, cada cultura revela secretos, cada experiencia te conecta con tus raíces.",
       "primaryCTA": "Explorar Colección Completa",
-      "secondaryCTA": "Contactar Equipo Ixiptla"
+      "secondaryCTA": "Contactar Equipo Ixiptla",
+      "features": {
+        "immediateAccess": "Acceso Inmediato",
+        "immediateAccessDesc": "Explora nuestra colección completa al instante, sin restricciones",
+        "deepKnowledge": "Conocimiento Profundo", 
+        "deepKnowledgeDesc": "Información detallada y contexto cultural de cada pieza",
+        "globalReach": "Alcance Global",
+        "globalReachDesc": "Patrimonio mesoamericano accesible desde cualquier lugar del mundo"
+      },
+      "trust": {
+        "verifiedContent": "Contenido Verificado",
+        "secureAccess": "Acceso Seguro",
+        "alwaysFree": "Gratuito Siempre"
+      }
+    },
+    "common": {
+      "scrollDown": "Desplazarse hacia abajo",
+      "exploreMore": "Explorar más",
+      "experience": "Inmersiva"
     }
   },
   "navigation": {

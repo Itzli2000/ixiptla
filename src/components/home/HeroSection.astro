@@ -98,9 +98,9 @@ const heroImage = getImageByFilename('colibri.png');
         <a 
           href="#introduction"
           class="inline-flex flex-col items-center gap-2 text-base-content/60 hover:text-base-content transition-colors duration-300"
-          aria-label={lang === 'es' ? 'Desplazarse hacia abajo' : 'Scroll down'}
+          aria-label={t('home.common.scrollDown')}
         >
-          <span class="text-sm font-medium">{lang === 'es' ? 'Explorar más' : 'Explore more'}</span>
+          <span class="text-sm font-medium">{t('home.common.exploreMore')}</span>
           <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
           </svg>

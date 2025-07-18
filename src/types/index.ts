@@ -63,6 +63,7 @@ export interface Scene3DProps {
   autoRotate?: boolean;
   initialCameraPosition?: [number, number, number];
   lang?: Language;
+  initialModelScale?: [number, number, number];
 }
 
 /**
