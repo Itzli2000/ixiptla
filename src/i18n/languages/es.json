@@ -135,28 +135,6 @@
   "hero": {
     "imageAlt": "Vaso ceremonial maya en forma de colibrí, réplica arqueológica de cerámica pintada con motivos tradicionales"
   },
-  "ixiptla": {
-    "title": "¿Qué es Ixiptla?",
-    "description": "Arraigado en la sabiduría náhuatl, Ixiptla encarna el profundo concepto de la representación sagrada. Más allá de una simple réplica, captura la esencia de la transformación - donde un objeto o ser se convierte en recipiente de presencia divina, uniendo los reinos físico y espiritual.",
-    "description2": "En esta exposición, exploramos estos recipientes sagrados a través de una colección curada de réplicas. Cada pieza narra una historia de nuestro patrimonio ancestral, ofreciendo una ventana hacia el profundo significado cultural del arte mesoamericano."
-  },
-  "hero3d": {
-    "digitalArchaeology": {
-      "title": "Arqueología Digital",
-      "description": "Exploramos el patrimonio cultural mesoamericano a través de tecnología de vanguardia, creando experiencias inmersivas que conectan el pasado con el presente.",
-      "description2": "Cada pieza arqueológica cuenta una historia única que preservamos digitalmente para las futuras generaciones."
-    },
-    "mayaCollection": {
-      "title": "Colección Maya",
-      "description": "Descubre artefactos extraordinarios de la civilización maya, desde vasijas ceremoniales hasta figuras antropomorfas que revelan la complejidad de su cosmovisión.",
-      "description2": "Cada objeto es una ventana al pasado, meticulosamente documentado y presentado en alta resolución para su estudio y contemplación."
-    },
-    "experience3d": {
-      "title": "Experiencia 3D",
-      "description": "Sumérgete en una experiencia tridimensional única donde puedes interactuar con los artefactos desde cualquier ángulo, apreciando detalles que van más allá de la fotografía tradicional.",
-      "description2": "La tecnología web moderna nos permite crear museos virtuales accesibles desde cualquier dispositivo."
-    }
-  },
   "collection": {
     "title": "Colección de Réplicas Arqueológicas",
     "subtitle": "Museo Ixiptla",

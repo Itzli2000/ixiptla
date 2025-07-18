@@ -69,7 +69,7 @@ export interface Scene3DProps {
 /**
  * Error types for model loading and rendering.
  */
-export type ModelErrorType = 'loadError' | 'initError' | 'webglError';
+export type ModelErrorType = 'loadError' | 'initError' | 'webglError' | 'failedToLoad' | 'noModelData' | 'interactiveError' | 'animationError';
 
 /**
  * Properties for error display components.
