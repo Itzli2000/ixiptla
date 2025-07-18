@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { useTranslations } from '../../i18n/utils';
 import es from '../../i18n/languages/es.json';
 import en from '../../i18n/languages/en.json';
@@ -70,19 +71,17 @@ const valueItems = translations.home.introduction.values.items;
         <div class="grid gap-6">
           {valueItems.map((value: any, index: number) => {
             const iconMap = [
-              "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z", // Heart for Cultural Respect
-              "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z", // Check circle for Historical Precision
-              "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z", // Globe for Universal Accessibility
-              "M13 10V3L4 14h7v7l9-11h-7z" // Lightning bolt for Responsible Innovation
+              "mdi:heart", // Heart for Cultural Respect
+              "mdi:check-circle", // Check circle for Historical Precision
+              "mdi:earth", // Globe for Universal Accessibility
+              "mdi:lightning-bolt" // Lightning bolt for Responsible Innovation
             ];
             
             return (
               <div class="flex gap-4 p-6 rounded-xl bg-base-200/50 hover:bg-base-200 transition-colors duration-300">
                 <div class="flex-shrink-0">
                   <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconMap[index]}/>
-                    </svg>
+                    <Icon name={iconMap[index]} class="w-6 h-6 text-accent" />
                   </div>
                 </div>
                 <div class="flex-1">
@@ -107,9 +106,7 @@ const valueItems = translations.home.introduction.values.items;
         class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-primary-content transition-all duration-300 group"
         aria-label={t('home.introduction.cta')}
       >
-        <svg class="w-6 h-6 mr-2 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-        </svg>
+        <Icon name="mdi:book-open-page-variant" class="w-6 h-6 mr-2 group-hover:scale-110 transition-transform duration-300" />
         {t('home.introduction.cta')}
       </a>
     </div>

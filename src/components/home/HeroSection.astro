@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { useTranslations } from '../../i18n/utils';
 import es from '../../i18n/languages/es.json';
 import en from '../../i18n/languages/en.json';
@@ -39,9 +40,7 @@ const heroImage = getImageByFilename('colibri.png');
     <div class="space-y-8">
       <!-- Badge -->
       <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-        </svg>
+        <Icon name="mdi:book-open-page-variant" class="w-5 h-5 text-primary" />
         <span class="text-sm font-medium text-primary">{t('home.hero.subtitle')}</span>
       </div>
 
@@ -62,9 +61,7 @@ const heroImage = getImageByFilename('colibri.png');
         {heroFeatures.map((feature: string) => (
           <div class="flex items-center gap-3 p-4 rounded-lg bg-base-100/50 backdrop-blur-sm border border-base-300/50">
             <div class="flex-shrink-0">
-              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-              </svg>
+              <Icon name="mdi:check" class="w-5 h-5 text-accent" />
             </div>
             <span class="text-sm font-medium text-base-content">{feature}</span>
           </div>
@@ -78,9 +75,7 @@ const heroImage = getImageByFilename('colibri.png');
           class="btn btn-primary btn-lg text-primary-content hover:btn-primary-focus transition-all duration-300 group"
           aria-label={t('home.hero.primaryCTA')}
         >
-          <svg class="w-6 h-6 mr-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0l-4 4m4-4l-4-4"/>
-          </svg>
+          <Icon name="mdi:arrow-right" class="w-6 h-6 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
           {t('home.hero.primaryCTA')}
         </a>
         
@@ -101,9 +96,7 @@ const heroImage = getImageByFilename('colibri.png');
           aria-label={t('home.common.scrollDown')}
         >
           <span class="text-sm font-medium">{t('home.common.exploreMore')}</span>
-          <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-          </svg>
+          <Icon name="mdi:chevron-down" class="w-6 h-6 animate-bounce" />
         </a>
       </div>
     </div>
