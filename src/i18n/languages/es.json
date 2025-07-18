@@ -106,28 +106,6 @@
       }
     }
   },
-  "contact": {
-    "title": "Contacto - Museo Virtual Ixiptla",
-    "description": "Ponte en contacto con nuestro equipo de expertos en arte mesoamericano. Consultas sobre réplicas arqueológicas, exposiciones y servicios educativos.",
-    "getInTouch": {
-      "title": "Ponte en Contacto",
-      "description": "Estamos aquí para ayudar y responder cualquier pregunta que puedas tener. Esperamos saber de ti."
-    },
-    "email": "Correo Electrónico",
-    "responseTime": {
-      "title": "Tiempo de Respuesta",
-      "description": "Normalmente respondemos dentro de 24 horas"
-    },
-    "whyContactUs": {
-      "title": "¿Por qué Contactarnos?",
-      "reasons": {
-        "technical": "Soporte técnico",
-        "product": "Consultas sobre productos",
-        "partnership": "Oportunidades de colaboración",
-        "general": "Preguntas generales"
-      }
-    }
-  },
   "errors": {
     "general": {
       "title": "Error de Carga",
