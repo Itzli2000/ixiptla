@@ -6,7 +6,90 @@
   "home": {
     "title": "Ixiptla - Colección de Réplicas Arqueológicas Mesoamericanas",
     "description": "Descubre el arte ancestral mesoamericano a través de réplicas arqueológicas de culturas Maya, Mexica, Acolhua y más. Museo virtual con experiencias 3D interactivas.",
-    "keywords": "réplicas arqueológicas, arte mesoamericano, cultura maya, mexica, acolhua, museo virtual, réplicas prehispánicas"
+    "keywords": "réplicas arqueológicas, arte mesoamericano, cultura maya, mexica, acolhua, museo virtual, réplicas prehispánicas",
+    "hero": {
+      "title": "Patrimonio Mesoamericano Preservado Digitalmente",
+      "subtitle": "Réplicas Arqueológicas de Calidad Museística",
+      "description": "Explora la riqueza cultural de civilizaciones Maya, Mexica, Acolhua, Mixteca y Teotihuacana a través de réplicas meticulosamente documentadas y experiencias educativas inmersivas.",
+      "primaryCTA": "Explorar Colección",
+      "secondaryCTA": "Conocer Ixiptla",
+      "features": [
+        "51+ réplicas arqueológicas de alta fidelidad",
+        "5 culturas mesoamericanas documentadas",
+        "Modelos 3D interactivos disponibles",
+        "Contenido educativo culturalmente sensible"
+      ],
+      "imageAlt": "Vasija ceremonial maya con forma de colibrí, réplica arqueológica con motivos pintados tradicionales"
+    },
+    "introduction": {
+      "title": "Preservando el Legado Mesoamericano",
+      "subtitle": "Un Puente Digital Entre Pasado y Presente",
+      "description": "Ixiptla trasciende la simple exhibición digital. Somos custodios del patrimonio cultural mesoamericano, comprometidos con la preservación, educación y accesibilidad de nuestras raíces ancestrales.",
+      "mission": {
+        "title": "Nuestra Misión",
+        "content": "Democratizar el acceso al patrimonio arqueológico mesoamericano mediante tecnología de vanguardia, creando experiencias educativas que honren la profundidad cultural y espiritual de nuestros ancestros."
+      },
+      "vision": {
+        "title": "Nuestra Visión",
+        "content": "Ser el referente mundial en museografía digital mesoamericana, estableciendo nuevos estándares en preservación cultural y educación accesible para las generaciones futuras."
+      },
+      "values": {
+        "title": "Nuestros Valores",
+        "items": [
+          {
+            "title": "Respeto Cultural",
+            "description": "Honramos las tradiciones y cosmovisiones de cada cultura representada"
+          },
+          {
+            "title": "Precisión Histórica",
+            "description": "Mantenemos los más altos estándares de autenticidad arqueológica"
+          },
+          {
+            "title": "Accesibilidad Universal",
+            "description": "Garantizamos que el conocimiento ancestral sea accesible para todos"
+          },
+          {
+            "title": "Innovación Responsable",
+            "description": "Aplicamos tecnología de forma ética y culturalmente apropiada"
+          }
+        ]
+      },
+      "cta": "Conoce Más Sobre Nuestra Misión"
+    },
+    "featuredCollections": {
+      "title": "Culturas Representadas",
+      "subtitle": "Diversidad del Mundo Mesoamericano",
+      "description": "Cada cultura aporta una perspectiva única del rico tapiz mesoamericano. Explora las tradiciones artísticas, cosmovisiones y legados tecnológicos que definen nuestro patrimonio.",
+      "viewAllCTA": "Ver Todas las Culturas",
+      "exploreCollectionCTA": "Explorar Colección",
+      "artifactCount": "{count} artefactos",
+      "learnMore": "Conocer Más"
+    },
+    "technology": {
+      "title": "Tecnología al Servicio del Patrimonio",
+      "subtitle": "Innovación con Propósito Cultural",
+      "description": "Empleamos tecnologías de vanguardia para crear experiencias museísticas que respetan la sacralidad de cada pieza mientras facilitan el aprendizaje interactivo y la contemplación profunda.",
+      "cta": "Experimentar Modelos 3D",
+      "learnMoreCTA": "Conocer Nuestra Tecnología"
+    },
+    "stats": {
+      "title": "Ixiptla en Números",
+      "subtitle": "Nuestro Impacto Cultural",
+      "description": "Cifras que reflejan nuestro compromiso con la preservación y accesibilidad del patrimonio mesoamericano.",
+      "labels": {
+        "artifacts": "Réplicas Arqueológicas",
+        "cultures": "Culturas Documentadas",
+        "models3D": "Modelos 3D Disponibles",
+        "experiences": "Experiencia Inmersiva"
+      }
+    },
+    "finalCTA": {
+      "title": "Comienza tu Viaje Cultural",
+      "subtitle": "El Patrimonio Mesoamericano te Espera",
+      "description": "Sumérgete en milenios de sabiduría ancestral. Cada réplica cuenta una historia, cada cultura revela secretos, cada experiencia te conecta con tus raíces.",
+      "primaryCTA": "Explorar Colección Completa",
+      "secondaryCTA": "Contactar Equipo Ixiptla"
+    }
   },
   "navigation": {
     "home": "Inicio",

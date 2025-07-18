@@ -1,0 +1,241 @@
+---
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section 
+  class="py-24 lg:py-32 bg-gradient-to-br from-base-300 via-base-200 to-base-100 relative overflow-hidden"
+  aria-labelledby="final-cta-title"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Main Content -->
+    <div class="text-center max-w-5xl mx-auto">
+      <!-- Header -->
+      <div class="mb-16">
+        <h2 
+          id="final-cta-title"
+          class="text-4xl lg:text-6xl xl:text-7xl font-bold text-base-content leading-tight mb-8"
+        >
+          <span class="block">{t('home.finalCTA.title').split(' ').slice(0, 3).join(' ')}</span>
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
+            {t('home.finalCTA.title').split(' ').slice(3).join(' ')}
+          </span>
+        </h2>
+        
+        <p class="text-2xl lg:text-3xl text-base-content/70 font-light leading-relaxed mb-6">
+          {t('home.finalCTA.subtitle')}
+        </p>
+        
+        <p class="text-xl text-base-content/80 leading-relaxed max-w-4xl mx-auto">
+          {t('home.finalCTA.description')}
+        </p>
+      </div>
+
+      <!-- Call to Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+        <a 
+          href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+          class="btn btn-primary btn-lg text-primary-content hover:btn-primary-focus transition-all duration-300 group shadow-2xl"
+          aria-label={t('home.finalCTA.primaryCTA')}
+        >
+          <svg class="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0l-4 4m4-4l-4-4"/>
+          </svg>
+          {t('home.finalCTA.primaryCTA')}
+        </a>
+        
+        <a 
+          href={`/${lang}/${lang === 'es' ? 'contacto' : 'contact'}`}
+          class="btn btn-outline btn-lg border-base-content/30 text-base-content hover:bg-base-content hover:text-base-100 transition-all duration-300 group shadow-xl"
+          aria-label={t('home.finalCTA.secondaryCTA')}
+        >
+          <svg class="w-6 h-6 mr-3 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          {t('home.finalCTA.secondaryCTA')}
+        </a>
+      </div>
+
+      <!-- Feature Highlights -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div class="text-center p-6 rounded-2xl bg-base-100/60 backdrop-blur-sm border border-base-300/50 hover:border-primary/30 transition-all duration-300 group">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300">
+            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-base-content mb-2">
+            {lang === 'es' ? 'Acceso Inmediato' : 'Immediate Access'}
+          </h3>
+          <p class="text-base-content/70 text-sm">
+            {lang === 'es' 
+              ? 'Explora nuestra colección completa al instante, sin restricciones'
+              : 'Explore our complete collection instantly, without restrictions'
+            }
+          </p>
+        </div>
+
+        <div class="text-center p-6 rounded-2xl bg-base-100/60 backdrop-blur-sm border border-base-300/50 hover:border-secondary/30 transition-all duration-300 group">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-secondary/10 group-hover:bg-secondary/20 flex items-center justify-center transition-colors duration-300">
+            <svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-base-content mb-2">
+            {lang === 'es' ? 'Conocimiento Profundo' : 'Deep Knowledge'}
+          </h3>
+          <p class="text-base-content/70 text-sm">
+            {lang === 'es' 
+              ? 'Información detallada y contexto cultural de cada pieza'
+              : 'Detailed information and cultural context for each piece'
+            }
+          </p>
+        </div>
+
+        <div class="text-center p-6 rounded-2xl bg-base-100/60 backdrop-blur-sm border border-base-300/50 hover:border-accent/30 transition-all duration-300 group">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center transition-colors duration-300">
+            <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s1.343-9 3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-base-content mb-2">
+            {lang === 'es' ? 'Alcance Global' : 'Global Reach'}
+          </h3>
+          <p class="text-base-content/70 text-sm">
+            {lang === 'es' 
+              ? 'Patrimonio mesoamericano accesible desde cualquier lugar del mundo'
+              : 'Mesoamerican heritage accessible from anywhere in the world'
+            }
+          </p>
+        </div>
+      </div>
+
+      <!-- Social Proof / Trust Indicators -->
+      <div class="border-t border-base-300/50 pt-16">
+        <p class="text-base-content/60 text-sm mb-8">
+          {lang === 'es' 
+            ? 'Únete a miles de exploradores culturales que ya han descubierto la riqueza del patrimonio mesoamericano'
+            : 'Join thousands of cultural explorers who have already discovered the richness of Mesoamerican heritage'
+          }
+        </p>
+        
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap justify-center items-center gap-8 opacity-60">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span class="text-sm font-medium">
+              {lang === 'es' ? 'Contenido Verificado' : 'Verified Content'}
+            </span>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            <span class="text-sm font-medium">
+              {lang === 'es' ? 'Acceso Seguro' : 'Secure Access'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+    <!-- Large gradient orbs -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-secondary/10 to-transparent rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
+    
+    <!-- Subtle pattern overlay -->
+    <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0); background-size: 20px 20px;"></div>
+  </div>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Action",
+    "name": t('home.finalCTA.title'),
+    "description": t('home.finalCTA.description'),
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `https://ixiptla.com/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`,
+      "actionApplication": {
+        "@type": "WebApplication",
+        "name": "Ixiptla Digital Museum"
+      }
+    },
+    "result": {
+      "@type": "ViewAction",
+      "name": lang === 'es' ? 'Explorar Colección' : 'Explore Collection'
+    }
+  })}></script>
+</section>
+
+<style>
+  /* Gradient text animation */
+  .bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* Entrance animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    .animate-slide-up {
+      animation: slideUp 0.8s ease-out forwards;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script is:inline>
+  // Progressive enhancement for scroll-triggered animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-slide-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe feature highlight cards
+    const featureCards = document.querySelectorAll('.grid > div');
+    featureCards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+      observer.observe(card);
+    });
+  });
+</script>
