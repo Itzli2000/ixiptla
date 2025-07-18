@@ -1,3 +1,25 @@
+### 1.14.0 (2025-06-28)
+
+##### Chores
+
+* **dependencies:**  update package versions and remove unused build configurations (5143e2b0)
+
+##### Documentation Changes
+
+*  add CLAUDE.md and astro_best_practices.md for project guidelines (a3a4d021)
+
+##### New Features
+
+* **Documentation:**  add UX/UI analysis report for Ixiptla Museum application (e2e61970)
+* **Performance:**  enhance build configuration and introduce device detection (2aabd1be)
+* **Code Analysis:**  add comprehensive code analysis documentation and implementation checklist (591559e9)
+* **Error Handling:**  implement ErrorBoundary and ModelError components (31fd22b8)
+
+##### Refactors
+
+* **ErrorBoundary:**  enhance translation handling and component structure (1d2aced1)
+* **Error Handling:**  improve type safety and error message handling (503672b3)
+
 ### 1.13.0 (2025-06-21)
 
 ##### Refactors
