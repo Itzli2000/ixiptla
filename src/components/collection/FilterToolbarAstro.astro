@@ -1,0 +1,586 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Language } from "../../types";
+import type { ArtifactData } from "../../types/collection";
+
+interface Props {
+  artifacts: ArtifactData[];
+  className?: string;
+}
+
+const { artifacts, className = "" } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+// Extract filter options from artifacts
+const cultures = [...new Set(artifacts.map(artifact => artifact.culture))].sort();
+const periods = [...new Set(artifacts.map(artifact => artifact.period))].sort();
+const materials = [...new Set(artifacts
+  .map(artifact => artifact.material)
+  .filter(Boolean)
+)].sort();
+---
+
+<div class={`filter-toolbar ${className}`} data-filter-toolbar>
+  <!-- Mobile Filter Toggle -->
+  <div class="mobile-filter-header lg:hidden">
+    <button
+      class="filter-toggle-btn"
+      data-filter-toggle
+      aria-expanded="false"
+      aria-controls="filter-content"
+    >
+      <span class="flex items-center gap-2">
+        <Icon name="mdi:filter-variant" class="w-5 h-5" />
+        {t("collection.filters.title")}
+        <span class="filter-count-badge hidden" data-filter-count>0</span>
+      </span>
+      <Icon 
+        name="mdi:chevron-down" 
+        class="w-4 h-4 transition-transform chevron-icon" 
+      />
+    </button>
+  </div>
+
+  <!-- Filter Content -->
+  <div
+    id="filter-content"
+    class="filter-content"
+    data-filter-content
+  >
+    <div class="filter-grid">
+      <!-- Culture Filter -->
+      <div class="filter-group">
+        <label class="filter-label" for="culture-select">
+          {t("collection.filters.culture")}
+        </label>
+        <select
+          id="culture-select"
+          class="filter-select"
+          data-filter="culture"
+          aria-label={`Filter by ${t("collection.filters.culture")}`}
+        >
+          <option value="all">{t("collection.cultures.all")}</option>
+          {cultures.map((culture) => (
+            <option value={culture.toLowerCase()}>
+              {culture}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <!-- Period Filter -->
+      <div class="filter-group">
+        <label class="filter-label" for="period-select">
+          {t("collection.filters.period")}
+        </label>
+        <select
+          id="period-select"
+          class="filter-select"
+          data-filter="period"
+          aria-label={`Filter by ${t("collection.filters.period")}`}
+        >
+          <option value="all">{t("collection.cultures.all")}</option>
+          {periods.map((period) => (
+            <option value={period.toLowerCase()}>
+              {period}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <!-- Material Filter -->
+      <div class="filter-group">
+        <label class="filter-label" for="material-select">
+          {t("collection.filters.material")}
+        </label>
+        <select
+          id="material-select"
+          class="filter-select"
+          data-filter="material"
+          aria-label={`Filter by ${t("collection.filters.material")}`}
+        >
+          <option value="all">{t("collection.cultures.all")}</option>
+          {materials.map((material) => (
+            <option value={material?.toLowerCase() || ''}>
+              {material}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <!-- 3D Model Filter -->
+      <div class="filter-group">
+        <label class="filter-label">
+          {t("collection.filters.has3D")}
+        </label>
+        <button
+          class="filter-toggle"
+          data-filter="has3D"
+          data-toggle-3d
+          data-text-all={t("collection.filters.all")}
+          data-text-only={t("collection.filters.only3D")}
+          aria-pressed="false"
+          aria-label={`Toggle ${t("collection.filters.has3D")} filter`}
+        >
+          <span class="toggle-icon">
+            <Icon name="mdi:cube-outline" class="w-4 h-4" />
+          </span>
+          <span class="toggle-text" data-toggle-text>
+            {t("collection.filters.all")}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Actions -->
+    <div class="filter-actions hidden" data-filter-actions>
+      <button
+        class="clear-filters-btn"
+        data-clear-filters
+        aria-label={t("collection.filters.clear")}
+      >
+        <Icon name="mdi:close" class="w-4 h-4 mr-2" />
+        {t("collection.filters.clear")}
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .filter-toolbar {
+    background: hsl(var(--b1));
+    border: 1px solid hsl(var(--b3));
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .mobile-filter-header {
+    padding: 1rem;
+    border-bottom: 1px solid hsl(var(--b3));
+  }
+
+  .filter-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    color: hsl(var(--bc));
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-toggle-btn:hover {
+    background: hsl(var(--b2));
+    border-radius: 0.5rem;
+  }
+
+  .filter-toggle-btn:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+
+  .filter-count-badge {
+    background: hsl(var(--p));
+    color: hsl(var(--pc));
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.125rem 0.5rem;
+    border-radius: 1rem;
+    min-width: 1.25rem;
+    text-align: center;
+  }
+
+  .filter-count-badge.hidden {
+    display: none;
+  }
+
+  .chevron-icon.rotated {
+    transform: rotate(180deg);
+  }
+
+  .filter-content {
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  @media (max-width: 1023px) {
+    .filter-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 1.5rem;
+      opacity: 0;
+    }
+
+    .filter-content.expanded {
+      max-height: 500px;
+      padding: 1.5rem;
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-filter-header {
+      display: none;
+    }
+
+    .filter-content {
+      max-height: none;
+      overflow: visible;
+      opacity: 1;
+    }
+  }
+
+  .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .filter-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .filter-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filter-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(var(--bc));
+    margin-bottom: 0.25rem;
+  }
+
+  .filter-select {
+    padding: 0.75rem 1rem;
+    background: hsl(var(--b2));
+    border: 1px solid hsl(var(--b3));
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: hsl(var(--bc));
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-select:hover {
+    border-color: hsl(var(--p) / 0.3);
+    background: hsl(var(--b1));
+  }
+
+  .filter-select:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: -2px;
+    border-color: hsl(var(--p));
+  }
+
+  .filter-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: hsl(var(--b2));
+    border: 1px solid hsl(var(--b3));
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: hsl(var(--bc));
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-toggle:hover {
+    border-color: hsl(var(--p) / 0.3);
+    background: hsl(var(--b1));
+  }
+
+  .filter-toggle[aria-pressed="true"] {
+    background: hsl(var(--p) / 0.1);
+    border-color: hsl(var(--p));
+    color: hsl(var(--p));
+  }
+
+  .filter-toggle:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: -2px;
+  }
+
+  .toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .toggle-text {
+    font-weight: 500;
+  }
+
+  .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid hsl(var(--b3));
+  }
+
+  .filter-actions.hidden {
+    display: none;
+  }
+
+  .clear-filters-btn {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: hsl(var(--error) / 0.1);
+    border: 1px solid hsl(var(--error) / 0.3);
+    border-radius: 0.5rem;
+    color: hsl(var(--error));
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-filters-btn:hover {
+    background: hsl(var(--error) / 0.2);
+    border-color: hsl(var(--error) / 0.5);
+    transform: translateY(-1px);
+  }
+
+  .clear-filters-btn:focus {
+    outline: 2px solid hsl(var(--error));
+    outline-offset: 2px;
+  }
+
+  .clear-filters-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .filter-content,
+    .filter-toggle-btn,
+    .filter-select,
+    .filter-toggle,
+    .clear-filters-btn {
+      transition: none;
+    }
+
+    .clear-filters-btn:hover {
+      transform: none;
+    }
+
+    .chevron-icon {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  interface FilterState {
+    culture: string;
+    period: string;
+    material: string;
+    has3D: boolean | null;
+  }
+
+  class CollectionFilters {
+    private toolbar: HTMLElement | null;
+    private toggleBtn: HTMLElement | null;
+    private content: HTMLElement | null;
+    private chevronIcon: HTMLElement | null;
+    private filterCount: HTMLElement | null;
+    private filterActions: HTMLElement | null;
+    private clearBtn: HTMLElement | null;
+    private toggle3DBtn: HTMLElement | null;
+    private toggleText: HTMLElement | null;
+    
+    private filters: FilterState = {
+      culture: 'all',
+      period: 'all',
+      material: 'all',
+      has3D: null
+    };
+    
+    private isExpanded = false;
+
+    constructor() {
+      this.toolbar = document.querySelector('[data-filter-toolbar]');
+      this.toggleBtn = document.querySelector('[data-filter-toggle]');
+      this.content = document.querySelector('[data-filter-content]');
+      this.chevronIcon = this.toggleBtn?.querySelector('.chevron-icon') || null;
+      this.filterCount = document.querySelector('[data-filter-count]');
+      this.filterActions = document.querySelector('[data-filter-actions]');
+      this.clearBtn = document.querySelector('[data-clear-filters]');
+      this.toggle3DBtn = document.querySelector('[data-toggle-3d]');
+      this.toggleText = document.querySelector('[data-toggle-text]');
+      
+      this.init();
+    }
+
+    init() {
+      if (!this.toolbar) return;
+
+      // Setup event listeners
+      this.toggleBtn?.addEventListener('click', this.toggleFilters.bind(this));
+      this.clearBtn?.addEventListener('click', this.clearAllFilters.bind(this));
+      this.toggle3DBtn?.addEventListener('click', this.toggle3D.bind(this));
+
+      // Setup filter change listeners
+      const filterSelects = this.toolbar.querySelectorAll('[data-filter]');
+      filterSelects.forEach(select => {
+        select.addEventListener('change', this.handleFilterChange.bind(this));
+      });
+
+      // Listen for external events
+      document.addEventListener('clearAllFilters', this.clearAllFilters.bind(this));
+      
+      // Initial update
+      this.updateFilterCount();
+    }
+
+    private toggleFilters() {
+      this.isExpanded = !this.isExpanded;
+      
+      if (this.content && this.toggleBtn && this.chevronIcon) {
+        if (this.isExpanded) {
+          this.content.classList.add('expanded');
+          this.chevronIcon.classList.add('rotated');
+          this.toggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          this.content.classList.remove('expanded');
+          this.chevronIcon.classList.remove('rotated');
+          this.toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }
+
+    private handleFilterChange(event: Event) {
+      const target = event.target as HTMLSelectElement;
+      const filterType = target.getAttribute('data-filter') as keyof FilterState;
+      
+      if (filterType && filterType !== 'has3D') {
+        this.filters[filterType] = target.value;
+        this.updateFilterCount();
+        this.applyFilters();
+      }
+    }
+
+    private toggle3D() {
+      this.filters.has3D = this.filters.has3D === true ? null : true;
+      
+      if (this.toggle3DBtn && this.toggleText) {
+        const textAll = this.toggle3DBtn.getAttribute('data-text-all') || 'All';
+        const textOnly = this.toggle3DBtn.getAttribute('data-text-only') || '3D Only';
+        
+        if (this.filters.has3D === true) {
+          this.toggle3DBtn.setAttribute('aria-pressed', 'true');
+          this.toggleText.textContent = textOnly;
+        } else {
+          this.toggle3DBtn.setAttribute('aria-pressed', 'false');
+          this.toggleText.textContent = textAll;
+        }
+      }
+      
+      this.updateFilterCount();
+      this.applyFilters();
+    }
+
+    private clearAllFilters() {
+      this.filters = {
+        culture: 'all',
+        period: 'all',
+        material: 'all',
+        has3D: null
+      };
+
+      // Reset form elements
+      const selects = this.toolbar?.querySelectorAll('select') || [];
+      selects.forEach((select: Element) => {
+        (select as HTMLSelectElement).value = 'all';
+      });
+
+      // Reset 3D toggle
+      if (this.toggle3DBtn && this.toggleText) {
+        const textAll = this.toggle3DBtn.getAttribute('data-text-all') || 'All';
+        this.toggle3DBtn.setAttribute('aria-pressed', 'false');
+        this.toggleText.textContent = textAll;
+      }
+
+      this.updateFilterCount();
+      this.applyFilters();
+    }
+
+    private updateFilterCount() {
+      let count = 0;
+      if (this.filters.culture !== 'all') count++;
+      if (this.filters.period !== 'all') count++;
+      if (this.filters.material !== 'all') count++;
+      if (this.filters.has3D !== null) count++;
+
+      if (this.filterCount) {
+        if (count > 0) {
+          this.filterCount.textContent = count.toString();
+          this.filterCount.classList.remove('hidden');
+        } else {
+          this.filterCount.classList.add('hidden');
+        }
+      }
+
+      if (this.filterActions) {
+        if (count > 0) {
+          this.filterActions.classList.remove('hidden');
+        } else {
+          this.filterActions.classList.add('hidden');
+        }
+      }
+    }
+
+    private applyFilters() {
+      // Dispatch filter change event
+      document.dispatchEvent(new CustomEvent('filtersChanged', {
+        detail: { 
+          filters: this.filters,
+          hasActiveFilters: this.hasActiveFilters()
+        }
+      }));
+    }
+
+    private hasActiveFilters(): boolean {
+      return this.filters.culture !== 'all' ||
+             this.filters.period !== 'all' ||
+             this.filters.material !== 'all' ||
+             this.filters.has3D !== null;
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new CollectionFilters();
+  });
+
+  // Re-initialize on Astro page navigation
+  document.addEventListener('astro:page-load', () => {
+    new CollectionFilters();
+  });
+</script>

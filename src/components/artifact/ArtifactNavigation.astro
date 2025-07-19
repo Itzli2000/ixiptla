@@ -1,0 +1,77 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Language } from "../../types";
+
+interface Props {
+  prevArtifact: {
+    data: {
+      title: string;
+      culture: string;
+      slug: string;
+    };
+  } | null;
+  nextArtifact: {
+    data: {
+      title: string;
+      culture: string;
+      slug: string;
+    };
+  } | null;
+  lang: Language;
+  t: (key: string) => string;
+}
+
+const { prevArtifact, nextArtifact, lang, t } = Astro.props;
+
+// Get the correct collection path based on language
+const getCollectionPath = (lang: Language) => {
+  return lang === 'es' ? 'coleccion' : 'collection';
+};
+
+const collectionPath = getCollectionPath(lang);
+---
+
+<!-- Navigation Between Artifacts -->
+<section class="px-4 sm:px-6 lg:px-8 py-12 border-t border-base-content/10" aria-labelledby="artifact-navigation">
+  <div class="max-w-7xl mx-auto">
+    <nav class="flex flex-col sm:flex-row justify-between items-center gap-4" aria-label={t("artifact.navigation.previous")} role="navigation">
+      {prevArtifact ? (
+        <a
+          href={`/${lang}/${collectionPath}/${prevArtifact.data.slug}`}
+          class="group w-full justify-around sm:w-auto flex items-center gap-3 bg-gradient-to-r from-base-200/50 to-base-300/30 hover:from-primary/10 hover:to-primary/5 border border-base-200/50 hover:border-primary/20 rounded-xl px-6 py-4 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 max-w-sm"
+          aria-label={`${t("artifact.navigation.previous")}: ${prevArtifact.data.title}`}
+        >
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <Icon name="mdi:arrow-left-bold" />
+          </div>
+          <div class="text-left">
+            <div class="text-xs text-base-content/60 mb-1">{t("artifact.navigation.previous")}</div>
+            <div class="font-medium text-base-content truncate">{prevArtifact.data.title}</div>
+            <div class="text-xs text-base-content/60">{prevArtifact.data.culture}</div>
+          </div>
+        </a>
+      ) : (
+        <div></div>
+      )}
+
+      {nextArtifact ? (
+        <a
+          href={`/${lang}/${collectionPath}/${nextArtifact.data.slug}`}
+          class="group w-full justify-around sm:w-auto flex items-center gap-3 bg-gradient-to-r from-base-200/50 to-base-300/30 hover:from-primary/10 hover:to-primary/5 border border-base-200/50 hover:border-primary/20 rounded-xl px-6 py-4 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 max-w-sm"
+          aria-label={`${t("artifact.navigation.next")}: ${nextArtifact.data.title}`}
+        >
+          <div class="text-right">
+            <div class="text-xs text-base-content/60 mb-1">{t("artifact.navigation.next")}</div>
+            <div class="font-medium text-base-content truncate">{nextArtifact.data.title}</div>
+            <div class="text-xs text-base-content/60">{nextArtifact.data.culture}</div>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <Icon name="mdi:arrow-right-bold" />
+          </div>
+        </a>
+      ) : (
+        <div></div>
+      )}
+    </nav>
+  </div>
+</section>

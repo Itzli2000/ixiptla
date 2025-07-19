@@ -1,0 +1,193 @@
+{
+    "designSystem": {
+      "name": "Ixiptla Museum Design System",
+      "version": "1.0.0",
+      "description": "Design system for Mesoamerican virtual museum with modern museum aesthetics",
+      "preserveExisting": {
+        "daisyUITheme": true,
+        "colorPalette": true,
+        "note": "Keep current DaisyUI theme colors - do not modify existing color system"
+      }
+    },
+    "typography": {
+      "hierarchy": {
+        "displayTitle": {
+          "fontSize": "clamp(2.5rem, 5vw, 4rem)",
+          "fontWeight": "400",
+          "lineHeight": "1.1",
+          "letterSpacing": "-0.02em",
+          "fontFamily": "serif"
+        },
+        "sectionTitle": {
+          "fontSize": "clamp(1.75rem, 3vw, 2.5rem)",
+          "fontWeight": "400",
+          "lineHeight": "1.2",
+          "letterSpacing": "-0.01em"
+        },
+        "cardTitle": {
+          "fontSize": "1.25rem",
+          "fontWeight": "500",
+          "lineHeight": "1.3"
+        },
+        "bodyText": {
+          "fontSize": "1rem",
+          "fontWeight": "400",
+          "lineHeight": "1.6"
+        },
+        "caption": {
+          "fontSize": "0.875rem",
+          "fontWeight": "400",
+          "lineHeight": "1.4",
+          "opacity": "0.8"
+        }
+      },
+      "principles": {
+        "elegantSerif": "Use serif fonts for main titles to convey cultural gravitas",
+        "readableSans": "Sans-serif for body text and UI elements",
+        "generousSpacing": "Ample line-height for comfortable reading",
+        "responsiveScaling": "Fluid typography that scales smoothly across devices"
+      }
+    },
+    "layout": {
+      "grid": {
+        "collections": {
+          "desktop": "repeat(auto-fit, minmax(300px, 1fr))",
+          "tablet": "repeat(auto-fit, minmax(250px, 1fr))",
+          "mobile": "1fr",
+          "gap": "2rem",
+          "aspectRatio": "4/3"
+        },
+        "categories": {
+          "desktop": "repeat(3, 1fr)",
+          "tablet": "repeat(2, 1fr)",
+          "mobile": "1fr",
+          "gap": "1.5rem"
+        }
+      },
+      "spacing": {
+        "sectionPadding": "clamp(3rem, 8vw, 6rem)",
+        "containerMaxWidth": "1200px",
+        "contentGap": "3rem",
+        "cardPadding": "1.5rem"
+      },
+      "principles": {
+        "breathingRoom": "Generous whitespace between sections",
+        "responsiveContainers": "Fluid containers that adapt to viewport",
+        "verticalRhythm": "Consistent spacing ratios throughout",
+        "masonryFlow": "Pinterest-style grid for collections when content varies"
+      }
+    },
+    "components": {
+      "hero": {
+        "structure": "Fullscreen with overlay text and background image/3D",
+        "textPosition": "Center-left or bottom-left",
+        "overlay": "Dark semi-transparent gradient",
+        "cta": "Prominent button with clear hierarchy"
+      },
+      "navigationHeader": {
+        "style": "Clean minimal header with logo left, nav center, actions right",
+        "background": "White/transparent with subtle shadow on scroll",
+        "logoSize": "Medium, emphasize cultural identity",
+        "navSpacing": "Generous spacing between items"
+      },
+      "collectionCard": {
+        "structure": "Image-first with title overlay or below",
+        "imageAspect": "4:3 or 3:4 depending on content",
+        "hoverEffect": "Subtle scale and shadow animation",
+        "textTreatment": "Title prominent, metadata secondary"
+      },
+      "categoryCard": {
+        "structure": "Icon + title + description in clean card",
+        "iconStyle": "Cultural symbols or simple line icons",
+        "layout": "Vertical alignment with centered content",
+        "actionText": "Clear CTA like 'Explore Collection'"
+      },
+      "artifactDetail": {
+        "layout": "Split-screen: 3D/image left, content right",
+        "metadataStructure": "Culture, period, description hierarchy",
+        "interactionHints": "Clear instructions for 3D manipulation"
+      }
+    },
+    "interactions": {
+      "animations": {
+        "cardHover": {
+          "transform": "translateY(-4px)",
+          "transition": "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          "shadow": "Increased elevation"
+        },
+        "fadeInUp": {
+          "initial": "opacity: 0, transform: translateY(20px)",
+          "animate": "opacity: 1, transform: translateY(0)",
+          "transition": "0.6s ease-out"
+        },
+        "parallaxScroll": {
+          "elements": "Background images, 3D models",
+          "speed": "0.5x to 0.8x scroll speed",
+          "easing": "Smooth cubic-bezier"
+        }
+      },
+      "states": {
+        "loading": "Skeleton screens with cultural pattern animations",
+        "empty": "Elegant empty states with cultural iconography",
+        "error": "Graceful error messages with retry options"
+      }
+    },
+    "patterns": {
+      "sectionStructure": {
+        "header": "Small overline + large title + optional description",
+        "content": "Grid or masonry layout with consistent cards",
+        "spacing": "Generous padding and margins",
+        "background": "Alternating sections for visual rhythm"
+      },
+      "contentFlow": {
+        "hero": "Strong visual impact with clear value proposition",
+        "categories": "Overview of main content areas with icons",
+        "featured": "Highlighted artifacts or collections",
+        "grid": "Full collection in organized grid",
+        "detail": "Deep-dive pages with rich media and context"
+      },
+      "responsiveBreakpoints": {
+        "mobile": "< 768px - Single column, stacked navigation",
+        "tablet": "768px - 1024px - Two columns, condensed spacing",
+        "desktop": "> 1024px - Full grid, optimal spacing"
+      }
+    },
+    "culturalAdaptations": {
+      "mesoamericanElements": {
+        "patterns": "Subtle geometric patterns inspired by pre-Columbian art",
+        "iconography": "Cultural symbols for categories (pottery, sculpture, etc.)",
+        "colorAccents": "Earth tones and cultural colors within existing palette",
+        "typography": "Respect for cultural context in content presentation"
+      },
+      "modernMuseumAesthetics": {
+        "minimalism": "Clean, uncluttered interfaces that let artifacts shine",
+        "professionalism": "Museum-quality presentation standards",
+        "accessibility": "WCAG compliant with cultural sensitivity",
+        "sophistication": "Refined visual hierarchy and subtle animations"
+      }
+    },
+    "technicalImplementation": {
+      "astroIntegration": {
+        "components": "Create reusable .astro components for each pattern",
+        "islands": "Use React islands for interactive elements only",
+        "contentCollections": "Leverage existing schema for consistent data"
+      },
+      "tailwindCustomization": {
+        "utilities": "Create custom utilities for spacing and typography scales",
+        "components": "Define component classes for repeated patterns",
+        "animations": "Custom animation classes for cultural transitions"
+      },
+      "threeJSIntegration": {
+        "canvasLayout": "Fixed 3D canvas with overlaid content sections",
+        "mobileOptimization": "Touch-friendly 3D controls and reduced complexity",
+        "loadingStates": "Progressive enhancement for 3D models"
+      }
+    },
+    "designPrinciples": {
+      "culturalRespect": "Honor Mesoamerican heritage through thoughtful design choices",
+      "modernAccessibility": "Contemporary UX standards with cultural authenticity",
+      "performanceFirst": "Optimize for mobile and slower connections",
+      "scalableSystem": "Components that work across all content types",
+      "bilingualSupport": "Seamless language switching without layout breaks"
+    }
+  }

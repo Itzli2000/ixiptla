@@ -1,0 +1,360 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { getImageByFilename } from "../../utils/imageMapping";
+import type { Language } from "../../types";
+import type { ArtifactData } from "../../types/collection";
+
+interface Props {
+  artifact: ArtifactData;
+  variant?: "grid" | "list";
+  index?: number;
+}
+
+const { artifact, variant = "grid", index = 0 } = Astro.props;
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+const image = getImageByFilename(artifact.image);
+
+// Generate descriptive alt text
+const altText = `${artifact.title} - ${artifact.culture} ${artifact.period ? `del ${artifact.period}` : ''} ${artifact.material ? `en ${artifact.material}` : ''}`.trim();
+
+// Determine card link
+const cardLink = `/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`;
+
+// Check if artifact has 3D model
+const has3D = Boolean(artifact.has3DModel);
+---
+
+<article 
+  class="artifact-card group"
+  data-culture={artifact.culture.toLowerCase()}
+  data-has-3d={has3D}
+  data-variant={variant}
+  style={`animation-delay: ${index * 0.1}s`}
+>
+  <a
+    href={cardLink}
+    class="card-link block w-full h-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl"
+    aria-label={`View details for ${artifact.title}`}
+  >
+    <div class="card h-full transition-all duration-300 ease-out">
+      
+      <!-- Image Section -->
+      <figure class="card-image relative overflow-hidden">
+        <Image
+          transition:name={`artifact-${artifact.slug}`}
+          src={image}
+          alt={altText}
+          width={400}
+          height={400}
+          class="w-full h-full object-cover transition-transform duration-500"
+          loading={index < 6 ? "eager" : "lazy"}
+        />
+        
+        <!-- 3D Badge -->
+        {has3D && (
+          <div class="absolute top-3 right-3 3d-badge">
+            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary text-primary-content shadow-md">
+              <Icon name="mdi:cube-outline" class="w-3 h-3 mr-1" />
+              3D
+            </span>
+          </div>
+        )}
+        
+        <!-- Culture Badge -->
+        <div class="absolute bottom-3 left-3 culture-badge">
+          <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-base-100/90 text-base-content backdrop-blur-sm">
+            {artifact.culture}
+          </span>
+        </div>
+      </figure>
+      
+      <!-- Content Section -->
+      <div class="card-body">
+        <div class="card-content">
+          <h3 class="card-title font-bold text-base-content mb-2">
+            {artifact.title}
+          </h3>
+          
+          <p class="card-description text-base-content/80 leading-relaxed">
+            {artifact.description}
+          </p>
+        </div>
+        
+        <!-- Metadata (List view only) -->
+        <div class="metadata mt-4 space-y-2">
+          <div class="flex flex-wrap gap-2">
+            <span class="metadata-tag">
+              <Icon name="mdi:earth" class="w-3 h-3 mr-1" />
+              {artifact.culture}
+            </span>
+            <span class="metadata-tag">
+              <Icon name="mdi:calendar" class="w-3 h-3 mr-1" />
+              {artifact.period}
+            </span>
+            {artifact.material && (
+              <span class="metadata-tag">
+                <Icon name="mdi:texture" class="w-3 h-3 mr-1" />
+                {artifact.material}
+              </span>
+            )}
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex items-center justify-between mt-3">
+            <div class="text-xs text-base-content/60">
+              {artifact.museum}
+            </div>
+            {has3D && (
+              <span class="text-xs text-primary font-medium">
+                <Icon name="mdi:cube-outline" class="w-3 h-3 mr-1 inline" />
+                {t("collection.3DAvailable")}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .artifact-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Base card styles */
+  .card {
+    background: hsl(var(--b1));
+    border: 1px solid hsl(var(--b3) / 0.3);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px hsl(var(--shadow) / 0.1);
+  }
+  
+  .card:hover {
+    border-color: hsl(var(--p) / 0.2);
+    box-shadow: 0 10px 15px -3px hsl(var(--p) / 0.1), 0 4px 6px -2px hsl(var(--p) / 0.05);
+  }
+  
+  /* Grid view (default) */
+  .artifact-card[data-variant="grid"] .card {
+    border-radius: 1.5rem;
+    flex-direction: column;
+  }
+  
+  .artifact-card[data-variant="grid"] .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px hsl(var(--p) / 0.1), 0 10px 10px -5px hsl(var(--p) / 0.04);
+  }
+  
+  .artifact-card[data-variant="grid"] .card-image {
+    aspect-ratio: 1;
+    width: 100%;
+  }
+  
+  .artifact-card[data-variant="grid"] .card-body {
+    padding: 1.5rem;
+    flex-direction: column;
+  }
+  
+  .artifact-card[data-variant="grid"] .card-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .artifact-card[data-variant="grid"] .card-description {
+    font-size: 0.875rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .artifact-card[data-variant="grid"] .metadata {
+    display: none;
+  }
+  
+  .artifact-card[data-variant="grid"] .card-image img:hover {
+    transform: scale(1.1);
+  }
+  
+  /* List view */
+  .artifact-card[data-variant="list"] .card {
+    display: flex;
+    flex-direction: row;
+    min-height: 12rem;
+    border-radius: 0.75rem;
+  }
+  
+  .artifact-card[data-variant="list"] .card-image {
+    width: 12rem;
+    height: 12rem;
+    flex-shrink: 0;
+  }
+  
+  .artifact-card[data-variant="list"] .card-body {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .artifact-card[data-variant="list"] .card-title {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .artifact-card[data-variant="list"] .card-description {
+    font-size: 0.875rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .artifact-card[data-variant="list"] .metadata {
+    display: block;
+  }
+  
+  /* Badge styles */
+  .3d-badge {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-out;
+  }
+  
+  .artifact-card:hover .3d-badge {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .culture-badge {
+    opacity: 0.9;
+    transform: translateY(10px);
+    transition: all 0.3s ease-out;
+  }
+  
+  .artifact-card:hover .culture-badge {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Metadata tags */
+  .metadata-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    background-color: hsl(var(--b2));
+    color: hsl(var(--bc) / 0.8);
+    transition: all 0.2s ease-out;
+  }
+  
+  .metadata-tag:hover {
+    background-color: hsl(var(--p) / 0.1);
+    color: hsl(var(--p));
+  }
+  
+  /* Focus styles */
+  .card-link:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 2px;
+  }
+  
+  /* Loading states */
+  .artifact-card[data-loading="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .artifact-card[data-variant="list"] .card {
+      flex-direction: column;
+    }
+    
+    .artifact-card[data-variant="list"] .card-image {
+      width: 100%;
+      height: 12rem;
+    }
+    
+    .artifact-card[data-variant="grid"] .card-body {
+      padding: 1rem;
+    }
+    
+    .artifact-card[data-variant="list"] .card-body {
+      padding: 1rem;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .card {
+      border-width: 2px;
+    }
+    
+    .3d-badge span,
+    .culture-badge span {
+      border: 1px solid currentColor;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .artifact-card {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    
+    .card,
+    .3d-badge,
+    .culture-badge,
+    .card-image img {
+      transition: none;
+    }
+    
+    .artifact-card[data-variant="grid"] .card:hover {
+      transform: none;
+    }
+    
+    .artifact-card[data-variant="grid"] .card-image img:hover {
+      transform: none;
+    }
+  }
+  
+  /* Ensure proper flex behavior */
+  .card-content {
+    flex: 1;
+  }
+  
+  /* Responsive images */
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

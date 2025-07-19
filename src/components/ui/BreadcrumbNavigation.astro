@@ -1,0 +1,129 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Language } from "../../types";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  current?: boolean;
+  ariaCurrent?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  lang: Language;
+  t: (key: string) => string;
+  className?: string;
+}
+
+const { items, lang, t, className = "" } = Astro.props;
+---
+
+<nav 
+  class={`mb-8 sm:mb-12 ${className}`} 
+  aria-label={t("artifact.navigation.breadcrumb")}
+  role="navigation"
+>
+  <ol 
+    class="flex items-center space-x-2 text-sm text-base-content/70 overflow-x-auto pb-2 whitespace-nowrap scrollbar-hide" 
+    role="list"
+  >
+    {items.map((item, index) => (
+      <li class="flex items-center" role="listitem">
+        {/* Separator */}
+        {index > 0 && (
+          <span class="mx-2 text-base-content/40" aria-hidden="true">
+            <Icon name="mdi:chevron-right" class="w-4 h-4" />
+          </span>
+        )}
+        
+        {/* Breadcrumb Item */}
+        {item.href && !item.current ? (
+          <a
+            href={item.href}
+            class="hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 rounded-md px-1 py-0.5 truncate max-w-32 sm:max-w-none"
+            aria-label={item.label}
+          >
+            {item.label}
+          </a>
+        ) : (
+          <span
+            class={`font-medium truncate max-w-32 sm:max-w-none ${
+              item.current 
+                ? 'text-primary' 
+                : 'text-base-content/90'
+            }`}
+            aria-current={item.current ? 'page' : undefined}
+          >
+            {item.label}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  /* Hide scrollbar for mobile overflow */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Smooth transitions */
+  a {
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Focus styles */
+  a:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  /* Responsive text truncation */
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .max-w-32 {
+      max-width: 8rem;
+    }
+    
+    /* Smaller spacing on mobile */
+    .space-x-2 > * + * {
+      margin-left: 0.25rem;
+    }
+    
+    .mx-2 {
+      margin-left: 0.25rem;
+      margin-right: 0.25rem;
+    }
+  }
+  
+  /* Ensure proper alignment */
+  ol {
+    display: flex;
+    align-items: center;
+    min-height: 2rem;
+  }
+  
+  /* Hover effects */
+  a:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  
+  /* Active state */
+  [aria-current="page"] {
+    font-weight: 500;
+  }
+</style>

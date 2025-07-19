@@ -6,7 +6,126 @@
   "home": {
     "title": "Ixiptla - Mesoamerican Archaeological Replicas Collection",
     "description": "Discover ancient Mesoamerican art through archaeological replicas from Maya, Mexica, Acolhua cultures and more. Virtual museum with interactive 3D experiences.",
-    "keywords": "archaeological replicas, mesoamerican art, maya culture, mexica, acolhua, virtual museum, prehispanic replicas"
+    "keywords": "archaeological replicas, mesoamerican art, maya culture, mexica, acolhua, virtual museum, prehispanic replicas",
+    "hero": {
+      "title": "Digitally Preserved Mesoamerican Heritage",
+      "subtitle": "Museum-Quality Archaeological Replicas",
+      "description": "Explore the cultural richness of Maya, Mexica, Acolhua, Mixteca, and Teotihuacan civilizations through meticulously documented replicas and immersive educational experiences.",
+      "primaryCTA": "Explore Collection",
+      "secondaryCTA": "Learn About Ixiptla",
+      "features": [
+        "51+ high-fidelity archaeological replicas",
+        "5 documented Mesoamerican cultures",
+        "Interactive 3D models available",
+        "Culturally sensitive educational content"
+      ],
+      "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted motifs"
+    },
+    "introduction": {
+      "title": "Preserving Mesoamerican Legacy",
+      "subtitle": "A Digital Bridge Between Past and Present",
+      "description": "Ixiptla transcends simple digital exhibition. We are guardians of Mesoamerican cultural heritage, committed to preservation, education, and accessibility of our ancestral roots.",
+      "mission": {
+        "title": "Our Mission",
+        "content": "Democratize access to Mesoamerican archaeological heritage through cutting-edge technology, creating educational experiences that honor the cultural and spiritual depth of our ancestors."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "content": "Be the global reference in Mesoamerican digital museography, establishing new standards in cultural preservation and accessible education for future generations."
+      },
+      "values": {
+        "title": "Our Values",
+        "items": [
+          {
+            "title": "Cultural Respect",
+            "description": "We honor the traditions and worldviews of each represented culture"
+          },
+          {
+            "title": "Historical Precision",
+            "description": "We maintain the highest standards of archaeological authenticity"
+          },
+          {
+            "title": "Universal Accessibility",
+            "description": "We ensure ancestral knowledge is accessible to everyone"
+          },
+          {
+            "title": "Responsible Innovation",
+            "description": "We apply technology ethically and culturally appropriately"
+          }
+        ]
+      },
+      "cta": "Learn More About Our Mission"
+    },
+    "featuredCollections": {
+      "title": "Represented Cultures",
+      "subtitle": "Diversity of the Mesoamerican World",
+      "description": "Each culture contributes a unique perspective to the rich Mesoamerican tapestry. Explore the artistic traditions, worldviews, and technological legacies that define our heritage.",
+      "viewAllCTA": "View All Cultures",
+      "exploreCollectionCTA": "Explore Collection",
+      "artifactCount": "{count} artifacts",
+      "learnMore": "Learn More",
+      "available": "Available",
+      "modal": {
+        "artifacts": "Artifacts:",
+        "period": "Period:",
+        "close": "Close"
+      }
+    },
+    "technology": {
+      "title": "Technology Serving Heritage",
+      "subtitle": "Innovation with Cultural Purpose",
+      "description": "We employ cutting-edge technologies to create museum experiences that respect the sacredness of each piece while facilitating interactive learning and deep contemplation.",
+      "cta": "Experience 3D Models",
+      "learnMoreCTA": "Learn About Our Technology",
+      "demo": {
+        "title": "Interactive 3D Model",
+        "controls": "Rotate • Zoom • Explore",
+        "loading": "Loading...",
+        "rotate": "Rotate",
+        "zoom": "Zoom",
+        "models3D": "3D Models",
+        "resolution": "Resolution",
+        "rotateDesc": "Drag to rotate the model and view it from all angles",
+        "zoomDesc": "Use mouse wheel to zoom in and examine fine details"
+      }
+    },
+    "stats": {
+      "title": "Ixiptla in Numbers",
+      "subtitle": "Our Cultural Impact",
+      "description": "Figures that reflect our commitment to preservation and accessibility of Mesoamerican heritage.",
+      "labels": {
+        "artifacts": "Archaeological Replicas",
+        "cultures": "Documented Cultures",
+        "models3D": "3D Models Available",
+        "experiences": "Immersive Experience"
+      },
+      "additionalInfo": "These figures represent our continuous growth in digital preservation of Mesoamerican heritage."
+    },
+    "finalCTA": {
+      "title": "Begin Your Cultural Journey",
+      "subtitle": "Mesoamerican Heritage Awaits You",
+      "description": "Immerse yourself in millennia of ancestral wisdom. Each replica tells a story, each culture reveals secrets, each experience connects you with your roots.",
+      "primaryCTA": "Explore Complete Collection",
+      "secondaryCTA": "Contact Ixiptla Team",
+      "features": {
+        "immediateAccess": "Immediate Access",
+        "immediateAccessDesc": "Explore our complete collection instantly, without restrictions",
+        "deepKnowledge": "Deep Knowledge",
+        "deepKnowledgeDesc": "Detailed information and cultural context for each piece",
+        "globalReach": "Global Reach",
+        "globalReachDesc": "Mesoamerican heritage accessible from anywhere in the world"
+      },
+      "trust": {
+        "verifiedContent": "Verified Content",
+        "secureAccess": "Secure Access",
+        "alwaysFree": "Always Free"
+      }
+    },
+    "common": {
+      "scrollDown": "Scroll down",
+      "exploreMore": "Explore more",
+      "experience": "Immersive"
+    }
   },
   "navigation": {
     "home": "Home",
@@ -16,44 +135,73 @@
   "hero": {
     "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted ceramic motifs"
   },
-  "ixiptla": {
-    "title": "What is Ixiptla?",
-    "description": "Rooted in Nahuatl wisdom, Ixiptla embodies the profound concept of sacred representation. More than mere replication, it captures the essence of transformation - where an object or being becomes a vessel of divine presence, bridging the physical and spiritual realms.",
-    "description2": "In this exhibition, we explore these sacred vessels through a curated collection of replicas. Each piece tells a story of our ancestral heritage, offering a window into the deep cultural significance of Mesoamerican artistry."
-  },
-  "hero3d": {
-    "digitalArchaeology": {
-      "title": "Digital Archaeology",
-      "description": "We explore Mesoamerican cultural heritage through cutting-edge technology, creating immersive experiences that connect past and present.",
-      "description2": "Each archaeological piece tells a unique story that we preserve digitally for future generations."
-    },
-    "mayaCollection": {
-      "title": "Maya Collection",
-      "description": "Discover extraordinary artifacts from Maya civilization, from ceremonial vessels to anthropomorphic figures that reveal the complexity of their worldview.",
-      "description2": "Each object is a window to the past, meticulously documented and presented in high resolution for study and contemplation."
-    },
-    "experience3d": {
-      "title": "3D Experience",
-      "description": "Immerse yourself in a unique three-dimensional experience where you can interact with artifacts from every angle, appreciating details beyond traditional photography.",
-      "description2": "Modern web technology allows us to create virtual museums accessible from any device."
-    }
-  },
   "collection": {
-    "title": "Archaeological Replicas Collection - Ixiptla Museum",
+    "title": "Archaeological Replicas Collection",
+    "subtitle": "Ixiptla Museum",
     "description": "Explore our curated collection of Mesoamerican archaeological replicas: Maya vessels, Mexica sculptures, Teotihuacan figurines and more historical pieces.",
     "pageDescription": "Complete catalog of archaeological replicas from pre-Columbian Mexican cultures. Each piece includes historical information, crafting techniques and cultural context.",
     "cta": "View Collection",
-    "all": "All",
-    "maya": "Maya",
-    "teotihuacán": "Teotihuacán",
-    "acolhua": "Acolhua",
-    "mixteca": "Mixteca",
-    "mexica": "Mexica",
-    "results": "results found",
-    "gridView": "Grid view",
-    "listView": "List view",
-    "sortBy": "Sort by",
-    "search": "Search replicas..."
+    "filters": {
+      "title": "Filter Collection",
+      "culture": "Culture",
+      "period": "Period",
+      "material": "Material",
+      "has3D": "3D Available",
+      "clear": "Clear Filters",
+      "apply": "Apply Filters",
+      "only3D": "3D Only",
+      "all": "All"
+    },
+    "search": {
+      "placeholder": "Search artifacts...",
+      "results": "{count} results found",
+      "noResults": "No artifacts found matching your criteria"
+    },
+    "cultures": {
+      "maya": "Maya",
+      "mexica": "Mexica",
+      "acolhua": "Acolhua",
+      "mixteca": "Mixteca",
+      "teotihuacan": "Teotihuacan",
+      "all": "All Cultures"
+    },
+    "view": {
+      "grid": "Grid View",
+      "list": "List View",
+      "toggleView": "Toggle View"
+    },
+    "loading": "Loading collection...",
+    "empty": {
+      "title": "No artifacts found",
+      "description": "Try adjusting your filters or search terms",
+      "action": "Clear all filters",
+      "noFilters": "Try using different search terms",
+      "exploreAll": "Explore entire collection",
+      "suggestions": {
+        "title": "Suggestions:",
+        "checkSpelling": "Check your search spelling",
+        "useGeneral": "Try more general words",
+        "searchCulture": "Search by culture (Maya, Mexica, Acolhua)",
+        "searchMaterial": "Search by materials (ceramic, jade, obsidian)"
+      }
+    },
+    "errors": {
+      "noArtifacts": {
+        "title": "Collection unavailable",
+        "description": "Could not load artifacts at this time"
+      },
+      "loadingError": {
+        "title": "Loading error",
+        "description": "There was a problem loading the collection"
+      },
+      "unknown": {
+        "title": "Unknown state",
+        "description": "Something went wrong"
+      },
+      "retry": "Retry",
+      "goHome": "Go home"
+    },
+    "3DAvailable": "3D view available"
   },
   "artifact": {
     "title": "Piece",
@@ -69,7 +217,6 @@
     "dimensions": "Dimensions",
     "material": "Material",
     "technique": "Technique",
-    "related": "Related Pieces",
     "relatedItems": "Related Replicas",
     "explore3D": "Explore in 3D",
     "explore3DDescription": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
@@ -82,10 +229,70 @@
     "previousRelated": "Previous related piece",
     "nextRelated": "Next related piece",
     "close": "Close",
-    "navigation": "Navigation between pieces",
     "previous": "Previous piece",
     "next": "Next piece",
-    "details": "Replica details"
+    "details": "Replica details",
+    "metadata": {
+      "culture": "Culture",
+      "period": "Period",
+      "dimensions": "Dimensions",
+      "material": "Material",
+      "technique": "Technique",
+      "location": "Museum Location"
+    },
+    "interaction": {
+      "instructions": "Use mouse to rotate, scroll to zoom, drag to pan",
+      "mobileInstructions": "Touch to rotate, pinch to zoom, drag to pan",
+      "resetView": "Reset View",
+      "autoRotate": "Auto Rotate",
+      "fullscreen": "Fullscreen",
+      "loading": "Loading 3D model...",
+      "help": "3D Controls Help",
+      "keyboardShortcuts": "Keyboard Shortcuts",
+      "spaceToRotate": "Space: Toggle auto-rotation",
+      "ctrlRToReset": "Ctrl+R: Reset camera view"
+    },
+    "experience": {
+      "title": "Explore in 3D",
+      "cta": "View Experience",
+      "description": "Discover this piece in an immersive 3D experience that allows you to explore every detail from all angles.",
+      "enhancedDescription": "Experience museum-quality 3D rendering with professional lighting and detailed texture mapping.",
+      "interactiveFeatures": "Interactive Features",
+      "zoomDetail": "Zoom to see fine details",
+      "rotateView": "Rotate for complete view",
+      "immersiveMode": "Immersive Mode"
+    },
+    "context": {
+      "title": "Cultural Context",
+      "description": "Piece Description",
+      "historicalSignificance": "Historical Significance",
+      "culturalImportance": "Cultural Importance",
+      "archaeologicalContext": "Archaeological Context",
+      "craftsmanshipDetails": "Craftsmanship Details"
+    },
+    "related": {
+      "title": "Related Artifacts",
+      "sameCulture": "More from {culture}",
+      "samePeriod": "From the same period",
+      "similarType": "Similar artifacts",
+      "exploreMore": "Explore More",
+      "viewAll": "View All",
+      "noRelated": "No related artifacts found"
+    },
+    "navigation": {
+      "previous": "Previous Artifact",
+      "next": "Next Artifact",
+      "backToCollection": "Back to Collection",
+      "breadcrumb": "Breadcrumb Navigation",
+      "currentPage": "Current page"
+    },
+    "accessibility": {
+      "mainImage": "Main artifact image",
+      "threeDModel": "Interactive 3D model",
+      "controlsHelp": "3D interaction controls",
+      "skipToContent": "Skip to content",
+      "artifactDetails": "Artifact details section"
+    }
   },
   "404": {
     "title": "Page Not Found",
@@ -103,28 +310,6 @@
       "cta": {
         "primary": "Go to Home",
         "secondary": "View Collection"
-      }
-    }
-  },
-  "contact": {
-    "title": "Contact - Ixiptla Virtual Museum",
-    "description": "Connect with our team of Mesoamerican art experts. Inquiries about archaeological replicas, exhibitions and educational services.",
-    "getInTouch": {
-      "title": "Get in Touch",
-      "description": "We're here to help and answer any questions you might have. We look forward to hearing from you."
-    },
-    "email": "Email",
-    "responseTime": {
-      "title": "Response Time",
-      "description": "We typically respond within 24 hours"
-    },
-    "whyContactUs": {
-      "title": "Why Contact Us?",
-      "reasons": {
-        "technical": "Technical support",
-        "product": "Product inquiries",
-        "partnership": "Partnership opportunities",
-        "general": "General questions"
       }
     }
   },

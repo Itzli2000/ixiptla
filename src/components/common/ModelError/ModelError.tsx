@@ -1,10 +1,11 @@
 import React from 'react';
 import { useTranslations } from '../../../i18n/utils';
-import type { ModelErrorProps as BaseModelErrorProps, Language } from '../../../types';
+import type { ModelErrorProps as BaseModelErrorProps, ModelErrorType } from '../../../types';
 
 interface ModelErrorProps extends BaseModelErrorProps {
   message?: string;
   variant?: 'default' | 'compact';
+  errorType?: ModelErrorType;
 }
 
 export default function ModelError({ 
@@ -13,7 +14,7 @@ export default function ModelError({
   variant = 'default',
   lang = 'es',
   errorType = 'loadError'
-}: ModelErrorProps): JSX.Element {
+}: ModelErrorProps) {
   const t = useTranslations(lang);
   
   const getErrorMessage = () => {

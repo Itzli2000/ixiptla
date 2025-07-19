@@ -1,0 +1,180 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations } from '../../i18n/utils';
+import { museumStats } from '../../data/museumStats';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section 
+  class="py-24 lg:py-32 bg-gradient-to-br from-primary/5 to-secondary/5 relative overflow-hidden"
+  aria-labelledby="stats-title"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-4xl mx-auto mb-20">
+      <h2 
+        id="stats-title"
+        class="text-4xl lg:text-5xl font-bold text-base-content mb-6"
+      >
+        {t('home.stats.title')}
+      </h2>
+      <p class="text-xl lg:text-2xl text-base-content/70 font-light leading-relaxed mb-8">
+        {t('home.stats.subtitle')}
+      </p>
+      <p class="text-lg text-base-content/80 leading-relaxed">
+        {t('home.stats.description')}
+      </p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Artifacts Stat -->
+      <div class="stat-card text-center p-8 rounded-3xl bg-base-100/80 backdrop-blur-sm border border-base-300/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 group">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300">
+          <Icon name="mdi:arrow-right" class="w-8 h-8 text-primary" />
+        </div>
+        <div class="mb-4">
+          <div class="text-5xl lg:text-6xl font-bold text-primary mb-2 tabular-nums" data-target={museumStats.artifacts}>
+            {museumStats.artifacts}+
+          </div>
+          <div class="text-lg font-semibold text-base-content">
+            {t('home.stats.labels.artifacts')}
+          </div>
+        </div>
+        <div class="w-full bg-base-300 rounded-full h-2 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full stats-progress" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Cultures Stat -->
+      <div class="stat-card text-center p-8 rounded-3xl bg-base-100/80 backdrop-blur-sm border border-base-300/50 hover:border-secondary/30 hover:shadow-xl transition-all duration-500 group">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-secondary/10 group-hover:bg-secondary/20 flex items-center justify-center transition-colors duration-300">
+          <Icon name="mdi:book-open-page-variant" class="w-8 h-8 text-secondary" />
+        </div>
+        <div class="mb-4">
+          <div class="text-5xl lg:text-6xl font-bold text-secondary mb-2 tabular-nums" data-target={museumStats.cultures}>
+            {museumStats.cultures}
+          </div>
+          <div class="text-lg font-semibold text-base-content">
+            {t('home.stats.labels.cultures')}
+          </div>
+        </div>
+        <div class="w-full bg-base-300 rounded-full h-2 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-secondary to-accent rounded-full stats-progress" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- 3D Models Stat -->
+      <div class="stat-card text-center p-8 rounded-3xl bg-base-100/80 backdrop-blur-sm border border-base-300/50 hover:border-accent/30 hover:shadow-xl transition-all duration-500 group">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center transition-colors duration-300">
+          <Icon name="mdi:cube-scan" class="w-8 h-8 text-accent" />
+        </div>
+        <div class="mb-4">
+          <div class="text-5xl lg:text-6xl font-bold text-accent mb-2 tabular-nums" data-target={museumStats.models3D}>
+            {museumStats.models3D}+
+          </div>
+          <div class="text-lg font-semibold text-base-content">
+            {t('home.stats.labels.models3D')}
+          </div>
+        </div>
+        <div class="w-full bg-base-300 rounded-full h-2 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-accent to-primary rounded-full stats-progress" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Experience Stat -->
+      <div class="stat-card text-center p-8 rounded-3xl bg-base-100/80 backdrop-blur-sm border border-base-300/50 hover:border-neutral/30 hover:shadow-xl transition-all duration-500 group">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-neutral/10 group-hover:bg-neutral/20 flex items-center justify-center transition-colors duration-300">
+          <Icon name="mdi:eye" class="w-8 h-8 text-neutral" />
+        </div>
+        <div class="mb-4">
+          <div class="text-3xl lg:text-4xl font-bold text-neutral mb-2">
+{t('home.common.experience')}
+          </div>
+          <div class="text-lg font-semibold text-base-content">
+            {t('home.stats.labels.experiences')}
+          </div>
+        </div>
+        <div class="w-full bg-base-300 rounded-full h-2 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-neutral to-base-content rounded-full stats-progress" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="text-center mt-16">
+      <p class="text-base-content/60 text-sm max-w-2xl mx-auto">
+        {t('home.stats.additionalInfo')}
+      </p>
+    </div>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 -right-32 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 -left-32 w-64 h-64 bg-secondary/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
+  </div>
+</section>
+
+<style>
+  .stat-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stat-card {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Simple counter animation with intersection observer
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.3,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate progress bars
+          const progressBars = entry.target.querySelectorAll('.stats-progress');
+          progressBars.forEach((bar, index) => {
+            setTimeout(() => {
+              bar.style.width = '100%';
+            }, index * 200);
+          });
+        }
+      });
+    }, observerOptions);
+
+    const statsSection = document.querySelector('[aria-labelledby="stats-title"]');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+  });
+</script>
