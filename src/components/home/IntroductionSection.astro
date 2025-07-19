@@ -1,0 +1,180 @@
+---
+import { Icon } from 'astro-icon/components';
+import { useTranslations } from '../../i18n/utils';
+import es from '../../i18n/languages/es.json';
+import en from '../../i18n/languages/en.json';
+
+interface Props {
+  lang: 'en' | 'es';
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const translations = lang === 'es' ? es : en;
+const valueItems = translations.home.introduction.values.items;
+---
+
+<section 
+  id="introduction"
+  class="py-24 lg:py-32 bg-base-100"
+  aria-labelledby="introduction-title"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center max-w-4xl mx-auto mb-20">
+      <h2 
+        id="introduction-title"
+        class="text-4xl lg:text-5xl font-bold text-base-content mb-6"
+      >
+        {t('home.introduction.title')}
+      </h2>
+      <p class="text-xl lg:text-2xl text-base-content/70 font-light leading-relaxed">
+        {t('home.introduction.subtitle')}
+      </p>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-20">
+      <!-- Description -->
+      <div class="space-y-8">
+        <p class="text-lg text-base-content/80 leading-relaxed">
+          {t('home.introduction.description')}
+        </p>
+        
+        <!-- Mission Statement -->
+        <div class="p-8 rounded-2xl bg-primary/5 border border-primary/10">
+          <h3 class="text-2xl font-bold text-primary mb-4">
+            {t('home.introduction.mission.title')}
+          </h3>
+          <p class="text-base-content/80 leading-relaxed">
+            {t('home.introduction.mission.content')}
+          </p>
+        </div>
+
+        <!-- Vision Statement -->
+        <div class="p-8 rounded-2xl bg-secondary/5 border border-secondary/10">
+          <h3 class="text-2xl font-bold text-secondary mb-4">
+            {t('home.introduction.vision.title')}
+          </h3>
+          <p class="text-base-content/80 leading-relaxed">
+            {t('home.introduction.vision.content')}
+          </p>
+        </div>
+      </div>
+
+      <!-- Values Grid -->
+      <div class="space-y-8">
+        <h3 class="text-3xl font-bold text-base-content mb-8">
+          {t('home.introduction.values.title')}
+        </h3>
+        
+        <div class="grid gap-6">
+          {valueItems.map((value: any, index: number) => {
+            const iconMap = [
+              "mdi:heart", // Heart for Cultural Respect
+              "mdi:check-circle", // Check circle for Historical Precision
+              "mdi:earth", // Globe for Universal Accessibility
+              "mdi:lightning-bolt" // Lightning bolt for Responsible Innovation
+            ];
+            
+            return (
+              <div class="flex gap-4 p-6 rounded-xl bg-base-200/50 hover:bg-base-200 transition-colors duration-300">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <Icon name={iconMap[index]} class="w-6 h-6 text-accent" />
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-xl font-semibold text-base-content mb-2">
+                    {value.title}
+                  </h4>
+                  <p class="text-base-content/70 leading-relaxed">
+                    {value.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center">
+      <a 
+        href={`/${lang}/${lang === 'es' ? 'contacto' : 'contact'}`}
+        class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-primary-content transition-all duration-300 group"
+        aria-label={t('home.introduction.cta')}
+      >
+        <Icon name="mdi:book-open-page-variant" class="w-6 h-6 mr-2 group-hover:scale-110 transition-transform duration-300" />
+        {t('home.introduction.cta')}
+      </a>
+    </div>
+  </div>
+
+  <!-- Background Decoration -->
+  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 -left-32 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ixiptla Digital Museum",
+    "description": t('home.introduction.description'),
+    "url": `https://ixiptla.com/${lang}`,
+    "logo": "https://ixiptla.com/images/logo.png",
+    "foundingDate": "2024",
+    "mission": t('home.introduction.mission.content'),
+    "slogan": t('home.introduction.vision.content'),
+    "areaServed": "Global",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Educational, Cultural, Academic"
+    }
+  })}></script>
+</section>
+
+<style>
+  /* Progressive enhancement animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in-on-scroll.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script is:inline>
+  // Intersection Observer for scroll animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all value cards for staggered animation
+    const valueCards = document.querySelectorAll('.grid > div');
+    valueCards.forEach((card, index) => {
+      card.classList.add('fade-in-on-scroll');
+      card.style.transitionDelay = `${index * 0.1}s`;
+      observer.observe(card);
+    });
+  });
+</script>

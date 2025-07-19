@@ -1,0 +1,338 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Language } from "../../types";
+
+interface Props {
+  placeholder?: string;
+  initialQuery?: string;
+  className?: string;
+  autoFocus?: boolean;
+}
+
+const { 
+  placeholder,
+  initialQuery = "",
+  className = "",
+  autoFocus = false
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+const searchPlaceholder = placeholder || t("collection.search.placeholder");
+---
+
+<div class={`search-box ${className}`}>
+  <form class="search-form" role="search">
+    <div class="search-input-container">
+      <!-- Search Icon -->
+      <div class="search-icon" aria-hidden="true">
+        <svg
+          class="w-5 h-5 text-base-content/60"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </div>
+
+      <!-- Input Field -->
+      <input
+        type="search"
+        id="collection-search"
+        class="search-input"
+        placeholder={searchPlaceholder}
+        value={initialQuery}
+        autocomplete="off"
+        spellcheck="false"
+        autofocus={autoFocus}
+        aria-label={searchPlaceholder}
+        data-search-input
+      />
+
+      <!-- Clear Button -->
+      <button
+        type="button"
+        class="clear-button hidden"
+        aria-label={t("collection.filters.clear")}
+        data-clear-search
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Hidden submit button for accessibility -->
+    <button type="submit" class="sr-only">
+      {t("collection.search.placeholder")}
+    </button>
+  </form>
+</div>
+
+<style>
+  .search-box {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .search-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: hsl(var(--b1));
+    border: 2px solid hsl(var(--b3));
+    border-radius: 0.75rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+
+  .search-input-container:hover {
+    border-color: hsl(var(--p) / 0.3);
+    box-shadow: 0 4px 6px hsl(var(--shadow) / 0.1);
+  }
+
+  .search-input-container:focus-within {
+    border-color: hsl(var(--p));
+    box-shadow: 0 0 0 3px hsl(var(--p) / 0.1);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 1rem;
+    z-index: 1;
+    pointer-events: none;
+    transition: color 0.2s ease;
+  }
+
+  .search-input-container:focus-within .search-icon {
+    color: hsl(var(--p));
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 3rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: hsl(var(--bc));
+    transition: all 0.2s ease;
+  }
+
+  .search-input::placeholder {
+    color: hsl(var(--bc) / 0.5);
+  }
+
+  .search-input:focus::placeholder {
+    color: hsl(var(--bc) / 0.3);
+  }
+
+  .clear-button {
+    position: absolute;
+    right: 0.75rem;
+    padding: 0.5rem;
+    background: hsl(var(--b2));
+    border: 1px solid hsl(var(--b3));
+    border-radius: 0.375rem;
+    color: hsl(var(--bc) / 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .clear-button:hover {
+    background: hsl(var(--error) / 0.1);
+    border-color: hsl(var(--error) / 0.3);
+    color: hsl(var(--error));
+    transform: scale(1.05);
+  }
+
+  .clear-button:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 2px;
+  }
+
+  .clear-button:active {
+    transform: scale(0.95);
+  }
+
+  .clear-button.hidden {
+    display: none;
+  }
+
+  /* Screen reader only styles */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .search-box {
+      max-width: 100%;
+    }
+
+    .search-input {
+      font-size: 16px; /* Prevents zoom on iOS */
+      padding: 1rem 1rem 1rem 3rem;
+    }
+
+    .search-input-container {
+      border-radius: 0.5rem;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .search-input-container {
+      border-width: 3px;
+    }
+
+    .clear-button {
+      border-width: 2px;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .search-input-container,
+    .search-icon,
+    .search-input,
+    .clear-button {
+      transition: none;
+    }
+
+    .clear-button:hover {
+      transform: none;
+    }
+
+    .clear-button:active {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  class CollectionSearch {
+    private searchInput: HTMLInputElement | null;
+    private clearButton: HTMLElement | null;
+    private searchForm: HTMLFormElement | null;
+    private debounceTimer: number | null = null;
+
+    constructor() {
+      this.searchInput = document.querySelector('[data-search-input]');
+      this.clearButton = document.querySelector('[data-clear-search]');
+      this.searchForm = document.querySelector('.search-form');
+      this.init();
+    }
+
+    init() {
+      if (!this.searchInput || !this.clearButton || !this.searchForm) return;
+
+      // Setup event listeners
+      this.searchInput.addEventListener('input', this.handleInput.bind(this));
+      this.searchInput.addEventListener('keydown', this.handleKeyDown.bind(this));
+      this.clearButton.addEventListener('click', this.handleClear.bind(this));
+      this.searchForm.addEventListener('submit', this.handleSubmit.bind(this));
+
+      // Initial state
+      this.updateClearButton();
+    }
+
+    private handleInput(event: Event) {
+      const target = event.target as HTMLInputElement;
+      this.updateClearButton();
+      this.debouncedSearch(target.value);
+    }
+
+    private handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        this.clearSearch();
+      }
+    }
+
+    private handleClear() {
+      this.clearSearch();
+    }
+
+    private handleSubmit(event: Event) {
+      event.preventDefault();
+      if (this.searchInput) {
+        this.performSearch(this.searchInput.value);
+      }
+    }
+
+    private clearSearch() {
+      if (this.searchInput) {
+        this.searchInput.value = '';
+        this.searchInput.focus();
+        this.updateClearButton();
+        this.performSearch('');
+      }
+    }
+
+    private updateClearButton() {
+      if (!this.searchInput || !this.clearButton) return;
+      
+      if (this.searchInput.value.trim()) {
+        this.clearButton.classList.remove('hidden');
+      } else {
+        this.clearButton.classList.add('hidden');
+      }
+    }
+
+    private debouncedSearch(query: string) {
+      if (this.debounceTimer) {
+        clearTimeout(this.debounceTimer);
+      }
+      
+      this.debounceTimer = window.setTimeout(() => {
+        this.performSearch(query);
+      }, 300);
+    }
+
+    private performSearch(query: string) {
+      // Dispatch custom event for other components to listen
+      document.dispatchEvent(new CustomEvent('collectionSearch', {
+        detail: { query: query.trim() }
+      }));
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new CollectionSearch();
+  });
+
+  // Re-initialize on Astro page navigation
+  document.addEventListener('astro:page-load', () => {
+    new CollectionSearch();
+  });
+</script>

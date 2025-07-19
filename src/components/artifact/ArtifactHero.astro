@@ -1,0 +1,162 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { getImageByFilename } from "../../utils/imageMapping";
+import { getModelForSlug } from "../../data/models";
+import type { Language } from "../../types";
+
+interface Props {
+  artifact: {
+    title: string;
+    culture: string;
+    period: string;
+    image: string;
+    description: string;
+    slug: string;
+    museum: string;
+    location: string;
+    has3DModel?: boolean;
+  };
+  lang: Language;
+  t: (key: string) => string;
+}
+
+const { artifact, lang, t } = Astro.props;
+const image = getImageByFilename(artifact.image);
+const model3D = getModelForSlug(artifact.slug);
+---
+
+<section class="relative w-full min-h-screen lg:min-h-[80vh] flex flex-col lg:flex-row" role="main">
+  <!-- Left Column - Image (50% on desktop) -->
+  <div class="w-full lg:w-1/2 relative p-4 lg:p-8">
+    <!-- Main Image Container -->
+    <div class="w-full mx-auto max-w-xl aspect-square group sticky top-20">
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl z-10"
+        aria-hidden="true"
+      />
+      <Image
+        src={image}
+        alt={artifact.title}
+        width={800}
+        height={800}
+        class="w-full h-full object-cover rounded-3xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+        transition:name={`artifact-${artifact.slug}`}
+        loading="eager"
+      />
+    </div>
+  </div>
+
+  <!-- Right Column - Content (50% on desktop) -->
+  <div class="w-full lg:w-1/2 bg-gradient-to-br from-base-100 to-base-200/30 p-6 lg:p-12 flex flex-col justify-center">
+    <!-- Title Section -->
+    <div class="mb-8">
+      <h1 
+        class="text-4xl lg:text-5xl xl:text-6xl font-normal leading-tight mb-6 text-base-content break-words"
+        style="font-family: var(--font-serif, serif); font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em;"
+      >
+        {artifact.title}
+      </h1>
+      
+      <!-- Culture and Period Tags -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <div class="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 px-4 py-2 rounded-full">
+          <span class="text-sm font-medium text-primary">
+            {t("artifact.metadata.culture")}: {artifact.culture}
+          </span>
+        </div>
+        <div class="bg-gradient-to-r from-secondary/10 to-secondary/5 border border-secondary/20 px-4 py-2 rounded-full">
+          <span class="text-sm font-medium text-secondary">
+            {t("artifact.metadata.period")}: {artifact.period}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-8 max-w-prose">
+      <h2 
+        class="text-2xl lg:text-3xl font-normal mb-4 text-base-content flex items-center gap-3"
+        style="font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
+      >
+        <Icon name="mdi:information-outline" class="w-7 h-7 text-primary" />
+        {t("artifact.context.title")}
+      </h2>
+      <p 
+        class="text-lg text-base-content/90 leading-relaxed"
+        style="line-height: 1.6;"
+      >
+        {artifact.description}
+      </p>
+    </div>
+
+    <!-- Museum Information -->
+    <div class="bg-gradient-to-br from-info/5 to-info/10 border border-info/20 rounded-2xl p-6 mb-6">
+      <h3 class="text-xl font-bold text-base-content mb-3 flex items-center gap-3">
+        <Icon name="mdi:bank" class="w-6 h-6 text-info" />
+        {t("artifact.metadata.location")}
+      </h3>
+      <div class="space-y-2">
+        <p class="text-base-content/90 font-medium">{artifact.museum}</p>
+        <p class="text-base-content/70">{artifact.location}</p>
+      </div>
+    </div>
+
+    <!-- 3D Experience Link -->
+    {model3D && (
+      <div class="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-6">
+        <h3 class="text-xl font-bold text-base-content mb-3 flex items-center gap-3">
+          <Icon name="mdi:rotate-3d-variant" class="w-6 h-6 text-primary" />
+          {t("artifact.experience.title")}
+        </h3>
+        <p class="text-base-content/80 mb-4 leading-relaxed">
+          {t("artifact.experience.description")}
+        </p>
+        <a
+          href={`/${lang}/experience/${model3D}`}
+          class="inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 group"
+          aria-label={`${t("artifact.experience.cta")} - ${artifact.title}`}
+        >
+          <Icon name="mdi:cube-outline" class="w-5 h-5" />
+          {t("artifact.experience.cta")}
+          <Icon name="mdi:arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- Mobile-specific styling -->
+<style>
+  /* Mobile optimizations */
+  @media (max-width: 1023px) {
+    section {
+      min-height: auto;
+    }
+    
+    /* Stack vertically on mobile */
+    .lg\:flex-row {
+      flex-direction: column;
+    }
+    
+    /* Adjust containers for mobile */
+    .lg\:w-1\/2 {
+      width: 100%;
+    }
+    
+    .lg\:w-1\/2:first-child {
+      min-height: 50vh;
+    }
+  }
+  
+  /* Ensure proper aspect ratio scaling */
+  .aspect-square {
+    aspect-ratio: 1;
+  }
+  
+  /* Smooth transitions for all interactive elements */
+  * {
+    transition-property: transform, opacity, color, background-color, border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>

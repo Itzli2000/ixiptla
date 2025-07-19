@@ -1,31 +1,123 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ContactSection from '../../components/contact/ContactSection.astro';
-import { useTranslations } from '../../i18n/utils';
+import ContactHeader from '../../components/contact/ContactHeader.astro';
+import ContactCard from '../../components/contact/ContactCard.astro';
+import ContactReasonCard from '../../components/contact/ContactReasonCard.astro';
+import { contactDataEn } from '../../data/contact';
 
-const t = useTranslations('en');
+const { hero, contactInfo } = contactDataEn;
 ---
 
-<Layout title={t('contact.title')} lang="en">
-  <main class="min-h-screen bg-gradient-to-b from-base-100 to-base-200">
-    <div class="container mx-auto px-4 py-16">
-      <h1 class="text-4xl font-bold text-center text-base-content mb-8">{t('contact.title')}</h1>
-      <p class="text-lg text-center text-base-content/80 max-w-2xl mx-auto mb-12">
-        {t('contact.description')}
-      </p>
-      <ContactSection lang="en" />
+<Layout title={hero.title} description={hero.description} lang="en">
+  <main class="min-h-screen bg-base-100">
+    <!-- Hero Section -->
+    <ContactHeader 
+      title={hero.title}
+      subtitle={hero.subtitle}
+      description={hero.description}
+      lang="en"
+    />
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 pb-16">
+      <!-- Introduction Section -->
+      <section class="my-16">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl lg:text-4xl font-light text-base-content mb-6 font-serif">
+            {contactInfo.introduction.title}
+          </h2>
+          <p class="text-lg text-base-content/70 leading-relaxed max-w-3xl mx-auto">
+            {contactInfo.introduction.description}
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact Methods Section -->
+      <section class="mb-16">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-6">
+            <h2 class="text-3xl font-light text-base-content mb-4 font-serif">
+              Get in Touch
+            </h2>
+            <p class="text-base-content/60 max-w-2xl mx-auto">
+              Choose the best way to communicate with us according to your needs
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {contactInfo.methods.map((method) => (
+              <ContactCard method={method} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Reasons Section -->
+      <section class="mb-16">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl font-light text-base-content mb-4 font-serif">
+              Why Contact Us?
+            </h2>
+            <p class="text-base-content/60 max-w-2xl mx-auto">
+              Discover the different ways we can collaborate with you
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {contactInfo.reasons.map((reason) => (
+              <ContactReasonCard reason={reason} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional Information -->
+      <section class="max-w-4xl mx-auto">
+        <div class="card bg-gradient-to-r from-primary/5 to-accent/5 shadow-lg">
+          <div class="card-body p-8 text-center">
+            <h3 class="text-2xl font-light text-base-content mb-4 font-serif">
+              About Ixiptla
+            </h3>
+            <p class="text-base-content/70 leading-relaxed mb-6">
+              Ixiptla, a Nahuatl word meaning "sacred representation," is more than a virtual museum. 
+              We are a bridge between past and present, using modern technology to preserve 
+              and share the cultural richness of Mesoamerican civilizations.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+              <span class="badge badge-primary badge-lg">Maya</span>
+              <span class="badge badge-secondary badge-lg">Mexica</span>
+              <span class="badge badge-accent badge-lg">Acolhua</span>
+              <span class="badge badge-primary badge-lg">Mixteca</span>
+              <span class="badge badge-secondary badge-lg">Teotihuacán</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 </Layout>
 
 <style>
-  main {
-    background-color: hsl(var(--color-base-100));
-    background-image: 
-      radial-gradient(hsl(var(--color-base-300)) 1px, transparent 1px),
-      radial-gradient(hsl(var(--color-base-300)) 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    background-repeat: repeat;
+  .font-serif {
+    font-family: 'Playfair Display', serif;
   }
-</style> 
+  
+  h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  
+  section {
+    padding: clamp(2rem, 8vw, 2rem) 0;
+  }
+  
+  section:first-of-type {
+    padding-top: 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+  }
+</style>

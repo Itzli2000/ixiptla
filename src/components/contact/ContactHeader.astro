@@ -1,0 +1,62 @@
+---
+import BreadcrumbNavigation from "../ui/BreadcrumbNavigation.astro";
+import { useTranslations } from "../../i18n/utils";
+import type { BreadcrumbItem } from "../../types/artifact";
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  lang: 'en' | 'es';
+}
+
+const { title, subtitle, description, lang } = Astro.props;
+const t = useTranslations(lang);
+
+const breadcrumbItems: BreadcrumbItem[] = [
+  { label: t("navigation.home"), href: lang === 'en' ? '/en' : '/' },
+  { label: t("navigation.contact"), current: true, ariaCurrent: "page" }
+];
+---
+
+<header class="relative py-16 lg:px-16 lg:py-24">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 bg-gradient-to-br from-base-100 via-base-200 to-base-100 opacity-50"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgb(0_0_0/0.15)_1px,transparent_0)] [background-size:20px_20px] opacity-30"></div>
+  
+  <div class="relative container mx-auto px-4">
+    <!-- Breadcrumb -->
+    <BreadcrumbNavigation items={breadcrumbItems} lang={lang} t={t} />
+
+    <!-- Header Content -->
+    <div class="max-w-4xl">
+      {subtitle && (
+        <p class="text-primary font-medium text-sm uppercase tracking-wider mb-4">
+          {subtitle}
+        </p>
+      )}
+      
+      <h1 class="text-4xl lg:text-5xl xl:text-6xl font-light text-base-content mb-6 leading-tight">
+        <span class="font-serif">{title}</span>
+      </h1>
+      
+      {description && (
+        <p class="text-xl text-base-content/70 leading-relaxed max-w-3xl">
+          {description}
+        </p>
+      )}
+    </div>
+  </div>
+</header>
+
+<style>
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+</style>

@@ -1,0 +1,178 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Language } from "../../types";
+
+interface Props {
+  totalCount: number;
+  filteredCount: number;
+  hasActiveFilters: boolean;
+  activeFilters?: Array<{
+    type: string;
+    value: string;
+    label: string;
+  }>;
+}
+
+const { totalCount, filteredCount, hasActiveFilters, activeFilters = [] } = Astro.props;
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+// Format the count message
+const getCountMessage = () => {
+  if (hasActiveFilters) {
+    return t("collection.search.results").replace("{count}", filteredCount.toString());
+  }
+  return `${totalCount} ${t("collection.cultures.all").toLowerCase()}`;
+};
+---
+
+<div class="results-summary mb-6 lg:mb-8">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <!-- Results Count -->
+    <div class="results-count">
+      <p class="text-base md:text-lg text-base-content/80">
+        <span class="font-semibold text-primary" id="results-count">
+          {getCountMessage()}
+        </span>
+      </p>
+    </div>
+    
+    <!-- Active Filters Display -->
+    {hasActiveFilters && activeFilters.length > 0 && (
+      <div class="active-filters">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm text-base-content/60 font-medium">
+            {t("collection.filters.apply")}:
+          </span>
+          {activeFilters.map((filter) => (
+            <span class="filter-tag inline-flex items-center px-3 py-1 rounded-full text-sm bg-primary/10 text-primary border border-primary/20">
+              <span class="font-medium mr-1">{filter.type}:</span>
+              <span>{filter.label}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+  
+  <!-- No Results Message -->
+  {hasActiveFilters && filteredCount === 0 && (
+    <div class="no-results mt-6 p-6 bg-base-200 rounded-lg border border-base-300 text-center">
+      <div class="max-w-md mx-auto">
+        <h3 class="text-lg font-semibold text-base-content mb-2">
+          {t("collection.empty.title")}
+        </h3>
+        <p class="text-base-content/70 mb-4">
+          {t("collection.empty.description")}
+        </p>
+        <button 
+          class="btn btn-outline btn-sm clear-filters-btn"
+          onclick="window.dispatchEvent(new CustomEvent('clearAllFilters'))"
+        >
+          {t("collection.empty.action")}
+        </button>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .results-summary {
+    border-bottom: 1px solid hsl(var(--b3));
+    padding-bottom: 1.5rem;
+  }
+  
+  .results-count {
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-tag {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  .filter-tag:hover {
+    background-color: hsl(var(--p) / 0.15);
+    border-color: hsl(var(--p) / 0.3);
+    transform: translateY(-1px);
+  }
+  
+  .no-results {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .clear-filters-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .clear-filters-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px hsl(var(--p) / 0.2);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .results-summary {
+      padding-bottom: 1rem;
+    }
+    
+    .active-filters {
+      margin-top: 0.5rem;
+    }
+    
+    .filter-tag {
+      font-size: 0.8125rem;
+      padding: 0.25rem 0.75rem;
+    }
+  }
+  
+  /* Loading state */
+  .results-count[data-loading="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  /* Accessibility improvements */
+  .filter-tag:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 2px;
+  }
+  
+  .clear-filters-btn:focus {
+    outline: 2px solid hsl(var(--p));
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  // Update results count dynamically
+  function updateResultsCount(count: number, hasFilters: boolean) {
+    const resultsElement = document.getElementById('results-count');
+    if (resultsElement) {
+      resultsElement.textContent = hasFilters 
+        ? `${count} resultados encontrados` 
+        : `${count}`;
+    }
+  }
+  
+  // Listen for filter updates
+  document.addEventListener('filtersUpdated', (event) => {
+    const customEvent = event as CustomEvent;
+    const { filteredCount, hasActiveFilters } = customEvent.detail;
+    updateResultsCount(filteredCount, hasActiveFilters);
+  });
+</script>

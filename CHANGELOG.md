@@ -1,3 +1,19 @@
+## 2.0.0 (2025-07-19)
+
+##### New Features
+
+* **Home:**  add new sections for enhanced user experience (75a16045)
+* **Collection:**  introduce new collection components and enhance structure (c7fe485c)
+* **Artifact:**  add new artifact components for enhanced display and navigation (10121887)
+* **Contact:**  implement contact page components and data structure (9f0c6039)
+
+##### Refactors
+
+* **ModelError:**  enhance error handling with new error types (2dac5f4e)
+* **Home:**
+  *  replace SVG icons with Astro Icon components (5371d2b9)
+  *  enhance translation handling across multiple components (7a61555b)
+
 ### 1.14.0 (2025-06-28)
 
 ##### Chores

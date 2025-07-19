@@ -1,7 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Hero3DInteractive from '../../components/features/Hero3DInteractive/Hero3DInteractive.astro';
-import Collection from '../../components/features/Collection/Collection.astro';
+import HeroSection from '../../components/home/HeroSection.astro';
+import IntroductionSection from '../../components/home/IntroductionSection.astro';
+import FeaturedCollections from '../../components/home/FeaturedCollections.astro';
+import TechnologySection from '../../components/home/TechnologySection.astro';
+import StatsSection from '../../components/home/StatsSection.astro';
+import FinalCTASection from '../../components/home/FinalCTASection.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import type { Language } from '../../types';
 
@@ -10,6 +14,10 @@ const t = useTranslations(lang);
 ---
 
 <Layout title={t('home.title')} description={t('home.description')} lang={lang}>
-	<Hero3DInteractive />
-	<Collection />	
+	<HeroSection lang={lang} />
+	<IntroductionSection lang={lang} />
+	<FeaturedCollections lang={lang} />
+	<TechnologySection lang={lang} />
+	<StatsSection lang={lang} />
+	<FinalCTASection lang={lang} />
 </Layout>

@@ -1,0 +1,297 @@
+---
+import { Icon } from "astro-icon/components";
+import ArtifactCard from "./ArtifactCard.astro";
+import type { Language } from "../../types";
+
+interface Props {
+  relatedArtifacts: Array<{
+    data: {
+      title: string;
+      culture: string;
+      period: string;
+      image: string;
+      description: string;
+      slug: string;
+      has3DModel?: boolean;
+    };
+  }>;
+  currentCulture: string;
+  lang: Language;
+  t: (key: string) => string;
+}
+
+const { relatedArtifacts, currentCulture, lang, t } = Astro.props;
+
+// Group related artifacts by type
+const sameCultureArtifacts = relatedArtifacts.filter(artifact => 
+  artifact.data.culture === currentCulture
+);
+
+const differentCultureArtifacts = relatedArtifacts.filter(artifact => 
+  artifact.data.culture !== currentCulture
+);
+
+const hasRelatedArtifacts = relatedArtifacts.length > 0;
+---
+
+{hasRelatedArtifacts && (
+  <section class="py-16 lg:py-24" role="region" aria-labelledby="related-artifacts-title">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-12 lg:mb-16">
+        <h2 
+          id="related-artifacts-title"
+          class="text-4xl lg:text-5xl font-normal text-base-content mb-4"
+          style="font-family: var(--font-serif, serif); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
+        >
+          {t("artifact.related.title")}
+        </h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-6" aria-hidden="true"></div>
+        <p class="text-lg text-base-content/80 max-w-2xl mx-auto leading-relaxed">
+          {lang === 'es' 
+            ? 'Descubre otras piezas fascinantes que comparten historia y tradición cultural con esta extraordinaria obra.'
+            : 'Discover other fascinating pieces that share history and cultural tradition with this extraordinary work.'
+          }
+        </p>
+      </div>
+
+      <!-- Same Culture Section -->
+      {sameCultureArtifacts.length > 0 && (
+        <div class="mb-16">
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="text-2xl lg:text-3xl font-semibold text-base-content flex items-center gap-3">
+              <Icon name="mdi:temple-hindu" class="w-6 h-6 text-primary" />
+              {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
+            </h3>
+            <a 
+              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?culture=${currentCulture}`}
+              class="text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
+            >
+              {t("artifact.related.viewAll")}
+              <Icon name="mdi:arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+          
+          <!-- Same Culture Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.sameCulture").replace('{culture}', currentCulture)}>
+            {sameCultureArtifacts.slice(0, 3).map((artifact) => (
+              <div class="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+                <ArtifactCard artifact={artifact.data} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Different Cultures Section -->
+      {differentCultureArtifacts.length > 0 && (
+        <div class="mb-16 hidden sm:block">
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="text-2xl lg:text-3xl font-semibold text-base-content flex items-center gap-3">
+              <Icon name="mdi:earth" class="w-6 h-6 text-secondary" />
+              {t("artifact.related.similarType")}
+            </h3>
+            <a 
+              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+              class="text-secondary hover:text-secondary/80 transition-colors text-sm font-medium flex items-center gap-2"
+            >
+              {t("artifact.related.exploreMore")}
+              <Icon name="mdi:arrow-right" class="w-4 h-4" />
+            </a>
+          </div>
+          
+          <!-- Different Cultures Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.similarType")}>
+            {differentCultureArtifacts.slice(0, 3).map((artifact) => (
+              <div class="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+                <ArtifactCard artifact={artifact.data} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Interactive Carousel for Mobile -->
+      <div class="block sm:hidden">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-semibold text-base-content">
+            {t("artifact.related.exploreMore")}
+          </h3>
+          <div class="gap-2 hidden"> <!-- TODO: Add carousel buttons functionality and replace hidden with flex-->
+            <button 
+              id="carousel-prev"
+              class="p-2 rounded-full bg-base-200 hover:bg-base-300 transition-colors"
+              aria-label={t("artifact.previousRelated")}
+            >
+              <Icon name="mdi:chevron-left" class="w-5 h-5" />
+            </button>
+            <button 
+              id="carousel-next"
+              class="p-2 rounded-full bg-base-200 hover:bg-base-300 transition-colors"
+              aria-label={t("artifact.nextRelated")}
+            >
+              <Icon name="mdi:chevron-right" class="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        
+        <div class="overflow-x-auto scrollbar-hide">
+          <div id="carousel-container" class="flex gap-4 pb-4" style="width: max-content;">
+            {relatedArtifacts.map((artifact) => (
+              <div class="flex-shrink-0 w-72">
+                <ArtifactCard artifact={artifact.data} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="text-center mt-12 pt-8 border-t border-base-content/10">
+        <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-8 max-w-4xl mx-auto">
+          <h3 class="text-2xl font-semibold text-base-content mb-4">
+            {lang === 'es' 
+              ? 'Explora toda la colección' 
+              : 'Explore the complete collection'
+            }
+          </h3>
+          <p class="text-base-content/80 mb-6 max-w-2xl mx-auto">
+            {lang === 'es' 
+              ? 'Descubre cientos de piezas arqueológicas mesoamericanas con experiencias 3D inmersivas y contexto cultural detallado.'
+              : 'Discover hundreds of Mesoamerican archaeological pieces with immersive 3D experiences and detailed cultural context.'
+            }
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+              class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <Icon name="mdi:view-grid" class="w-5 h-5" />
+              {t("artifact.related.viewAll")}
+            </a>
+            <a 
+              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?culture=${currentCulture}`}
+              class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-secondary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <Icon name="mdi:filter" class="w-5 h-5" />
+              {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+{!hasRelatedArtifacts && (
+  <section class="py-16 lg:py-24" role="region">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-12">
+        <Icon name="mdi:magnify" class="w-16 h-16 text-base-content/50 mx-auto mb-6" />
+        <h2 class="text-2xl font-semibold text-base-content mb-4">
+          {t("artifact.related.noRelated")}
+        </h2>
+        <p class="text-base-content/80 mb-8 max-w-2xl mx-auto">
+          {lang === 'es' 
+            ? 'No encontramos piezas relacionadas en este momento, pero te invitamos a explorar toda nuestra colección.'
+            : 'We didn\'t find related pieces at this time, but we invite you to explore our complete collection.'
+          }
+        </p>
+        <a 
+          href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+          class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+        >
+          <Icon name="mdi:view-grid" class="w-5 h-5" />
+          {t("collection.cta")}
+        </a>
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  // Mobile carousel functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const carouselContainer = document.getElementById('carousel-container');
+    const prevButton = document.getElementById('carousel-prev') as HTMLButtonElement | null;
+    const nextButton = document.getElementById('carousel-next') as HTMLButtonElement | null;
+    
+    if (carouselContainer && prevButton && nextButton) {
+      const cardWidth = 288; // 72 * 4 (w-72 in pixels)
+      const gap = 16; // gap-4 in pixels
+      const scrollAmount = cardWidth + gap;
+      
+      let currentScroll = 0;
+      const maxScroll = carouselContainer.scrollWidth - carouselContainer.clientWidth;
+      
+      const updateButtons = () => {
+        prevButton.disabled = currentScroll <= 0;
+        nextButton.disabled = currentScroll >= maxScroll;
+        
+        prevButton.style.opacity = currentScroll <= 0 ? '0.5' : '1';
+        nextButton.style.opacity = currentScroll >= maxScroll ? '0.5' : '1';
+      };
+      
+      prevButton.addEventListener('click', () => {
+        currentScroll = Math.max(0, currentScroll - scrollAmount);
+        carouselContainer.scrollTo({
+          left: currentScroll,
+          behavior: 'smooth'
+        });
+        updateButtons();
+      });
+      
+      nextButton.addEventListener('click', () => {
+        currentScroll = Math.min(maxScroll, currentScroll + scrollAmount);
+        carouselContainer.scrollTo({
+          left: currentScroll,
+          behavior: 'smooth'
+        });
+        updateButtons();
+      });
+      
+      // Update button states on scroll
+      carouselContainer.addEventListener('scroll', () => {
+        currentScroll = carouselContainer.scrollLeft;
+        updateButtons();
+      });
+      
+      // Initial button state
+      updateButtons();
+    }
+  });
+</script>
+
+<style>
+  /* Hide scrollbar for carousel */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Smooth hover animations */
+  .transform {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Responsive grid adjustments */
+  @media (max-width: 767px) {
+    .md\:grid-cols-2 {
+      grid-template-columns: 1fr;
+    }
+    
+    .lg\:grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

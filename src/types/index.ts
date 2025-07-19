@@ -63,12 +63,13 @@ export interface Scene3DProps {
   autoRotate?: boolean;
   initialCameraPosition?: [number, number, number];
   lang?: Language;
+  initialModelScale?: [number, number, number];
 }
 
 /**
  * Error types for model loading and rendering.
  */
-export type ModelErrorType = 'loadError' | 'initError' | 'webglError';
+export type ModelErrorType = 'loadError' | 'initError' | 'webglError' | 'failedToLoad' | 'noModelData' | 'interactiveError' | 'animationError';
 
 /**
  * Properties for error display components.
