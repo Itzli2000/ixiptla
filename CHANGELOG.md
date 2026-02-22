@@ -1,3 +1,19 @@
+### 2.2.0 (2026-02-22)
+
+##### New Features
+
+*  improve SEO and accessibility with skip link, breadcrumb schema, and enhanced meta tags (ac34d5ba)
+*  implement comprehensive i18n for static content and enhance 3D model error handling with new fallbacks. (e99ded9a)
+
+##### Refactors
+
+* **i18n:**  internationalize cultural context and UI texts, and update event listeners to astro:page-load (9b9f7766)
+*  centralize type definitions and remove unused tailwind config (5d0ecbad)
+
+##### Code Style Changes
+
+* **layout:**  apply consistent formatting and add padding to ExperienceLayout (234a8b84)
+
 ### 2.1.0 (2026-02-22)
 
 ##### New Features
