@@ -1,3 +1,9 @@
+### 2.1.0 (2026-02-22)
+
+##### New Features
+
+* **seo:**  implement language-specific Open Graph images and update Astro dependencies. (d4fd3e1e)
+
 ## 2.0.0 (2025-07-19)
 
 ##### New Features

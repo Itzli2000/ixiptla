@@ -29,7 +29,7 @@ const pageTitle = `${t("collection.title")} - ${t("collection.subtitle")}`;
 const pageDescription = t("collection.description");
 
 let canonicalURL: string | URL = lang === "es" ? `/es/coleccion` : `/en/collection`;
-let imageURL: string | URL = `/images/og-image.png`;
+let imageURL: string | URL = `/images/og-image-${lang}.png`;
 let alternateURLs: { en: string | URL; es: string | URL } = {
   en: `/en/collection`,
   es: `/es/coleccion`,
@@ -37,7 +37,7 @@ let alternateURLs: { en: string | URL; es: string | URL } = {
 
 if (Astro.site) {
   canonicalURL = new URL(lang === "es" ? `/es/coleccion` : `/en/collection`, Astro.site);
-  imageURL = new URL(`/images/og-image.png`, Astro.site);
+  imageURL = new URL(`/images/og-image-${lang}.png`, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection`, Astro.site),
     es: new URL(`/es/coleccion`, Astro.site),
