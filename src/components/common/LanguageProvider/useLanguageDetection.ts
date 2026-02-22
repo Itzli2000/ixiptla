@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from './LanguageProvider';
-
-type Language = 'en' | 'es';
+import type { Language } from '../../../types';
 
 export function useLanguageDetection(propLang?: Language): Language {
   const [detectedLang, setDetectedLang] = useState<Language>('es');

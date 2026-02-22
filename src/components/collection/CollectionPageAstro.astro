@@ -20,7 +20,7 @@ const artifacts = await getCollection(
 );
 
 // Sort artifacts alphabetically by title
-const sortedArtifacts = artifacts.sort((a: any, b: any) => 
+const sortedArtifacts = artifacts.sort((a, b) =>
   a.data.title.localeCompare(b.data.title)
 );
 
@@ -109,7 +109,7 @@ if (Astro.site) {
 
       <!-- Filter Toolbar -->
       <FilterToolbarAstro 
-        artifacts={sortedArtifacts.map((artifact: any) => artifact.data)}
+        artifacts={sortedArtifacts.map((artifact) => artifact.data)}
         className="mb-8 lg:mb-12"
       />
 
@@ -137,7 +137,7 @@ if (Astro.site) {
           class="artifacts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 transition-all duration-500"
           data-view-mode="grid"
         >
-          {sortedArtifacts.map((artifact: any, index: number) => (
+          {sortedArtifacts.map((artifact, index) => (
             <div 
               class="artifact-item"
               data-culture={artifact.data.culture.toLowerCase()}

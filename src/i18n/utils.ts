@@ -1,7 +1,9 @@
 import es from "./languages/es.json";
 import en from "./languages/en.json";
 
-export type Language = "en" | "es";
+export type { Language } from '../types';
+import type { Language } from '../types';
+
 export type TranslationValue = string | Record<string, unknown>;
 export type TranslationFunction = (key: string) => string;
 

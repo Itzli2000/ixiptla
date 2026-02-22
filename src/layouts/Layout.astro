@@ -5,15 +5,17 @@ import '../styles/global.css';
 import type { LayoutProps, Language } from '../types';
 import { useTranslations } from '../i18n/utils';
 
-const { 
-  title, 
-  description, 
-  lang = "en" as Language, 
+interface Props extends LayoutProps {}
+
+const {
+  title,
+  description,
+  lang = "en" as Language,
   image,
   canonicalURL,
   alternateURLs,
   currentArtifact
-} = Astro.props as LayoutProps;
+} = Astro.props;
 
 const ogImage = image || `/images/og-image-${lang}.png`;
 const t = useTranslations(lang);
@@ -42,7 +44,7 @@ if (currentArtifact) {
 }
 
 // Structured data for the site
-const structuredData: any = {
+const structuredData: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@graph": [
     {

@@ -1,13 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import type { Language } from "../../types";
-
-interface BreadcrumbItem {
-  label: string;
-  href?: string;
-  current?: boolean;
-  ariaCurrent?: string;
-}
+import type { BreadcrumbItem } from "../../types/artifact";
 
 interface Props {
   items: BreadcrumbItem[];
