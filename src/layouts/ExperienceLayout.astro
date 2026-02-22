@@ -19,11 +19,12 @@ const {
   title, 
   description, 
   lang = "en",
-  image = '/images/og-image.png',
+  image,
   canonicalURL,
   alternateURLs
 } = Astro.props;
 
+const ogImage = image || `/images/og-image-${lang}.png`;
 const t = useTranslations(lang);
 
 const currentPath = Astro.url.pathname.replace(/^\/?/, "/");
@@ -80,7 +81,7 @@ const pageKeywords = `experiencia 3D, ${seoData.keywords}`;
 		<meta property="og:url" content={siteUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		{image && <meta property="og:image" content={new URL(image, siteUrl).href} />}
+		<meta property="og:image" content={new URL(ogImage, siteUrl).href} />
 		<meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
 	
 		<!-- Twitter Card -->
@@ -89,7 +90,7 @@ const pageKeywords = `experiencia 3D, ${seoData.keywords}`;
 		<meta name="twitter:url" content={siteUrl} />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		{image && <meta name="twitter:image" content={new URL(image, siteUrl).href} />}
+		<meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
 
 		<ClientRouter />
 	</head>
