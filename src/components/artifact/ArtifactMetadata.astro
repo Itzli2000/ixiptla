@@ -41,7 +41,7 @@ const { artifact, lang, t } = Astro.props;
         {t("artifact.context.culturalImportance")}
       </h3>
       
-      <div class="space-y-4">
+      <dl class="space-y-4">
         <!-- Culture -->
         <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-white/20">
           <dt class="text-sm font-medium text-base-content/70 uppercase tracking-wider mb-2">
@@ -75,7 +75,7 @@ const { artifact, lang, t } = Astro.props;
             {artifact.location}
           </dd>
         </div>
-      </div>
+      </dl>
     </div>
 
     <!-- Technical Information -->
@@ -85,7 +85,7 @@ const { artifact, lang, t } = Astro.props;
         {t("artifact.context.craftsmanshipDetails")}
       </h3>
       
-      <div class="space-y-4">
+      <dl class="space-y-4">
         <!-- Dimensions -->
         {artifact.dimensions && (
           <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-white/20">
@@ -134,7 +134,7 @@ const { artifact, lang, t } = Astro.props;
             </p>
           </div>
         )}
-      </div>
+      </dl>
     </div>
   </div>
 

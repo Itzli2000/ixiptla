@@ -357,6 +357,9 @@
       "start": "Auto Rotate"
     }
   },
+  "accessibility": {
+    "skipToContent": "Skip to content"
+  },
   "seo": {
     "site": {
       "name": "Ixiptla Virtual Museum",

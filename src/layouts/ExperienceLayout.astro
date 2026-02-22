@@ -60,7 +60,7 @@ const pageKeywords = `${lang === 'es' ? 'experiencia 3D' : '3D experience'}, ${s
 		<meta name="description" content={description} />
 		<meta name="keywords" content={pageKeywords} />
 		<meta name="author" content={seoData.author} />
-		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 		
 		<!-- Generator and Site Info -->
 		<meta name="generator" content={Astro.generator} />
@@ -82,7 +82,15 @@ const pageKeywords = `${lang === 'es' ? 'experiencia 3D' : '3D experience'}, ${s
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:type" content="image/png" />
 		<meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
+		{alternateURLs && Object.entries(alternateURLs).map(([langCode, url]) => (
+			langCode !== lang && (
+				<meta property="og:locale:alternate" content={langCode === 'es' ? 'es_MX' : 'en_US'} />
+			)
+		))}
 	
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
@@ -91,6 +99,7 @@ const pageKeywords = `${lang === 'es' ? 'experiencia 3D' : '3D experience'}, ${s
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+		<meta name="twitter:image:alt" content={title} />
 
 		<ClientRouter />
 	</head>

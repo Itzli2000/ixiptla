@@ -43,6 +43,7 @@ const model3D = getModelForSlug(artifact.slug);
         class="w-full h-full object-cover rounded-3xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
         transition:name={`artifact-${artifact.slug}`}
         loading="eager"
+        fetchpriority="high"
       />
     </div>
   </div>
