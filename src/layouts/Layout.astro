@@ -44,7 +44,7 @@ if (currentArtifact) {
 }
 
 // Structured data for the site
-const structuredData: Record<string, unknown> = {
+const structuredData: { "@context": string; "@graph": Record<string, unknown>[] } = {
   "@context": "https://schema.org",
   "@graph": [
     {
