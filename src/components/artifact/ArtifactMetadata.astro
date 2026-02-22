@@ -146,47 +146,15 @@ const { artifact, lang, t } = Astro.props;
         {t("artifact.context.archaeologicalContext")}
       </h3>
       <p class="text-base-content/80 leading-relaxed">
-        {lang === 'es' 
-          ? 'Esta pieza representa la rica tradición artística mesoamericana, reflejando técnicas y simbolismos que han perdurado a través de generaciones.'
-          : 'This piece represents the rich Mesoamerican artistic tradition, reflecting techniques and symbolisms that have endured through generations.'
-        }
+        {t("artifact.metadata.archaeologicalNote")}
       </p>
     </div>
   </div>
 </section>
 
 <style>
-  /* Custom styling for metadata cards */
-  .bg-white\/50 {
-    backdrop-filter: blur(10px);
-  }
-  
-  /* Smooth transitions */
   .bg-white\/50:hover {
-    background-color: rgba(255, 255, 255, 0.7);
     transform: translateY(-2px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Typography scaling */
-  dt {
-    font-size: 0.875rem;
-    line-height: 1.4;
-  }
-  
-  dd {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1023px) {
-    .lg\:grid-cols-2 {
-      grid-template-columns: 1fr;
-    }
-    
-    .lg\:p-12 {
-      padding: 2rem;
-    }
   }
 </style>

@@ -326,13 +326,9 @@ const searchPlaceholder = placeholder || t("collection.search.placeholder");
     }
   }
 
-  // Initialize when DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    new CollectionSearch();
-  });
+  let collectionSearchInstance: CollectionSearch | null = null;
 
-  // Re-initialize on Astro page navigation
   document.addEventListener('astro:page-load', () => {
-    new CollectionSearch();
+    collectionSearchInstance = new CollectionSearch();
   });
 </script>

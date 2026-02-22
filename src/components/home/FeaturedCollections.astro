@@ -209,8 +209,7 @@ const availableCultures = getCulturesWithArtifacts();
 </style>
 
 <script is:inline>
-  // Culture info modal functionality
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const modal = document.getElementById('culture-modal');
     const cultureData = {
       'maya': {

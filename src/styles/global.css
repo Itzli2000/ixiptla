@@ -102,6 +102,22 @@
 
 body {
   font-family: var(--font-family-base);
+  padding-top: 4rem;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid hsl(var(--color-primary));
+  outline-offset: 2px;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 h1,

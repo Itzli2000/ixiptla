@@ -17,63 +17,12 @@ interface Props {
 
 const { artifact, lang, t } = Astro.props;
 
-// Generate cultural context based on culture type
-const getCulturalContext = (culture: string, lang: Language) => {
-  const contexts = {
-    Maya: {
-      es: {
-        significance: "La civilización maya desarrolló una de las culturas más sofisticadas de Mesoamérica, con avances extraordinarios en astronomía, matemáticas, escritura y arte.",
-        artistry: "Sus obras reflejan una profunda conexión con el cosmos, la naturaleza y las deidades, utilizando simbolismos complejos que narran historias sagradas.",
-        legacy: "El legado maya perdura en la actualidad, influenciando el arte contemporáneo y manteniendo viva una tradición milenaria."
-      },
-      en: {
-        significance: "The Maya civilization developed one of the most sophisticated cultures in Mesoamerica, with extraordinary advances in astronomy, mathematics, writing, and art.",
-        artistry: "Their works reflect a deep connection with the cosmos, nature, and deities, using complex symbolisms that tell sacred stories.",
-        legacy: "The Maya legacy endures today, influencing contemporary art and keeping alive a millennial tradition."
-      }
-    },
-    Mexica: {
-      es: {
-        significance: "La cultura mexica representó el apogeo del poder político y artístico en el México prehispánico, creando obras de gran simbolismo religioso y social.",
-        artistry: "Su arte combina elementos naturalistas con abstracciones geométricas, reflejando su compleja cosmovisión y estructura social.",
-        legacy: "Las técnicas y motivos mexicas han influido profundamente en el arte mexicano contemporáneo y en la identidad cultural nacional."
-      },
-      en: {
-        significance: "The Mexica culture represented the pinnacle of political and artistic power in pre-Hispanic Mexico, creating works of great religious and social symbolism.",
-        artistry: "Their art combines naturalistic elements with geometric abstractions, reflecting their complex worldview and social structure.",
-        legacy: "Mexica techniques and motifs have profoundly influenced contemporary Mexican art and national cultural identity."
-      }
-    },
-    Teotihuacán: {
-      es: {
-        significance: "Teotihuacán fue la primera gran metrópolis de América, desarrollando un estilo artístico distintivo que influyó en toda Mesoamérica.",
-        artistry: "Su arte se caracteriza por la monumentalidad, el uso de colores vibrantes y la representación de deidades y símbolos cosmológicos.",
-        legacy: "La influencia teotihuacana se extendió por siglos, estableciendo patrones estéticos que perduran en el arte mesoamericano."
-      },
-      en: {
-        significance: "Teotihuacán was the first great metropolis of America, developing a distinctive artistic style that influenced all of Mesoamerica.",
-        artistry: "Its art is characterized by monumentality, the use of vibrant colors, and the representation of deities and cosmological symbols.",
-        legacy: "Teotihuacán influence extended for centuries, establishing aesthetic patterns that endure in Mesoamerican art."
-      }
-    },
-    Acolhua: {
-      es: {
-        significance: "Los acolhua desarrollaron una rica tradición artística en el Valle de México, conocidos por su refinamiento técnico y innovación estilística.",
-        artistry: "Su arte refleja la influencia de múltiples culturas mesoamericanas, creando un estilo único que combina tradición e innovación.",
-        legacy: "Las técnicas acolhua influyeron en el desarrollo del arte del período posclásico en el centro de México."
-      },
-      en: {
-        significance: "The Acolhua developed a rich artistic tradition in the Valley of Mexico, known for their technical refinement and stylistic innovation.",
-        artistry: "Their art reflects the influence of multiple Mesoamerican cultures, creating a unique style that combines tradition and innovation.",
-        legacy: "Acolhua techniques influenced the development of Postclassic period art in central Mexico."
-      }
-    }
-  };
-
-  return contexts[culture as keyof typeof contexts]?.[lang] || contexts.Maya[lang];
+const cultureKey = artifact.culture === 'Teotihuacán' ? 'Teotihuacan' : artifact.culture;
+const culturalContext = {
+  significance: t(`artifact.culturalContexts.${cultureKey}.significance`),
+  artistry: t(`artifact.culturalContexts.${cultureKey}.artistry`),
+  legacy: t(`artifact.culturalContexts.${cultureKey}.legacy`),
 };
-
-const culturalContext = getCulturalContext(artifact.culture, lang);
 ---
 
 <section class="max-w-4xl mx-auto py-12 lg:py-16" role="region">
@@ -87,10 +36,7 @@ const culturalContext = getCulturalContext(artifact.culture, lang);
     </h2>
     <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-6" aria-hidden="true"></div>
     <p class="text-lg text-base-content/80 max-w-2xl mx-auto leading-relaxed">
-      {lang === 'es' 
-        ? 'Descubre el significado profundo y el contexto histórico de esta extraordinaria pieza arqueológica.'
-        : 'Discover the profound meaning and historical context of this extraordinary archaeological piece.'
-      }
+      {t("artifact.context.subtitle")}
     </p>
   </div>
 
@@ -161,7 +107,7 @@ const culturalContext = getCulturalContext(artifact.culture, lang);
       <div class="bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 border border-accent/20">
         <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
           <Icon name="mdi:timeline" class="w-5 h-5 text-accent" />
-          {lang === 'es' ? 'Legado Cultural' : 'Cultural Legacy'}
+          {t("artifact.context.culturalLegacy")}
         </h4>
         <p class="text-sm text-base-content/80 leading-relaxed">
           {culturalContext.legacy}
@@ -172,20 +118,20 @@ const culturalContext = getCulturalContext(artifact.culture, lang);
       <div class="bg-gradient-to-br from-info/5 to-info/10 rounded-2xl p-6 border border-info/20">
         <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
           <Icon name="mdi:school" class="w-5 h-5 text-info" />
-          {lang === 'es' ? 'Recursos Educativos' : 'Educational Resources'}
+          {t("artifact.context.educationalResources")}
         </h4>
         <div class="space-y-3 text-sm">
           <div class="flex items-center gap-2 text-base-content/80">
             <Icon name="mdi:book" class="w-4 h-4" />
-            <span>{lang === 'es' ? 'Contexto Histórico' : 'Historical Context'}</span>
+            <span>{t("artifact.context.historicalContextResource")}</span>
           </div>
           <div class="flex items-center gap-2 text-base-content/80">
             <Icon name="mdi:map" class="w-4 h-4" />
-            <span>{lang === 'es' ? 'Ubicación Geográfica' : 'Geographic Location'}</span>
+            <span>{t("artifact.context.geographicLocation")}</span>
           </div>
           <div class="flex items-center gap-2 text-base-content/80">
             <Icon name="mdi:account-group" class="w-4 h-4" />
-            <span>{lang === 'es' ? 'Contexto Social' : 'Social Context'}</span>
+            <span>{t("artifact.context.socialContext")}</span>
           </div>
         </div>
       </div>
@@ -195,10 +141,7 @@ const culturalContext = getCulturalContext(artifact.culture, lang);
   <!-- Call to Action -->
   <div class="text-center mt-12 pt-8 border-t border-base-content/10">
     <p class="text-base-content/80 mb-4">
-      {lang === 'es' 
-        ? 'Explora más piezas de esta fascinante cultura mesoamericana'
-        : 'Explore more pieces from this fascinating Mesoamerican culture'
-      }
+      {t("artifact.context.exploreCTA")}
     </p>
     <a 
       href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?culture=${artifact.culture}`}
@@ -219,22 +162,5 @@ const culturalContext = getCulturalContext(artifact.culture, lang);
   
   .prose p {
     margin-bottom: 1.5rem;
-  }
-  
-  /* Smooth transitions */
-  .bg-gradient-to-br:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1023px) {
-    .lg\:col-span-2 {
-      grid-column: span 1;
-    }
-    
-    .lg\:grid-cols-3 {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

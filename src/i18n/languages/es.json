@@ -77,6 +77,7 @@
       "description": "Empleamos tecnologías de vanguardia para crear experiencias museísticas que respetan la sacralidad de cada pieza mientras facilitan el aprendizaje interactivo y la contemplación profunda.",
       "cta": "Experimentar Modelos 3D",
       "learnMoreCTA": "Conocer Nuestra Tecnología",
+      "experienceText": "Experimenta la convergencia entre tecnología moderna y patrimonio ancestral en nuestras experiencias 3D inmersivas.",
       "demo": {
         "title": "Modelo 3D Interactivo",
         "controls": "Rotar • Acercar • Explorar",
@@ -238,7 +239,8 @@
       "dimensions": "Dimensiones",
       "material": "Material",
       "technique": "Técnica",
-      "location": "Ubicación del Museo"
+      "location": "Ubicación del Museo",
+      "archaeologicalNote": "Esta pieza representa la rica tradición artística mesoamericana, reflejando técnicas y simbolismos que han perdurado a través de generaciones."
     },
     "interaction": {
       "instructions": "Usa el ratón para rotar, desplaza para hacer zoom, arrastra para mover",
@@ -265,19 +267,52 @@
     "context": {
       "title": "Contexto Cultural",
       "description": "Descripción de la Pieza",
+      "subtitle": "Descubre el significado profundo y el contexto histórico de esta extraordinaria pieza arqueológica.",
       "historicalSignificance": "Significado Histórico",
       "culturalImportance": "Importancia Cultural",
       "archaeologicalContext": "Contexto Arqueológico",
-      "craftsmanshipDetails": "Detalles de Artesanía"
+      "craftsmanshipDetails": "Detalles de Artesanía",
+      "culturalLegacy": "Legado Cultural",
+      "educationalResources": "Recursos Educativos",
+      "historicalContextResource": "Contexto Histórico",
+      "geographicLocation": "Ubicación Geográfica",
+      "socialContext": "Contexto Social",
+      "exploreCTA": "Explora más piezas de esta fascinante cultura mesoamericana"
+    },
+    "culturalContexts": {
+      "Maya": {
+        "significance": "La civilización maya desarrolló una de las culturas más sofisticadas de Mesoamérica, con avances extraordinarios en astronomía, matemáticas, escritura y arte.",
+        "artistry": "Sus obras reflejan una profunda conexión con el cosmos, la naturaleza y las deidades, utilizando simbolismos complejos que narran historias sagradas.",
+        "legacy": "El legado maya perdura en la actualidad, influenciando el arte contemporáneo y manteniendo viva una tradición milenaria."
+      },
+      "Mexica": {
+        "significance": "La cultura mexica representó el apogeo del poder político y artístico en el México prehispánico, creando obras de gran simbolismo religioso y social.",
+        "artistry": "Su arte combina elementos naturalistas con abstracciones geométricas, reflejando su compleja cosmovisión y estructura social.",
+        "legacy": "Las técnicas y motivos mexicas han influido profundamente en el arte mexicano contemporáneo y en la identidad cultural nacional."
+      },
+      "Teotihuacan": {
+        "significance": "Teotihuacán fue la primera gran metrópolis de América, desarrollando un estilo artístico distintivo que influyó en toda Mesoamérica.",
+        "artistry": "Su arte se caracteriza por la monumentalidad, el uso de colores vibrantes y la representación de deidades y símbolos cosmológicos.",
+        "legacy": "La influencia teotihuacana se extendió por siglos, estableciendo patrones estéticos que perduran en el arte mesoamericano."
+      },
+      "Acolhua": {
+        "significance": "Los acolhua desarrollaron una rica tradición artística en el Valle de México, conocidos por su refinamiento técnico y innovación estilística.",
+        "artistry": "Su arte refleja la influencia de múltiples culturas mesoamericanas, creando un estilo único que combina tradición e innovación.",
+        "legacy": "Las técnicas acolhua influyeron en el desarrollo del arte del período posclásico en el centro de México."
+      }
     },
     "related": {
       "title": "Artefactos Relacionados",
+      "subtitle": "Descubre otras piezas fascinantes que comparten historia y tradición cultural con esta extraordinaria obra.",
       "sameCulture": "Más de {culture}",
       "samePeriod": "Del mismo período",
       "similarType": "Artefactos similares",
       "exploreMore": "Explorar Más",
       "viewAll": "Ver Todo",
-      "noRelated": "No se encontraron artefactos relacionados"
+      "noRelated": "No se encontraron artefactos relacionados",
+      "noRelatedDescription": "No encontramos piezas relacionadas en este momento, pero te invitamos a explorar toda nuestra colección.",
+      "ctaTitle": "Explora toda la colección",
+      "ctaDescription": "Descubre cientos de piezas arqueológicas mesoamericanas con experiencias 3D inmersivas y contexto cultural detallado."
     },
     "navigation": {
       "previous": "Artefacto Anterior",

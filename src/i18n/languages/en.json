@@ -77,6 +77,7 @@
       "description": "We employ cutting-edge technologies to create museum experiences that respect the sacredness of each piece while facilitating interactive learning and deep contemplation.",
       "cta": "Experience 3D Models",
       "learnMoreCTA": "Learn About Our Technology",
+      "experienceText": "Experience the convergence of modern technology and ancestral heritage in our immersive 3D experiences.",
       "demo": {
         "title": "Interactive 3D Model",
         "controls": "Rotate • Zoom • Explore",
@@ -238,7 +239,8 @@
       "dimensions": "Dimensions",
       "material": "Material",
       "technique": "Technique",
-      "location": "Museum Location"
+      "location": "Museum Location",
+      "archaeologicalNote": "This piece represents the rich Mesoamerican artistic tradition, reflecting techniques and symbolisms that have endured through generations."
     },
     "interaction": {
       "instructions": "Use mouse to rotate, scroll to zoom, drag to pan",
@@ -265,19 +267,52 @@
     "context": {
       "title": "Cultural Context",
       "description": "Piece Description",
+      "subtitle": "Discover the profound meaning and historical context of this extraordinary archaeological piece.",
       "historicalSignificance": "Historical Significance",
       "culturalImportance": "Cultural Importance",
       "archaeologicalContext": "Archaeological Context",
-      "craftsmanshipDetails": "Craftsmanship Details"
+      "craftsmanshipDetails": "Craftsmanship Details",
+      "culturalLegacy": "Cultural Legacy",
+      "educationalResources": "Educational Resources",
+      "historicalContextResource": "Historical Context",
+      "geographicLocation": "Geographic Location",
+      "socialContext": "Social Context",
+      "exploreCTA": "Explore more pieces from this fascinating Mesoamerican culture"
+    },
+    "culturalContexts": {
+      "Maya": {
+        "significance": "The Maya civilization developed one of the most sophisticated cultures in Mesoamerica, with extraordinary advances in astronomy, mathematics, writing, and art.",
+        "artistry": "Their works reflect a deep connection with the cosmos, nature, and deities, using complex symbolisms that tell sacred stories.",
+        "legacy": "The Maya legacy endures today, influencing contemporary art and keeping alive a millennial tradition."
+      },
+      "Mexica": {
+        "significance": "The Mexica culture represented the pinnacle of political and artistic power in pre-Hispanic Mexico, creating works of great religious and social symbolism.",
+        "artistry": "Their art combines naturalistic elements with geometric abstractions, reflecting their complex worldview and social structure.",
+        "legacy": "Mexica techniques and motifs have profoundly influenced contemporary Mexican art and national cultural identity."
+      },
+      "Teotihuacan": {
+        "significance": "Teotihuacán was the first great metropolis of America, developing a distinctive artistic style that influenced all of Mesoamerica.",
+        "artistry": "Its art is characterized by monumentality, the use of vibrant colors, and the representation of deities and cosmological symbols.",
+        "legacy": "Teotihuacán influence extended for centuries, establishing aesthetic patterns that endure in Mesoamerican art."
+      },
+      "Acolhua": {
+        "significance": "The Acolhua developed a rich artistic tradition in the Valley of Mexico, known for their technical refinement and stylistic innovation.",
+        "artistry": "Their art reflects the influence of multiple Mesoamerican cultures, creating a unique style that combines tradition and innovation.",
+        "legacy": "Acolhua techniques influenced the development of Postclassic period art in central Mexico."
+      }
     },
     "related": {
       "title": "Related Artifacts",
+      "subtitle": "Discover other fascinating pieces that share history and cultural tradition with this extraordinary work.",
       "sameCulture": "More from {culture}",
       "samePeriod": "From the same period",
       "similarType": "Similar artifacts",
       "exploreMore": "Explore More",
       "viewAll": "View All",
-      "noRelated": "No related artifacts found"
+      "noRelated": "No related artifacts found",
+      "noRelatedDescription": "We didn't find related pieces at this time, but we invite you to explore our complete collection.",
+      "ctaTitle": "Explore the complete collection",
+      "ctaDescription": "Discover hundreds of Mesoamerican archaeological pieces with immersive 3D experiences and detailed cultural context."
     },
     "navigation": {
       "previous": "Previous Artifact",

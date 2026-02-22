@@ -10,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-const { items, lang, t, className = "" } = Astro.props;
+const { items, t, className = "" } = Astro.props;
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -70,16 +70,6 @@ const breadcrumbSchema = {
 </nav>
 
 <style>
-  /* Hide scrollbar for mobile overflow */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
   /* Smooth transitions */
   a {
     transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);

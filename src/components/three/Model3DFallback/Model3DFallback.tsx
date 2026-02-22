@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useRef, useState, useMemo } from 'react';
 import type { Group } from 'three';

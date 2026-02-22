@@ -481,13 +481,9 @@ if (Astro.site) {
     }
   }
 
-  // Initialize when DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    new CollectionManager();
-  });
+  let collectionManagerInstance: CollectionManager | null = null;
 
-  // Re-initialize on Astro page navigation
   document.addEventListener('astro:page-load', () => {
-    new CollectionManager();
+    collectionManagerInstance = new CollectionManager();
   });
 </script>

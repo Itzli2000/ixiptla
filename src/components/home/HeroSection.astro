@@ -154,8 +154,7 @@ const heroImage = getImageByFilename('colibri.png');
 </style>
 
 <script is:inline>
-  // Progressive enhancement for smooth scrolling
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const scrollLinks = document.querySelectorAll('a[href^="#"]');
     
     scrollLinks.forEach(link => {
