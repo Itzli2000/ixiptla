@@ -333,6 +333,30 @@
       "animationError": "Error en la animación 3D"
     }
   },
+  "contact": {
+    "methods": {
+      "title": "Formas de Contacto",
+      "description": "Elige la mejor forma de comunicarte con nosotros según tus necesidades"
+    },
+    "reasons": {
+      "title": "¿Por qué Contactarnos?",
+      "description": "Descubre las diferentes formas en que podemos colaborar contigo"
+    },
+    "about": {
+      "title": "Sobre Ixiptla",
+      "description": "Ixiptla, palabra náhuatl que significa «representación sagrada», es más que un museo virtual. Somos un puente entre el pasado y el presente, utilizando tecnología moderna para preservar y compartir la riqueza cultural de las civilizaciones mesoamericanas."
+    }
+  },
+  "experience": {
+    "modelNotFound": {
+      "title": "Modelo no encontrado - Ixiptla",
+      "message": "El modelo solicitado no está disponible"
+    },
+    "autoRotate": {
+      "stop": "Detener Rotación",
+      "start": "Rotación Automática"
+    }
+  },
   "seo": {
     "site": {
       "name": "Museo Virtual Ixiptla",

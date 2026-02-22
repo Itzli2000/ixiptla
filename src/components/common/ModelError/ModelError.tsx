@@ -43,7 +43,7 @@ export default function ModelError({
     return (
       <div className="flex items-center justify-center p-4 bg-base-300/30 rounded-lg">
         <div className="text-center">
-          <div className="text-warning text-2xl mb-2">⚠</div>
+          <div className="text-warning text-2xl mb-2" aria-hidden="true">⚠</div>
           <p className="text-sm text-base-content/70">{displayMessage}</p>
           {onRetry && (
             <button 
@@ -60,7 +60,7 @@ export default function ModelError({
 
   return (
     <div className="flex flex-col items-center justify-center h-full min-h-[300px] p-8 bg-base-300/20 rounded-xl border border-base-300/50">
-      <div className="text-warning text-5xl mb-4">🔧</div>
+      <div className="text-warning text-5xl mb-4" aria-hidden="true">🔧</div>
       <h3 className="text-lg font-semibold mb-2">{t('errors.model.title')}</h3>
       <p className="text-base-content/70 text-center mb-4 max-w-md">
         {displayMessage}

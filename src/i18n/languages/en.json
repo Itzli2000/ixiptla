@@ -333,6 +333,30 @@
       "animationError": "Error in 3D animation"
     }
   },
+  "contact": {
+    "methods": {
+      "title": "Get in Touch",
+      "description": "Choose the best way to communicate with us according to your needs"
+    },
+    "reasons": {
+      "title": "Why Contact Us?",
+      "description": "Discover the different ways we can collaborate with you"
+    },
+    "about": {
+      "title": "About Ixiptla",
+      "description": "Ixiptla, a Nahuatl word meaning «sacred representation», is more than a virtual museum. We are a bridge between past and present, using modern technology to preserve and share the cultural richness of Mesoamerican civilizations."
+    }
+  },
+  "experience": {
+    "modelNotFound": {
+      "title": "Model not found - Ixiptla",
+      "message": "The requested model is not available"
+    },
+    "autoRotate": {
+      "stop": "Stop Rotation",
+      "start": "Auto Rotate"
+    }
+  },
   "seo": {
     "site": {
       "name": "Ixiptla Virtual Museum",

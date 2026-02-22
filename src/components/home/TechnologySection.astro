@@ -76,7 +76,7 @@ const t = useTranslations(lang);
           <!-- 3D Model Preview (React Island) -->
           <div class="mb-6 aspect-square">
             <Scene3D
-            client:only="react"
+            client:visible
               modelPath="/images/models/colibri.glb"
               lang={lang}
               initialModelScale={[3, 3, 3]}

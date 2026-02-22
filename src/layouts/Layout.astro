@@ -56,7 +56,7 @@ const structuredData: Record<string, unknown> = {
       "inLanguage": lang,
       "potentialAction": {
         "@type": "SearchAction",
-        "target": `${Astro.site}${lang}/coleccion?search={search_term_string}`,
+        "target": `${Astro.site}${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?search={search_term_string}`,
         "query-input": "required name=search_term_string"
       }
     },
@@ -175,14 +175,6 @@ if (currentArtifact) {
 		<meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
 		<meta name="twitter:image:alt" content={currentArtifact ? `${currentArtifact.title} - ${currentArtifact.culture}` : seoData.siteName} />
 
-		<!-- Additional SEO Meta Tags -->
-		<meta name="revisit-after" content="7 days" />
-		<meta name="rating" content="general" />
-		<meta name="distribution" content="global" />
-		<meta name="coverage" content="worldwide" />
-		<meta name="target" content="all" />
-		<meta name="audience" content="all" />
-		
 		<!-- Cultural/Museum specific meta tags -->
 		<meta name="DC.type" content="Collection" />
 		<meta name="DC.format" content="text/html" />

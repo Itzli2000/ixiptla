@@ -150,7 +150,12 @@ export function Scene3D({
           }}
           performance={{ min: isMobile ? 0.5 : 0.75 }}
         >
-          <Suspense fallback={null}>
+          <Suspense fallback={
+            <mesh>
+              <boxGeometry args={[0.5, 0.5, 0.5]} />
+              <meshStandardMaterial wireframe color="#4299e1" transparent opacity={0.4} />
+            </mesh>
+          }>
             <ambientLight intensity={1} />
             <hemisphereLight
               intensity={0.7}

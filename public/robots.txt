@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://ixiptla.com/sitemap-index.xml

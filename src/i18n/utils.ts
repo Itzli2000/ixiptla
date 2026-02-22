@@ -34,12 +34,6 @@ export function useTranslations(lang: Language): TranslationFunction {
   };
 }
 
-export function detectBrowserLanguage(): Language {
-  if (typeof window === 'undefined') return defaultLang;
-  const browserLang = navigator.language?.split('-')[0] || '';
-  return supportedLangs.includes(browserLang as Language) ? browserLang as Language : defaultLang;
-}
-
 export function redirectToLanguagePath(path: string, lang: string): string {
   const pathWithoutLang = path.replace(/^\/(en|es)/, '');
   return `/${lang}${pathWithoutLang}`;

@@ -1,46 +1,6 @@
 import type { FeaturedArtifact, CultureInfo } from '../types/home';
 
 /**
- * Get featured artifacts from collection data
- */
-export async function getFeaturedArtifacts(lang: 'en' | 'es'): Promise<FeaturedArtifact[]> {
-  // This would integrate with the existing content collections
-  // For now, return mock data that matches the structure
-  return [
-    {
-      id: 'maya-vessel-1',
-      title: 'Ceremonial Maya Vessel',
-      culture: 'Maya',
-      period: 'Classic Period',
-      image: '/images/artifacts/maya-vessel.jpg',
-      description: 'Intricately painted ceremonial vessel with traditional Maya iconography',
-      has3DModel: true,
-      slug: 'maya-ceremonial-vessel'
-    },
-    {
-      id: 'mexica-sculpture-1',
-      title: 'Mexica Stone Sculpture',
-      culture: 'Mexica',
-      period: 'Postclassic Period',
-      image: '/images/artifacts/mexica-sculpture.jpg',
-      description: 'Carved stone figure representing deity from Mexica pantheon',
-      has3DModel: true,
-      slug: 'mexica-stone-sculpture'
-    },
-    {
-      id: 'teotihuacan-mask-1',
-      title: 'Teotihuacan Jade Mask',
-      culture: 'Teotihuacan',
-      period: 'Classic Period',
-      image: '/images/artifacts/teotihuacan-mask.jpg',
-      description: 'Ceremonial jade mask with intricate mosaic work',
-      has3DModel: false,
-      slug: 'teotihuacan-jade-mask'
-    }
-  ];
-}
-
-/**
  * Filter cultures by availability
  */
 export function getAvailableCultures(cultures: CultureInfo[]): CultureInfo[] {

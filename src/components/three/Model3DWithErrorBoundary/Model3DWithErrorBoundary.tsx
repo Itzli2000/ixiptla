@@ -1,4 +1,5 @@
 import React, { Component, type ReactNode } from 'react';
+import { Html } from '@react-three/drei';
 import { Model3D } from '../Model3D/Model3D';
 import { Model3DFallback } from '../Model3DFallback/Model3DFallback';
 import ModelError from '../../common/ModelError/ModelError';
@@ -76,15 +77,20 @@ export default class Model3DWithErrorBoundary extends Component<Props, State> {
       // Show error after max retries
       return (
         <group>
-          <Model3DFallback 
+          <Model3DFallback
             scale={this.props.scale}
             position={this.props.position}
           />
-          {/* Invisible error handler for potential 2D overlay */}
-          <mesh visible={false}>
-            <boxGeometry args={[0.1, 0.1, 0.1]} />
-            <meshBasicMaterial transparent opacity={0} />
-          </mesh>
+          <Html center>
+            <div role="alert">
+              <ModelError
+                onRetry={this.handleManualRetry}
+                lang={this.props.lang}
+                errorType="loadError"
+                variant="compact"
+              />
+            </div>
+          </Html>
         </group>
       );
     }

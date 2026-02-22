@@ -14,7 +14,7 @@ const { title, subtitle, description, lang } = Astro.props;
 const t = useTranslations(lang);
 
 const breadcrumbItems: BreadcrumbItem[] = [
-  { label: t("navigation.home"), href: lang === 'en' ? '/en' : '/' },
+  { label: t("navigation.home"), href: `/${lang}` },
   { label: t("navigation.contact"), current: true, ariaCurrent: "page" }
 ];
 ---

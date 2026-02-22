@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
-import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 
 import sitemap from "@astrojs/sitemap";
@@ -18,7 +17,6 @@ export default defineConfig({
       iconDir: "src/assets/icons",
     }),
     react(),
-    mdx(),
     sitemap(),
   ],
   output: "static",

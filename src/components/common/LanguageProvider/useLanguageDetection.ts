@@ -2,8 +2,16 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from './LanguageProvider';
 import type { Language } from '../../../types';
 
+function getInitialLang(propLang?: Language): Language {
+  if (propLang) return propLang;
+  if (typeof window !== 'undefined') {
+    if (window.location.pathname.startsWith('/en')) return 'en';
+  }
+  return 'es';
+}
+
 export function useLanguageDetection(propLang?: Language): Language {
-  const [detectedLang, setDetectedLang] = useState<Language>('es');
+  const [detectedLang, setDetectedLang] = useState<Language>(() => getInitialLang(propLang));
   
   // Always call useLanguage hook (no conditional calls)
   const languageContext = useLanguage();

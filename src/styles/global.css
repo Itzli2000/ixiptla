@@ -90,11 +90,13 @@
   --theme-transition-timing: ease-in-out;
 }
 
-:root {
-  * {
-    transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
-                border-color var(--theme-transition-duration) var(--theme-transition-timing),
-                box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    * {
+      transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
+                  border-color var(--theme-transition-duration) var(--theme-transition-timing),
+                  box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
+    }
   }
 }
 

@@ -15,8 +15,7 @@ const lang = getLangFromUrl(Astro.url) as Language;
 
 const image = getImageByFilename(artifact.image);
 
-// Generate descriptive alt text
-const altText = `${artifact.title || artifact.name} - ${artifact.culture} ${artifact.period ? `del ${artifact.period}` : ''} ${artifact.material ? `en ${artifact.material}` : ''}`.trim();
+const altText = `${artifact.title} - ${artifact.culture}, ${artifact.period ?? ''}${artifact.material ? ` (${artifact.material})` : ''}`.trim();
 ---
 
 <a
