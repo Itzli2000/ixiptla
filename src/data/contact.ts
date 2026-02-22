@@ -1,4 +1,9 @@
 import type { ContactPageData } from '../types/contact';
+import type { Language } from '../types';
+
+export function getContactData(lang: Language): ContactPageData {
+  return lang === 'es' ? contactDataEs : contactDataEn;
+}
 
 export const contactDataEs: ContactPageData = {
   hero: {

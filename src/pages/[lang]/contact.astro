@@ -1,14 +1,19 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ContactHeader from '../../components/contact/ContactHeader.astro';
-import ContactCard from '../../components/contact/ContactCard.astro';
-import ContactReasonCard from '../../components/contact/ContactReasonCard.astro';
-import { contactDataEs } from '../../data/contact';
-import { useTranslations } from '../../i18n/utils';
+import Layout from "../../layouts/Layout.astro";
+import ContactHeader from "../../components/contact/ContactHeader.astro";
+import ContactCard from "../../components/contact/ContactCard.astro";
+import ContactReasonCard from "../../components/contact/ContactReasonCard.astro";
+import { getContactData } from "../../data/contact";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import type { Language } from "../../types";
 
-const lang = 'es' as const;
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+}
+
+const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
-const { hero, contactInfo } = contactDataEs;
+const { hero, contactInfo } = getContactData(lang);
 ---
 
 <Layout title={hero.title} description={hero.description} lang={lang}>
@@ -36,10 +41,10 @@ const { hero, contactInfo } = contactDataEs;
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-12">
             <h2 class="text-3xl font-light text-base-content mb-4 font-serif">
-              {t('contact.methods.title')}
+              {t("contact.methods.title")}
             </h2>
             <p class="text-base-content/60 max-w-2xl mx-auto">
-              {t('contact.methods.description')}
+              {t("contact.methods.description")}
             </p>
           </div>
 
@@ -55,10 +60,10 @@ const { hero, contactInfo } = contactDataEs;
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-12">
             <h2 class="text-3xl font-light text-base-content mb-4 font-serif">
-              {t('contact.reasons.title')}
+              {t("contact.reasons.title")}
             </h2>
             <p class="text-base-content/60 max-w-2xl mx-auto">
-              {t('contact.reasons.description')}
+              {t("contact.reasons.description")}
             </p>
           </div>
 
@@ -74,17 +79,17 @@ const { hero, contactInfo } = contactDataEs;
         <div class="card bg-gradient-to-r from-primary/5 to-accent/5 shadow-lg">
           <div class="card-body p-8 text-center">
             <h3 class="text-2xl font-light text-base-content mb-4 font-serif">
-              {t('contact.about.title')}
+              {t("contact.about.title")}
             </h3>
             <p class="text-base-content/70 leading-relaxed mb-6">
-              {t('contact.about.description')}
+              {t("contact.about.description")}
             </p>
             <div class="flex flex-wrap justify-center gap-4">
               <span class="badge badge-primary badge-lg">Maya</span>
               <span class="badge badge-secondary badge-lg">Mexica</span>
               <span class="badge badge-accent badge-lg">Acolhua</span>
               <span class="badge badge-primary badge-lg">Mixteca</span>
-              <span class="badge badge-secondary badge-lg">Teotihuacán</span>
+              <span class="badge badge-secondary badge-lg">Teotihuacan</span>
             </div>
           </div>
         </div>
@@ -94,10 +99,6 @@ const { hero, contactInfo } = contactDataEs;
 </Layout>
 
 <style>
-  .font-serif {
-    font-family: 'Playfair Display', serif;
-  }
-
   h2 {
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     line-height: 1.2;

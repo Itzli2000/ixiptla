@@ -11,8 +11,7 @@ export function getAvailableCultures(cultures: CultureInfo[]): CultureInfo[] {
  * Get culture link based on language
  */
 export function getCultureLink(culture: CultureInfo, lang: 'en' | 'es'): string {
-  const basePath = lang === 'es' ? '/es/coleccion' : '/en/collection';
-  return `${basePath}?culture=${culture.slug}`;
+  return `/${lang}/collection?culture=${culture.slug}`;
 }
 
 /**
@@ -58,7 +57,7 @@ export function generateArtifactStructuredData(artifacts: FeaturedArtifact[], la
       },
       dateCreated: artifact.period,
       image: artifact.image,
-      url: `/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}/${artifact.slug}`
+      url: `/${lang}/collection/${artifact.slug}`
     }))
   };
 }

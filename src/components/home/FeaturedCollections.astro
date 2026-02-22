@@ -120,7 +120,7 @@ const availableCultures = getCulturesWithArtifacts();
     <!-- View All CTA -->
     <div class="text-center">
       <a 
-        href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+        href={`/${lang}/collection`}
         class="btn btn-primary btn-lg text-primary-content hover:btn-primary-focus transition-all duration-300 group"
         aria-label={t('home.featuredCollections.viewAllCTA')}
       >
@@ -257,7 +257,8 @@ const availableCultures = getCulturesWithArtifacts();
           document.getElementById('modal-period').textContent = culture.period;
           
           const exploreLink = document.getElementById('modal-explore-link');
-          exploreLink.href = `/${window.location.pathname.includes('/en/') ? 'en' : 'es'}/${window.location.pathname.includes('/en/') ? 'collection' : 'coleccion'}?culture=${cultureId}`;
+          const pathLang = window.location.pathname.split('/')[1] || 'es';
+          exploreLink.href = `/${pathLang}/collection?culture=${cultureId}`;
           
           modal.showModal();
         }

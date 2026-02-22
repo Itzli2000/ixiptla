@@ -10,10 +10,17 @@ import {
 import type { Language } from "../../../types";
 import { Icon } from "astro-icon/components";
 
-export async function getStaticPaths() {
-  return AVAILABLE_MODELS.map((model) => ({
-    params: { model },
-  }));
+export function getStaticPaths() {
+  const languages: Language[] = ["en", "es"];
+  const paths = [];
+
+  for (const lang of languages) {
+    for (const model of AVAILABLE_MODELS) {
+      paths.push({ params: { lang, model } });
+    }
+  }
+
+  return paths;
 }
 
 const lang = getLangFromUrl(Astro.url) as Language;
@@ -25,8 +32,8 @@ const info = model ? getModelInfo(model, lang) : null;
 ---
 
 <ExperienceLayout
-  title={info?.title[lang] ?? t('experience.modelNotFound.title')}
-  description={info?.description[lang] ?? t('experience.modelNotFound.message')}
+  title={info?.title[lang] ?? t("experience.modelNotFound.title")}
+  description={info?.description[lang] ?? t("experience.modelNotFound.message")}
   lang={lang}
 >
   <div
@@ -63,7 +70,9 @@ const info = model ? getModelInfo(model, lang) : null;
           <Scene3D client:only="react" modelPath={modelPath} lang={lang} />
         ) : (
           <div class="w-full h-full flex items-center justify-center">
-            <p class="text-xl text-base-content">{t('experience.modelNotFound.message')}</p>
+            <p class="text-xl text-base-content">
+              {t("experience.modelNotFound.message")}
+            </p>
           </div>
         )
       }
@@ -93,7 +102,6 @@ const info = model ? getModelInfo(model, lang) : null;
 
     if (resetButton) {
       resetButton.addEventListener("click", () => {
-        // Reset camera position
         const event = new CustomEvent("reset-camera");
         window.dispatchEvent(event);
       });
@@ -107,8 +115,8 @@ const info = model ? getModelInfo(model, lang) : null;
         });
         window.dispatchEvent(event);
         autoRotateButton.textContent = isAutoRotating
-          ? (autoRotateButton.dataset.labelActive || "Detener Rotación")
-          : (autoRotateButton.dataset.labelInactive || "Rotación Automática");
+          ? (autoRotateButton.dataset.labelActive || "Stop Rotation")
+          : (autoRotateButton.dataset.labelInactive || "Auto Rotate");
       });
     }
   });

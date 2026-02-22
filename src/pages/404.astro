@@ -6,10 +6,8 @@ import type { Language } from '../types';
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
-const isPieceRelated = Astro.url.pathname.includes('/coleccion/') || Astro.url.pathname.includes('/collection/');
+const isPieceRelated = Astro.url.pathname.includes('/collection/');
 const type = isPieceRelated ? 'piece' : 'generic';
-
-const collectionPath = lang === 'es' ? 'coleccion' : 'collection';
 ---
 
 <Layout title={t('404.title')} description={t('404.description')} lang={lang}>
@@ -26,7 +24,7 @@ const collectionPath = lang === 'es' ? 'coleccion' : 'collection';
         <a href={`/${lang}`} class="btn btn-primary">
           {t(`404.${type}.cta.primary`)}
         </a>
-        <a href={`/${lang}/${collectionPath}`} class="btn btn-secondary">
+        <a href={`/${lang}/collection`} class="btn btn-secondary">
           {t(`404.${type}.cta.secondary`)}
         </a>
       </div>

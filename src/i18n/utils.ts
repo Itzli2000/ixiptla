@@ -4,6 +4,9 @@ import en from "./languages/en.json";
 export type { Language } from '../types';
 import type { Language } from '../types';
 
+export { getLocalizedUrl, getAlternateUrls, translateUrl } from './routes';
+export { getCollectionName } from './collections';
+
 export type TranslationValue = string | Record<string, unknown>;
 export type TranslationFunction = (key: string) => string;
 
@@ -26,15 +29,10 @@ export function useTranslations(lang: Language): TranslationFunction {
       if (typeof value === 'object' && value !== null && k in value) {
         value = (value as Record<string, unknown>)[k] as TranslationValue;
       } else {
-        return key; // Return key if path doesn't exist
+        return key;
       }
     }
 
     return typeof value === 'string' ? value : key;
   };
-}
-
-export function redirectToLanguagePath(path: string, lang: string): string {
-  const pathWithoutLang = path.replace(/^\/(en|es)/, '');
-  return `/${lang}${pathWithoutLang}`;
 }

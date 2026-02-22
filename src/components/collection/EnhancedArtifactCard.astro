@@ -22,7 +22,7 @@ const image = getImageByFilename(artifact.image);
 const altText = `${artifact.title} - ${artifact.culture} ${artifact.period ? `del ${artifact.period}` : ''} ${artifact.material ? `en ${artifact.material}` : ''}`.trim();
 
 // Determine card link
-const cardLink = `/${lang}/${lang === "es" ? "coleccion" : "collection"}/${artifact.slug}`;
+const cardLink = `/${lang}/collection/${artifact.slug}`;
 
 // Check if artifact has 3D model
 const has3D = Boolean(artifact.has3DModel);
