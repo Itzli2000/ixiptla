@@ -19,7 +19,7 @@ interface Props {
 const { artifact, lang, t } = Astro.props;
 ---
 
-<section class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-3xl p-8 lg:p-12 shadow-xl border border-base-200/50" role="complementary">
+<section class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-3xl p-8 lg:p-12 shadow-xl border border-base-200/50">
   <!-- Section Header -->
   <div class="mb-8">
     <h2 
@@ -41,7 +41,7 @@ const { artifact, lang, t } = Astro.props;
         {t("artifact.context.culturalImportance")}
       </h3>
       
-      <div class="space-y-4">
+      <dl class="space-y-4">
         <!-- Culture -->
         <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-white/20">
           <dt class="text-sm font-medium text-base-content/70 uppercase tracking-wider mb-2">
@@ -75,7 +75,7 @@ const { artifact, lang, t } = Astro.props;
             {artifact.location}
           </dd>
         </div>
-      </div>
+      </dl>
     </div>
 
     <!-- Technical Information -->
@@ -85,7 +85,7 @@ const { artifact, lang, t } = Astro.props;
         {t("artifact.context.craftsmanshipDetails")}
       </h3>
       
-      <div class="space-y-4">
+      <dl class="space-y-4">
         <!-- Dimensions -->
         {artifact.dimensions && (
           <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-white/20">
@@ -134,7 +134,7 @@ const { artifact, lang, t } = Astro.props;
             </p>
           </div>
         )}
-      </div>
+      </dl>
     </div>
   </div>
 
@@ -146,47 +146,15 @@ const { artifact, lang, t } = Astro.props;
         {t("artifact.context.archaeologicalContext")}
       </h3>
       <p class="text-base-content/80 leading-relaxed">
-        {lang === 'es' 
-          ? 'Esta pieza representa la rica tradición artística mesoamericana, reflejando técnicas y simbolismos que han perdurado a través de generaciones.'
-          : 'This piece represents the rich Mesoamerican artistic tradition, reflecting techniques and symbolisms that have endured through generations.'
-        }
+        {t("artifact.metadata.archaeologicalNote")}
       </p>
     </div>
   </div>
 </section>
 
 <style>
-  /* Custom styling for metadata cards */
-  .bg-white\/50 {
-    backdrop-filter: blur(10px);
-  }
-  
-  /* Smooth transitions */
   .bg-white\/50:hover {
-    background-color: rgba(255, 255, 255, 0.7);
     transform: translateY(-2px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Typography scaling */
-  dt {
-    font-size: 0.875rem;
-    line-height: 1.4;
-  }
-  
-  dd {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1023px) {
-    .lg\:grid-cols-2 {
-      grid-template-columns: 1fr;
-    }
-    
-    .lg\:p-12 {
-      padding: 2rem;
-    }
   }
 </style>

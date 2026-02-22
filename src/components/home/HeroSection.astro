@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import { useTranslations } from '../../i18n/utils';
 import es from '../../i18n/languages/es.json';
@@ -22,16 +23,15 @@ const heroImage = getImageByFilename('colibri.png');
 >
   <!-- Hero Background Image -->
   <div class="absolute inset-0 z-0 flex justify-center items-center">
-    <picture>
-      <img 
-        src={heroImage.src}
-        alt={t('home.hero.imageAlt')}
-        class="object-center opacity-10"
-        loading="eager"
-        decoding="async"
-        width="800"
-      >
-    </picture>
+    <Image
+      src={heroImage}
+      alt={t('home.hero.imageAlt')}
+      class="object-center opacity-10"
+      loading="eager"
+      fetchpriority="high"
+      width={800}
+      height={800}
+    />
     <div class="absolute inset-0 bg-gradient-to-b from-transparent via-base-100/50 to-base-100/80"></div>
   </div>
 
@@ -154,8 +154,7 @@ const heroImage = getImageByFilename('colibri.png');
 </style>
 
 <script is:inline>
-  // Progressive enhancement for smooth scrolling
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const scrollLinks = document.querySelectorAll('a[href^="#"]');
     
     scrollLinks.forEach(link => {

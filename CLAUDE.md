@@ -41,7 +41,7 @@ This is an **Astro.js** static site generator project showcasing Mesoamerican ar
 - **3D Models**: Located in `public/images/models/` (.glb format)
 - **Scene3D Component**: Main 3D rendering component at `src/components/three/Scene3D/Scene3D.tsx`
 - **Model3D Component**: Individual model loader at `src/components/three/Model3D/Model3D.tsx`
-- **Hero3DInteractive**: Scroll-animated 3D experience in `src/components/features/Hero3DInteractive/`
+- **Model3DWithErrorBoundary**: Error-resilient model wrapper with auto-retry at `src/components/three/Model3DWithErrorBoundary/`
 
 #### Routing & Pages
 - **File-based Routing**: Pages in `src/pages/` with language prefixes (`/en/`, `/es/`)
@@ -50,7 +50,7 @@ This is an **Astro.js** static site generator project showcasing Mesoamerican ar
 
 #### Component Architecture
 - **Astro Components**: Server-rendered layouts and static content
-- **React Islands**: Interactive components marked with `client:only="react"`
+- **React Islands**: Interactive components using `client:only="react"` or `client:visible` directives
 - **Layout System**: Base layouts in `src/layouts/` for consistent page structure
 
 ### Development Notes

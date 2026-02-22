@@ -25,9 +25,8 @@ const info = model ? getModelInfo(model, lang) : null;
 ---
 
 <ExperienceLayout
-  title={info?.title[lang] ?? "Modelo no encontrado - Ixiptla"}
-  description={info?.description[lang] ??
-    "El modelo solicitado no está disponible"}
+  title={info?.title[lang] ?? t('experience.modelNotFound.title')}
+  description={info?.description[lang] ?? t('experience.modelNotFound.message')}
   lang={lang}
 >
   <div
@@ -51,6 +50,8 @@ const info = model ? getModelInfo(model, lang) : null;
       <button
         id="toggleAutoRotate"
         class="btn btn-ghost btn-sm backdrop-blur-md"
+        data-label-active={t("experience.autoRotate.stop")}
+        data-label-inactive={t("experience.autoRotate.start")}
       >
         {t("artifact.autoRotate")}
       </button>
@@ -62,7 +63,7 @@ const info = model ? getModelInfo(model, lang) : null;
           <Scene3D client:only="react" modelPath={modelPath} lang={lang} />
         ) : (
           <div class="w-full h-full flex items-center justify-center">
-            <p class="text-xl text-base-content">Modelo no encontrado</p>
+            <p class="text-xl text-base-content">{t('experience.modelNotFound.message')}</p>
           </div>
         )
       }
@@ -106,8 +107,8 @@ const info = model ? getModelInfo(model, lang) : null;
         });
         window.dispatchEvent(event);
         autoRotateButton.textContent = isAutoRotating
-          ? "Detener Rotación"
-          : "Rotación Automática";
+          ? (autoRotateButton.dataset.labelActive || "Detener Rotación")
+          : (autoRotateButton.dataset.labelInactive || "Rotación Automática");
       });
     }
   });

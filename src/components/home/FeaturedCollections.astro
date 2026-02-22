@@ -133,7 +133,7 @@ const availableCultures = getCulturesWithArtifacts();
   </div>
 
   <!-- Culture Info Modal -->
-  <div id="culture-modal" class="modal">
+  <div id="culture-modal" class="modal" role="dialog" aria-labelledby="modal-title">
     <div class="modal-box max-w-2xl">
       <h3 id="modal-title" class="font-bold text-2xl mb-4"></h3>
       <div id="modal-content" class="space-y-4">
@@ -209,8 +209,7 @@ const availableCultures = getCulturesWithArtifacts();
 </style>
 
 <script is:inline>
-  // Culture info modal functionality
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const modal = document.getElementById('culture-modal');
     const cultureData = {
       'maya': {

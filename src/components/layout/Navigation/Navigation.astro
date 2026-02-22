@@ -17,7 +17,6 @@ const routes = {
 
 <nav
   class="bg-base-100 shadow-md fixed top-0 left-0 right-0 w-full z-50 px-4"
-  role="navigation"
   aria-label="Main navigation"
 >
   <div class="max-w-7xl mx-auto">
@@ -36,13 +35,11 @@ const routes = {
       <div class="hidden md:block">
         <div
           class="ml-10 flex items-center space-x-4"
-          role="menubar"
-          aria-label="Main menu"
         >
           <a
             href={routes.home}
             class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-            role="menuitem"
+
             aria-current={Astro.url.pathname === routes.home
               ? "page"
               : undefined}
@@ -52,7 +49,7 @@ const routes = {
           <a
             href={routes.collection}
             class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-            role="menuitem"
+
             aria-current={Astro.url.pathname === routes.collection
               ? "page"
               : undefined}
@@ -62,7 +59,7 @@ const routes = {
           <a
             href={routes.contact}
             class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-            role="menuitem"
+
             aria-current={Astro.url.pathname === routes.contact
               ? "page"
               : undefined}
@@ -92,14 +89,13 @@ const routes = {
     <div
       class="hidden md:hidden mobile-menu"
       id="mobile-menu"
-      role="menu"
       aria-label="Mobile menu"
     >
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a
           href={routes.home}
           class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-          role="menuitem"
+
           aria-current={Astro.url.pathname === routes.home ? "page" : undefined}
         >
           {t("navigation.home")}
@@ -107,7 +103,7 @@ const routes = {
         <a
           href={routes.collection}
           class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-          role="menuitem"
+
           aria-current={Astro.url.pathname === routes.collection
             ? "page"
             : undefined}
@@ -117,7 +113,7 @@ const routes = {
         <a
           href={routes.contact}
           class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-          role="menuitem"
+
           aria-current={Astro.url.pathname === routes.contact
             ? "page"
             : undefined}
@@ -139,7 +135,7 @@ const routes = {
         const isExpanded = mobileMenu.classList.toggle("hidden");
         mobileMenu.classList.toggle("open");
 
-        // Actualizar aria-expanded
+        // Update aria-expanded
         mobileMenuButton.setAttribute(
           "aria-expanded",
           (!isExpanded).toString()
@@ -155,7 +151,7 @@ const routes = {
         });
       });
 
-      // Cerrar menú al hacer clic fuera
+      // Close menu on outside click
       document.addEventListener("click", (event) => {
         if (
           !mobileMenuButton.contains(event.target as Node) &&
@@ -168,7 +164,7 @@ const routes = {
         }
       });
 
-      // Cerrar menú con la tecla Escape
+      // Close menu on Escape key
       document.addEventListener("keydown", (event) => {
         if (
           event.key === "Escape" &&
@@ -191,16 +187,6 @@ const routes = {
 
   .mobile-menu.open {
     max-height: 300px;
-  }
-
-  :global(body) {
-    padding-top: 4rem;
-  }
-
-  :global(a:focus-visible),
-  :global(button:focus-visible) {
-    outline: 2px solid hsl(var(--color-primary));
-    outline-offset: 2px;
   }
 </style>
 

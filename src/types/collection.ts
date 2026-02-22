@@ -12,17 +12,4 @@ export interface CollectionFilters {
   materials: string[];
 }
 
-export interface ArtifactData {
-  title: string;
-  culture: string;
-  period: string;
-  image: string;
-  description: string;
-  museum: string;
-  location: string;
-  dimensions?: string;
-  material?: string;
-  technique?: string;
-  has3DModel?: boolean;
-  slug: string;
-}
+export type { BaseArtifact as ArtifactData } from './artifact';

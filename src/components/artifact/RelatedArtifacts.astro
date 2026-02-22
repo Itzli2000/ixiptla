@@ -48,10 +48,7 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
         </h2>
         <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-6" aria-hidden="true"></div>
         <p class="text-lg text-base-content/80 max-w-2xl mx-auto leading-relaxed">
-          {lang === 'es' 
-            ? 'Descubre otras piezas fascinantes que comparten historia y tradición cultural con esta extraordinaria obra.'
-            : 'Discover other fascinating pieces that share history and cultural tradition with this extraordinary work.'
-          }
+          {t("artifact.related.subtitle")}
         </p>
       </div>
 
@@ -117,22 +114,6 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
           <h3 class="text-xl font-semibold text-base-content">
             {t("artifact.related.exploreMore")}
           </h3>
-          <div class="gap-2 hidden"> <!-- TODO: Add carousel buttons functionality and replace hidden with flex-->
-            <button 
-              id="carousel-prev"
-              class="p-2 rounded-full bg-base-200 hover:bg-base-300 transition-colors"
-              aria-label={t("artifact.previousRelated")}
-            >
-              <Icon name="mdi:chevron-left" class="w-5 h-5" />
-            </button>
-            <button 
-              id="carousel-next"
-              class="p-2 rounded-full bg-base-200 hover:bg-base-300 transition-colors"
-              aria-label={t("artifact.nextRelated")}
-            >
-              <Icon name="mdi:chevron-right" class="w-5 h-5" />
-            </button>
-          </div>
         </div>
         
         <div class="overflow-x-auto scrollbar-hide">
@@ -150,16 +131,10 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
       <div class="text-center mt-12 pt-8 border-t border-base-content/10">
         <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-8 max-w-4xl mx-auto">
           <h3 class="text-2xl font-semibold text-base-content mb-4">
-            {lang === 'es' 
-              ? 'Explora toda la colección' 
-              : 'Explore the complete collection'
-            }
+            {t("artifact.related.ctaTitle")}
           </h3>
           <p class="text-base-content/80 mb-6 max-w-2xl mx-auto">
-            {lang === 'es' 
-              ? 'Descubre cientos de piezas arqueológicas mesoamericanas con experiencias 3D inmersivas y contexto cultural detallado.'
-              : 'Discover hundreds of Mesoamerican archaeological pieces with immersive 3D experiences and detailed cultural context.'
-            }
+            {t("artifact.related.ctaDescription")}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
@@ -192,10 +167,7 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
           {t("artifact.related.noRelated")}
         </h2>
         <p class="text-base-content/80 mb-8 max-w-2xl mx-auto">
-          {lang === 'es' 
-            ? 'No encontramos piezas relacionadas en este momento, pero te invitamos a explorar toda nuestra colección.'
-            : 'We didn\'t find related pieces at this time, but we invite you to explore our complete collection.'
-          }
+          {t("artifact.related.noRelatedDescription")}
         </p>
         <a 
           href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
@@ -209,89 +181,4 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
   </section>
 )}
 
-<script>
-  // Mobile carousel functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const carouselContainer = document.getElementById('carousel-container');
-    const prevButton = document.getElementById('carousel-prev') as HTMLButtonElement | null;
-    const nextButton = document.getElementById('carousel-next') as HTMLButtonElement | null;
-    
-    if (carouselContainer && prevButton && nextButton) {
-      const cardWidth = 288; // 72 * 4 (w-72 in pixels)
-      const gap = 16; // gap-4 in pixels
-      const scrollAmount = cardWidth + gap;
-      
-      let currentScroll = 0;
-      const maxScroll = carouselContainer.scrollWidth - carouselContainer.clientWidth;
-      
-      const updateButtons = () => {
-        prevButton.disabled = currentScroll <= 0;
-        nextButton.disabled = currentScroll >= maxScroll;
-        
-        prevButton.style.opacity = currentScroll <= 0 ? '0.5' : '1';
-        nextButton.style.opacity = currentScroll >= maxScroll ? '0.5' : '1';
-      };
-      
-      prevButton.addEventListener('click', () => {
-        currentScroll = Math.max(0, currentScroll - scrollAmount);
-        carouselContainer.scrollTo({
-          left: currentScroll,
-          behavior: 'smooth'
-        });
-        updateButtons();
-      });
-      
-      nextButton.addEventListener('click', () => {
-        currentScroll = Math.min(maxScroll, currentScroll + scrollAmount);
-        carouselContainer.scrollTo({
-          left: currentScroll,
-          behavior: 'smooth'
-        });
-        updateButtons();
-      });
-      
-      // Update button states on scroll
-      carouselContainer.addEventListener('scroll', () => {
-        currentScroll = carouselContainer.scrollLeft;
-        updateButtons();
-      });
-      
-      // Initial button state
-      updateButtons();
-    }
-  });
-</script>
 
-<style>
-  /* Hide scrollbar for carousel */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Smooth hover animations */
-  .transform {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Responsive grid adjustments */
-  @media (max-width: 767px) {
-    .md\:grid-cols-2 {
-      grid-template-columns: 1fr;
-    }
-    
-    .lg\:grid-cols-3 {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .lg\:grid-cols-3 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-</style>

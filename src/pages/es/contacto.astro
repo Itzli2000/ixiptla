@@ -4,23 +4,23 @@ import ContactHeader from '../../components/contact/ContactHeader.astro';
 import ContactCard from '../../components/contact/ContactCard.astro';
 import ContactReasonCard from '../../components/contact/ContactReasonCard.astro';
 import { contactDataEs } from '../../data/contact';
+import { useTranslations } from '../../i18n/utils';
 
+const lang = 'es' as const;
+const t = useTranslations(lang);
 const { hero, contactInfo } = contactDataEs;
 ---
 
-<Layout title={hero.title} description={hero.description} lang="es">
+<Layout title={hero.title} description={hero.description} lang={lang}>
   <main class="min-h-screen bg-base-100">
-    <!-- Hero Section -->
-    <ContactHeader 
+    <ContactHeader
       title={hero.title}
       subtitle={hero.subtitle}
       description={hero.description}
-      lang="es"
+      lang={lang}
     />
 
-    <!-- Main Content -->
     <div class="container mx-auto px-4 pb-16">
-      <!-- Introduction Section -->
       <section class="my-16">
         <div class="max-w-4xl mx-auto text-center">
           <h2 class="text-3xl lg:text-4xl font-light text-base-content mb-6 font-serif">
@@ -32,18 +32,17 @@ const { hero, contactInfo } = contactDataEs;
         </div>
       </section>
 
-      <!-- Contact Methods Section -->
       <section class="mb-16">
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-12">
             <h2 class="text-3xl font-light text-base-content mb-4 font-serif">
-              Formas de Contacto
+              {t('contact.methods.title')}
             </h2>
             <p class="text-base-content/60 max-w-2xl mx-auto">
-              Elige la mejor forma de comunicarte con nosotros según tus necesidades
+              {t('contact.methods.description')}
             </p>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {contactInfo.methods.map((method) => (
               <ContactCard method={method} />
@@ -52,18 +51,17 @@ const { hero, contactInfo } = contactDataEs;
         </div>
       </section>
 
-      <!-- Contact Reasons Section -->
       <section class="mb-16">
         <div class="max-w-6xl mx-auto">
           <div class="text-center mb-12">
             <h2 class="text-3xl font-light text-base-content mb-4 font-serif">
-              ¿Por qué Contactarnos?
+              {t('contact.reasons.title')}
             </h2>
             <p class="text-base-content/60 max-w-2xl mx-auto">
-              Descubre las diferentes formas en que podemos colaborar contigo
+              {t('contact.reasons.description')}
             </p>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {contactInfo.reasons.map((reason) => (
               <ContactReasonCard reason={reason} />
@@ -72,17 +70,14 @@ const { hero, contactInfo } = contactDataEs;
         </div>
       </section>
 
-      <!-- Additional Information -->
       <section class="max-w-4xl mx-auto">
         <div class="card bg-gradient-to-r from-primary/5 to-accent/5 shadow-lg">
           <div class="card-body p-8 text-center">
             <h3 class="text-2xl font-light text-base-content mb-4 font-serif">
-              Sobre Ixiptla
+              {t('contact.about.title')}
             </h3>
             <p class="text-base-content/70 leading-relaxed mb-6">
-              Ixiptla, palabra náhuatl que significa "representación sagrada", es más que un museo virtual. 
-              Somos un puente entre el pasado y el presente, utilizando tecnología moderna para preservar 
-              y compartir la riqueza cultural de las civilizaciones mesoamericanas.
+              {t('contact.about.description')}
             </p>
             <div class="flex flex-wrap justify-center gap-4">
               <span class="badge badge-primary badge-lg">Maya</span>
@@ -102,21 +97,21 @@ const { hero, contactInfo } = contactDataEs;
   .font-serif {
     font-family: 'Playfair Display', serif;
   }
-  
+
   h2 {
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
-  
+
   section {
     padding: clamp(2rem, 8vw, 2rem) 0;
   }
-  
+
   section:first-of-type {
     padding-top: 0;
   }
-  
+
   .container {
     max-width: 1200px;
   }

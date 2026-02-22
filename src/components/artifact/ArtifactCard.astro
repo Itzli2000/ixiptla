@@ -3,14 +3,19 @@ import { Image } from "astro:assets";
 import { getLangFromUrl } from "../../i18n/utils";
 import { getImageByFilename } from "../../utils/imageMapping";
 import type { Language } from "../../types";
+import type { BaseArtifact } from "../../types/artifact";
+
+interface Props {
+  artifact: BaseArtifact;
+  variant?: "grid" | "list";
+}
 
 const { artifact, variant = "grid" } = Astro.props;
 const lang = getLangFromUrl(Astro.url) as Language;
 
 const image = getImageByFilename(artifact.image);
 
-// Generate descriptive alt text
-const altText = `${artifact.title || artifact.name} - ${artifact.culture} ${artifact.period ? `del ${artifact.period}` : ''} ${artifact.material ? `en ${artifact.material}` : ''}`.trim();
+const altText = `${artifact.title} - ${artifact.culture}, ${artifact.period ?? ''}${artifact.material ? ` (${artifact.material})` : ''}`.trim();
 ---
 
 <a

@@ -1,7 +1,9 @@
 import es from "./languages/es.json";
 import en from "./languages/en.json";
 
-export type Language = "en" | "es";
+export type { Language } from '../types';
+import type { Language } from '../types';
+
 export type TranslationValue = string | Record<string, unknown>;
 export type TranslationFunction = (key: string) => string;
 
@@ -30,12 +32,6 @@ export function useTranslations(lang: Language): TranslationFunction {
 
     return typeof value === 'string' ? value : key;
   };
-}
-
-export function detectBrowserLanguage(): Language {
-  if (typeof window === 'undefined') return defaultLang;
-  const browserLang = navigator.language?.split('-')[0] || '';
-  return supportedLangs.includes(browserLang as Language) ? browserLang as Language : defaultLang;
 }
 
 export function redirectToLanguagePath(path: string, lang: string): string {

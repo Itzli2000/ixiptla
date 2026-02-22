@@ -42,7 +42,7 @@ class ErrorBoundaryClass extends Component<ErrorBoundaryClassProps, State> {
 
       return (
         <div className="flex flex-col items-center justify-center p-8 bg-base-200 rounded-xl">
-          <div className="text-error text-6xl mb-4">⚠</div>
+          <div className="text-error text-6xl mb-4" aria-hidden="true">⚠</div>
           <h3 className="text-xl font-semibold mb-2">{t('errors.general.title')}</h3>
           <p className="text-base-content/70 text-center mb-4">
             {t('errors.general.description')}

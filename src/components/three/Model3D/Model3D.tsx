@@ -22,11 +22,11 @@ function Model3DContent({
       position={position}
       rotation={rotation}
     >
-      {Object.values(nodes).map((node, index) => {
+      {Object.values(nodes).map((node) => {
         if (node.type === 'Mesh') {
           return (
-            <mesh 
-              key={index}
+            <mesh
+              key={node.name || node.uuid}
               geometry={(node as Mesh).geometry} 
               material={(node as Mesh).material}
               castShadow

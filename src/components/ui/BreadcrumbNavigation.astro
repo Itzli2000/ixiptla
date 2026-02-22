@@ -1,13 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import type { Language } from "../../types";
-
-interface BreadcrumbItem {
-  label: string;
-  href?: string;
-  current?: boolean;
-  ariaCurrent?: string;
-}
+import type { BreadcrumbItem } from "../../types/artifact";
 
 interface Props {
   items: BreadcrumbItem[];
@@ -16,7 +10,18 @@ interface Props {
   className?: string;
 }
 
-const { items, lang, t, className = "" } = Astro.props;
+const { items, t, className = "" } = Astro.props;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.label,
+    ...(item.href ? { "item": new URL(item.href, Astro.site).href } : {})
+  }))
+};
 ---
 
 <nav 
@@ -61,19 +66,10 @@ const { items, lang, t, className = "" } = Astro.props;
       </li>
     ))}
   </ol>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 </nav>
 
 <style>
-  /* Hide scrollbar for mobile overflow */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
   /* Smooth transitions */
   a {
     transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);

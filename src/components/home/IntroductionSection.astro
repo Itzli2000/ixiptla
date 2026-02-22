@@ -69,7 +69,7 @@ const valueItems = translations.home.introduction.values.items;
         </h3>
         
         <div class="grid gap-6">
-          {valueItems.map((value: any, index: number) => {
+          {valueItems.map((value: { title: string; description: string }, index: number) => {
             const iconMap = [
               "mdi:heart", // Heart for Cultural Respect
               "mdi:check-circle", // Check circle for Historical Precision
@@ -154,8 +154,7 @@ const valueItems = translations.home.introduction.values.items;
 </style>
 
 <script is:inline>
-  // Intersection Observer for scroll animations
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'

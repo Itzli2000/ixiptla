@@ -1,6 +1,5 @@
-import React from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import type { Group } from 'three';
 
 interface Model3DFallbackProps {
@@ -8,17 +7,23 @@ interface Model3DFallbackProps {
   position?: [number, number, number];
 }
 
-export function Model3DFallback({ 
-  scale = [1, 1, 1], 
-  position = [0, 0, 0] 
+export function Model3DFallback({
+  scale = [1, 1, 1],
+  position = [0, 0, 0]
 }: Model3DFallbackProps) {
   const meshRef = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
+  const prefersReducedMotion = useMemo(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  );
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.05;
+      if (!prefersReducedMotion) {
+        meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+        meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.05;
+      }
       const scaleFactor = hovered ? 1.05 : 1;
       meshRef.current.scale.setScalar(scaleFactor);
     }
