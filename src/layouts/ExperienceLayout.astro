@@ -1,8 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import '../styles/global.css';
-import type { Language } from '../types';
-import { useTranslations } from '../i18n/utils';
+import "../styles/global.css";
+import type { Language } from "../types";
+import { useTranslations } from "../i18n/utils";
 
 export interface Props {
   title: string;
@@ -15,105 +15,124 @@ export interface Props {
   };
 }
 
-const { 
-  title, 
-  description, 
+const {
+  title,
+  description,
   lang = "en",
   image,
   canonicalURL,
-  alternateURLs
+  alternateURLs,
 } = Astro.props;
 
 const ogImage = image || `/images/og-image-${lang}.png`;
 const t = useTranslations(lang);
 
 const currentPath = Astro.url.pathname.replace(/^\/?/, "/");
-const siteUrl = canonicalURL?.toString() || (Astro.site
-  ? new URL(currentPath, Astro.site).toString()
-  : currentPath);
+const siteUrl =
+  canonicalURL?.toString() ||
+  (Astro.site ? new URL(currentPath, Astro.site).toString() : currentPath);
 
 // SEO data from translations
 const seoData = {
-  siteName: t('seo.site.name'),
-  siteDescription: t('seo.site.description'),
-  author: t('seo.site.author'),
-  keywords: t('seo.site.keywords')
+  siteName: t("seo.site.name"),
+  siteDescription: t("seo.site.description"),
+  author: t("seo.site.author"),
+  keywords: t("seo.site.keywords"),
 };
 
-const pageKeywords = `${lang === 'es' ? 'experiencia 3D' : '3D experience'}, ${seoData.keywords}`;
+const pageKeywords = `${lang === "es" ? "experiencia 3D" : "3D experience"}, ${seoData.keywords}`;
 ---
 
 <!doctype html>
 <html lang={lang}>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="format-detection" content="telephone=no" />
-		<meta name="theme-color" content="#2c5364" />
-		
-		<!-- Favicon and Icons -->
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="apple-touch-icon" href="/favicon.svg" />
-		
-		<!-- SEO Meta Tags -->
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="keywords" content={pageKeywords} />
-		<meta name="author" content={seoData.author} />
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-		
-		<!-- Generator and Site Info -->
-		<meta name="generator" content={Astro.generator} />
-		<meta name="application-name" content={seoData.siteName} />
-		
-		<!-- Canonical and Language -->
-		<link rel="canonical" href={siteUrl} />
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		
-		{alternateURLs && Object.entries(alternateURLs).map(([langCode, url]) => (
-			<link rel="alternate" hreflang={langCode} href={url.toString()} />
-		))}
-		<link rel="alternate" hreflang="x-default" href={alternateURLs?.en?.toString() || siteUrl} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#2c5364" />
 
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content={seoData.siteName} />
-		<meta property="og:url" content={siteUrl} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(ogImage, siteUrl).href} />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:type" content="image/png" />
-		<meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
-		{alternateURLs && Object.entries(alternateURLs).map(([langCode, url]) => (
-			langCode !== lang && (
-				<meta property="og:locale:alternate" content={langCode === 'es' ? 'es_MX' : 'en_US'} />
-			)
-		))}
-	
-		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:site" content="@ixiptla" />
-		<meta name="twitter:url" content={siteUrl} />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
-		<meta name="twitter:image:alt" content={title} />
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
 
-		<ClientRouter />
-	</head>
-	<body>
-		<slot />
-	</body>
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={pageKeywords} />
+    <meta name="author" content={seoData.author} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+
+    <!-- Generator and Site Info -->
+    <meta name="generator" content={Astro.generator} />
+    <meta name="application-name" content={seoData.siteName} />
+
+    <!-- Canonical and Language -->
+    <link rel="canonical" href={siteUrl} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {
+      alternateURLs &&
+        Object.entries(alternateURLs).map(([langCode, url]) => (
+          <link rel="alternate" hreflang={langCode} href={url.toString()} />
+        ))
+    }
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={alternateURLs?.en?.toString() || siteUrl}
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={seoData.siteName} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content={lang === "es" ? "es_MX" : "en_US"} />
+    {
+      alternateURLs &&
+        Object.entries(alternateURLs).map(
+          ([langCode, url]) =>
+            langCode !== lang && (
+              <meta
+                property="og:locale:alternate"
+                content={langCode === "es" ? "es_MX" : "en_US"}
+              />
+            ),
+        )
+    }
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ixiptla" />
+    <meta name="twitter:url" content={siteUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+    <meta name="twitter:image:alt" content={title} />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-</style> 
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+  }
+</style>
+
