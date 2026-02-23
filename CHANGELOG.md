@@ -1,3 +1,14 @@
+## 3.0.0 (2026-02-23)
+
+##### New Features
+
+* **data:**  add Mixteca civilization cultural information to i18n files (b2f84020)
+
+##### Refactors
+
+* **layout:**  refine structuredData type definition (b30bb455)
+* **i18n:**  implement unified dynamic routing and page structure (ec43ec6d)
+
 ### 2.2.0 (2026-02-22)
 
 ##### Build System / Dependencies
