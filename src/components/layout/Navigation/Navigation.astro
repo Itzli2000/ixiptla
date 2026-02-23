@@ -9,9 +9,9 @@ const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 const routes = {
-  home: lang === "en" ? "/en" : "/es",
-  collection: lang === "en" ? "/en/collection" : "/es/coleccion",
-  contact: lang === "en" ? "/en/contact" : "/es/contacto",
+  home: `/${lang}`,
+  collection: `/${lang}/collection`,
+  contact: `/${lang}/contact`,
 };
 ---
 

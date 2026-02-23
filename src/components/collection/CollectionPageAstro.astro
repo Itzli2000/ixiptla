@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { getLangFromUrl, useTranslations, getCollectionName } from "../../i18n/utils";
 import Layout from "../../layouts/Layout.astro";
 import CollectionHeader from "./CollectionHeader.astro";
 import FilterToolbarAstro from "./FilterToolbarAstro.astro";
@@ -15,9 +15,7 @@ const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
 
 // Get artifacts from the appropriate collection
-const artifacts = await getCollection(
-  lang === "es" ? "artefactos" : "artifacts"
-);
+const artifacts = await getCollection(getCollectionName(lang));
 
 // Sort artifacts alphabetically by title
 const sortedArtifacts = artifacts.sort((a, b) =>
@@ -28,19 +26,19 @@ const sortedArtifacts = artifacts.sort((a, b) =>
 const pageTitle = `${t("collection.title")} - ${t("collection.subtitle")}`;
 const pageDescription = t("collection.description");
 
-let canonicalURL: string | URL = lang === "es" ? `/es/coleccion` : `/en/collection`;
+let canonicalURL: string | URL = `/${lang}/collection`;
 let imageURL: string | URL = `/images/og-image-${lang}.png`;
 let alternateURLs: { en: string | URL; es: string | URL } = {
   en: `/en/collection`,
-  es: `/es/coleccion`,
+  es: `/es/collection`,
 };
 
 if (Astro.site) {
-  canonicalURL = new URL(lang === "es" ? `/es/coleccion` : `/en/collection`, Astro.site);
+  canonicalURL = new URL(`/${lang}/collection`, Astro.site);
   imageURL = new URL(`/images/og-image-${lang}.png`, Astro.site);
   alternateURLs = {
     en: new URL(`/en/collection`, Astro.site),
-    es: new URL(`/es/coleccion`, Astro.site),
+    es: new URL(`/es/collection`, Astro.site),
   };
 }
 ---

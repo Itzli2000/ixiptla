@@ -23,12 +23,7 @@ interface Props {
 
 const { prevArtifact, nextArtifact, lang, t } = Astro.props;
 
-// Get the correct collection path based on language
-const getCollectionPath = (lang: Language) => {
-  return lang === 'es' ? 'coleccion' : 'collection';
-};
-
-const collectionPath = getCollectionPath(lang);
+const collectionPath = "collection";
 ---
 
 <!-- Navigation Between Artifacts -->

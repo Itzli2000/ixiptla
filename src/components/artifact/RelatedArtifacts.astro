@@ -61,7 +61,7 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
               {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
             </h3>
             <a 
-              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?culture=${currentCulture}`}
+              href={`/${lang}/collection?culture=${currentCulture}`}
               class="text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
             >
               {t("artifact.related.viewAll")}
@@ -89,7 +89,7 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
               {t("artifact.related.similarType")}
             </h3>
             <a 
-              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+              href={`/${lang}/collection`}
               class="text-secondary hover:text-secondary/80 transition-colors text-sm font-medium flex items-center gap-2"
             >
               {t("artifact.related.exploreMore")}
@@ -138,14 +138,14 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+              href={`/${lang}/collection`}
               class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               <Icon name="mdi:view-grid" class="w-5 h-5" />
               {t("artifact.related.viewAll")}
             </a>
             <a 
-              href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}?culture=${currentCulture}`}
+              href={`/${lang}/collection?culture=${currentCulture}`}
               class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-secondary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
             >
               <Icon name="mdi:filter" class="w-5 h-5" />
@@ -170,7 +170,7 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
           {t("artifact.related.noRelatedDescription")}
         </p>
         <a 
-          href={`/${lang}/${lang === 'es' ? 'coleccion' : 'collection'}`}
+          href={`/${lang}/collection`}
           class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
         >
           <Icon name="mdi:view-grid" class="w-5 h-5" />

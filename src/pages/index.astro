@@ -1,21 +1,34 @@
 ---
+const siteUrl = Astro.site?.toString() || "";
 ---
 
-<html>
+<!doctype html>
+<html lang="es">
   <head>
-    <script>
-      function detectBrowserLanguage() {
-        const supportedLangs = ["en", "es"];
-        const browserLang = navigator.language?.split('-')[0];
-        const defaultLang = "es";
-        return supportedLangs.includes(browserLang || '') ? browserLang : defaultLang;
-      }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ixiptla - Mesoamerican Archaeological Replicas</title>
+    <meta name="description" content="Discover the richness of Mesoamerican heritage through archaeological replicas and interactive 3D models." />
 
-      const lang = detectBrowserLanguage();
-      window.location.href = `/${lang}`;
-    </script>
+    <meta http-equiv="refresh" content="0;url=/es" />
+    <link rel="canonical" href={`${siteUrl}es`} />
+
+    <link rel="alternate" hreflang="es" href={`${siteUrl}es`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}en`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}es`} />
   </head>
   <body>
-    <p>Redirecting...</p>
+    <noscript>
+      <p>Redirigiendo... / Redirecting...</p>
+      <p><a href="/es">Ir al sitio en Español</a> | <a href="/en">Go to English site</a></p>
+    </noscript>
+    <script is:inline>
+      (function() {
+        var supportedLangs = ["en", "es"];
+        var browserLang = (navigator.language || "").split("-")[0];
+        var lang = supportedLangs.indexOf(browserLang) !== -1 ? browserLang : "es";
+        window.location.replace("/" + lang);
+      })();
+    </script>
   </body>
 </html>

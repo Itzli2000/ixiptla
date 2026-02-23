@@ -1,5 +1,9 @@
 ---
 import CollectionPageAstro from "../../../components/collection/CollectionPageAstro.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+}
 ---
 
 <CollectionPageAstro />
