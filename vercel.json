@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/es/coleccion",
+      "destination": "/es/collection",
+      "permanent": true
+    },
+    {
+      "source": "/es/coleccion/:slug",
+      "destination": "/es/collection/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/es/contacto",
+      "destination": "/es/contact",
+      "permanent": true
+    }
+  ]
+}

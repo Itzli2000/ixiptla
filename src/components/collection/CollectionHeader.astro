@@ -9,11 +9,11 @@ const t = useTranslations(lang);
 const breadcrumbItems = [
   {
     label: t("navigation.home"),
-    href: lang === "es" ? "/" : "/en",
+    href: `/${lang}`,
   },
   {
     label: t("navigation.collection"),
-    href: lang === "es" ? "/es/coleccion" : "/en/collection",
+    href: `/${lang}/collection`,
     current: true,
   },
 ];
