@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Navigation from "../components/layout/Navigation/Navigation.astro";
+import Footer from "../components/layout/Footer/Footer.astro";
 import "../styles/global.css";
 import type { LayoutProps, Language } from "../types";
 import { useTranslations } from "../i18n/utils";
@@ -229,6 +230,10 @@ if (currentArtifact) {
     </a>
     <Navigation />
     <slot />
+    <Footer />
+    <script>
+      import "../scripts/scroll-animations";
+    </script>
   </body>
 </html>
 

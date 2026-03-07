@@ -10,20 +10,20 @@ const t = useTranslations(lang);
 ---
 
 <section 
-  class="py-24 lg:py-32 bg-gradient-to-br from-base-300 via-base-200 to-base-100 relative overflow-hidden"
+  class="py-24 lg:py-32 section-sunken relative overflow-hidden"
   aria-labelledby="final-cta-title"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Main Content -->
     <div class="text-center max-w-5xl mx-auto">
       <!-- Header -->
-      <div class="mb-16">
-        <h2 
+      <div class="mb-16" data-reveal>
+        <h2
           id="final-cta-title"
           class="text-4xl lg:text-6xl xl:text-7xl font-bold text-base-content leading-tight mb-8"
         >
           <span class="block">{t('home.finalCTA.title').split(' ').slice(0, 3).join(' ')}</span>
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent gradient-text-animated">
             {t('home.finalCTA.title').split(' ').slice(3).join(' ')}
           </span>
         </h2>
@@ -38,10 +38,10 @@ const t = useTranslations(lang);
       </div>
 
       <!-- Call to Action Buttons -->
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-        <a 
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16" data-reveal>
+        <a
           href={`/${lang}/collection`}
-          class="btn btn-primary btn-lg text-primary-content hover:btn-primary-focus transition-all duration-300 group shadow-2xl"
+          class="btn btn-primary btn-lg text-primary-content transition-all duration-300 group shadow-2xl relative overflow-hidden shimmer-btn"
           aria-label={t('home.finalCTA.primaryCTA')}
         >
           <svg class="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,43 +63,46 @@ const t = useTranslations(lang);
       </div>
 
       <!-- Feature Highlights -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        <div class="text-center p-6 rounded-2xl bg-base-100/60 backdrop-blur-sm border border-base-300/50 hover:border-primary/30 transition-all duration-300 group">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" data-reveal-stagger>
+        <div data-reveal class="relative text-center p-6 rounded-2xl card-premium group overflow-hidden" style="--reveal-index: 0">
+          <span class="absolute top-3 left-4 text-xs font-mono text-base-content/20">01</span>
           <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300">
             <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-base-content mb-2">
-{t('home.finalCTA.features.immediateAccess')}
+            {t('home.finalCTA.features.immediateAccess')}
           </h3>
           <p class="text-base-content/70 text-sm">
             {t('home.finalCTA.features.immediateAccessDesc')}
           </p>
         </div>
 
-        <div class="text-center p-6 rounded-2xl bg-base-100/60 backdrop-blur-sm border border-base-300/50 hover:border-secondary/30 transition-all duration-300 group">
+        <div data-reveal class="relative text-center p-6 rounded-2xl card-premium group overflow-hidden" style="--reveal-index: 1">
+          <span class="absolute top-3 left-4 text-xs font-mono text-base-content/20">02</span>
           <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-secondary/10 group-hover:bg-secondary/20 flex items-center justify-center transition-colors duration-300">
             <svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-base-content mb-2">
-{t('home.finalCTA.features.deepKnowledge')}
+            {t('home.finalCTA.features.deepKnowledge')}
           </h3>
           <p class="text-base-content/70 text-sm">
             {t('home.finalCTA.features.deepKnowledgeDesc')}
           </p>
         </div>
 
-        <div class="text-center p-6 rounded-2xl bg-base-100/60 backdrop-blur-sm border border-base-300/50 hover:border-accent/30 transition-all duration-300 group">
+        <div data-reveal class="relative text-center p-6 rounded-2xl card-premium group overflow-hidden" style="--reveal-index: 2">
+          <span class="absolute top-3 left-4 text-xs font-mono text-base-content/20">03</span>
           <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-accent/10 group-hover:bg-accent/20 flex items-center justify-center transition-colors duration-300">
             <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s1.343-9 3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-base-content mb-2">
-{t('home.finalCTA.features.globalReach')}
+            {t('home.finalCTA.features.globalReach')}
           </h3>
           <p class="text-base-content/70 text-sm">
             {t('home.finalCTA.features.globalReachDesc')}
@@ -172,61 +175,32 @@ const t = useTranslations(lang);
 </section>
 
 <style>
-  /* Gradient text animation */
   .bg-clip-text {
     -webkit-background-clip: text;
     background-clip: text;
   }
 
-  /* Entrance animations */
-  @media (prefers-reduced-motion: no-preference) {
-    .animate-fade-in {
-      animation: fadeIn 0.8s ease-out forwards;
-    }
-    
-    .animate-slide-up {
-      animation: slideUp 0.8s ease-out forwards;
-    }
+  .gradient-text-animated {
+    background-size: 200% auto;
+    animation: gradient-shift 4s ease-in-out infinite;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .shimmer-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 25%, oklch(100% 0 0 / 0.12) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
   }
 
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+  @media (prefers-reduced-motion: reduce) {
+    .gradient-text-animated {
+      animation: none;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    .shimmer-btn::before {
+      animation: none;
+      display: none;
     }
   }
 </style>
-
-<script is:inline>
-  // Progressive enhancement for scroll-triggered animations
-  document.addEventListener('DOMContentLoaded', () => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-up');
-        }
-      });
-    }, observerOptions);
-
-    // Observe feature highlight cards
-    const featureCards = document.querySelectorAll('.grid > div');
-    featureCards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.1}s`;
-      observer.observe(card);
-    });
-  });
-</script>

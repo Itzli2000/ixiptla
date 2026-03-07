@@ -11,23 +11,33 @@ const type = isPieceRelated ? 'piece' : 'generic';
 ---
 
 <Layout title={t('404.title')} description={t('404.description')} lang={lang}>
-  <div class="min-h-[60vh] flex items-center justify-center px-4">
-    <div class="text-center max-w-2xl">
-      <h1 class="text-6xl font-bold text-main mb-4">404</h1>
-      <h2 class="text-3xl font-bold text-tertiary mb-6">
+  <div class="min-h-[60vh] flex items-center justify-center px-4 section-elevated">
+    <div class="text-center max-w-2xl" data-reveal>
+      <div class="error-number text-8xl lg:text-9xl font-bold mb-4">404</div>
+      <h2 class="text-3xl font-bold text-base-content mb-6">
         {t(`404.${type}.title`)}
       </h2>
-      <p class="text-xl text-dark/80 mb-8">
+      <p class="text-xl text-base-content/70 mb-8">
         {t(`404.${type}.description`)}
       </p>
       <div class="flex gap-4 justify-center">
-        <a href={`/${lang}`} class="btn btn-primary">
+        <a href={`/${lang}`} class="btn btn-primary btn-lg" style="box-shadow: var(--shadow-premium);">
           {t(`404.${type}.cta.primary`)}
         </a>
-        <a href={`/${lang}/collection`} class="btn btn-secondary">
+        <a href={`/${lang}/collection`} class="btn btn-outline btn-lg border-base-content/30 text-base-content hover:bg-base-content hover:text-base-100">
           {t(`404.${type}.cta.secondary`)}
         </a>
       </div>
     </div>
   </div>
-</Layout> 
+</Layout>
+
+<style>
+  .error-number {
+    background: linear-gradient(135deg, var(--color-primary-rich), oklch(0.65 0.15 160));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+</style>

@@ -55,7 +55,7 @@ if (Astro.site) {
   <CollectionHeader />
 
   <!-- Main Collection Content -->
-  <main class="collection-main">
+  <main class="collection-main section-sunken">
     <div class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
       
       <!-- Controls Section -->
@@ -169,11 +169,11 @@ if (Astro.site) {
   }
 
   .controls-section {
-    background: hsl(var(--b1));
-    border: 1px solid hsl(var(--b3) / 0.3);
+    background: var(--color-surface-elevated);
+    border: none;
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 1px 3px hsl(var(--shadow) / 0.1);
+    box-shadow: var(--shadow-premium);
   }
 
   .view-controls {

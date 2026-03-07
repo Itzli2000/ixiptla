@@ -27,8 +27,8 @@ const culturalContext = {
 
 <section class="max-w-4xl mx-auto py-12 lg:py-16" role="region">
   <!-- Section Header -->
-  <div class="text-center mb-12">
-    <h2 
+  <div class="text-center mb-12" data-reveal>
+    <h2
       class="text-4xl lg:text-5xl font-normal text-base-content mb-4"
       style="font-family: var(--font-serif, serif); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
     >
@@ -45,7 +45,7 @@ const culturalContext = {
     <!-- Primary Description -->
     <div class="lg:col-span-2 space-y-8">
       <!-- Artifact Description -->
-      <div class="bg-gradient-to-br from-base-100 to-base-200/50 rounded-2xl p-8 shadow-lg border border-base-200/30">
+      <div class="context-card rounded-2xl p-8" data-reveal>
         <h3 class="text-2xl font-semibold text-base-content mb-4 flex items-center gap-3">
           <Icon name="mdi:scroll-text" class="w-6 h-6 text-primary" />
           {t("artifact.context.description")}
@@ -58,7 +58,7 @@ const culturalContext = {
       </div>
 
       <!-- Historical Significance -->
-      <div class="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 border border-primary/20">
+      <div class="context-card-accent rounded-2xl p-8" style="border-left: 4px solid var(--color-primary-rich);" data-reveal>
         <h3 class="text-2xl font-semibold text-base-content mb-4 flex items-center gap-3">
           <Icon name="mdi:book-open-page-variant" class="w-6 h-6 text-primary" />
           {t("artifact.context.historicalSignificance")}
@@ -69,7 +69,7 @@ const culturalContext = {
       </div>
 
       <!-- Artistic Context -->
-      <div class="bg-gradient-to-br from-secondary/5 to-secondary/10 rounded-2xl p-8 border border-secondary/20">
+      <div class="context-card-accent rounded-2xl p-8" style="border-left: 4px solid oklch(0.65 0.15 160);" data-reveal>
         <h3 class="text-2xl font-semibold text-base-content mb-4 flex items-center gap-3">
           <Icon name="mdi:palette" class="w-6 h-6 text-secondary" />
           {t("artifact.context.culturalImportance")}
@@ -83,7 +83,7 @@ const culturalContext = {
     <!-- Sidebar Information -->
     <div class="space-y-6">
       <!-- Culture Info Card -->
-      <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-6 shadow-lg border border-base-200/30">
+      <div class="sidebar-card rounded-2xl p-6" data-reveal>
         <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
           <Icon name="mdi:temple-hindu" class="w-5 h-5 text-primary" />
           {artifact.culture}
@@ -104,7 +104,7 @@ const culturalContext = {
       </div>
 
       <!-- Legacy Impact -->
-      <div class="bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-6 border border-accent/20">
+      <div class="sidebar-card rounded-2xl p-6" style="border-left: 4px solid oklch(0.7 0.15 70);" data-reveal>
         <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
           <Icon name="mdi:timeline" class="w-5 h-5 text-accent" />
           {t("artifact.context.culturalLegacy")}
@@ -115,7 +115,7 @@ const culturalContext = {
       </div>
 
       <!-- Educational Resources -->
-      <div class="bg-gradient-to-br from-info/5 to-info/10 rounded-2xl p-6 border border-info/20">
+      <div class="sidebar-card rounded-2xl p-6" data-reveal>
         <h4 class="text-lg font-semibold text-base-content mb-4 flex items-center gap-2">
           <Icon name="mdi:school" class="w-5 h-5 text-info" />
           {t("artifact.context.educationalResources")}
@@ -139,13 +139,14 @@ const culturalContext = {
   </div>
 
   <!-- Call to Action -->
-  <div class="text-center mt-12 pt-8 border-t border-base-content/10">
+  <div class="text-center mt-12 pt-8 border-t border-base-content/10" data-reveal>
     <p class="text-base-content/80 mb-4">
       {t("artifact.context.exploreCTA")}
     </p>
-    <a 
+    <a
       href={`/${lang}/collection?culture=${artifact.culture}`}
-      class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+      class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300"
+      style="box-shadow: var(--shadow-premium);"
     >
       <Icon name="mdi:arrow-right" class="w-5 h-5" />
       {t("artifact.related.exploreMore")}
@@ -154,12 +155,26 @@ const culturalContext = {
 </section>
 
 <style>
-  /* Typography scaling */
+  .context-card {
+    background: var(--color-surface-elevated);
+    box-shadow: var(--shadow-premium);
+  }
+
+  .context-card-accent {
+    background: var(--color-surface-elevated);
+    box-shadow: var(--shadow-premium);
+  }
+
+  .sidebar-card {
+    background: var(--color-surface-elevated);
+    box-shadow: var(--shadow-premium);
+  }
+
   .prose {
     font-size: 1rem;
     line-height: 1.6;
   }
-  
+
   .prose p {
     margin-bottom: 1.5rem;
   }

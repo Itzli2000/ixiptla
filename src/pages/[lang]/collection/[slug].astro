@@ -16,7 +16,7 @@ import type { BreadcrumbItem } from "../../../types/artifact";
 
 export async function getStaticPaths() {
   const languages: Language[] = ["en", "es"];
-  const paths = [];
+  const paths: Array<{ params: { lang: Language; slug: string } }> = [];
 
   for (const lang of languages) {
     const collectionName = lang === "es" ? "artefactos" : "artifacts";
@@ -40,18 +40,24 @@ const artifacts = await getCollection(collectionName);
 const { data: artifact } = await getEntry(collectionName, slug);
 
 const sameCultureArtifacts = artifacts
-  .filter((a) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug)
+  .filter(
+    (a) => a.data.culture === artifact.culture && a.data.slug !== artifact.slug,
+  )
   .slice(0, 3);
 
 const differentCultureArtifacts = artifacts
   .filter((a) => a.data.culture !== artifact.culture)
   .slice(0, 3);
 
-const allRelatedArtifacts = [...sameCultureArtifacts, ...differentCultureArtifacts];
+const allRelatedArtifacts = [
+  ...sameCultureArtifacts,
+  ...differentCultureArtifacts,
+];
 
 const currentIndex = artifacts.findIndex((a) => a.data.slug === artifact.slug);
 const prevArtifact = currentIndex > 0 ? artifacts[currentIndex - 1] : null;
-const nextArtifact = currentIndex < artifacts.length - 1 ? artifacts[currentIndex + 1] : null;
+const nextArtifact =
+  currentIndex < artifacts.length - 1 ? artifacts[currentIndex + 1] : null;
 
 const title = t("seo.artifact.titleTemplate")
   .replace("{title}", artifact.title)
@@ -64,24 +70,31 @@ const description = t("seo.artifact.descriptionTemplate")
   .replace("{description}", artifact.description.slice(0, 120) + "...");
 
 const alternateUrlPaths = getAlternateUrls("collection", artifact.slug);
-let canonicalURL: string | URL = getLocalizedUrl("collection", lang, artifact.slug);
-let imageURL: string | URL = artifact.image;
-let alternateURLs: { en: string | URL; es: string | URL } = alternateUrlPaths;
+let canonicalURL: URL | undefined;
+let imageURL: string = `/images/${artifact.image}`;
+let alternateURLs: { en: URL; es: URL } | undefined;
 
 if (Astro.site) {
-  canonicalURL = new URL(getLocalizedUrl("collection", lang, artifact.slug), Astro.site);
-  imageURL = new URL(`/images/${artifact.image}`, Astro.site);
+  canonicalURL = new URL(
+    getLocalizedUrl("collection", lang, artifact.slug),
+    Astro.site,
+  );
+  imageURL = new URL(`/images/${artifact.image}`, Astro.site).toString();
   alternateURLs = {
     en: new URL(alternateUrlPaths.en, Astro.site),
     es: new URL(alternateUrlPaths.es, Astro.site),
   };
-} else {
-  imageURL = `/images/${artifact.image}`;
 }
 
 const breadcrumbItems: BreadcrumbItem[] = [
-  { label: t("artifact.home"), href: `${getLocalizedUrl("home", lang)}#collection` },
-  { label: t("artifact.collection"), href: getLocalizedUrl("collection", lang) },
+  {
+    label: t("artifact.home"),
+    href: `${getLocalizedUrl("home", lang)}#collection`,
+  },
+  {
+    label: t("artifact.collection"),
+    href: getLocalizedUrl("collection", lang),
+  },
   { label: artifact.title, current: true, ariaCurrent: "page" },
 ];
 ---
@@ -103,29 +116,42 @@ const breadcrumbItems: BreadcrumbItem[] = [
       {t("artifact.accessibility.skipToContent")}
     </a>
 
-    <section class="pt-20 sm:pt-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-base-100/5 to-transparent">
+    <section class="pt-20 sm:pt-24 px-4 sm:px-6 lg:px-8 section-elevated">
       <div class="max-w-7xl mx-auto">
         <BreadcrumbNavigation items={breadcrumbItems} lang={lang} t={t} />
       </div>
     </section>
 
-    <section id="main-content" class="px-4 sm:px-6 lg:px-8" aria-labelledby="artifact-title">
+    <section
+      id="main-content"
+      class="px-4 sm:px-6 lg:px-8"
+      aria-labelledby="artifact-title"
+    >
       <div class="max-w-7xl mx-auto">
         <ArtifactHero artifact={artifact} lang={lang} t={t} />
       </div>
     </section>
 
-    <section class="px-4 sm:px-6 lg:px-8 py-16 lg:py-24" aria-labelledby="metadata-title">
+    <section
+      class="px-4 sm:px-6 lg:px-8 py-16 lg:py-24 section-sunken"
+      aria-labelledby="metadata-title"
+    >
       <div class="max-w-7xl mx-auto">
         <ArtifactMetadata artifact={artifact} lang={lang} t={t} />
       </div>
     </section>
 
-    <section class="px-4 sm:px-6 lg:px-8 py-16 lg:py-24 bg-gradient-to-b from-base-100/5 to-base-200/10" aria-labelledby="cultural-context-title">
+    <section
+      class="px-4 sm:px-6 lg:px-8 py-16 lg:py-24 section-elevated"
+      aria-labelledby="cultural-context-title"
+    >
       <CulturalContext artifact={artifact} lang={lang} t={t} />
     </section>
 
-    <section class="px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-base-200/10 to-base-100/5" aria-labelledby="related-artifacts-title">
+    <section
+      class="px-4 sm:px-6 lg:px-8"
+      aria-labelledby="related-artifacts-title"
+    >
       <RelatedArtifacts
         relatedArtifacts={allRelatedArtifacts}
         currentCulture={artifact.culture}
@@ -150,7 +176,8 @@ const breadcrumbItems: BreadcrumbItem[] = [
     scroll-behavior: smooth;
   }
 
-  a:focus-visible, button:focus-visible {
+  a:focus-visible,
+  button:focus-visible {
     outline: 2px solid rgb(var(--primary));
     outline-offset: 2px;
   }

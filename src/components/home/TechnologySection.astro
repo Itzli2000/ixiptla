@@ -13,12 +13,12 @@ const t = useTranslations(lang);
 ---
 
 <section
-  class="py-24 lg:py-32 bg-base-100 relative overflow-hidden"
+  class="py-24 lg:py-32 section-elevated relative overflow-hidden"
   aria-labelledby="technology-title"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="text-center max-w-4xl mx-auto mb-20">
+    <div class="text-center max-w-4xl mx-auto mb-20" data-reveal>
       <h2
         id="technology-title"
         class="text-4xl lg:text-5xl font-bold text-base-content mb-6"
@@ -38,13 +38,14 @@ const t = useTranslations(lang);
     <!-- Main Content Grid -->
     <div class="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center mb-20">
       <!-- Technology Features -->
-      <div class="space-y-8">
+      <div class="space-y-8" data-reveal-stagger>
         <div class="grid gap-6">
           {
             technologyFeatures.map((feature, index) => (
               <div
-                class="tech-feature group p-6 rounded-2xl bg-gradient-to-br from-base-200/50 to-base-300/30 border border-base-300/50 hover:border-primary/30 hover:shadow-lg transition-all duration-500"
-                style={`animation-delay: ${index * 0.1}s`}
+                data-reveal
+                class="tech-feature group p-6 rounded-2xl card-premium hover:border-primary/30 transition-all duration-500"
+                style={`--reveal-index: ${index}`}
               >
                 <div class="flex items-start gap-4">
                   <div class="flex-shrink-0">
@@ -116,6 +117,7 @@ const t = useTranslations(lang);
         <!-- Floating Stats -->
         <div
           class="absolute -top-8 -right-8 bg-primary text-primary-content rounded-2xl p-4 shadow-xl"
+          style="animation: float 3s ease-in-out infinite;"
         >
           <div class="text-center">
             <div class="text-2xl font-bold">25+</div>
@@ -127,6 +129,7 @@ const t = useTranslations(lang);
 
         <div
           class="absolute -bottom-8 -left-8 bg-secondary text-secondary-content rounded-2xl p-4 shadow-xl"
+          style="animation: float 3s ease-in-out infinite 1.5s;"
         >
           <div class="text-center">
             <div class="text-2xl font-bold">4K</div>
@@ -202,26 +205,5 @@ const t = useTranslations(lang);
 </section>
 
 <style>
-  .tech-feature {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideInUp 0.6s ease-out forwards;
-  }
-
-  @keyframes slideInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .tech-feature {
-      opacity: 1;
-      transform: none;
-      animation: none;
-    }
-  }
+  /* Animations handled by global data-reveal + card-premium system */
 </style>
-
-
