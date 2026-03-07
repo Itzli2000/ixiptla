@@ -88,6 +88,44 @@
 :root {
   --theme-transition-duration: 0.3s;
   --theme-transition-timing: ease-in-out;
+
+  /* Extended palette - warm Mesoamerican identity with more depth */
+  --color-surface-elevated: oklch(99% 0.005 83.24);
+  --color-surface-sunken: oklch(92% 0.02 83.24);
+  --color-primary-rich: oklch(48% 0.18 35);
+  --color-gold-accent: oklch(78% 0.14 85);
+  --color-deep-earth: oklch(15% 0.02 40);
+  --color-deep-earth-lighter: oklch(22% 0.02 40);
+
+  /* Premium multi-layer shadow system */
+  --shadow-premium: 0 1px 2px oklch(0% 0 0 / 0.04),
+    0 4px 8px oklch(0% 0 0 / 0.04),
+    0 16px 32px oklch(0% 0 0 / 0.06);
+  --shadow-premium-hover: 0 2px 4px oklch(0% 0 0 / 0.05),
+    0 8px 16px oklch(0% 0 0 / 0.06),
+    0 24px 48px oklch(0% 0 0 / 0.08);
+  --shadow-premium-glow: 0 0 40px oklch(55% 0.15 40.24 / 0.2);
+
+  /* Animation curves */
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="ixpitla-dark"] {
+  --color-surface-elevated: oklch(22% 0.01 83.24);
+  --color-surface-sunken: oklch(14% 0.01 83.24);
+  --color-primary-rich: oklch(62% 0.18 35);
+  --color-gold-accent: oklch(72% 0.12 85);
+  --color-deep-earth: oklch(10% 0.01 40);
+  --color-deep-earth-lighter: oklch(16% 0.01 40);
+
+  --shadow-premium: 0 1px 2px oklch(0% 0 0 / 0.15),
+    0 4px 8px oklch(0% 0 0 / 0.12),
+    0 16px 32px oklch(0% 0 0 / 0.1);
+  --shadow-premium-hover: 0 2px 4px oklch(0% 0 0 / 0.2),
+    0 8px 16px oklch(0% 0 0 / 0.15),
+    0 24px 48px oklch(0% 0 0 / 0.12);
+  --shadow-premium-glow: 0 0 40px oklch(65% 0.18 35 / 0.25);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -128,4 +166,142 @@ h5,
 h6 {
   font-family: var(--font-family-headers);
   font-weight: var(--font-weight-headers-default);
+}
+
+/* ============================================
+   Scroll Reveal Animation System
+   ============================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+[data-reveal="left"] {
+  transform: translateX(-40px);
+}
+
+[data-reveal="right"] {
+  transform: translateX(40px);
+}
+
+[data-reveal="scale"] {
+  transform: scale(0.95);
+}
+
+[data-reveal].revealed {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+  transition: opacity 0.7s var(--ease-expo-out),
+    transform 0.7s var(--ease-expo-out);
+}
+
+/* Stagger children */
+[data-reveal-stagger] > [data-reveal] {
+  transition-delay: calc(var(--reveal-index, 0) * 0.08s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  [data-reveal].revealed {
+    transition: none;
+  }
+}
+
+/* ============================================
+   Section Rhythm
+   ============================================ */
+
+.section-elevated {
+  background-color: var(--color-surface-elevated);
+}
+
+.section-sunken {
+  background-color: var(--color-surface-sunken);
+}
+
+.section-dark {
+  background-color: var(--color-deep-earth);
+  color: oklch(95% 0.01 83.24);
+}
+
+[data-theme="ixpitla-dark"] .section-elevated {
+  background-color: var(--color-surface-elevated);
+}
+
+[data-theme="ixpitla-dark"] .section-sunken {
+  background-color: var(--color-surface-sunken);
+}
+
+[data-theme="ixpitla-dark"] .section-dark {
+  background-color: var(--color-deep-earth);
+  color: oklch(90% 0.01 83.24);
+}
+
+/* ============================================
+   Premium Card Utilities
+   ============================================ */
+
+.card-premium {
+  box-shadow: var(--shadow-premium);
+  border: none;
+  transition: transform 0.4s var(--ease-expo-out),
+    box-shadow 0.4s var(--ease-expo-out);
+}
+
+.card-premium:hover {
+  box-shadow: var(--shadow-premium-hover);
+  transform: translateY(-4px);
+}
+
+.card-premium-3d:hover {
+  box-shadow: var(--shadow-premium-hover);
+  transform: perspective(1000px) rotateX(-2deg) rotateY(1deg) translateZ(10px);
+}
+
+/* ============================================
+   Glassmorphism
+   ============================================ */
+
+.glass {
+  background: oklch(100% 0 0 / 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid oklch(100% 0 0 / 0.08);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px oklch(55% 0.15 40.24 / 0.3); }
+  50% { box-shadow: 0 0 20px oklch(55% 0.15 40.24 / 0.5); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-premium:hover,
+  .card-premium-3d:hover {
+    transform: none;
+  }
 }

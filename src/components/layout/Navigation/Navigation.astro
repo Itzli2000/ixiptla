@@ -16,11 +16,11 @@ const routes = {
 ---
 
 <nav
-  class="bg-base-100 shadow-md fixed top-0 left-0 right-0 w-full z-50 px-4"
+  class="nav-main fixed top-0 left-0 right-0 w-full z-50 px-4 transition-all duration-500"
   aria-label="Main navigation"
 >
   <div class="max-w-7xl mx-auto">
-    <div class="flex justify-between items-center h-16">
+    <div class="flex justify-between items-center nav-inner transition-all duration-500" style="height: 5rem;">
       <div class="flex-shrink-0">
         <a
           href={routes.home}
@@ -34,12 +34,11 @@ const routes = {
       <div class="flex items-center gap-5 lg:gap-10">
       <div class="hidden md:block">
         <div
-          class="ml-10 flex items-center space-x-4"
+          class="ml-10 flex items-center space-x-1"
         >
           <a
             href={routes.home}
-            class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-
+            class="nav-link relative px-3 py-2 rounded-md hover:bg-base-200/50 transition-colors"
             aria-current={Astro.url.pathname === routes.home
               ? "page"
               : undefined}
@@ -48,8 +47,7 @@ const routes = {
           </a>
           <a
             href={routes.collection}
-            class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-
+            class="nav-link relative px-3 py-2 rounded-md hover:bg-base-200/50 transition-colors"
             aria-current={Astro.url.pathname === routes.collection
               ? "page"
               : undefined}
@@ -58,8 +56,7 @@ const routes = {
           </a>
           <a
             href={routes.contact}
-            class="px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-
+            class="nav-link relative px-3 py-2 rounded-md hover:bg-base-200/50 transition-colors"
             aria-current={Astro.url.pathname === routes.contact
               ? "page"
               : undefined}
@@ -75,7 +72,7 @@ const routes = {
 
       <div class="md:hidden flex items-center">
         <button
-          class="mobile-menu-button p-2 rounded-md hover:bg-base-200 transition-colors"
+          class="mobile-menu-button p-2 rounded-md hover:bg-base-200/50 transition-colors"
           aria-label="Toggle menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -94,16 +91,14 @@ const routes = {
       <div class="px-2 pt-2 pb-3 space-y-1">
         <a
           href={routes.home}
-          class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-
+          class="block px-3 py-2 rounded-md hover:bg-base-200/50 transition-colors"
           aria-current={Astro.url.pathname === routes.home ? "page" : undefined}
         >
           {t("navigation.home")}
         </a>
         <a
           href={routes.collection}
-          class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-
+          class="block px-3 py-2 rounded-md hover:bg-base-200/50 transition-colors"
           aria-current={Astro.url.pathname === routes.collection
             ? "page"
             : undefined}
@@ -112,8 +107,7 @@ const routes = {
         </a>
         <a
           href={routes.contact}
-          class="block px-3 py-2 rounded-md hover:bg-base-200 transition-colors"
-
+          class="block px-3 py-2 rounded-md hover:bg-base-200/50 transition-colors"
           aria-current={Astro.url.pathname === routes.contact
             ? "page"
             : undefined}
@@ -127,6 +121,23 @@ const routes = {
 
 <script>
   document.addEventListener("astro:page-load", () => {
+    const nav = document.querySelector(".nav-main") as HTMLElement;
+    const navInner = document.querySelector(".nav-inner") as HTMLElement;
+    if (!nav) return;
+
+    // Scroll-aware nav: transparent -> frosted glass
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 80;
+      nav.classList.toggle("nav-scrolled", scrolled);
+      if (navInner) {
+        navInner.style.height = scrolled ? "4rem" : "5rem";
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial state
+
+    // Mobile menu
     const mobileMenuButton = document.querySelector(".mobile-menu-button");
     const mobileMenu = document.querySelector(".mobile-menu");
 
@@ -134,8 +145,6 @@ const routes = {
       mobileMenuButton.addEventListener("click", () => {
         const isExpanded = mobileMenu.classList.toggle("hidden");
         mobileMenu.classList.toggle("open");
-
-        // Update aria-expanded
         mobileMenuButton.setAttribute(
           "aria-expanded",
           (!isExpanded).toString()
@@ -151,7 +160,6 @@ const routes = {
         });
       });
 
-      // Close menu on outside click
       document.addEventListener("click", (event) => {
         if (
           !mobileMenuButton.contains(event.target as Node) &&
@@ -164,7 +172,6 @@ const routes = {
         }
       });
 
-      // Close menu on Escape key
       document.addEventListener("keydown", (event) => {
         if (
           event.key === "Escape" &&
@@ -178,7 +185,63 @@ const routes = {
     }
   });
 </script>
+
 <style>
+  /* Default: transparent nav */
+  .nav-main {
+    background: transparent;
+    backdrop-filter: blur(0px);
+    box-shadow: none;
+  }
+
+  /* Scrolled: frosted glass */
+  .nav-main.nav-scrolled {
+    background: oklch(from var(--color-base-100) l c h / 0.85);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 oklch(0% 0 0 / 0.05);
+  }
+
+  [data-theme="ixpitla-dark"] .nav-main.nav-scrolled {
+    background: oklch(from var(--color-base-100) l c h / 0.8);
+    box-shadow: 0 1px 0 oklch(100% 0 0 / 0.05);
+  }
+
+  /* Active link indicator */
+  .nav-link[aria-current="page"]::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(1);
+    width: 60%;
+    height: 2px;
+    background: var(--color-primary-rich);
+    border-radius: 1px;
+    transition: transform 0.3s var(--ease-expo-out);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background: var(--color-primary-rich);
+    border-radius: 1px;
+    transition: transform 0.3s var(--ease-expo-out);
+  }
+
+  .nav-link:hover::after {
+    transform: translateX(-50%) scaleX(0.6);
+  }
+
+  .nav-link[aria-current="page"]::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  /* Mobile menu */
   .mobile-menu {
     transition: all 0.3s ease-in-out;
     max-height: 0;
@@ -189,4 +252,3 @@ const routes = {
     max-height: 300px;
   }
 </style>
-

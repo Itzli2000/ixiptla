@@ -125,39 +125,40 @@ const has3D = Boolean(artifact.has3DModel);
   .artifact-card {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.6s var(--ease-expo-out) forwards;
   }
-  
+
   @keyframes fadeInUp {
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
-  
-  /* Base card styles */
+
+  /* Base card styles - premium shadows instead of borders */
   .card {
-    background: hsl(var(--b1));
-    border: 1px solid hsl(var(--b3) / 0.3);
+    background: var(--color-surface-elevated);
+    border: none;
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 4px 6px hsl(var(--shadow) / 0.1);
+    box-shadow: var(--shadow-premium);
+    transition: transform 0.4s var(--ease-expo-out),
+      box-shadow 0.4s var(--ease-expo-out);
   }
-  
+
   .card:hover {
-    border-color: hsl(var(--p) / 0.2);
-    box-shadow: 0 10px 15px -3px hsl(var(--p) / 0.1), 0 4px 6px -2px hsl(var(--p) / 0.05);
+    box-shadow: var(--shadow-premium-hover);
   }
-  
+
   /* Grid view (default) */
   .artifact-card[data-variant="grid"] .card {
     border-radius: 1.5rem;
     flex-direction: column;
   }
-  
+
   .artifact-card[data-variant="grid"] .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 25px -5px hsl(var(--p) / 0.1), 0 10px 10px -5px hsl(var(--p) / 0.04);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-premium-hover);
   }
   
   .artifact-card[data-variant="grid"] .card-image {
@@ -238,16 +239,15 @@ const has3D = Boolean(artifact.has3DModel);
     display: block;
   }
   
-  /* Badge styles */
+  /* Badge styles - 3D badge always visible with glow */
   .3d-badge {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease-out;
-  }
-  
-  .artifact-card:hover .3d-badge {
     opacity: 1;
     transform: translateY(0);
+    transition: all 0.3s ease-out;
+  }
+
+  .3d-badge span {
+    animation: pulse-glow 2.5s ease-in-out infinite;
   }
   
   .culture-badge {
@@ -351,10 +351,31 @@ const has3D = Boolean(artifact.has3DModel);
     flex: 1;
   }
   
-  /* Responsive images */
+  /* Responsive images with cinematic treatment */
   .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: saturate(0.9) contrast(1.05);
+    transition: transform 0.5s var(--ease-expo-out), filter 0.5s ease;
+  }
+
+  .artifact-card:hover .card-image img {
+    filter: saturate(1.1) contrast(1.1);
+  }
+
+  /* Hover overlay on image */
+  .card-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, oklch(15% 0.02 40 / 0.5), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .artifact-card:hover .card-image::after {
+    opacity: 1;
   }
 </style>
