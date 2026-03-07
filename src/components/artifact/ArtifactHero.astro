@@ -26,7 +26,7 @@ const image = getImageByFilename(artifact.image);
 const model3D = getModelForSlug(artifact.slug);
 ---
 
-<section class="relative w-full min-h-screen lg:min-h-[80vh] flex flex-col lg:flex-row">
+<section class="relative w-full min-h-screen lg:min-h-[80vh] flex flex-col lg:flex-row section-elevated">
   <!-- Left Column - Image (50% on desktop) -->
   <div class="w-full lg:w-1/2 relative p-4 lg:p-8">
     <!-- Main Image Container -->
@@ -40,7 +40,7 @@ const model3D = getModelForSlug(artifact.slug);
         alt={artifact.title}
         width={800}
         height={800}
-        class="w-full h-full object-cover rounded-3xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+        class="artifact-hero-img w-full h-full object-cover rounded-3xl transition-transform duration-500 group-hover:scale-[1.02]"
         transition:name={`artifact-${artifact.slug}`}
         loading="eager"
         fetchpriority="high"
@@ -49,16 +49,16 @@ const model3D = getModelForSlug(artifact.slug);
   </div>
 
   <!-- Right Column - Content (50% on desktop) -->
-  <div class="w-full lg:w-1/2 bg-gradient-to-br from-base-100 to-base-200/30 p-6 lg:p-12 flex flex-col justify-center">
+  <div class="w-full lg:w-1/2 p-6 lg:p-12 flex flex-col justify-center">
     <!-- Title Section -->
-    <div class="mb-8">
-      <h1 
+    <div class="mb-8" data-reveal>
+      <h1
         class="text-4xl lg:text-5xl xl:text-6xl font-normal leading-tight mb-6 text-base-content break-words"
         style="font-family: var(--font-serif, serif); font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em;"
       >
         {artifact.title}
       </h1>
-      
+
       <!-- Culture and Period Tags -->
       <div class="flex flex-wrap gap-3 mb-6">
         <div class="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 px-4 py-2 rounded-full">
@@ -75,15 +75,15 @@ const model3D = getModelForSlug(artifact.slug);
     </div>
 
     <!-- Description -->
-    <div class="mb-8 max-w-prose">
-      <h2 
+    <div class="mb-8 max-w-prose" data-reveal>
+      <h2
         class="text-2xl lg:text-3xl font-normal mb-4 text-base-content flex items-center gap-3"
         style="font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
       >
         <Icon name="mdi:information-outline" class="w-7 h-7 text-primary" />
         {t("artifact.context.title")}
       </h2>
-      <p 
+      <p
         class="text-lg text-base-content/90 leading-relaxed"
         style="line-height: 1.6;"
       >
@@ -92,7 +92,7 @@ const model3D = getModelForSlug(artifact.slug);
     </div>
 
     <!-- Museum Information -->
-    <div class="bg-gradient-to-br from-info/5 to-info/10 border border-info/20 rounded-2xl p-6 mb-6">
+    <div class="museum-card rounded-2xl p-6 mb-6" data-reveal>
       <h3 class="text-xl font-bold text-base-content mb-3 flex items-center gap-3">
         <Icon name="mdi:bank" class="w-6 h-6 text-info" />
         {t("artifact.metadata.location")}
@@ -105,7 +105,7 @@ const model3D = getModelForSlug(artifact.slug);
 
     <!-- 3D Experience Link -->
     {model3D && (
-      <div class="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-2xl p-6">
+      <div class="experience-card rounded-2xl p-6" data-reveal>
         <h3 class="text-xl font-bold text-base-content mb-3 flex items-center gap-3">
           <Icon name="mdi:rotate-3d-variant" class="w-6 h-6 text-primary" />
           {t("artifact.experience.title")}
@@ -115,7 +115,8 @@ const model3D = getModelForSlug(artifact.slug);
         </p>
         <a
           href={`/${lang}/experience/${model3D}`}
-          class="inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 group"
+          class="inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 group"
+          style="box-shadow: var(--shadow-premium);"
           aria-label={`${t("artifact.experience.cta")} - ${artifact.title}`}
         >
           <Icon name="mdi:cube-outline" class="w-5 h-5" />
@@ -127,31 +128,42 @@ const model3D = getModelForSlug(artifact.slug);
   </div>
 </section>
 
-<!-- Mobile-specific styling -->
 <style>
+  .artifact-hero-img {
+    box-shadow: var(--shadow-premium);
+    filter: saturate(0.95) contrast(1.05);
+    transition: transform 0.5s var(--ease-expo-out), filter 0.5s ease;
+  }
+
+  .group:hover .artifact-hero-img {
+    filter: saturate(1.1) contrast(1.1);
+  }
+
+  .museum-card {
+    background: var(--color-surface-elevated);
+    border-left: 4px solid oklch(0.65 0.2 250);
+    box-shadow: var(--shadow-premium);
+  }
+
+  .experience-card {
+    background: var(--color-surface-elevated);
+    border-left: 4px solid var(--color-primary-rich);
+    box-shadow: var(--shadow-premium);
+  }
+
   /* Mobile optimizations */
   @media (max-width: 1023px) {
     section {
       min-height: auto;
     }
-    
-    /* Stack vertically on mobile */
-    .lg\:flex-row {
-      flex-direction: column;
-    }
-    
-    /* Adjust containers for mobile */
-    .lg\:w-1\/2 {
-      width: 100%;
-    }
-    
-    .lg\:w-1\/2:first-child {
-      min-height: 50vh;
-    }
   }
-  
-  /* Ensure proper aspect ratio scaling */
-  .aspect-square {
-    aspect-ratio: 1;
+
+  @media (prefers-reduced-motion: reduce) {
+    .artifact-hero-img {
+      transition: none;
+    }
+    .group:hover .artifact-hero-img {
+      transform: none;
+    }
   }
 </style>

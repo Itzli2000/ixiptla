@@ -94,8 +94,8 @@
   --color-surface-sunken: oklch(92% 0.02 83.24);
   --color-primary-rich: oklch(48% 0.18 35);
   --color-gold-accent: oklch(78% 0.14 85);
-  --color-deep-earth: oklch(15% 0.02 40);
-  --color-deep-earth-lighter: oklch(22% 0.02 40);
+  --color-deep-earth: oklch(28% 0.04 45);
+  --color-deep-earth-lighter: oklch(34% 0.04 45);
 
   /* Premium multi-layer shadow system */
   --shadow-premium: 0 1px 2px oklch(0% 0 0 / 0.04),
@@ -228,7 +228,7 @@ h6 {
 
 .section-dark {
   background-color: var(--color-deep-earth);
-  color: oklch(95% 0.01 83.24);
+  color: oklch(93% 0.01 83.24);
 }
 
 [data-theme="ixpitla-dark"] .section-elevated {

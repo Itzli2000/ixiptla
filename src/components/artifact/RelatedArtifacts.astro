@@ -23,11 +23,11 @@ interface Props {
 const { relatedArtifacts, currentCulture, lang, t } = Astro.props;
 
 // Group related artifacts by type
-const sameCultureArtifacts = relatedArtifacts.filter(artifact => 
+const sameCultureArtifacts = relatedArtifacts.filter(artifact =>
   artifact.data.culture === currentCulture
 );
 
-const differentCultureArtifacts = relatedArtifacts.filter(artifact => 
+const differentCultureArtifacts = relatedArtifacts.filter(artifact =>
   artifact.data.culture !== currentCulture
 );
 
@@ -35,11 +35,11 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
 ---
 
 {hasRelatedArtifacts && (
-  <section class="py-16 lg:py-24" role="region" aria-labelledby="related-artifacts-title">
+  <section class="py-16 lg:py-24 section-elevated" role="region" aria-labelledby="related-artifacts-title">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Section Header -->
-      <div class="text-center mb-12 lg:mb-16">
-        <h2 
+      <div class="text-center mb-12 lg:mb-16" data-reveal>
+        <h2
           id="related-artifacts-title"
           class="text-4xl lg:text-5xl font-normal text-base-content mb-4"
           style="font-family: var(--font-serif, serif); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
@@ -55,12 +55,12 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
       <!-- Same Culture Section -->
       {sameCultureArtifacts.length > 0 && (
         <div class="mb-16">
-          <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center justify-between mb-8" data-reveal>
             <h3 class="text-2xl lg:text-3xl font-semibold text-base-content flex items-center gap-3">
               <Icon name="mdi:temple-hindu" class="w-6 h-6 text-primary" />
               {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
             </h3>
-            <a 
+            <a
               href={`/${lang}/collection?culture=${currentCulture}`}
               class="text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
             >
@@ -68,11 +68,11 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
               <Icon name="mdi:arrow-right" class="w-4 h-4" />
             </a>
           </div>
-          
+
           <!-- Same Culture Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.sameCulture").replace('{culture}', currentCulture)}>
-            {sameCultureArtifacts.slice(0, 3).map((artifact) => (
-              <div class="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.sameCulture").replace('{culture}', currentCulture)} data-reveal-stagger>
+            {sameCultureArtifacts.slice(0, 3).map((artifact, index) => (
+              <div class="related-card" data-reveal style={`--reveal-index: ${index}`}>
                 <ArtifactCard artifact={artifact.data} />
               </div>
             ))}
@@ -83,12 +83,12 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
       <!-- Different Cultures Section -->
       {differentCultureArtifacts.length > 0 && (
         <div class="mb-16 hidden sm:block">
-          <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center justify-between mb-8" data-reveal>
             <h3 class="text-2xl lg:text-3xl font-semibold text-base-content flex items-center gap-3">
               <Icon name="mdi:earth" class="w-6 h-6 text-secondary" />
               {t("artifact.related.similarType")}
             </h3>
-            <a 
+            <a
               href={`/${lang}/collection`}
               class="text-secondary hover:text-secondary/80 transition-colors text-sm font-medium flex items-center gap-2"
             >
@@ -96,11 +96,11 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
               <Icon name="mdi:arrow-right" class="w-4 h-4" />
             </a>
           </div>
-          
+
           <!-- Different Cultures Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.similarType")}>
-            {differentCultureArtifacts.slice(0, 3).map((artifact) => (
-              <div class="transform transition-all duration-300 hover:scale-105 hover:-translate-y-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.similarType")} data-reveal-stagger>
+            {differentCultureArtifacts.slice(0, 3).map((artifact, index) => (
+              <div class="related-card" data-reveal style={`--reveal-index: ${index}`}>
                 <ArtifactCard artifact={artifact.data} />
               </div>
             ))}
@@ -115,7 +115,7 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
             {t("artifact.related.exploreMore")}
           </h3>
         </div>
-        
+
         <div class="overflow-x-auto scrollbar-hide">
           <div id="carousel-container" class="flex gap-4 pb-4" style="width: max-content;">
             {relatedArtifacts.map((artifact) => (
@@ -128,8 +128,8 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
       </div>
 
       <!-- Call to Action -->
-      <div class="text-center mt-12 pt-8 border-t border-base-content/10">
-        <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-8 max-w-4xl mx-auto">
+      <div class="text-center mt-12 pt-8 border-t border-base-content/10" data-reveal>
+        <div class="related-cta rounded-2xl p-8 max-w-4xl mx-auto">
           <h3 class="text-2xl font-semibold text-base-content mb-4">
             {t("artifact.related.ctaTitle")}
           </h3>
@@ -137,16 +137,18 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
             {t("artifact.related.ctaDescription")}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
+            <a
               href={`/${lang}/collection`}
-              class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300"
+              style="box-shadow: var(--shadow-premium);"
             >
               <Icon name="mdi:view-grid" class="w-5 h-5" />
               {t("artifact.related.viewAll")}
             </a>
-            <a 
+            <a
               href={`/${lang}/collection?culture=${currentCulture}`}
-              class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-secondary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-secondary-content px-6 py-3 rounded-xl transition-all duration-300"
+              style="box-shadow: var(--shadow-premium);"
             >
               <Icon name="mdi:filter" class="w-5 h-5" />
               {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
@@ -159,9 +161,9 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
 )}
 
 {!hasRelatedArtifacts && (
-  <section class="py-16 lg:py-24" role="region">
+  <section class="py-16 lg:py-24 section-sunken" role="region">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="bg-gradient-to-br from-base-200/50 to-base-300/30 rounded-2xl p-12">
+      <div class="rounded-2xl p-12" style="background: var(--color-surface-elevated); box-shadow: var(--shadow-premium);">
         <Icon name="mdi:magnify" class="w-16 h-16 text-base-content/50 mx-auto mb-6" />
         <h2 class="text-2xl font-semibold text-base-content mb-4">
           {t("artifact.related.noRelated")}
@@ -169,9 +171,10 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
         <p class="text-base-content/80 mb-8 max-w-2xl mx-auto">
           {t("artifact.related.noRelatedDescription")}
         </p>
-        <a 
+        <a
           href={`/${lang}/collection`}
-          class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300"
+          style="box-shadow: var(--shadow-premium);"
         >
           <Icon name="mdi:view-grid" class="w-5 h-5" />
           {t("collection.cta")}
@@ -180,5 +183,3 @@ const hasRelatedArtifacts = relatedArtifacts.length > 0;
     </div>
   </section>
 )}
-
-
