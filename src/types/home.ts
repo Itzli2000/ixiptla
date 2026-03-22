@@ -22,6 +22,7 @@ export interface CultureInfo {
   artifactCount: number;
   slug: string;
   color: string;
+  image: string;
 }
 
 export interface TechnologyFeature {

@@ -47,9 +47,14 @@ const availableCultures = getCulturesWithArtifacts();
           class="bg-(--oc-surface-container-low) group cursor-pointer relative overflow-hidden"
           style={`--reveal-index: ${index}`}
         >
-          <!-- Image placeholder -->
-          <div class="relative aspect-square overflow-hidden">
-            <div class="w-full h-full bg-(--oc-surface-container-lowest) grayscale group-hover:scale-105 group-hover:grayscale-0 transition-transform duration-700 opacity-60"></div>
+          <!-- Culture Image -->
+          <div class="relative aspect-square overflow-hidden bg-(--oc-surface-container-lowest)">
+            <img
+              src={culture.image}
+              alt={culture.name}
+              class="w-full h-full object-contain grayscale opacity-60 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700"
+              loading="lazy"
+            />
             <div class="absolute inset-0 bg-linear-to-t from-(--oc-surface-container-lowest) to-transparent opacity-60"></div>
             <span class="font-label text-xs bg-(--oc-surface-container-lowest) px-2 py-1 text-(--oc-tertiary) absolute top-4 right-4">
               {artifactCountText}
