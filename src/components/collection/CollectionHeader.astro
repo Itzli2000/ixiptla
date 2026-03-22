@@ -19,7 +19,7 @@ const breadcrumbItems = [
 ];
 ---
 
-<header class="collection-header section-elevated relative overflow-hidden">
+<header class="relative">
   <div class="max-w-7xl mx-auto px-4 pt-24 pb-12 lg:pt-32 lg:pb-16">
     <!-- Breadcrumb Navigation -->
     <BreadcrumbNavigation
@@ -30,44 +30,18 @@ const breadcrumbItems = [
     />
 
     <!-- Page Header -->
-    <div class="text-center max-w-4xl mx-auto" data-reveal>
-      <h1 class="collection-title font-serif text-4xl md:text-5xl lg:text-6xl font-normal text-base-content mb-4">
-        {t("collection.title")}
-      </h1>
-
-      <p class="collection-subtitle text-lg md:text-xl text-primary font-medium mb-6">
+    <div class="border-l-4 border-(--oc-primary) pl-8">
+      <p class="font-label text-(--oc-tertiary) uppercase tracking-[0.3em] text-xs mb-2">
         {t("collection.subtitle")}
       </p>
 
-      <p class="collection-description text-base md:text-lg text-base-content/80 leading-relaxed max-w-3xl mx-auto">
+      <h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-(--oc-on-surface) leading-none mb-6">
+        {t("collection.title")}
+      </h1>
+
+      <p class="text-(--oc-on-surface-variant) font-body leading-relaxed text-lg max-w-2xl">
         {t("collection.description")}
       </p>
     </div>
   </div>
-
-  <!-- Gradient bottom border -->
-  <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-
-  <!-- Background decoration -->
-  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-    <div class="absolute top-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 -left-32 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
-  </div>
 </header>
-
-<style>
-  .collection-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
-  .collection-subtitle {
-    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-  }
-
-  .collection-description {
-    font-size: clamp(1rem, 1.5vw, 1.125rem);
-    line-height: 1.6;
-  }
-</style>

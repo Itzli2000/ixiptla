@@ -1,153 +1,196 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Space+Grotesk:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 @import "tailwindcss";
 @import "@codigo-obsidiana/design-tokens/ixiptla/css";
+
+/* ============================================
+   DaisyUI Theme Configuration
+   Obsidian Codex: Dark default
+   ============================================ */
+
 @plugin "daisyui" {
-  themes: "ixpitla" --default, "ixpitla-dark" --prefersdark;
+  themes: "ixpitla" --default, "ixpitla-light" --prefersdark;
 }
 
 @plugin "daisyui/theme" {
   name: "ixpitla";
-  color-scheme: light;
+  color-scheme: dark;
 
-  --color-base-100: var(--color-base-light-100);
-  --color-base-200: var(--color-base-light-200);
-  --color-base-300: var(--color-base-light-300);
-  --color-base-content: var(--color-base-light-content);
+  --color-base-100: #131313;
+  --color-base-200: #1c1b1b;
+  --color-base-300: #2a2a2a;
+  --color-base-content: #e5e2e1;
 
-  --color-primary: var(--color-primary-light-default);
-  --color-primary-content: var(--color-primary-light-content);
+  --color-primary: #ffb59e;
+  --color-primary-content: #5e1700;
 
-  --color-secondary: var(--color-secondary-light-default);
-  --color-secondary-content: var(--color-secondary-light-content);
+  --color-secondary: #bec9be;
+  --color-secondary-content: #29332b;
 
-  --color-accent: var(--color-accent-light-default);
-  --color-accent-content: var(--color-accent-light-content);
+  --color-accent: #e9c349;
+  --color-accent-content: #3c2f00;
 
-  --color-neutral: var(--color-neutral-light-default);
-  --color-neutral-content: var(--color-neutral-light-content);
+  --color-neutral: #353534;
+  --color-neutral-content: #c4c7c7;
 
-  --color-info: var(--color-info-light-default);
-  --color-success: var(--color-success-light-default);
-  --color-warning: var(--color-warning-light-default);
-  --color-error: var(--color-error-light-default);
-  --color-info-content: var(--color-info-light-content);
-  --color-success-content: var(--color-success-light-content);
-  --color-warning-content: var(--color-warning-light-content);
-  --color-error-content: var(--color-error-light-content);
+  --color-info: oklch(70% 0.2 220);
+  --color-success: oklch(70% 0.25 140);
+  --color-warning: oklch(85% 0.2 80);
+  --color-error: #ffb4ab;
+  --color-info-content: #131313;
+  --color-success-content: #131313;
+  --color-warning-content: #131313;
+  --color-error-content: #690005;
 
-  --radius-selector: var(--design-radius-selector);
-  --radius-field: var(--design-radius-field);
-  --radius-box: var(--design-radius-box);
+  --radius-selector: 0px;
+  --radius-field: 0px;
+  --radius-box: 0px;
   --size-selector: var(--design-size-selector);
   --size-field: var(--design-size-field);
-  --border: var(--design-border-width);
-  --depth: var(--design-effect-depth);
-  --noise: var(--design-effect-noise);
+  --border: 0px;
+  --depth: 0;
+  --noise: 0;
 }
 
 @plugin "daisyui/theme" {
-  name: "ixpitla-dark";
-  color-scheme: dark;
+  name: "ixpitla-light";
+  color-scheme: light;
 
-  --color-base-100: var(--color-base-dark-100);
-  --color-base-200: var(--color-base-dark-200);
-  --color-base-300: var(--color-base-dark-300);
-  --color-base-content: var(--color-base-dark-content);
+  --color-base-100: #fef9f2;
+  --color-base-200: #f2ede6;
+  --color-base-300: #ece7e1;
+  --color-base-content: #1d1c17;
 
-  --color-primary: var(--color-primary-dark-default);
-  --color-primary-content: var(--color-primary-dark-content);
+  --color-primary: #8a4b31;
+  --color-primary-content: #fef9f2;
 
-  --color-secondary: var(--color-secondary-dark-default);
-  --color-secondary-content: var(--color-secondary-dark-content);
+  --color-secondary: #3d6375;
+  --color-secondary-content: #fef9f2;
 
-  --color-accent: var(--color-accent-dark-default);
-  --color-accent-content: var(--color-accent-dark-content);
+  --color-accent: #957a00;
+  --color-accent-content: #1d1c17;
 
-  --color-neutral: var(--color-neutral-dark-default);
-  --color-neutral-content: var(--color-neutral-dark-content);
+  --color-neutral: #5c5c5c;
+  --color-neutral-content: #fef9f2;
 
-  --color-info: var(--color-info-dark-default);
-  --color-success: var(--color-success-dark-default);
-  --color-warning: var(--color-warning-dark-default);
-  --color-error: var(--color-error-dark-default);
-  --color-info-content: var(--color-info-dark-content);
-  --color-success-content: var(--color-success-dark-content);
-  --color-warning-content: var(--color-warning-dark-content);
-  --color-error-content: var(--color-error-dark-content);
+  --color-info: oklch(65% 0.2 220);
+  --color-success: oklch(65% 0.25 140);
+  --color-warning: oklch(80% 0.25 80);
+  --color-error: #ba1a1a;
+  --color-info-content: #fef9f2;
+  --color-success-content: #fef9f2;
+  --color-warning-content: #1d1c17;
+  --color-error-content: #fef9f2;
 
-  --radius-selector: var(--design-radius-selector);
-  --radius-field: var(--design-radius-field);
-  --radius-box: var(--design-radius-box);
+  --radius-selector: 0px;
+  --radius-field: 0px;
+  --radius-box: 0px;
   --size-selector: var(--design-size-selector);
   --size-field: var(--design-size-field);
-  --border: var(--design-border-width);
-  --depth: var(--design-effect-depth);
-  --noise: var(--design-effect-noise);
+  --border: 0px;
+  --depth: 0;
+  --noise: 0;
 }
+
+/* ============================================
+   Obsidian Codex Design System
+   ============================================ */
 
 :root {
   --theme-transition-duration: 0.3s;
   --theme-transition-timing: ease-in-out;
 
-  /* Extended palette - warm Mesoamerican identity with more depth */
-  --color-surface-elevated: oklch(99% 0.005 83.24);
-  --color-surface-sunken: oklch(92% 0.02 83.24);
-  --color-primary-rich: oklch(48% 0.18 35);
-  --color-gold-accent: oklch(78% 0.14 85);
-  --color-deep-earth: oklch(28% 0.04 45);
-  --color-deep-earth-lighter: oklch(34% 0.04 45);
+  /* Font families */
+  --font-family-headers: 'Newsreader', ui-serif, Georgia, serif;
+  --font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-family-label: 'Space Grotesk', ui-monospace, monospace;
+  --font-weight-headers-default: 700;
 
-  /* Premium multi-layer shadow system */
-  --shadow-premium: 0 1px 2px oklch(0% 0 0 / 0.04),
-    0 4px 8px oklch(0% 0 0 / 0.04),
-    0 16px 32px oklch(0% 0 0 / 0.06);
-  --shadow-premium-hover: 0 2px 4px oklch(0% 0 0 / 0.05),
-    0 8px 16px oklch(0% 0 0 / 0.06),
-    0 24px 48px oklch(0% 0 0 / 0.08);
-  --shadow-premium-glow: 0 0 40px oklch(55% 0.15 40.24 / 0.2);
+  /* Obsidian Codex surface hierarchy (dark default) */
+  --oc-background: #131313;
+  --oc-surface: #131313;
+  --oc-surface-container-lowest: #0e0e0e;
+  --oc-surface-container-low: #1c1b1b;
+  --oc-surface-container: #201f1f;
+  --oc-surface-container-high: #2a2a2a;
+  --oc-surface-container-highest: #353534;
+  --oc-surface-bright: #3a3939;
+  --oc-on-surface: #e5e2e1;
+  --oc-on-surface-variant: #c4c7c7;
+  --oc-primary: #ffb59e;
+  --oc-primary-container: #290600;
+  --oc-on-primary: #5e1700;
+  --oc-tertiary: #e9c349;
+  --oc-outline-variant: #444748;
+
+  /* Border radius: 0 everywhere */
+  --design-radius-box: 0px;
+  --design-radius-selector: 0px;
+  --design-radius-field: 0px;
+  --design-border-width: 0px;
 
   /* Animation curves */
   --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-[data-theme="ixpitla-dark"] {
-  --color-surface-elevated: oklch(22% 0.01 83.24);
-  --color-surface-sunken: oklch(14% 0.01 83.24);
-  --color-primary-rich: oklch(62% 0.18 35);
-  --color-gold-accent: oklch(72% 0.12 85);
-  --color-deep-earth: oklch(10% 0.01 40);
-  --color-deep-earth-lighter: oklch(16% 0.01 40);
-
-  --shadow-premium: 0 1px 2px oklch(0% 0 0 / 0.15),
-    0 4px 8px oklch(0% 0 0 / 0.12),
-    0 16px 32px oklch(0% 0 0 / 0.1);
-  --shadow-premium-hover: 0 2px 4px oklch(0% 0 0 / 0.2),
-    0 8px 16px oklch(0% 0 0 / 0.15),
-    0 24px 48px oklch(0% 0 0 / 0.12);
-  --shadow-premium-glow: 0 0 40px oklch(65% 0.18 35 / 0.25);
+/* Light mode overrides */
+[data-theme="ixpitla-light"] {
+  --oc-background: #fef9f2;
+  --oc-surface: #fef9f2;
+  --oc-surface-container-lowest: #ffffff;
+  --oc-surface-container-low: #f8f3ec;
+  --oc-surface-container: #f2ede6;
+  --oc-surface-container-high: #ece7e1;
+  --oc-surface-container-highest: #e7e2db;
+  --oc-surface-bright: #fef9f2;
+  --oc-on-surface: #1d1c17;
+  --oc-on-surface-variant: #53433d;
+  --oc-primary: #8a4b31;
+  --oc-primary-container: #ffdbd0;
+  --oc-on-primary: #ffffff;
+  --oc-tertiary: #957a00;
+  --oc-outline-variant: #d8c2ba;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    * {
-      transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
-                  border-color var(--theme-transition-duration) var(--theme-transition-timing),
-                  box-shadow var(--theme-transition-duration) var(--theme-transition-timing);
-    }
-  }
-}
+/* ============================================
+   Base Styles
+   ============================================ */
 
 body {
   font-family: var(--font-family-base);
+  background-color: var(--oc-background);
+  color: var(--oc-on-surface);
   padding-top: 4rem;
+}
+
+::selection {
+  background-color: rgba(255, 181, 158, 0.3);
+  color: var(--oc-primary);
+}
+
+[data-theme="ixpitla-light"] ::selection {
+  background-color: rgba(138, 75, 49, 0.2);
+  color: var(--oc-primary);
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid hsl(var(--color-primary));
+  outline: 2px solid var(--oc-primary);
   outline-offset: 2px;
 }
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--oc-background); }
+::-webkit-scrollbar-thumb { background: var(--oc-surface-container-high); }
 
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -158,15 +201,52 @@ button:focus-visible {
   display: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* ============================================
+   Typography
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-headers);
   font-weight: var(--font-weight-headers-default);
 }
+
+/* Font utility for label/technical text */
+.font-label {
+  font-family: var(--font-family-label);
+}
+
+.font-headline {
+  font-family: var(--font-family-headers);
+}
+
+.font-body {
+  font-family: var(--font-family-base);
+}
+
+/* ============================================
+   Obsidian Codex Utilities
+   ============================================ */
+
+.obsidian-gradient {
+  background: linear-gradient(45deg, #ffb59e 0%, #290600 100%);
+}
+
+[data-theme="ixpitla-light"] .obsidian-gradient {
+  background: linear-gradient(45deg, #8a4b31 0%, #3a0b00 100%);
+}
+
+/* Surface classes for tonal layering */
+.bg-oc-lowest { background-color: var(--oc-surface-container-lowest); }
+.bg-oc-low { background-color: var(--oc-surface-container-low); }
+.bg-oc-container { background-color: var(--oc-surface-container); }
+.bg-oc-high { background-color: var(--oc-surface-container-high); }
+.bg-oc-highest { background-color: var(--oc-surface-container-highest); }
+.bg-oc-bright { background-color: var(--oc-surface-bright); }
+.text-oc-on-surface { color: var(--oc-on-surface); }
+.text-oc-on-surface-variant { color: var(--oc-on-surface-variant); }
+.text-oc-primary { color: var(--oc-primary); }
+.text-oc-tertiary { color: var(--oc-tertiary); }
+.border-oc-outline { border-color: var(--oc-outline-variant); }
 
 /* ============================================
    Scroll Reveal Animation System
@@ -174,32 +254,31 @@ h6 {
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(20px);
   will-change: transform, opacity;
 }
 
 [data-reveal="left"] {
-  transform: translateX(-40px);
+  transform: translateX(-20px);
 }
 
 [data-reveal="right"] {
-  transform: translateX(40px);
+  transform: translateX(20px);
 }
 
 [data-reveal="scale"] {
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 
 [data-reveal].revealed {
   opacity: 1;
   transform: translateY(0) translateX(0) scale(1);
-  transition: opacity 0.7s var(--ease-expo-out),
-    transform 0.7s var(--ease-expo-out);
+  transition: opacity 0.9s var(--ease-spring),
+    transform 0.9s var(--ease-spring);
 }
 
-/* Stagger children */
 [data-reveal-stagger] > [data-reveal] {
-  transition-delay: calc(var(--reveal-index, 0) * 0.08s);
+  transition-delay: calc(var(--reveal-index, 0) * 0.06s);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -215,93 +294,15 @@ h6 {
 }
 
 /* ============================================
-   Section Rhythm
+   Theme Transition
    ============================================ */
 
-.section-elevated {
-  background-color: var(--color-surface-elevated);
-}
-
-.section-sunken {
-  background-color: var(--color-surface-sunken);
-}
-
-.section-dark {
-  background-color: var(--color-deep-earth);
-  color: oklch(93% 0.01 83.24);
-}
-
-[data-theme="ixpitla-dark"] .section-elevated {
-  background-color: var(--color-surface-elevated);
-}
-
-[data-theme="ixpitla-dark"] .section-sunken {
-  background-color: var(--color-surface-sunken);
-}
-
-[data-theme="ixpitla-dark"] .section-dark {
-  background-color: var(--color-deep-earth);
-  color: oklch(90% 0.01 83.24);
-}
-
-/* ============================================
-   Premium Card Utilities
-   ============================================ */
-
-.card-premium {
-  box-shadow: var(--shadow-premium);
-  border: none;
-  transition: transform 0.4s var(--ease-expo-out),
-    box-shadow 0.4s var(--ease-expo-out);
-}
-
-.card-premium:hover {
-  box-shadow: var(--shadow-premium-hover);
-  transform: translateY(-4px);
-}
-
-.card-premium-3d:hover {
-  box-shadow: var(--shadow-premium-hover);
-  transform: perspective(1000px) rotateX(-2deg) rotateY(1deg) translateZ(10px);
-}
-
-/* ============================================
-   Glassmorphism
-   ============================================ */
-
-.glass {
-  background: oklch(100% 0 0 / 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid oklch(100% 0 0 / 0.08);
-}
-
-/* ============================================
-   Animations
-   ============================================ */
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px oklch(55% 0.15 40.24 / 0.3); }
-  50% { box-shadow: 0 0 20px oklch(55% 0.15 40.24 / 0.5); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card-premium:hover,
-  .card-premium-3d:hover {
-    transform: none;
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    * {
+      transition: background-color var(--theme-transition-duration) var(--theme-transition-timing),
+                  color var(--theme-transition-duration) var(--theme-transition-timing),
+                  border-color var(--theme-transition-duration) var(--theme-transition-timing);
+    }
   }
 }

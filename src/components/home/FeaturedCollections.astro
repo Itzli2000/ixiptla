@@ -12,153 +12,114 @@ const t = useTranslations(lang);
 const availableCultures = getCulturesWithArtifacts();
 ---
 
-<section 
-  class="py-24 lg:py-32 section-sunken"
+<section
+  class="px-8 lg:px-24 mb-48"
   aria-labelledby="featured-collections-title"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center max-w-4xl mx-auto mb-20" data-reveal>
-      <h2
-        id="featured-collections-title"
-        class="text-4xl lg:text-5xl font-bold text-base-content mb-6"
-      >
+  <!-- Header -->
+  <div class="flex items-end justify-between mb-16" data-reveal>
+    <div>
+      <span class="font-label text-stone-500 text-xs tracking-widest uppercase block mb-4">
         {t('home.featuredCollections.title')}
-      </h2>
-      <p class="text-xl lg:text-2xl text-base-content/70 font-light leading-relaxed mb-8">
-        {t('home.featuredCollections.subtitle')}
-      </p>
-      <p class="text-lg text-base-content/80 leading-relaxed">
-        {t('home.featuredCollections.description')}
-      </p>
+      </span>
+      <h3 id="featured-collections-title" class="font-headline text-5xl font-bold text-(--oc-on-surface)">
+        {lang === 'es' ? 'Colecciones Destacadas' : 'Featured Collections'}
+      </h3>
     </div>
+    <a
+      href={`/${lang}/collection`}
+      class="font-label text-xs text-stone-600 underline cursor-pointer hover:text-(--oc-primary) transition-colors duration-300"
+      aria-label={t('home.featuredCollections.viewAllCTA')}
+    >
+      {t('home.featuredCollections.viewAllCTA')}
+    </a>
+  </div>
 
-    <!-- Culture Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" data-reveal-stagger>
-      {availableCultures.map((culture, index) => {
-        const cultureLink = getCultureLink(culture, lang);
-        const artifactCountText = formatArtifactCount(culture.artifactCount, lang);
+  <!-- Culture Cards Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-reveal-stagger>
+    {availableCultures.map((culture, index) => {
+      const cultureLink = getCultureLink(culture, lang);
+      const artifactCountText = formatArtifactCount(culture.artifactCount, lang);
 
-        return (
-          <article
-            data-reveal
-            class="culture-card group relative overflow-hidden rounded-2xl card-premium-3d bg-[var(--color-surface-elevated)]"
-            style={`--culture-color: ${culture.color}; --reveal-index: ${index}`}
-          >
-            <!-- Culture gradient accent strip -->
-            <div class="h-1 w-full" style={`background: linear-gradient(to right, ${culture.color}, var(--color-primary-rich))`}></div>
+      return (
+        <article
+          data-reveal
+          class="bg-(--oc-surface-container-low) group cursor-pointer relative overflow-hidden"
+          style={`--reveal-index: ${index}`}
+        >
+          <!-- Image placeholder -->
+          <div class="relative aspect-square overflow-hidden">
+            <div class="w-full h-full bg-(--oc-surface-container-lowest) grayscale group-hover:scale-105 group-hover:grayscale-0 transition-transform duration-700 opacity-60"></div>
+            <div class="absolute inset-0 bg-linear-to-t from-(--oc-surface-container-lowest) to-transparent opacity-60"></div>
+            <span class="font-label text-xs bg-(--oc-surface-container-lowest) px-2 py-1 text-(--oc-tertiary) absolute top-4 right-4">
+              {artifactCountText}
+            </span>
+          </div>
 
-            <!-- Culture Icon Header -->
-            <div class="relative p-8 pb-6">
-              <div class="flex items-center justify-between mb-4">
-                <div class="w-16 h-16 rounded-xl flex items-center justify-center transition-colors duration-300" style="background: radial-gradient(circle, oklch(from var(--color-primary-rich) l c h / 0.15), transparent)">
-                  <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {culture.icon === 'mdi:pyramid' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l9 18H3l9-18z"/>
-                    )}
-                    {culture.icon === 'mdi:shield-sun' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3a9 9 0 00-9 9c0 2.5 1 4.8 2.6 6.4L12 21l6.4-2.6C20 16.8 21 14.5 21 12a9 9 0 00-9-9zm0 0v18"/>
-                    )}
-                    {culture.icon === 'mdi:temple-buddhist' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l-1.5 4.5h-7L12 21l8.5-13.5h-7L12 3z"/>
-                    )}
-                    {culture.icon === 'mdi:diamond-stone' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 3h12l4 6-10 12L2 9l4-6z"/>
-                    )}
-                    {culture.icon === 'mdi:city' && (
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1"/>
-                    )}
-                  </svg>
-                </div>
-                <div class="text-right">
-                  <div class="text-sm text-base-content/60 mb-1">{artifactCountText}</div>
-                  <div class="text-xs text-primary font-medium px-2 py-1 rounded-full bg-primary/10">
-                    {t('home.featuredCollections.available')}
-                  </div>
-                </div>
-              </div>
-              
-              <h3 class="text-2xl font-bold text-base-content mb-3 group-hover:text-primary transition-colors duration-300">
+          <!-- Content -->
+          <div class="p-8">
+            <h4 class="font-headline text-3xl font-bold text-(--oc-on-surface) mb-4">
+              <a href={cultureLink} class="hover:text-(--oc-primary) transition-colors duration-300">
                 {culture.name}
-              </h3>
-              
-              <p class="text-base-content/70 leading-relaxed">
-                {culture.description}
-              </p>
+              </a>
+            </h4>
+            <p class="font-body text-sm text-stone-400 mb-6 leading-relaxed">
+              {culture.description}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {culture.tags?.map((tag: string) => (
+                <span class="px-2 py-1 bg-(--oc-surface-container-lowest) font-label text-[10px] text-stone-500">
+                  {tag}
+                </span>
+              ))}
+              {!culture.tags && (
+                <>
+                  <span class="px-2 py-1 bg-(--oc-surface-container-lowest) font-label text-[10px] text-stone-500">
+                    {culture.name}
+                  </span>
+                  <span class="px-2 py-1 bg-(--oc-surface-container-lowest) font-label text-[10px] text-stone-500">
+                    {lang === 'es' ? 'Mesoamérica' : 'Mesoamerica'}
+                  </span>
+                </>
+              )}
             </div>
+          </div>
 
-            <!-- Card Actions -->
-            <div class="p-6 pt-0">
-              <div class="flex gap-3">
-                <a 
-                  href={cultureLink}
-                  class="flex-1 btn btn-outline btn-sm border-primary/30 text-primary hover:bg-primary hover:text-primary-content hover:border-primary transition-all duration-300"
-                  aria-label={`${t('home.featuredCollections.exploreCollectionCTA')} ${culture.name}`}
-                >
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                  </svg>
-                  {t('home.featuredCollections.exploreCollectionCTA')}
-                </a>
-                
-                <button 
-                  class="btn btn-ghost btn-sm text-base-content/60 hover:text-base-content"
-                  aria-label={`${t('home.featuredCollections.learnMore')} ${culture.name}`}
-                  data-culture={culture.id}
-                >
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Hover Effect Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"></div>
-          </article>
-        );
-      })}
-    </div>
-
-    <!-- View All CTA -->
-    <div class="text-center">
-      <a 
-        href={`/${lang}/collection`}
-        class="btn btn-primary btn-lg text-primary-content hover:btn-primary-focus transition-all duration-300 group"
-        aria-label={t('home.featuredCollections.viewAllCTA')}
-      >
-        <svg class="w-6 h-6 mr-2 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0l-4 4m4-4l-4-4"/>
-        </svg>
-        {t('home.featuredCollections.viewAllCTA')}
-      </a>
-    </div>
+          <!-- Info button -->
+          <button
+            class="absolute bottom-8 right-8 font-label text-[10px] text-stone-500 hover:text-(--oc-primary) transition-colors duration-300"
+            aria-label={`${t('home.featuredCollections.learnMore')} ${culture.name}`}
+            data-culture={culture.id}
+          >
+            <span class="material-symbols-outlined text-base">info</span>
+          </button>
+        </article>
+      );
+    })}
   </div>
 
   <!-- Culture Info Modal -->
   <div id="culture-modal" class="modal" role="dialog" aria-labelledby="modal-title">
-    <div class="modal-box max-w-2xl">
-      <h3 id="modal-title" class="font-bold text-2xl mb-4"></h3>
+    <div class="modal-box max-w-2xl bg-(--oc-surface-container) text-(--oc-on-surface)">
+      <h3 id="modal-title" class="font-headline font-bold text-2xl mb-4"></h3>
       <div id="modal-content" class="space-y-4">
-        <div id="modal-description" class="text-base-content/80"></div>
-        <div class="divider"></div>
-        <div class="grid grid-cols-2 gap-4 text-sm">
+        <div id="modal-description" class="font-body text-sm text-stone-400 leading-relaxed"></div>
+        <div class="grid grid-cols-2 gap-4 text-sm mt-6">
           <div>
-            <strong class="text-base-content/70">{t('home.featuredCollections.modal.artifacts')}</strong>
-            <div id="modal-artifacts" class="text-base-content"></div>
+            <strong class="font-label text-xs text-stone-500 block mb-1">{t('home.featuredCollections.modal.artifacts')}</strong>
+            <div id="modal-artifacts" class="font-body text-(--oc-on-surface)"></div>
           </div>
           <div>
-            <strong class="text-base-content/70">{t('home.featuredCollections.modal.period')}</strong>
-            <div id="modal-period" class="text-base-content"></div>
+            <strong class="font-label text-xs text-stone-500 block mb-1">{t('home.featuredCollections.modal.period')}</strong>
+            <div id="modal-period" class="font-body text-(--oc-on-surface)"></div>
           </div>
         </div>
       </div>
       <div class="modal-action">
         <form method="dialog">
-          <button class="btn">{t('home.featuredCollections.modal.close')}</button>
+          <button class="font-label text-xs text-stone-500 hover:text-(--oc-on-surface) transition-colors duration-300">{t('home.featuredCollections.modal.close')}</button>
         </form>
-        <a id="modal-explore-link" href="#" class="btn btn-primary">
+        <a id="modal-explore-link" href="#" class="font-label text-xs text-(--oc-primary) underline hover:text-(--oc-on-surface) transition-colors duration-300">
           {t('home.featuredCollections.exploreCollectionCTA')}
         </a>
       </div>
@@ -189,10 +150,6 @@ const availableCultures = getCulturesWithArtifacts();
   })}></script>
 </section>
 
-<style>
-  /* Card animations handled by global data-reveal system */
-</style>
-
 <script is:inline>
   document.addEventListener('astro:page-load', () => {
     const modal = document.getElementById('culture-modal');
@@ -206,7 +163,7 @@ const availableCultures = getCulturesWithArtifacts();
       'mexica': {
         name: 'Mexica',
         description: 'Powerful empire builders known for their military prowess, trade networks, and architectural marvels.',
-        artifacts: '12', 
+        artifacts: '12',
         period: 'Postclassic Period (1345-1521 CE)'
       },
       'acolhua': {
@@ -234,17 +191,17 @@ const availableCultures = getCulturesWithArtifacts();
       button.addEventListener('click', (e) => {
         const cultureId = e.currentTarget.getAttribute('data-culture');
         const culture = cultureData[cultureId];
-        
+
         if (culture && modal) {
           document.getElementById('modal-title').textContent = culture.name;
           document.getElementById('modal-description').textContent = culture.description;
           document.getElementById('modal-artifacts').textContent = culture.artifacts;
           document.getElementById('modal-period').textContent = culture.period;
-          
+
           const exploreLink = document.getElementById('modal-explore-link');
           const pathLang = window.location.pathname.split('/')[1] || 'es';
           exploreLink.href = `/${pathLang}/collection?culture=${cultureId}`;
-          
+
           modal.showModal();
         }
       });

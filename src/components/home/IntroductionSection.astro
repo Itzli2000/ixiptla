@@ -19,12 +19,12 @@ const valueItems = translations.home.introduction.values.items;
   class="py-24 lg:py-32 section-elevated"
   aria-labelledby="introduction-title"
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:pl-[10%] lg:pr-[20%]">
     <!-- Section Header -->
     <div class="text-center max-w-4xl mx-auto mb-20" data-reveal>
       <h2
         id="introduction-title"
-        class="text-4xl lg:text-5xl font-bold text-base-content mb-6"
+        class="text-4xl lg:text-5xl font-medium text-base-content mb-6"
       >
         {t('home.introduction.title')}
       </h2>
@@ -42,8 +42,8 @@ const valueItems = translations.home.introduction.values.items;
         </p>
 
         <!-- Mission Statement -->
-        <div class="p-8 rounded-2xl border-l-4 border-l-[var(--color-primary-rich)] bg-[var(--color-surface-elevated)]" style="box-shadow: var(--shadow-premium);">
-          <h3 class="text-2xl font-bold text-primary mb-4">
+        <div class="p-8 rounded-sm border-l-4 border-l-(--color-primary-rich) bg-base-200">
+          <h3 class="text-2xl font-medium text-primary mb-4">
             {t('home.introduction.mission.title')}
           </h3>
           <p class="text-base-content/80 leading-relaxed">
@@ -52,8 +52,8 @@ const valueItems = translations.home.introduction.values.items;
         </div>
 
         <!-- Vision Statement -->
-        <div class="p-8 rounded-2xl border-l-4 border-l-secondary bg-[var(--color-surface-elevated)]" style="box-shadow: var(--shadow-premium);">
-          <h3 class="text-2xl font-bold text-secondary mb-4">
+        <div class="p-8 rounded-sm border-l-4 border-l-secondary bg-base-200">
+          <h3 class="text-2xl font-medium text-secondary mb-4">
             {t('home.introduction.vision.title')}
           </h3>
           <p class="text-base-content/80 leading-relaxed">
@@ -64,7 +64,7 @@ const valueItems = translations.home.introduction.values.items;
 
       <!-- Values Grid -->
       <div class="space-y-8" data-reveal="right">
-        <h3 class="text-3xl font-bold text-base-content mb-8">
+        <h3 class="text-3xl font-medium text-base-content mb-8">
           {t('home.introduction.values.title')}
         </h3>
 
@@ -81,10 +81,9 @@ const valueItems = translations.home.introduction.values.items;
             return (
               <div
                 data-reveal
-                class="relative flex gap-4 p-6 rounded-xl bg-base-200/50 hover:bg-base-200 transition-colors duration-300 overflow-hidden"
+                class="relative flex gap-4 p-6 hover:bg-base-200/30 transition-colors duration-300 overflow-hidden"
                 style={`--reveal-index: ${index}`}
               >
-                <span class="absolute -top-2 -left-1 text-7xl font-bold text-base-content/[0.04] leading-none pointer-events-none select-none">{padded}</span>
                 <div class="shrink-0 relative z-10">
                   <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
                     <Icon name={iconMap[index]} class="w-6 h-6 text-accent" />
@@ -109,19 +108,13 @@ const valueItems = translations.home.introduction.values.items;
     <div class="text-center">
       <a 
         href={`/${lang}/contact`}
-        class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-primary-content transition-all duration-300 group"
+        class="btn btn-outline btn-lg border-primary text-primary hover:bg-primary hover:text-primary-content transition-all duration-300 rounded-sm group"
         aria-label={t('home.introduction.cta')}
       >
         <Icon name="mdi:book-open-page-variant" class="w-6 h-6 mr-2 group-hover:scale-110 transition-transform duration-300" />
         {t('home.introduction.cta')}
       </a>
     </div>
-  </div>
-
-  <!-- Background Decoration -->
-  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-    <div class="absolute top-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 -left-32 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
   </div>
 
   <!-- Structured Data -->

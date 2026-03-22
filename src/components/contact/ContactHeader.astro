@@ -1,6 +1,5 @@
 ---
 import BreadcrumbNavigation from "../ui/BreadcrumbNavigation.astro";
-import { Icon } from "astro-icon/components";
 import { useTranslations } from "../../i18n/utils";
 import type { BreadcrumbItem } from "../../types/artifact";
 
@@ -20,68 +19,26 @@ const breadcrumbItems: BreadcrumbItem[] = [
 ];
 ---
 
-<header class="contact-hero relative overflow-hidden">
-  <!-- Background -->
-  <div class="absolute inset-0 -z-10">
-    <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-deep-earth)] via-[var(--color-deep-earth-lighter)] to-[var(--color-deep-earth)]"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0); background-size: 24px 24px;"></div>
-    <div class="absolute top-1/2 right-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-10 bg-primary"></div>
-    <div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full blur-[100px] opacity-8 bg-secondary"></div>
+<header class="border-b border-(--oc-outline-variant)/15 pb-12 mb-24">
+  <div class="mb-6">
+    <BreadcrumbNavigation items={breadcrumbItems} lang={lang} t={t} />
   </div>
 
-  <div class="relative container mx-auto px-4 pt-24 pb-16 lg:pt-32 lg:pb-20 lg:px-16">
-    <div class="mb-6">
-      <BreadcrumbNavigation items={breadcrumbItems} lang={lang} t={t} />
-    </div>
-
-    <div class="max-w-3xl" data-reveal>
+  <div class="flex flex-col md:flex-row justify-between items-end gap-8">
+    <div class="max-w-3xl">
       {subtitle && (
-        <p class="contact-overline text-sm uppercase tracking-[0.2em] mb-5 font-medium">
+        <span class="font-label text-(--oc-tertiary) uppercase tracking-[0.2em] text-xs mb-4 block">
           {subtitle}
-        </p>
+        </span>
       )}
-
-      <h1 class="contact-title font-serif mb-6">
+      <h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tight text-(--oc-primary) leading-none uppercase">
         {title}
       </h1>
-
-      {description && (
-        <p class="text-xl leading-relaxed contact-description max-w-2xl">
-          {description}
-        </p>
-      )}
     </div>
-
-    <!-- Decorative line -->
-    <div class="mt-12 flex items-center gap-4" data-reveal>
-      <div class="h-px flex-1 max-w-32 bg-gradient-to-r from-primary/60 to-transparent"></div>
-      <Icon name="mdi:chat-processing-outline" class="w-5 h-5 text-primary/60" />
+    <div class="font-label text-(--oc-on-surface-variant) text-right text-xs uppercase tracking-widest leading-relaxed">
+      Ref: IXP-CONTACT-2024<br />
+      Status: {lang === 'es' ? 'Activo' : 'Active'}<br />
+      {lang === 'es' ? 'Nodo: CDMX' : 'Location: CDMX Node'}
     </div>
   </div>
 </header>
-
-<style>
-  .contact-hero {
-    background-color: var(--color-deep-earth);
-    color: oklch(90% 0.01 83.24);
-  }
-
-  .contact-overline {
-    color: var(--color-gold-accent);
-  }
-
-  .contact-title {
-    font-size: clamp(2.75rem, 6vw, 4.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    color: oklch(95% 0.005 83.24);
-  }
-
-  .contact-description {
-    color: oklch(75% 0.01 83.24);
-  }
-
-  :global([data-theme="ixpitla-dark"]) .contact-hero {
-    background-color: var(--color-deep-earth);
-  }
-</style>
