@@ -1,3 +1,38 @@
+# Changelog
+
+## [4.0.0] - 2026-03-22
+
+### Bug Fixes
+
+- apply theme to new document before Astro view transition swap to prevent FOUC (7545ddd)
+- prevent theme FOUC by setting data-theme in head before paint (d795130)
+- stack featured collections header on mobile to prevent horizontal overflow (f609a44)
+- remove IXP watermark from contact form that caused horizontal overflow (35a7692)
+- prevent horizontal overflow on mobile devices (f479d1b)
+- responsive improvements for mobile (375px) and tablet (768px) (afce9e3)
+- remove language switcher from mobile sidebar - stays in top nav only (fc03ec4)
+- theme toggle - use class selector for multiple instances, remove duplicate from sidebar (15bfe3e)
+- rewrite ThemeSwitcher as button with direct click handler (e8f3aea)
+- remove design-tokens package import and fix theme switcher (5e5f1b7)
+- simplify ThemeSwitcher to prevent listener conflicts with DaisyUI (87bcee5)
+- migrate legacy theme name ixpitla-dark to ixpitla in localStorage (ccc8008)
+- make culture cards clickable, restore SVG logo, remove dead modal (bdc1cde)
+- resolve TypeScript type errors in CollectionPageAstro URL props (1eacf33)
+- remove unnecessary padding from collection section (0e6e874)
+- replace all hardcoded text with i18n translations (a35d834)
+
+### Features
+
+- implement light mode variant with theme toggle (0bd35e8)
+- add artifact images to featured culture cards (94703e4)
+- complete Obsidian Codex visual rebrand - dark theme, new typography, restructured layouts (24279e3)
+- Enhance UI components with scroll animations and new footer layout (6e75de3)
+
+### Chores
+
+- remove remaining dead code - types, data exports, unused file (f034085)
+- remove dead code from pre-rebrand components (845cee3)
+
 ## 3.0.0 (2026-02-23)
 
 ##### New Features
