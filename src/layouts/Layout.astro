@@ -103,6 +103,9 @@ if (currentArtifact) {
 <!doctype html>
 <html lang={lang}>
   <head>
+    <script is:inline>
+      try { var t = localStorage.getItem("theme"); if (t === "ixpitla-dark") t = null; if (t === "ixpitla" || t === "ixpitla-light") document.documentElement.setAttribute("data-theme", t); else document.documentElement.setAttribute("data-theme", "ixpitla"); } catch(e) { document.documentElement.setAttribute("data-theme", "ixpitla"); }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
