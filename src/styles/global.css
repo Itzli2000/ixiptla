@@ -165,6 +165,7 @@ body {
   background-color: var(--oc-background);
   color: var(--oc-on-surface);
   padding-top: 4rem;
+  overflow-x: hidden;
 }
 
 ::selection {
