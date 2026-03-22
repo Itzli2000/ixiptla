@@ -22,41 +22,6 @@
       "imageAlt": "Vasija ceremonial maya con forma de colibrí, réplica arqueológica con motivos pintados tradicionales",
       "artifactRef": "Referencia del Artefacto"
     },
-    "introduction": {
-      "title": "Preservando el Legado Mesoamericano",
-      "subtitle": "Un Puente Digital Entre Pasado y Presente",
-      "description": "Ixiptla trasciende la simple exhibición digital. Somos custodios del patrimonio cultural mesoamericano, comprometidos con la preservación, educación y accesibilidad de nuestras raíces ancestrales.",
-      "mission": {
-        "title": "Nuestra Misión",
-        "content": "Democratizar el acceso al patrimonio arqueológico mesoamericano mediante tecnología de vanguardia, creando experiencias educativas que honren la profundidad cultural y espiritual de nuestros ancestros."
-      },
-      "vision": {
-        "title": "Nuestra Visión",
-        "content": "Ser el referente mundial en museografía digital mesoamericana, estableciendo nuevos estándares en preservación cultural y educación accesible para las generaciones futuras."
-      },
-      "values": {
-        "title": "Nuestros Valores",
-        "items": [
-          {
-            "title": "Respeto Cultural",
-            "description": "Honramos las tradiciones y cosmovisiones de cada cultura representada"
-          },
-          {
-            "title": "Precisión Histórica",
-            "description": "Mantenemos los más altos estándares de autenticidad arqueológica"
-          },
-          {
-            "title": "Accesibilidad Universal",
-            "description": "Garantizamos que el conocimiento ancestral sea accesible para todos"
-          },
-          {
-            "title": "Innovación Responsable",
-            "description": "Aplicamos tecnología de forma ética y culturalmente apropiada"
-          }
-        ]
-      },
-      "cta": "Conoce Más Sobre Nuestra Misión"
-    },
     "featuredCollections": {
       "title": "Culturas Representadas",
       "subtitle": "Diversidad del Mundo Mesoamericano",
@@ -123,46 +88,9 @@
         "zoomDesc": "Usa la rueda del mouse para acercar y examinar los detalles"
       }
     },
-    "stats": {
-      "title": "Ixiptla en Números",
-      "subtitle": "Nuestro Impacto Cultural",
-      "description": "Cifras que reflejan nuestro compromiso con la preservación y accesibilidad del patrimonio mesoamericano.",
-      "labels": {
-        "artifacts": "Réplicas Arqueológicas",
-        "cultures": "Culturas Documentadas",
-        "models3D": "Modelos 3D Disponibles",
-        "experiences": "Experiencia Inmersiva"
-      },
-      "additionalInfo": "Estas cifras representan nuestro crecimiento continuo en la preservación digital del patrimonio mesoamericano."
-    },
-    "finalCTA": {
-      "title": "Comienza tu Viaje Cultural",
-      "subtitle": "El Patrimonio Mesoamericano te Espera",
-      "description": "Sumérgete en milenios de sabiduría ancestral. Cada réplica cuenta una historia, cada cultura revela secretos, cada experiencia te conecta con tus raíces.",
-      "primaryCTA": "Explorar Colección Completa",
-      "secondaryCTA": "Contactar Equipo Ixiptla",
-      "features": {
-        "immediateAccess": "Acceso Inmediato",
-        "immediateAccessDesc": "Explora nuestra colección completa al instante, sin restricciones",
-        "deepKnowledge": "Conocimiento Profundo", 
-        "deepKnowledgeDesc": "Información detallada y contexto cultural de cada pieza",
-        "globalReach": "Alcance Global",
-        "globalReachDesc": "Patrimonio mesoamericano accesible desde cualquier lugar del mundo"
-      },
-      "trust": {
-        "verifiedContent": "Contenido Verificado",
-        "secureAccess": "Acceso Seguro",
-        "alwaysFree": "Gratuito Siempre"
-      }
-    },
     "quote": {
       "text": "La arqueología digital no es solo documentación; es un acto de",
       "highlight": "resistencia contra el tiempo"
-    },
-    "common": {
-      "scrollDown": "Desplazarse hacia abajo",
-      "exploreMore": "Explorar más",
-      "experience": "Inmersiva"
     }
   },
   "navigation": {

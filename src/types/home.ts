@@ -7,13 +7,6 @@ export interface SEOData {
   structuredData: Record<string, unknown>;
 }
 
-export interface MuseumStats {
-  artifacts: number;
-  cultures: number;
-  models3D: number;
-  experiences: string | number;
-}
-
 export interface CultureInfo {
   id: string;
   name: string;
@@ -23,12 +16,6 @@ export interface CultureInfo {
   slug: string;
   color: string;
   image: string;
-}
-
-export interface TechnologyFeature {
-  title: string;
-  description: string;
-  icon: string;
 }
 
 export interface FeaturedArtifact {

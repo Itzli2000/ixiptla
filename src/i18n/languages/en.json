@@ -22,41 +22,6 @@
       "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted motifs",
       "artifactRef": "Artifact Reference"
     },
-    "introduction": {
-      "title": "Preserving Mesoamerican Legacy",
-      "subtitle": "A Digital Bridge Between Past and Present",
-      "description": "Ixiptla transcends simple digital exhibition. We are guardians of Mesoamerican cultural heritage, committed to preservation, education, and accessibility of our ancestral roots.",
-      "mission": {
-        "title": "Our Mission",
-        "content": "Democratize access to Mesoamerican archaeological heritage through cutting-edge technology, creating educational experiences that honor the cultural and spiritual depth of our ancestors."
-      },
-      "vision": {
-        "title": "Our Vision",
-        "content": "Be the global reference in Mesoamerican digital museography, establishing new standards in cultural preservation and accessible education for future generations."
-      },
-      "values": {
-        "title": "Our Values",
-        "items": [
-          {
-            "title": "Cultural Respect",
-            "description": "We honor the traditions and worldviews of each represented culture"
-          },
-          {
-            "title": "Historical Precision",
-            "description": "We maintain the highest standards of archaeological authenticity"
-          },
-          {
-            "title": "Universal Accessibility",
-            "description": "We ensure ancestral knowledge is accessible to everyone"
-          },
-          {
-            "title": "Responsible Innovation",
-            "description": "We apply technology ethically and culturally appropriately"
-          }
-        ]
-      },
-      "cta": "Learn More About Our Mission"
-    },
     "featuredCollections": {
       "title": "Represented Cultures",
       "subtitle": "Diversity of the Mesoamerican World",
@@ -123,46 +88,9 @@
         "zoomDesc": "Use mouse wheel to zoom in and examine fine details"
       }
     },
-    "stats": {
-      "title": "Ixiptla in Numbers",
-      "subtitle": "Our Cultural Impact",
-      "description": "Figures that reflect our commitment to preservation and accessibility of Mesoamerican heritage.",
-      "labels": {
-        "artifacts": "Archaeological Replicas",
-        "cultures": "Documented Cultures",
-        "models3D": "3D Models Available",
-        "experiences": "Immersive Experience"
-      },
-      "additionalInfo": "These figures represent our continuous growth in digital preservation of Mesoamerican heritage."
-    },
-    "finalCTA": {
-      "title": "Begin Your Cultural Journey",
-      "subtitle": "Mesoamerican Heritage Awaits You",
-      "description": "Immerse yourself in millennia of ancestral wisdom. Each replica tells a story, each culture reveals secrets, each experience connects you with your roots.",
-      "primaryCTA": "Explore Complete Collection",
-      "secondaryCTA": "Contact Ixiptla Team",
-      "features": {
-        "immediateAccess": "Immediate Access",
-        "immediateAccessDesc": "Explore our complete collection instantly, without restrictions",
-        "deepKnowledge": "Deep Knowledge",
-        "deepKnowledgeDesc": "Detailed information and cultural context for each piece",
-        "globalReach": "Global Reach",
-        "globalReachDesc": "Mesoamerican heritage accessible from anywhere in the world"
-      },
-      "trust": {
-        "verifiedContent": "Verified Content",
-        "secureAccess": "Secure Access",
-        "alwaysFree": "Always Free"
-      }
-    },
     "quote": {
       "text": "Digital archaeology is not just documentation; it is an act of",
       "highlight": "resistance against time"
-    },
-    "common": {
-      "scrollDown": "Scroll down",
-      "exploreMore": "Explore more",
-      "experience": "Immersive"
     }
   },
   "navigation": {
