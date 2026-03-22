@@ -13,11 +13,9 @@ const t = useTranslations(lang);
   <div class="max-w-4xl text-center">
     <span class="material-symbols-outlined text-(--oc-primary) text-4xl mb-6 block">format_quote</span>
     <h2 class="font-headline text-4xl md:text-5xl italic font-light text-(--oc-on-surface-variant) leading-tight">
-      {lang === 'es'
-        ? '"La arqueología digital no es solo documentación; es un acto de '
-        : '"Digital archaeology is not just documentation; it is an act of '}
+      "{t('home.quote.text')}{' '}
       <span class="text-(--oc-on-surface) font-normal not-italic underline decoration-(--oc-primary) underline-offset-8">
-        {lang === 'es' ? 'resistencia contra el tiempo' : 'resistance against time'}
+        {t('home.quote.highlight')}
       </span>."
     </h2>
   </div>

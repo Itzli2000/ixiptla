@@ -6,6 +6,8 @@ import ContactReasonCard from "../../components/contact/ContactReasonCard.astro"
 import { Icon } from "astro-icon/components";
 import { getContactData } from "../../data/contact";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import es from "../../i18n/languages/es.json";
+import en from "../../i18n/languages/en.json";
 import type { Language } from "../../types";
 
 export function getStaticPaths() {
@@ -14,65 +16,35 @@ export function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
+const translations = lang === 'es' ? es : en;
 const { hero, contactInfo } = getContactData(lang);
 
-const formLabels = lang === 'es' ? {
-  name: 'Nombre del Corresponsal',
-  namePlaceholder: 'NOMBRE COMPLETO',
-  email: 'Dirección Digital',
-  emailPlaceholder: 'EMAIL@INSTITUCION.ORG',
-  subject: 'Clasificación de Consulta',
-  message: 'Contenido de la Transmisión',
-  messagePlaceholder: 'DESCRIBE LA NATURALEZA DE TU CONSULTA...',
-  submit: 'Enviar Transmisión',
-  disclaimer: 'Todas las transmisiones quedan registradas en el archivo digital permanente.',
-  missionTitle: 'Misión del Curador Digital',
-  missionText: 'El Archivo Digital IXIPTLA opera en la intersección del patrimonio ancestral y la permanencia computacional. Nuestra misión es la preservación pixel-perfecta de la cultura material mesoamericana.',
-  missionLink: 'Leer Documentación del Protocolo',
-  nodeTitle: 'Nodo Físico',
-  presenceTitle: 'Presencia Digital',
-  protocol: 'Protocolo',
-  response: 'Respuesta',
-  encryption: 'Cifrado',
-  availability: 'Disponibilidad',
-} : {
-  name: 'Correspondent Name',
-  namePlaceholder: 'ARCHIVIST / RESEARCHER NAME',
-  email: 'Digital Address',
-  emailPlaceholder: 'EMAIL@INSTITUTION.ORG',
-  subject: 'Inquiry Classification',
-  message: 'Transmission Content',
-  messagePlaceholder: 'DESCRIBE THE NATURE OF YOUR ARCHIVAL INQUIRY...',
-  submit: 'Dispatch Transmission',
-  disclaimer: 'All transmissions are logged into the permanent digital ledger.',
-  missionTitle: 'Digital Curator Mission',
-  missionText: 'The IXIPTLA Digital Archive operates at the intersection of ancestral heritage and computational permanence. Our mission is the pixel-perfect preservation of Mesoamerican material culture.',
-  missionLink: 'Read Protocol Documentation',
-  nodeTitle: 'Physical Node',
-  presenceTitle: 'Digital Presence',
-  protocol: 'Protocol',
-  response: 'Response',
-  encryption: 'Encryption',
-  availability: 'Availability',
+const formLabels = {
+  name: t('contact.form.correspondentName'),
+  namePlaceholder: t('contact.form.namePlaceholder'),
+  email: t('contact.form.digitalAddress'),
+  emailPlaceholder: t('contact.form.emailPlaceholder'),
+  subject: t('contact.form.inquiryClassification'),
+  message: t('contact.form.transmissionContent'),
+  messagePlaceholder: t('contact.form.messagePlaceholder'),
+  submit: t('contact.form.submit'),
+  disclaimer: t('contact.form.disclaimer'),
+  missionTitle: t('contact.sidebar.missionTitle'),
+  missionText: t('contact.sidebar.missionText'),
+  missionLink: t('contact.sidebar.readProtocol'),
+  nodeTitle: t('contact.sidebar.physicalNode'),
+  presenceTitle: t('contact.sidebar.digitalPresence'),
+  protocol: t('contact.sidebar.protocol'),
+  response: t('contact.sidebar.response'),
+  encryption: t('contact.sidebar.encryption'),
+  availability: t('contact.sidebar.availability'),
 };
 
-const subjectOptions = lang === 'es' ? [
-  'Consulta de Estándares de Metadatos',
-  'Solicitud de Activos de Alta Resolución',
-  'Alianza Institucional',
-  'Acceso Físico al Laboratorio',
-  'Reportar Discrepancia',
-] : [
-  'Metadata Standard Inquiry',
-  'High-Res Asset Request',
-  'Institutional Partnership',
-  'Physical Access to Lab',
-  'Report Discrepancy',
-];
+const subjectOptions = translations.contact.form.subjects;
 ---
 
 <Layout title={hero.title} description={hero.description} lang={lang}>
-  <main class="pt-32 pb-24 px-8 md:px-16 max-w-480 mx-auto min-h-screen">
+  <main class="pb-24 px-8 md:px-16 max-w-480 mx-auto min-h-screen">
     <ContactHeader
       title={hero.title}
       subtitle={hero.subtitle}
@@ -190,7 +162,7 @@ const subjectOptions = lang === 'es' ? [
           </div>
           <div class="bg-(--oc-surface-container-lowest) p-6">
             <span class="block font-label text-[9px] text-(--oc-primary)/60 uppercase mb-2">{formLabels.response}</span>
-            <span class="block font-label text-xs text-(--oc-on-surface-variant)">48-72 {lang === 'es' ? 'HORAS' : 'HOURS'}</span>
+            <span class="block font-label text-xs text-(--oc-on-surface-variant)">48-72 {t('contact.sidebar.hours')}</span>
           </div>
           <div class="bg-(--oc-surface-container-lowest) p-6">
             <span class="block font-label text-[9px] text-(--oc-primary)/60 uppercase mb-2">{formLabels.encryption}</span>

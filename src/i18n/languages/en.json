@@ -19,7 +19,8 @@
         "Interactive 3D models available",
         "Culturally sensitive educational content"
       ],
-      "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted motifs"
+      "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted motifs",
+      "artifactRef": "Artifact Reference"
     },
     "introduction": {
       "title": "Preserving Mesoamerican Legacy",
@@ -60,6 +61,15 @@
       "title": "Represented Cultures",
       "subtitle": "Diversity of the Mesoamerican World",
       "description": "Each culture contributes a unique perspective to the rich Mesoamerican tapestry. Explore the artistic traditions, worldviews, and technological legacies that define our heritage.",
+      "overline": "Featured Cultures",
+      "regionTag": "Mesoamerica",
+      "cultures": {
+        "maya": "Sophisticated astronomical and mathematical knowledge",
+        "mexica": "Powerful empire builders and skilled artisans",
+        "acolhua": "Refined culture and architectural achievements",
+        "mixteca": "Master craftsmen of gold and precious stones",
+        "teotihuacan": "Mysterious civilization of monumental architecture"
+      },
       "viewAllCTA": "View All Cultures",
       "exploreCollectionCTA": "Explore Collection",
       "artifactCount": "{count} artifacts",
@@ -78,6 +88,29 @@
       "cta": "Experience 3D Models",
       "learnMoreCTA": "Learn About Our Technology",
       "experienceText": "Experience the convergence of modern technology and ancestral heritage in our immersive 3D experiences.",
+      "features": [
+        {
+          "title": "High-Resolution 3D Models",
+          "description": "Detailed digital replicas capturing every surface and texture"
+        },
+        {
+          "title": "Interactive Archaeological Exploration",
+          "description": "Examine artifacts from every angle with precision detail"
+        },
+        {
+          "title": "Educational Cultural Context",
+          "description": "Rich historical background and cultural significance"
+        },
+        {
+          "title": "Accessible from Anywhere",
+          "description": "Global access to Mesoamerican heritage from any device"
+        }
+      ],
+      "stats": {
+        "models": "Models_3D",
+        "resolution": "Resolution",
+        "precision": "Precision"
+      },
       "demo": {
         "title": "Interactive 3D Model",
         "controls": "Rotate • Zoom • Explore",
@@ -121,6 +154,10 @@
         "secureAccess": "Secure Access",
         "alwaysFree": "Always Free"
       }
+    },
+    "quote": {
+      "text": "Digital archaeology is not just documentation; it is an act of",
+      "highlight": "resistance against time"
     },
     "common": {
       "scrollDown": "Scroll down",
@@ -373,6 +410,15 @@
       "animationError": "Error in 3D animation"
     }
   },
+  "common": {
+    "brandName": "IXIPTLA",
+    "brandSubtitle": "Digital Excavation Lab",
+    "copyright": "OBSIDIAN CODEX SYSTEM. ALL RIGHTS RESERVED.",
+    "brandFull": "IXIPTLA DIGITAL EXCAVATION LAB"
+  },
+  "footer": {
+    "backToTop": "Back to top"
+  },
   "contact": {
     "methods": {
       "title": "Get in Touch",
@@ -385,6 +431,43 @@
     "about": {
       "title": "About Ixiptla",
       "description": "Ixiptla, a Nahuatl word meaning «sacred representation», is more than a virtual museum. We are a bridge between past and present, using modern technology to preserve and share the cultural richness of Mesoamerican civilizations."
+    },
+    "header": {
+      "overline": "Ixiptla Virtual Museum",
+      "ref": "Ref: IXP-CONTACT-2024",
+      "status": "Status: Active",
+      "location": "Location: CDMX Node"
+    },
+    "form": {
+      "correspondentName": "Correspondent Name",
+      "digitalAddress": "Digital Address",
+      "inquiryClassification": "Inquiry Classification",
+      "transmissionContent": "Transmission Content",
+      "submit": "Dispatch Transmission",
+      "disclaimer": "All transmissions are logged into the permanent digital ledger.",
+      "namePlaceholder": "FULL NAME",
+      "emailPlaceholder": "EMAIL@INSTITUTION.ORG",
+      "messagePlaceholder": "DESCRIBE THE NATURE OF YOUR INQUIRY...",
+      "subjects": [
+        "Metadata Standard Inquiry",
+        "High-Res Asset Request",
+        "Institutional Partnership",
+        "Physical Access to Lab",
+        "Report Discrepancy"
+      ]
+    },
+    "sidebar": {
+      "missionTitle": "Digital Curator Mission",
+      "missionText": "The IXIPTLA Digital Archive operates at the intersection of ancestral heritage and computational permanence. Our mission is the pixel-perfect preservation of Mesoamerican material culture.",
+      "readProtocol": "Read Protocol Documentation",
+      "physicalNode": "Physical Node",
+      "digitalPresence": "Digital Presence",
+      "whyContact": "Why Contact Us?",
+      "protocol": "Protocol",
+      "response": "Response",
+      "encryption": "Encryption",
+      "availability": "Availability",
+      "hours": "HOURS"
     }
   },
   "experience": {

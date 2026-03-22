@@ -23,7 +23,7 @@ const availableCultures = getCulturesWithArtifacts();
         {t('home.featuredCollections.title')}
       </span>
       <h3 id="featured-collections-title" class="font-headline text-5xl font-bold text-(--oc-on-surface)">
-        {lang === 'es' ? 'Colecciones Destacadas' : 'Featured Collections'}
+        {t('home.featuredCollections.subtitle')}
       </h3>
     </div>
     <a
@@ -64,7 +64,9 @@ const availableCultures = getCulturesWithArtifacts();
               </a>
             </h4>
             <p class="font-body text-sm text-stone-400 mb-6 leading-relaxed">
-              {culture.description}
+              {t('home.featuredCollections.cultures.' + culture.id) !== 'home.featuredCollections.cultures.' + culture.id
+                ? t('home.featuredCollections.cultures.' + culture.id)
+                : culture.description}
             </p>
             <div class="flex flex-wrap gap-2">
               {culture.tags?.map((tag: string) => (
@@ -78,7 +80,7 @@ const availableCultures = getCulturesWithArtifacts();
                     {culture.name}
                   </span>
                   <span class="px-2 py-1 bg-(--oc-surface-container-lowest) font-label text-[10px] text-stone-500">
-                    {lang === 'es' ? 'Mesoamérica' : 'Mesoamerica'}
+                    {t('home.featuredCollections.regionTag')}
                   </span>
                 </>
               )}

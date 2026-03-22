@@ -27,9 +27,9 @@ const cultures = [
   <div class="flex flex-col md:flex-row justify-between items-start gap-8">
     <!-- Left side: Brand + Copyright -->
     <div>
-      <span class="font-label font-bold text-(--oc-primary) tracking-tighter">IXIPTLA DIGITAL EXCAVATION LAB</span>
+      <span class="font-label font-bold text-(--oc-primary) tracking-tighter">{t('common.brandFull')}</span>
       <p class="font-label text-[10px] text-stone-500 uppercase tracking-widest mt-2">
-        &copy; {currentYear} OBSIDIAN CODEX SYSTEM. ALL RIGHTS RESERVED.
+        &copy; {currentYear} {t('common.copyright')}
       </p>
     </div>
 
@@ -60,10 +60,10 @@ const cultures = [
   <div class="mt-8 flex justify-end">
     <button
       class="footer-back-to-top font-label text-[10px] text-stone-500 uppercase tracking-widest hover:text-(--oc-primary) transition-colors duration-300 flex items-center gap-1"
-      aria-label={lang === 'es' ? 'Volver arriba' : 'Back to top'}
+      aria-label={t('footer.backToTop')}
     >
       <Icon name="mdi:arrow-up" class="w-3 h-3" />
-      {lang === 'es' ? 'Volver arriba' : 'Back to top'}
+      {t('footer.backToTop')}
     </button>
   </div>
 </footer>
