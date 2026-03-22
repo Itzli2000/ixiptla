@@ -7,9 +7,9 @@ const { class: className = "" } = Astro.props;
 ---
 
 <label class={`swap swap-rotate ${className}`} id="theme-switcher" aria-label="Toggle dark mode">
-  <input type="checkbox" class="theme-controller" value="ixpitla-dark" />
+  <input type="checkbox" class="theme-controller" value="ixpitla-light" />
 
-  <!-- sun icon -->
+  <!-- sun icon (shown when dark mode is active = unchecked) -->
   <svg
     class="swap-off h-6 w-6 fill-current"
     xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ const { class: className = "" } = Astro.props;
     ></path>
   </svg>
 
-  <!-- moon icon -->
+  <!-- moon icon (shown when light mode is active = checked) -->
   <svg
     class="swap-on h-6 w-6 fill-current"
     xmlns="http://www.w3.org/2000/svg"
@@ -38,8 +38,8 @@ const { class: className = "" } = Astro.props;
   function initializeTheme() {
     const getSystemTheme = () => {
       return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "ixpitla-dark"
-        : "ixpitla";
+        ? "ixpitla"
+        : "ixpitla-light";
     };
 
     const theme = (() => {
@@ -53,14 +53,16 @@ const { class: className = "" } = Astro.props;
     })();
 
     // Apply theme immediately
-    if (theme === "ixpitla-dark") {
-      document.documentElement.setAttribute("data-theme", "ixpitla-dark");
-      const controller = document.querySelector(".theme-controller");
-      if (controller) controller.setAttribute("checked", "");
-    } else {
-      document.documentElement.setAttribute("data-theme", "ixpitla");
-      const controller = document.querySelector(".theme-controller");
-      if (controller) controller.removeAttribute("checked");
+    document.documentElement.setAttribute("data-theme", theme);
+
+    // Update checkbox state: checked = light mode
+    const controller = document.querySelector(".theme-controller");
+    if (controller) {
+      if (theme === "ixpitla-light") {
+        controller.setAttribute("checked", "");
+      } else {
+        controller.removeAttribute("checked");
+      }
     }
   }
 
@@ -77,9 +79,11 @@ const { class: className = "" } = Astro.props;
     currentToggle?.addEventListener("change", (e) => {
       const target = e.target;
       if (target instanceof HTMLInputElement && target.checked) {
-        document.documentElement.setAttribute("data-theme", "ixpitla-dark");
-        localStorage.setItem("theme", "ixpitla-dark");
+        // Checked = light mode
+        document.documentElement.setAttribute("data-theme", "ixpitla-light");
+        localStorage.setItem("theme", "ixpitla-light");
       } else {
+        // Unchecked = dark mode (default)
         document.documentElement.setAttribute("data-theme", "ixpitla");
         localStorage.setItem("theme", "ixpitla");
       }
@@ -89,9 +93,18 @@ const { class: className = "" } = Astro.props;
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (e) => {
-        const newTheme = e.matches ? "ixpitla-dark" : "ixpitla";
-        document.documentElement.setAttribute("data-theme", newTheme);
-        currentToggle.click();
+        if (!localStorage.getItem("theme")) {
+          const newTheme = e.matches ? "ixpitla" : "ixpitla-light";
+          document.documentElement.setAttribute("data-theme", newTheme);
+          const ctrl = document.querySelector(".theme-controller");
+          if (ctrl) {
+            if (newTheme === "ixpitla-light") {
+              ctrl.setAttribute("checked", "");
+            } else {
+              ctrl.removeAttribute("checked");
+            }
+          }
+        }
       });
   }
 
@@ -116,4 +129,3 @@ const { class: className = "" } = Astro.props;
     initializeTheme();
   });
 </script>
-

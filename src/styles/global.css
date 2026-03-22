@@ -9,7 +9,7 @@
    ============================================ */
 
 @plugin "daisyui" {
-  themes: "ixpitla" --default, "ixpitla-light" --prefersdark;
+  themes: "ixpitla" --default --prefersdark, "ixpitla-light";
 }
 
 @plugin "daisyui/theme" {
