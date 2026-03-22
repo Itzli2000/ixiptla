@@ -32,6 +32,11 @@
 
 - remove remaining dead code - types, data exports, unused file (f034085)
 - remove dead code from pre-rebrand components (845cee3)
+### 3.1.0 (2026-03-07)
+
+##### New Features
+
+*  Enhance UI components with scroll animations and new footer layout (6e75de34)
 
 ## 3.0.0 (2026-02-23)
 
