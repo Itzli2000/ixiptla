@@ -6,11 +6,13 @@ interface Props {
 const { class: className = "" } = Astro.props;
 ---
 
-<label class={`swap swap-rotate ${className}`} id="theme-switcher" aria-label="Toggle dark mode">
-  <!-- DaisyUI theme-controller: checked = apply "ixpitla-light", unchecked = default "ixpitla" (dark) -->
-  <input type="checkbox" class="theme-controller" value="ixpitla-light" />
-
-  <!-- sun icon (shown when dark = unchecked) -->
+<button
+  class={`swap swap-rotate ${className}`}
+  id="theme-switcher"
+  aria-label="Toggle dark mode"
+  type="button"
+>
+  <!-- sun icon (dark mode active) -->
   <svg
     class="swap-off h-6 w-6 fill-current"
     xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +24,7 @@ const { class: className = "" } = Astro.props;
     ></path>
   </svg>
 
-  <!-- moon icon (shown when light = checked) -->
+  <!-- moon icon (light mode active) -->
   <svg
     class="swap-on h-6 w-6 fill-current"
     xmlns="http://www.w3.org/2000/svg"
@@ -33,37 +35,58 @@ const { class: className = "" } = Astro.props;
       d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
     ></path>
   </svg>
-</label>
+</button>
 
 <script is:inline>
-  // Restore saved theme on load (before DaisyUI initializes)
-  try {
-    var saved = localStorage.getItem("theme");
-    // Migrate legacy name
-    if (saved === "ixpitla-dark") {
-      saved = null;
-      localStorage.removeItem("theme");
+  (function() {
+    var DARK = "ixpitla";
+    var LIGHT = "ixpitla-light";
+
+    function getTheme() {
+      try {
+        var saved = localStorage.getItem("theme");
+        if (saved === "ixpitla-dark") saved = null;
+        if (saved === DARK || saved === LIGHT) return saved;
+      } catch(e) {}
+      return DARK;
     }
-    if (saved === "ixpitla-light") {
-      document.documentElement.setAttribute("data-theme", "ixpitla-light");
-    }
-  } catch(e) {}
 
-  document.addEventListener("astro:page-load", function() {
-    var checkbox = document.querySelector(".theme-controller");
-    if (!checkbox) return;
-
-    // Sync checkbox with current theme
-    var current = document.documentElement.getAttribute("data-theme");
-    checkbox.checked = (current === "ixpitla-light");
-
-    // Save to localStorage on change (DaisyUI handles data-theme automatically)
-    checkbox.addEventListener("change", function() {
-      if (this.checked) {
-        localStorage.setItem("theme", "ixpitla-light");
-      } else {
-        localStorage.removeItem("theme");
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      var btn = document.getElementById("theme-switcher");
+      if (btn) {
+        if (theme === LIGHT) {
+          btn.classList.add("swap-active");
+        } else {
+          btn.classList.remove("swap-active");
+        }
       }
+    }
+
+    // Apply immediately
+    applyTheme(getTheme());
+
+    function setup() {
+      var btn = document.getElementById("theme-switcher");
+      if (!btn || btn.dataset.themeReady) return;
+      btn.dataset.themeReady = "1";
+
+      btn.addEventListener("click", function() {
+        var current = document.documentElement.getAttribute("data-theme");
+        var next = (current === LIGHT) ? DARK : LIGHT;
+        applyTheme(next);
+        try { localStorage.setItem("theme", next); } catch(e) {}
+      });
+    }
+
+    setup();
+    document.addEventListener("DOMContentLoaded", setup);
+    document.addEventListener("astro:page-load", function() {
+      applyTheme(getTheme());
+      setup();
     });
-  });
+    document.addEventListener("astro:before-swap", function() {
+      applyTheme(getTheme());
+    });
+  })();
 </script>
