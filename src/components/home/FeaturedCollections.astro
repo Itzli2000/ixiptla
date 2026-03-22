@@ -17,18 +17,18 @@ const availableCultures = getCulturesWithArtifacts();
   aria-labelledby="featured-collections-title"
 >
   <!-- Header -->
-  <div class="flex items-end justify-between mb-16" data-reveal>
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16" data-reveal>
     <div>
       <span class="font-label text-stone-500 text-xs tracking-widest uppercase block mb-4">
         {t('home.featuredCollections.title')}
       </span>
-      <h3 id="featured-collections-title" class="font-headline text-5xl font-bold text-(--oc-on-surface)">
+      <h3 id="featured-collections-title" class="font-headline text-3xl sm:text-5xl font-bold text-(--oc-on-surface)">
         {t('home.featuredCollections.subtitle')}
       </h3>
     </div>
     <a
       href={`/${lang}/collection`}
-      class="font-label text-xs text-stone-600 underline cursor-pointer hover:text-(--oc-primary) transition-colors duration-300"
+      class="font-label text-xs text-stone-600 underline cursor-pointer hover:text-(--oc-primary) transition-colors duration-300 shrink-0"
       aria-label={t('home.featuredCollections.viewAllCTA')}
     >
       {t('home.featuredCollections.viewAllCTA')}
