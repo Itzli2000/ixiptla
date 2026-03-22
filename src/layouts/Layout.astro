@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import Navigation from "../components/layout/Navigation/Navigation.astro";
 import Footer from "../components/layout/Footer/Footer.astro";
+import SideNav from "../components/layout/SideNav/SideNav.astro";
 import "../styles/global.css";
 import type { LayoutProps, Language } from "../types";
 import { useTranslations } from "../i18n/utils";
@@ -102,10 +103,28 @@ if (currentArtifact) {
 <!doctype html>
 <html lang={lang}>
   <head>
+    <script is:inline>
+      // Set theme immediately to prevent FOUC
+      (function() {
+        var DARK = "ixpitla", LIGHT = "ixpitla-light";
+        function getTheme() {
+          try {
+            var s = localStorage.getItem("theme");
+            if (s === "ixpitla-dark") s = null;
+            return (s === DARK || s === LIGHT) ? s : DARK;
+          } catch(e) { return DARK; }
+        }
+        document.documentElement.setAttribute("data-theme", getTheme());
+        // For Astro View Transitions: apply theme to NEW document before swap
+        document.addEventListener("astro:before-swap", function(e) {
+          e.newDocument.documentElement.setAttribute("data-theme", getTheme());
+        });
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#2c5364" />
+    <meta name="theme-color" content="#131313" />
 
     <!-- Favicon and Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -128,7 +147,7 @@ if (currentArtifact) {
     <!-- Generator and Site Info -->
     <meta name="generator" content={Astro.generator} />
     <meta name="application-name" content={seoData.siteName} />
-    <meta name="msapplication-TileColor" content="#2c5364" />
+    <meta name="msapplication-TileColor" content="#131313" />
 
     <!-- Canonical and Language -->
     <link rel="canonical" href={siteUrl} />
@@ -221,15 +240,18 @@ if (currentArtifact) {
 
     <ClientRouter />
   </head>
-  <body class="bg-base-100 text-base-content">
+  <body class="bg-base-100 text-base-content font-body selection:bg-primary/30 selection:text-primary">
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-primary-content focus:px-4 focus:py-2 focus:rounded-md"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-primary focus:text-primary-content focus:px-4 focus:py-2"
     >
       {t("accessibility.skipToContent")}
     </a>
+    <SideNav />
     <Navigation />
-    <slot />
+    <main id="main-content" class="pt-24">
+      <slot />
+    </main>
     <Footer />
     <script>
       import "../scripts/scroll-animations";

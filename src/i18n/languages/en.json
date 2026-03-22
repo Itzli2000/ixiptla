@@ -19,47 +19,22 @@
         "Interactive 3D models available",
         "Culturally sensitive educational content"
       ],
-      "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted motifs"
-    },
-    "introduction": {
-      "title": "Preserving Mesoamerican Legacy",
-      "subtitle": "A Digital Bridge Between Past and Present",
-      "description": "Ixiptla transcends simple digital exhibition. We are guardians of Mesoamerican cultural heritage, committed to preservation, education, and accessibility of our ancestral roots.",
-      "mission": {
-        "title": "Our Mission",
-        "content": "Democratize access to Mesoamerican archaeological heritage through cutting-edge technology, creating educational experiences that honor the cultural and spiritual depth of our ancestors."
-      },
-      "vision": {
-        "title": "Our Vision",
-        "content": "Be the global reference in Mesoamerican digital museography, establishing new standards in cultural preservation and accessible education for future generations."
-      },
-      "values": {
-        "title": "Our Values",
-        "items": [
-          {
-            "title": "Cultural Respect",
-            "description": "We honor the traditions and worldviews of each represented culture"
-          },
-          {
-            "title": "Historical Precision",
-            "description": "We maintain the highest standards of archaeological authenticity"
-          },
-          {
-            "title": "Universal Accessibility",
-            "description": "We ensure ancestral knowledge is accessible to everyone"
-          },
-          {
-            "title": "Responsible Innovation",
-            "description": "We apply technology ethically and culturally appropriately"
-          }
-        ]
-      },
-      "cta": "Learn More About Our Mission"
+      "imageAlt": "Maya ceremonial vessel in hummingbird shape, archaeological replica with traditional painted motifs",
+      "artifactRef": "Artifact Reference"
     },
     "featuredCollections": {
       "title": "Represented Cultures",
       "subtitle": "Diversity of the Mesoamerican World",
       "description": "Each culture contributes a unique perspective to the rich Mesoamerican tapestry. Explore the artistic traditions, worldviews, and technological legacies that define our heritage.",
+      "overline": "Featured Cultures",
+      "regionTag": "Mesoamerica",
+      "cultures": {
+        "maya": "Sophisticated astronomical and mathematical knowledge",
+        "mexica": "Powerful empire builders and skilled artisans",
+        "acolhua": "Refined culture and architectural achievements",
+        "mixteca": "Master craftsmen of gold and precious stones",
+        "teotihuacan": "Mysterious civilization of monumental architecture"
+      },
       "viewAllCTA": "View All Cultures",
       "exploreCollectionCTA": "Explore Collection",
       "artifactCount": "{count} artifacts",
@@ -78,6 +53,29 @@
       "cta": "Experience 3D Models",
       "learnMoreCTA": "Learn About Our Technology",
       "experienceText": "Experience the convergence of modern technology and ancestral heritage in our immersive 3D experiences.",
+      "features": [
+        {
+          "title": "High-Resolution 3D Models",
+          "description": "Detailed digital replicas capturing every surface and texture"
+        },
+        {
+          "title": "Interactive Archaeological Exploration",
+          "description": "Examine artifacts from every angle with precision detail"
+        },
+        {
+          "title": "Educational Cultural Context",
+          "description": "Rich historical background and cultural significance"
+        },
+        {
+          "title": "Accessible from Anywhere",
+          "description": "Global access to Mesoamerican heritage from any device"
+        }
+      ],
+      "stats": {
+        "models": "Models_3D",
+        "resolution": "Resolution",
+        "precision": "Precision"
+      },
       "demo": {
         "title": "Interactive 3D Model",
         "controls": "Rotate • Zoom • Explore",
@@ -90,42 +88,9 @@
         "zoomDesc": "Use mouse wheel to zoom in and examine fine details"
       }
     },
-    "stats": {
-      "title": "Ixiptla in Numbers",
-      "subtitle": "Our Cultural Impact",
-      "description": "Figures that reflect our commitment to preservation and accessibility of Mesoamerican heritage.",
-      "labels": {
-        "artifacts": "Archaeological Replicas",
-        "cultures": "Documented Cultures",
-        "models3D": "3D Models Available",
-        "experiences": "Immersive Experience"
-      },
-      "additionalInfo": "These figures represent our continuous growth in digital preservation of Mesoamerican heritage."
-    },
-    "finalCTA": {
-      "title": "Begin Your Cultural Journey",
-      "subtitle": "Mesoamerican Heritage Awaits You",
-      "description": "Immerse yourself in millennia of ancestral wisdom. Each replica tells a story, each culture reveals secrets, each experience connects you with your roots.",
-      "primaryCTA": "Explore Complete Collection",
-      "secondaryCTA": "Contact Ixiptla Team",
-      "features": {
-        "immediateAccess": "Immediate Access",
-        "immediateAccessDesc": "Explore our complete collection instantly, without restrictions",
-        "deepKnowledge": "Deep Knowledge",
-        "deepKnowledgeDesc": "Detailed information and cultural context for each piece",
-        "globalReach": "Global Reach",
-        "globalReachDesc": "Mesoamerican heritage accessible from anywhere in the world"
-      },
-      "trust": {
-        "verifiedContent": "Verified Content",
-        "secureAccess": "Secure Access",
-        "alwaysFree": "Always Free"
-      }
-    },
-    "common": {
-      "scrollDown": "Scroll down",
-      "exploreMore": "Explore more",
-      "experience": "Immersive"
+    "quote": {
+      "text": "Digital archaeology is not just documentation; it is an act of",
+      "highlight": "resistance against time"
     }
   },
   "navigation": {
@@ -373,6 +338,15 @@
       "animationError": "Error in 3D animation"
     }
   },
+  "common": {
+    "brandName": "IXIPTLA",
+    "brandSubtitle": "Digital Excavation Lab",
+    "copyright": "OBSIDIAN CODEX SYSTEM. ALL RIGHTS RESERVED.",
+    "brandFull": "IXIPTLA DIGITAL EXCAVATION LAB"
+  },
+  "footer": {
+    "backToTop": "Back to top"
+  },
   "contact": {
     "methods": {
       "title": "Get in Touch",
@@ -385,6 +359,43 @@
     "about": {
       "title": "About Ixiptla",
       "description": "Ixiptla, a Nahuatl word meaning «sacred representation», is more than a virtual museum. We are a bridge between past and present, using modern technology to preserve and share the cultural richness of Mesoamerican civilizations."
+    },
+    "header": {
+      "overline": "Ixiptla Virtual Museum",
+      "ref": "Ref: IXP-CONTACT-2024",
+      "status": "Status: Active",
+      "location": "Location: CDMX Node"
+    },
+    "form": {
+      "correspondentName": "Correspondent Name",
+      "digitalAddress": "Digital Address",
+      "inquiryClassification": "Inquiry Classification",
+      "transmissionContent": "Transmission Content",
+      "submit": "Dispatch Transmission",
+      "disclaimer": "All transmissions are logged into the permanent digital ledger.",
+      "namePlaceholder": "FULL NAME",
+      "emailPlaceholder": "EMAIL@INSTITUTION.ORG",
+      "messagePlaceholder": "DESCRIBE THE NATURE OF YOUR INQUIRY...",
+      "subjects": [
+        "Metadata Standard Inquiry",
+        "High-Res Asset Request",
+        "Institutional Partnership",
+        "Physical Access to Lab",
+        "Report Discrepancy"
+      ]
+    },
+    "sidebar": {
+      "missionTitle": "Digital Curator Mission",
+      "missionText": "The IXIPTLA Digital Archive operates at the intersection of ancestral heritage and computational permanence. Our mission is the pixel-perfect preservation of Mesoamerican material culture.",
+      "readProtocol": "Read Protocol Documentation",
+      "physicalNode": "Physical Node",
+      "digitalPresence": "Digital Presence",
+      "whyContact": "Why Contact Us?",
+      "protocol": "Protocol",
+      "response": "Response",
+      "encryption": "Encryption",
+      "availability": "Availability",
+      "hours": "HOURS"
     }
   },
   "experience": {

@@ -1,0 +1,121 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+import type { Language } from "../../../types";
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslations(lang);
+
+const routes = {
+  home: `/${lang}`,
+  collection: `/${lang}/collection`,
+  contact: `/${lang}/contact`,
+};
+
+const pathname = Astro.url.pathname;
+
+const navItems = [
+  {
+    href: routes.home,
+    label: t("navigation.home"),
+    icon: "home",
+    isActive: pathname === routes.home || pathname === `${routes.home}/`,
+  },
+  {
+    href: routes.collection,
+    label: t("navigation.collection"),
+    icon: "grid_view",
+    isActive: pathname.startsWith(routes.collection),
+  },
+  {
+    href: routes.contact,
+    label: t("navigation.contact"),
+    icon: "mail",
+    isActive: pathname.startsWith(routes.contact),
+  },
+];
+---
+
+<!-- Mobile Sidebar Drawer (hidden by default, opens via hamburger) -->
+<div
+  class="sidenav-overlay fixed inset-0 bg-black/60 z-[60] hidden"
+  aria-hidden="true"
+></div>
+
+<aside
+  class="sidenav-drawer fixed left-0 top-0 h-full flex flex-col pt-8 px-4 bg-(--oc-surface-container-lowest) w-72 z-[70] -translate-x-full transition-transform duration-300 lg:hidden"
+  aria-label="Mobile navigation"
+>
+  <!-- Header -->
+  <div class="px-4 mb-8">
+    <Icon name="logo" class="w-auto h-8" />
+    <p class="font-label uppercase tracking-widest text-[10px] text-stone-500">
+      {t('common.brandSubtitle')}
+    </p>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex flex-col gap-1">
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          aria-current={item.isActive ? "page" : undefined}
+          class:list={[
+            "sidenav-link flex items-center gap-4 px-4 py-3 font-label text-xs uppercase tracking-widest transition-all",
+            item.isActive
+              ? "text-(--oc-primary) bg-(--oc-surface-container-high) font-bold border-l-4 border-(--oc-primary)"
+              : "text-stone-600 hover:text-stone-300 hover:bg-(--oc-surface-container-low)",
+          ]}
+        >
+          <span class="material-symbols-outlined">{item.icon}</span>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+</aside>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const overlay = document.querySelector(".sidenav-overlay") as HTMLElement;
+    const drawer = document.querySelector(".sidenav-drawer") as HTMLElement;
+    const toggleBtn = document.querySelector(".sidenav-toggle") as HTMLElement;
+
+    if (!overlay || !drawer || !toggleBtn) return;
+
+    const openDrawer = () => {
+      overlay.classList.remove("hidden");
+      drawer.classList.remove("-translate-x-full");
+      toggleBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeDrawer = () => {
+      overlay.classList.add("hidden");
+      drawer.classList.add("-translate-x-full");
+      toggleBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    };
+
+    toggleBtn.addEventListener("click", () => {
+      const isOpen = !drawer.classList.contains("-translate-x-full");
+      isOpen ? closeDrawer() : openDrawer();
+    });
+
+    overlay.addEventListener("click", closeDrawer);
+
+    // Close on nav link click
+    drawer.querySelectorAll(".sidenav-link").forEach((link) => {
+      link.addEventListener("click", closeDrawer);
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !drawer.classList.contains("-translate-x-full")) {
+        closeDrawer();
+      }
+    });
+  });
+</script>

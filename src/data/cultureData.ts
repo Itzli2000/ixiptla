@@ -8,7 +8,8 @@ export const cultureData: CultureInfo[] = [
     icon: 'mdi:pyramid',
     artifactCount: 15,
     slug: 'maya',
-    color: 'hsl(var(--p))'
+    color: 'hsl(var(--p))',
+    image: '/images/sacerdotisa.png'
   },
   {
     id: 'mexica',
@@ -17,7 +18,8 @@ export const cultureData: CultureInfo[] = [
     icon: 'mdi:shield-sun',
     artifactCount: 12,
     slug: 'mexica',
-    color: 'hsl(var(--s))'
+    color: 'hsl(var(--s))',
+    image: '/images/mictlan.png'
   },
   {
     id: 'acolhua',
@@ -26,7 +28,8 @@ export const cultureData: CultureInfo[] = [
     icon: 'mdi:temple-buddhist',
     artifactCount: 8,
     slug: 'acolhua',
-    color: 'hsl(var(--a))'
+    color: 'hsl(var(--a))',
+    image: '/images/monito.png'
   },
   {
     id: 'mixteca',
@@ -35,7 +38,8 @@ export const cultureData: CultureInfo[] = [
     icon: 'mdi:diamond-stone',
     artifactCount: 10,
     slug: 'mixteca',
-    color: 'hsl(var(--w))'
+    color: 'hsl(var(--w))',
+    image: '/images/colibri.png'
   },
   {
     id: 'teotihuacan',
@@ -44,17 +48,10 @@ export const cultureData: CultureInfo[] = [
     icon: 'mdi:city',
     artifactCount: 6,
     slug: 'teotihuacana',
-    color: 'hsl(var(--n))'
+    color: 'hsl(var(--n))',
+    image: '/images/sedente.png'
   }
 ];
-
-export const getTotalArtifacts = (): number => {
-  return cultureData.reduce((total, culture) => total + culture.artifactCount, 0);
-};
-
-export const getCultureBySlug = (slug: string): CultureInfo | undefined => {
-  return cultureData.find(culture => culture.slug === slug);
-};
 
 export const getCulturesWithArtifacts = (): CultureInfo[] => {
   return cultureData.filter(culture => culture.artifactCount > 0);

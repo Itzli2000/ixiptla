@@ -27,7 +27,7 @@ const materials = [...new Set(artifacts
   <!-- Mobile Filter Toggle -->
   <div class="mobile-filter-header lg:hidden">
     <button
-      class="filter-toggle-btn"
+      class="flex items-center justify-between w-full p-4 font-label text-xs uppercase tracking-widest text-(--oc-on-surface) bg-transparent border-none cursor-pointer"
       data-filter-toggle
       aria-expanded="false"
       aria-controls="filter-content"
@@ -35,11 +35,11 @@ const materials = [...new Set(artifacts
       <span class="flex items-center gap-2">
         <Icon name="mdi:filter-variant" class="w-5 h-5" />
         {t("collection.filters.title")}
-        <span class="filter-count-badge hidden" data-filter-count>0</span>
+        <span class="filter-count-badge hidden px-2 py-0.5 text-[10px] font-bold bg-(--oc-primary) text-(--oc-on-primary)" data-filter-count>0</span>
       </span>
-      <Icon 
-        name="mdi:chevron-down" 
-        class="w-4 h-4 transition-transform chevron-icon" 
+      <Icon
+        name="mdi:chevron-down"
+        class="w-4 h-4 transition-transform chevron-icon"
       />
     </button>
   </div>
@@ -50,15 +50,15 @@ const materials = [...new Set(artifacts
     class="filter-content"
     data-filter-content
   >
-    <div class="filter-grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <!-- Culture Filter -->
-      <div class="filter-group">
-        <label class="filter-label" for="culture-select">
+      <div class="space-y-4">
+        <label class="font-label text-xs uppercase tracking-widest text-stone-500" for="culture-select">
           {t("collection.filters.culture")}
         </label>
         <select
           id="culture-select"
-          class="filter-select"
+          class="w-full px-4 py-2 bg-(--oc-surface-container-high) text-(--oc-on-surface) font-label text-xs uppercase tracking-widest border-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-(--oc-primary)"
           data-filter="culture"
           aria-label={`Filter by ${t("collection.filters.culture")}`}
         >
@@ -72,13 +72,13 @@ const materials = [...new Set(artifacts
       </div>
 
       <!-- Period Filter -->
-      <div class="filter-group">
-        <label class="filter-label" for="period-select">
+      <div class="space-y-4">
+        <label class="font-label text-xs uppercase tracking-widest text-stone-500" for="period-select">
           {t("collection.filters.period")}
         </label>
         <select
           id="period-select"
-          class="filter-select"
+          class="w-full px-4 py-2 bg-(--oc-surface-container-high) text-(--oc-on-surface) font-label text-xs uppercase tracking-widest border-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-(--oc-primary)"
           data-filter="period"
           aria-label={`Filter by ${t("collection.filters.period")}`}
         >
@@ -92,13 +92,13 @@ const materials = [...new Set(artifacts
       </div>
 
       <!-- Material Filter -->
-      <div class="filter-group">
-        <label class="filter-label" for="material-select">
+      <div class="space-y-4">
+        <label class="font-label text-xs uppercase tracking-widest text-stone-500" for="material-select">
           {t("collection.filters.material")}
         </label>
         <select
           id="material-select"
-          class="filter-select"
+          class="w-full px-4 py-2 bg-(--oc-surface-container-high) text-(--oc-on-surface) font-label text-xs uppercase tracking-widest border-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-(--oc-primary)"
           data-filter="material"
           aria-label={`Filter by ${t("collection.filters.material")}`}
         >
@@ -112,12 +112,12 @@ const materials = [...new Set(artifacts
       </div>
 
       <!-- 3D Model Filter -->
-      <div class="filter-group">
-        <label class="filter-label">
+      <div class="space-y-4">
+        <label class="font-label text-xs uppercase tracking-widest text-stone-500">
           {t("collection.filters.has3D")}
         </label>
         <button
-          class="filter-toggle"
+          class="filter-3d-toggle flex items-center gap-2 w-full px-4 py-2 bg-(--oc-surface-container-high) text-stone-400 font-label text-xs uppercase tracking-widest border-none cursor-pointer hover:text-(--oc-on-surface) transition-colors"
           data-filter="has3D"
           data-toggle-3d
           data-text-all={t("collection.filters.all")}
@@ -125,10 +125,10 @@ const materials = [...new Set(artifacts
           aria-pressed="false"
           aria-label={`Toggle ${t("collection.filters.has3D")} filter`}
         >
-          <span class="toggle-icon">
+          <span class="flex items-center justify-center w-4 h-4">
             <Icon name="mdi:cube-outline" class="w-4 h-4" />
           </span>
-          <span class="toggle-text" data-toggle-text>
+          <span data-toggle-text>
             {t("collection.filters.all")}
           </span>
         </button>
@@ -136,9 +136,9 @@ const materials = [...new Set(artifacts
     </div>
 
     <!-- Filter Actions -->
-    <div class="filter-actions hidden" data-filter-actions>
+    <div class="filter-actions hidden flex justify-end pt-6" data-filter-actions>
       <button
-        class="clear-filters-btn"
+        class="flex items-center px-4 py-2 bg-(--oc-surface-container-high) text-stone-400 font-label text-xs uppercase tracking-widest border-none cursor-pointer hover:text-(--oc-on-surface) transition-colors"
         data-clear-filters
         aria-label={t("collection.filters.clear")}
       >
@@ -151,60 +151,10 @@ const materials = [...new Set(artifacts
 
 <style>
   .filter-toolbar {
-    background: hsl(var(--b1));
-    border: 1px solid hsl(var(--b3));
-    border-radius: 1rem;
+    background: var(--oc-surface-container-lowest);
+    padding: 0;
     overflow: hidden;
     margin-bottom: 2rem;
-  }
-
-  .mobile-filter-header {
-    padding: 1rem;
-    border-bottom: 1px solid hsl(var(--b3));
-  }
-
-  .filter-toggle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0.5rem;
-    background: transparent;
-    border: none;
-    font-weight: 500;
-    color: hsl(var(--bc));
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-toggle-btn:hover {
-    background: hsl(var(--b2));
-    border-radius: 0.5rem;
-  }
-
-  .filter-toggle-btn:focus {
-    outline: 2px solid hsl(var(--p));
-    outline-offset: 2px;
-    border-radius: 0.5rem;
-  }
-
-  .filter-count-badge {
-    background: hsl(var(--p));
-    color: hsl(var(--pc));
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.125rem 0.5rem;
-    border-radius: 1rem;
-    min-width: 1.25rem;
-    text-align: center;
-  }
-
-  .filter-count-badge.hidden {
-    display: none;
-  }
-
-  .chevron-icon.rotated {
-    transform: rotate(180deg);
   }
 
   .filter-content {
@@ -239,157 +189,26 @@ const materials = [...new Set(artifacts
     }
   }
 
-  .filter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1rem;
+  .chevron-icon.rotated {
+    transform: rotate(180deg);
   }
 
-  @media (min-width: 768px) {
-    .filter-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .filter-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  .filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .filter-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: hsl(var(--bc));
-    margin-bottom: 0.25rem;
-  }
-
-  .filter-select {
-    padding: 0.75rem 1rem;
-    background: hsl(var(--b2));
-    border: 1px solid hsl(var(--b3));
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    color: hsl(var(--bc));
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-select:hover {
-    border-color: hsl(var(--p) / 0.3);
-    background: hsl(var(--b1));
-  }
-
-  .filter-select:focus {
-    outline: 2px solid hsl(var(--p));
-    outline-offset: -2px;
-    border-color: hsl(var(--p));
-  }
-
-  .filter-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    background: hsl(var(--b2));
-    border: 1px solid hsl(var(--b3));
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    color: hsl(var(--bc));
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-toggle:hover {
-    border-color: hsl(var(--p) / 0.3);
-    background: hsl(var(--b1));
-  }
-
-  .filter-toggle[aria-pressed="true"] {
-    background: hsl(var(--p) / 0.1);
-    border-color: hsl(var(--p));
-    color: hsl(var(--p));
-  }
-
-  .filter-toggle:focus {
-    outline: 2px solid hsl(var(--p));
-    outline-offset: -2px;
-  }
-
-  .toggle-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .toggle-text {
-    font-weight: 500;
-  }
-
-  .filter-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 1rem;
-    border-top: 1px solid hsl(var(--b3));
+  .filter-count-badge.hidden {
+    display: none;
   }
 
   .filter-actions.hidden {
     display: none;
   }
 
-  .clear-filters-btn {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background: hsl(var(--error) / 0.1);
-    border: 1px solid hsl(var(--error) / 0.3);
-    border-radius: 0.5rem;
-    color: hsl(var(--error));
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .clear-filters-btn:hover {
-    background: hsl(var(--error) / 0.2);
-    border-color: hsl(var(--error) / 0.5);
-    transform: translateY(-1px);
-  }
-
-  .clear-filters-btn:focus {
-    outline: 2px solid hsl(var(--error));
-    outline-offset: 2px;
-  }
-
-  .clear-filters-btn:active {
-    transform: translateY(0);
+  .filter-3d-toggle[aria-pressed="true"] {
+    background: var(--oc-primary);
+    color: var(--oc-on-primary);
   }
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .filter-content,
-    .filter-toggle-btn,
-    .filter-select,
-    .filter-toggle,
-    .clear-filters-btn {
-      transition: none;
-    }
-
-    .clear-filters-btn:hover {
-      transform: none;
-    }
-
     .chevron-icon {
       transition: none;
     }
@@ -414,14 +233,14 @@ const materials = [...new Set(artifacts
     private clearBtn: HTMLElement | null;
     private toggle3DBtn: HTMLElement | null;
     private toggleText: HTMLElement | null;
-    
+
     private filters: FilterState = {
       culture: 'all',
       period: 'all',
       material: 'all',
       has3D: null
     };
-    
+
     private isExpanded = false;
 
     constructor() {
@@ -434,7 +253,7 @@ const materials = [...new Set(artifacts
       this.clearBtn = document.querySelector('[data-clear-filters]');
       this.toggle3DBtn = document.querySelector('[data-toggle-3d]');
       this.toggleText = document.querySelector('[data-toggle-text]');
-      
+
       this.init();
     }
 
@@ -454,14 +273,14 @@ const materials = [...new Set(artifacts
 
       // Listen for external events
       document.addEventListener('clearAllFilters', this.clearAllFilters.bind(this));
-      
+
       // Initial update
       this.updateFilterCount();
     }
 
     private toggleFilters() {
       this.isExpanded = !this.isExpanded;
-      
+
       if (this.content && this.toggleBtn && this.chevronIcon) {
         if (this.isExpanded) {
           this.content.classList.add('expanded');
@@ -478,7 +297,7 @@ const materials = [...new Set(artifacts
     private handleFilterChange(event: Event) {
       const target = event.target as HTMLSelectElement;
       const filterType = target.getAttribute('data-filter') as keyof FilterState;
-      
+
       if (filterType && filterType !== 'has3D') {
         this.filters[filterType] = target.value;
         this.updateFilterCount();
@@ -488,11 +307,11 @@ const materials = [...new Set(artifacts
 
     private toggle3D() {
       this.filters.has3D = this.filters.has3D === true ? null : true;
-      
+
       if (this.toggle3DBtn && this.toggleText) {
         const textAll = this.toggle3DBtn.getAttribute('data-text-all') || 'All';
         const textOnly = this.toggle3DBtn.getAttribute('data-text-only') || '3D Only';
-        
+
         if (this.filters.has3D === true) {
           this.toggle3DBtn.setAttribute('aria-pressed', 'true');
           this.toggleText.textContent = textOnly;
@@ -501,7 +320,7 @@ const materials = [...new Set(artifacts
           this.toggleText.textContent = textAll;
         }
       }
-      
+
       this.updateFilterCount();
       this.applyFilters();
     }
@@ -559,7 +378,7 @@ const materials = [...new Set(artifacts
     private applyFilters() {
       // Dispatch filter change event
       document.dispatchEvent(new CustomEvent('filtersChanged', {
-        detail: { 
+        detail: {
           filters: this.filters,
           hasActiveFilters: this.hasActiveFilters()
         }

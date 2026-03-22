@@ -35,9 +35,9 @@ function initScrollReveal(): void {
 				y: 0,
 				x: 0,
 				scale: 1,
-				stagger: 0.08,
-				duration: 0.7,
-				ease: "expo.out",
+				stagger: 0.06,
+				duration: 0.9,
+				ease: "power3.out",
 				onStart: function () {
 					batch.forEach((el) => el.classList.add("revealed"));
 				},
@@ -76,7 +76,7 @@ function initCounterAnimations(): void {
 			onEnter: () => {
 				gsap.to(obj, {
 					value: numericValue,
-					duration: 1.5,
+					duration: 2.0,
 					ease: "power2.out",
 					onUpdate: () => {
 						counter.textContent =
@@ -113,8 +113,8 @@ function initProgressBars(): void {
 			onEnter: () => {
 				gsap.to(bar, {
 					width: `${target}%`,
-					duration: 1.2,
-					delay: i * 0.15,
+					duration: 1.5,
+					delay: i * 0.10,
 					ease: "power2.out",
 				});
 			},

@@ -6,6 +6,8 @@ import ContactReasonCard from "../../components/contact/ContactReasonCard.astro"
 import { Icon } from "astro-icon/components";
 import { getContactData } from "../../data/contact";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import es from "../../i18n/languages/es.json";
+import en from "../../i18n/languages/en.json";
 import type { Language } from "../../types";
 
 export function getStaticPaths() {
@@ -14,11 +16,35 @@ export function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslations(lang);
+const translations = lang === 'es' ? es : en;
 const { hero, contactInfo } = getContactData(lang);
+
+const formLabels = {
+  name: t('contact.form.correspondentName'),
+  namePlaceholder: t('contact.form.namePlaceholder'),
+  email: t('contact.form.digitalAddress'),
+  emailPlaceholder: t('contact.form.emailPlaceholder'),
+  subject: t('contact.form.inquiryClassification'),
+  message: t('contact.form.transmissionContent'),
+  messagePlaceholder: t('contact.form.messagePlaceholder'),
+  submit: t('contact.form.submit'),
+  disclaimer: t('contact.form.disclaimer'),
+  missionTitle: t('contact.sidebar.missionTitle'),
+  missionText: t('contact.sidebar.missionText'),
+  missionLink: t('contact.sidebar.readProtocol'),
+  nodeTitle: t('contact.sidebar.physicalNode'),
+  presenceTitle: t('contact.sidebar.digitalPresence'),
+  protocol: t('contact.sidebar.protocol'),
+  response: t('contact.sidebar.response'),
+  encryption: t('contact.sidebar.encryption'),
+  availability: t('contact.sidebar.availability'),
+};
+
+const subjectOptions = translations.contact.form.subjects;
 ---
 
 <Layout title={hero.title} description={hero.description} lang={lang}>
-  <main class="min-h-screen">
+  <main class="pb-24 px-4 sm:px-8 md:px-16 mx-auto min-h-screen">
     <ContactHeader
       title={hero.title}
       subtitle={hero.subtitle}
@@ -26,118 +52,123 @@ const { hero, contactInfo } = getContactData(lang);
       lang={lang}
     />
 
-    <!-- Contact Methods -->
-    <section class="section-elevated py-16 lg:py-20">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12" data-reveal>
-          <h2 class="contact-section-title font-serif text-base-content mb-4">
-            {t("contact.methods.title")}
-          </h2>
-          <p class="text-base-content/60 max-w-xl mx-auto">
-            {t("contact.methods.description")}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <!-- Sidebar: Mission & Details -->
+      <aside class="lg:col-span-4 space-y-16 order-2 lg:order-1">
+        <!-- Mission Section -->
+        <section>
+          <h3 class="font-label text-(--oc-primary) uppercase text-xs tracking-widest mb-6 border-l-2 border-(--oc-primary) pl-4">
+            {formLabels.missionTitle}
+          </h3>
+          <p class="font-body text-(--oc-on-surface-variant) text-sm leading-relaxed mb-6">
+            {formLabels.missionText}
           </p>
-        </div>
+          <a class="font-label text-(--oc-tertiary) uppercase text-[10px] tracking-widest hover:underline decoration-1 transition-all" href={`/${lang}/collection`}>
+            {formLabels.missionLink} &rarr;
+          </a>
+        </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" data-reveal-stagger>
+        <!-- Contact Methods -->
+        <section>
           {contactInfo.methods.map((method, index) => (
-            <div data-reveal style={`--reveal-index: ${index}`}>
-              <ContactCard method={method} index={index} />
-            </div>
+            <ContactCard method={method} index={index} />
           ))}
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- Reasons / Collaboration -->
-    <section class="section-sunken py-16 lg:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-14" data-reveal>
-          <h2 class="contact-section-title font-serif text-base-content mb-4">
+        <!-- Reasons / Why Contact -->
+        <section>
+          <h3 class="font-label text-(--oc-primary) uppercase text-xs tracking-widest mb-6 border-l-2 border-(--oc-primary) pl-4">
             {t("contact.reasons.title")}
-          </h2>
-          <p class="text-base-content/60 max-w-2xl mx-auto">
-            {t("contact.reasons.description")}
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" data-reveal-stagger>
+          </h3>
           {contactInfo.reasons.map((reason, index) => (
-            <div data-reveal style={`--reveal-index: ${index}`}>
-              <ContactReasonCard reason={reason} index={index} />
-            </div>
+            <ContactReasonCard reason={reason} index={index} />
           ))}
-        </div>
-      </div>
-    </section>
+        </section>
+      </aside>
 
-    <!-- About / CTA Section - Dark -->
-    <section class="section-dark py-16 lg:py-24">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center" data-reveal>
-          <div class="about-card rounded-2xl p-10 lg:p-14">
-            <div class="flex justify-center mb-6">
-              <div class="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center">
-                <Icon name="mdi:temple-hindu" class="w-7 h-7 text-primary" />
+      <!-- Main Form Section -->
+      <div class="lg:col-span-8 order-1 lg:order-2">
+        <div class="bg-(--oc-surface-container-low) p-6 sm:p-10 md:p-16 relative overflow-hidden">
+          <form action="#" class="relative z-10 space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div class="space-y-4">
+                <label class="font-label text-[10px] uppercase tracking-[0.3em] text-(--oc-tertiary) block mb-4">
+                  {formLabels.name}
+                </label>
+                <input
+                  type="text"
+                  class="w-full bg-(--oc-surface-container-lowest) border-none text-(--oc-on-surface) font-body p-4 placeholder:text-(--oc-outline)/30 placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest focus:border-b-2 focus:border-(--oc-tertiary) focus:ring-0 transition-all"
+                  placeholder={formLabels.namePlaceholder}
+                />
+              </div>
+              <div class="space-y-4">
+                <label class="font-label text-[10px] uppercase tracking-[0.3em] text-(--oc-tertiary) block mb-4">
+                  {formLabels.email}
+                </label>
+                <input
+                  type="email"
+                  class="w-full bg-(--oc-surface-container-lowest) border-none text-(--oc-on-surface) font-body p-4 placeholder:text-(--oc-outline)/30 placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest focus:border-b-2 focus:border-(--oc-tertiary) focus:ring-0 transition-all"
+                  placeholder={formLabels.emailPlaceholder}
+                />
               </div>
             </div>
-            <h3 class="text-2xl lg:text-3xl font-serif mb-5 about-title">
-              {t("contact.about.title")}
-            </h3>
-            <p class="about-description leading-relaxed mb-8 max-w-2xl mx-auto">
-              {t("contact.about.description")}
-            </p>
-            <div class="flex flex-wrap justify-center gap-3">
-              {["Maya", "Mexica", "Acolhua", "Mixteca", "Teotihuacan"].map((culture) => (
-                <a
-                  href={`/${lang}/collection?culture=${culture.toLowerCase()}`}
-                  class="culture-tag"
-                >
-                  {culture}
-                </a>
-              ))}
+
+            <div class="space-y-4">
+              <label class="font-label text-[10px] uppercase tracking-[0.3em] text-(--oc-tertiary) block mb-4">
+                {formLabels.subject}
+              </label>
+              <select class="w-full bg-(--oc-surface-container-lowest) border-none text-(--oc-on-surface) font-label uppercase text-[10px] tracking-widest p-4 focus:border-b-2 focus:border-(--oc-tertiary) focus:ring-0 transition-all">
+                {subjectOptions.map((option) => (
+                  <option>{option}</option>
+                ))}
+              </select>
             </div>
+
+            <div class="space-y-4">
+              <label class="font-label text-[10px] uppercase tracking-[0.3em] text-(--oc-tertiary) block mb-4">
+                {formLabels.message}
+              </label>
+              <textarea
+                rows="6"
+                class="w-full bg-(--oc-surface-container-lowest) border-none text-(--oc-on-surface) font-body p-4 placeholder:text-(--oc-outline)/30 placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest focus:border-b-2 focus:border-(--oc-tertiary) focus:ring-0 transition-all resize-none"
+                placeholder={formLabels.messagePlaceholder}
+              ></textarea>
+            </div>
+
+            <div class="pt-6">
+              <button
+                type="submit"
+                class="w-full md:w-auto obsidian-gradient text-(--oc-on-primary) px-16 py-5 font-label uppercase text-xs tracking-[0.4em] font-bold hover:opacity-90 active:scale-95 transition-all shadow-xl"
+              >
+                {formLabels.submit}
+              </button>
+              <p class="mt-4 font-label text-[9px] text-(--oc-outline)/50 uppercase tracking-widest text-center md:text-left">
+                {formLabels.disclaimer}
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Spec-Block Data Points -->
+        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-(--oc-surface-container-lowest) p-6">
+            <span class="block font-label text-[9px] text-(--oc-primary)/60 uppercase mb-2">{formLabels.protocol}</span>
+            <span class="block font-label text-xs text-(--oc-on-surface-variant)">TLS 1.3 ARC</span>
+          </div>
+          <div class="bg-(--oc-surface-container-lowest) p-6">
+            <span class="block font-label text-[9px] text-(--oc-primary)/60 uppercase mb-2">{formLabels.response}</span>
+            <span class="block font-label text-xs text-(--oc-on-surface-variant)">48-72 {t('contact.sidebar.hours')}</span>
+          </div>
+          <div class="bg-(--oc-surface-container-lowest) p-6">
+            <span class="block font-label text-[9px] text-(--oc-primary)/60 uppercase mb-2">{formLabels.encryption}</span>
+            <span class="block font-label text-xs text-(--oc-on-surface-variant)">256-BIT OBSIDIAN</span>
+          </div>
+          <div class="bg-(--oc-surface-container-lowest) p-6">
+            <span class="block font-label text-[9px] text-(--oc-primary)/60 uppercase mb-2">{formLabels.availability}</span>
+            <span class="block font-label text-xs text-(--oc-on-surface-variant)">GLOBAL / REMOTE</span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 </Layout>
-
-<style>
-  .contact-section-title {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-  }
-
-  .about-card {
-    background: oklch(100% 0 0 / 0.04);
-    backdrop-filter: blur(16px);
-    border: 1px solid oklch(100% 0 0 / 0.08);
-  }
-
-  .about-title {
-    color: oklch(92% 0.005 83.24);
-  }
-
-  .about-description {
-    color: oklch(70% 0.01 83.24);
-  }
-
-  .culture-tag {
-    padding: 0.375rem 1rem;
-    border-radius: 9999px;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: oklch(80% 0.02 83.24);
-    background: oklch(100% 0 0 / 0.06);
-    border: 1px solid oklch(100% 0 0 / 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .culture-tag:hover {
-    background: oklch(100% 0 0 / 0.12);
-    color: oklch(92% 0.01 83.24);
-    border-color: oklch(100% 0 0 / 0.2);
-  }
-</style>

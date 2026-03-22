@@ -1,5 +1,4 @@
 ---
-import { Icon } from 'astro-icon/components';
 import type { ContactMethod } from '../../types/contact';
 
 interface Props {
@@ -9,106 +8,31 @@ interface Props {
 }
 
 const { method, index = 0, class: className } = Astro.props;
-
-const accentColors = [
-  'var(--color-primary-rich)',
-  'var(--color-gold-accent)',
-  'oklch(0.55 0.15 160)',
-];
-const accent = accentColors[index % accentColors.length];
 ---
 
-<div class={`contact-method group ${className || ''}`} style={`--accent: ${accent}`}>
-  <div class="method-accent"></div>
-  <div class="p-6 pl-8">
-    <div class="flex items-center gap-3 mb-3">
-      <div class="method-icon-wrap">
-        <Icon name={method.icon} class="w-5 h-5" />
-      </div>
-      <h3 class="text-lg font-semibold text-base-content">{method.title}</h3>
-    </div>
-    {method.description && (
-      <p class="text-base-content/60 text-sm leading-relaxed mb-4">{method.description}</p>
+<section class={`border-l-2 border-(--oc-primary) pl-4 mb-6 ${className || ''}`}>
+  <h3 class="font-label text-(--oc-primary) uppercase text-xs tracking-widest mb-6">
+    {method.title}
+  </h3>
+  {method.description && (
+    <p class="font-body text-(--oc-on-surface-variant) text-sm leading-relaxed mb-4">
+      {method.description}
+    </p>
+  )}
+  <div>
+    {method.href ? (
+      <a
+        href={method.href}
+        class="font-label text-(--oc-tertiary) uppercase text-[10px] tracking-widest hover:underline decoration-1 transition-all"
+        target={method.type === 'social' ? '_blank' : undefined}
+        rel={method.type === 'social' ? 'noopener noreferrer' : undefined}
+      >
+        {method.value} &rarr;
+      </a>
+    ) : (
+      <span class="font-label text-(--oc-on-surface-variant) uppercase text-[10px] tracking-widest">
+        {method.value}
+      </span>
     )}
-    <div>
-      {method.href ? (
-        <a
-          href={method.href}
-          class="method-value inline-flex items-center gap-2 font-medium text-sm"
-          target={method.type === 'social' ? '_blank' : undefined}
-          rel={method.type === 'social' ? 'noopener noreferrer' : undefined}
-        >
-          {method.value}
-          <Icon name="mdi:arrow-top-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-        </a>
-      ) : (
-        <span class="method-value-static font-semibold text-sm">{method.value}</span>
-      )}
-    </div>
   </div>
-</div>
-
-<style>
-  .contact-method {
-    position: relative;
-    background: var(--color-surface-elevated);
-    box-shadow: var(--shadow-premium);
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: transform 0.4s var(--ease-expo-out),
-      box-shadow 0.4s var(--ease-expo-out);
-  }
-
-  .contact-method:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-premium-hover);
-  }
-
-  .method-accent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--accent);
-    border-radius: 4px 0 0 4px;
-  }
-
-  .method-icon-wrap {
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 0.625rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: color-mix(in oklch, var(--accent) 12%, transparent);
-    color: var(--accent);
-    transition: background 0.3s ease;
-  }
-
-  .contact-method:hover .method-icon-wrap {
-    background: color-mix(in oklch, var(--accent) 20%, transparent);
-  }
-
-  .method-value {
-    color: var(--accent);
-    transition: color 0.2s ease;
-  }
-
-  .method-value:hover {
-    color: color-mix(in oklch, var(--accent) 80%, black);
-  }
-
-  .method-value-static {
-    color: var(--color-base-content);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .contact-method {
-      transition: none;
-    }
-    .contact-method:hover {
-      transform: none;
-    }
-  }
-</style>
+</section>
