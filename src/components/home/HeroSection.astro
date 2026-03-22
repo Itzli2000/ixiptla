@@ -30,13 +30,13 @@ const titleHighlight = titleWords[titleWords.length - 1];
       <span class="font-label text-(--oc-tertiary) text-xs tracking-[0.4em] uppercase mb-6 block">
         {t('home.hero.subtitle')}
       </span>
-      <h1 class="font-headline text-6xl md:text-8xl font-bold tracking-tighter text-(--oc-on-surface) leading-[0.9] mb-8">
+      <h1 class="font-headline text-4xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-(--oc-on-surface) leading-[0.9] mb-8">
         {titleMain} <span class="text-(--oc-primary) italic">{titleHighlight}</span>
       </h1>
       <p class="font-body text-xl text-(--oc-on-surface-variant) max-w-2xl leading-relaxed mb-10">
         {t('home.hero.description')}
       </p>
-      <div class="flex gap-4">
+      <div class="flex flex-col sm:flex-row gap-4">
         <a
           class="obsidian-gradient px-8 py-4 font-label text-sm font-bold uppercase tracking-widest text-(--oc-on-primary)"
           href={`/${lang}/collection`}
