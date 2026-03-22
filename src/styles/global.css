@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Space+Grotesk:wght@300..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 @import "tailwindcss";
-@import "@codigo-obsidiana/design-tokens/ixiptla/css";
 
 /* ============================================
    DaisyUI Theme Configuration
-   Obsidian Codex: Dark default
+   Obsidian Codex: Dark default, Light available
    ============================================ */
 
 @plugin "daisyui" {
@@ -105,6 +104,10 @@
   --font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-family-label: 'Space Grotesk', ui-monospace, monospace;
   --font-weight-headers-default: 700;
+
+  /* Design tokens (replaces @codigo-obsidiana/design-tokens) */
+  --design-size-selector: 0.25rem;
+  --design-size-field: 0.25rem;
 
   /* Obsidian Codex surface hierarchy (dark default) */
   --oc-background: #131313;
