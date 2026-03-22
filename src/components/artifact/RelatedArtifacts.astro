@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import ArtifactCard from "./ArtifactCard.astro";
+import { getLangFromUrl } from "../../i18n/utils";
+import { getImageByFilename } from "../../utils/imageMapping";
 import type { Language } from "../../types";
 
 interface Props {
@@ -32,149 +34,79 @@ const differentCultureArtifacts = relatedArtifacts.filter(artifact =>
 );
 
 const hasRelatedArtifacts = relatedArtifacts.length > 0;
+
+// Combine all for display, prioritizing same culture
+const displayArtifacts = [...sameCultureArtifacts, ...differentCultureArtifacts].slice(0, 4);
 ---
 
 {hasRelatedArtifacts && (
-  <section class="py-16 lg:py-24 section-elevated" role="region" aria-labelledby="related-artifacts-title">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section Header -->
-      <div class="text-center mb-12 lg:mb-16" data-reveal>
-        <h2
-          id="related-artifacts-title"
-          class="text-4xl lg:text-5xl font-normal text-base-content mb-4"
-          style="font-family: var(--font-serif, serif); font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.2; letter-spacing: -0.01em;"
-        >
-          {t("artifact.related.title")}
-        </h2>
-        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-6" aria-hidden="true"></div>
-        <p class="text-lg text-base-content/80 max-w-2xl mx-auto leading-relaxed">
-          {t("artifact.related.subtitle")}
-        </p>
-      </div>
+  <section class="p-8 lg:p-24 bg-(--oc-surface-container-lowest)" role="region" aria-labelledby="related-artifacts-title">
+    <h3 id="related-artifacts-title" class="font-headline text-3xl font-bold mb-12 text-(--oc-on-surface)">
+      {t("artifact.related.title")} <span class="italic text-(--oc-tertiary)">{currentCulture}</span>
+    </h3>
 
-      <!-- Same Culture Section -->
-      {sameCultureArtifacts.length > 0 && (
-        <div class="mb-16">
-          <div class="flex items-center justify-between mb-8" data-reveal>
-            <h3 class="text-2xl lg:text-3xl font-semibold text-base-content flex items-center gap-3">
-              <Icon name="mdi:temple-hindu" class="w-6 h-6 text-primary" />
-              {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
-            </h3>
-            <a
-              href={`/${lang}/collection?culture=${currentCulture}`}
-              class="text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
-            >
-              {t("artifact.related.viewAll")}
-              <Icon name="mdi:arrow-right" class="w-4 h-4" />
-            </a>
-          </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {displayArtifacts.map((artifact) => {
+        const artifactImage = getImageByFilename(artifact.data.image);
+        return (
+          <a
+            href={`/${lang}/collection/${artifact.data.slug}`}
+            class="relative group bg-(--oc-surface-container-low) h-100 overflow-hidden block"
+          >
+            <Image
+              src={artifactImage}
+              alt={artifact.data.title}
+              width={800}
+              height={600}
+              class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700"
+              transition:name={`artifact-${artifact.data.slug}`}
+            />
+            <div class="absolute inset-0 p-10 flex flex-col justify-end bg-linear-to-t from-(--oc-background) to-transparent">
+              <p class="font-label text-[10px] uppercase tracking-widest text-(--oc-primary) mb-2">{artifact.data.culture}</p>
+              <h4 class="font-headline text-3xl font-bold text-(--oc-on-surface)">{artifact.data.title}</h4>
+              <span class="mt-4 font-label text-[10px] uppercase tracking-widest text-(--oc-on-surface-variant) group-hover:text-(--oc-primary) flex items-center gap-2 transition-colors duration-300">
+                {t("artifact.related.viewAll")} <Icon name="mdi:arrow-right" class="w-4 h-4" />
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
 
-          <!-- Same Culture Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.sameCulture").replace('{culture}', currentCulture)} data-reveal-stagger>
-            {sameCultureArtifacts.slice(0, 3).map((artifact, index) => (
-              <div class="related-card" data-reveal style={`--reveal-index: ${index}`}>
-                <ArtifactCard artifact={artifact.data} />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <!-- Different Cultures Section -->
-      {differentCultureArtifacts.length > 0 && (
-        <div class="mb-16 hidden sm:block">
-          <div class="flex items-center justify-between mb-8" data-reveal>
-            <h3 class="text-2xl lg:text-3xl font-semibold text-base-content flex items-center gap-3">
-              <Icon name="mdi:earth" class="w-6 h-6 text-secondary" />
-              {t("artifact.related.similarType")}
-            </h3>
-            <a
-              href={`/${lang}/collection`}
-              class="text-secondary hover:text-secondary/80 transition-colors text-sm font-medium flex items-center gap-2"
-            >
-              {t("artifact.related.exploreMore")}
-              <Icon name="mdi:arrow-right" class="w-4 h-4" />
-            </a>
-          </div>
-
-          <!-- Different Cultures Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="group" aria-label={t("artifact.related.similarType")} data-reveal-stagger>
-            {differentCultureArtifacts.slice(0, 3).map((artifact, index) => (
-              <div class="related-card" data-reveal style={`--reveal-index: ${index}`}>
-                <ArtifactCard artifact={artifact.data} />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <!-- Interactive Carousel for Mobile -->
-      <div class="block sm:hidden">
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-xl font-semibold text-base-content">
-            {t("artifact.related.exploreMore")}
-          </h3>
-        </div>
-
-        <div class="overflow-x-auto scrollbar-hide">
-          <div id="carousel-container" class="flex gap-4 pb-4" style="width: max-content;">
-            {relatedArtifacts.map((artifact) => (
-              <div class="flex-shrink-0 w-72">
-                <ArtifactCard artifact={artifact.data} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <!-- Call to Action -->
-      <div class="text-center mt-12 pt-8 border-t border-base-content/10" data-reveal>
-        <div class="related-cta rounded-2xl p-8 max-w-4xl mx-auto">
-          <h3 class="text-2xl font-semibold text-base-content mb-4">
-            {t("artifact.related.ctaTitle")}
-          </h3>
-          <p class="text-base-content/80 mb-6 max-w-2xl mx-auto">
-            {t("artifact.related.ctaDescription")}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href={`/${lang}/collection`}
-              class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300"
-              style="box-shadow: var(--shadow-premium);"
-            >
-              <Icon name="mdi:view-grid" class="w-5 h-5" />
-              {t("artifact.related.viewAll")}
-            </a>
-            <a
-              href={`/${lang}/collection?culture=${currentCulture}`}
-              class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-secondary-content px-6 py-3 rounded-xl transition-all duration-300"
-              style="box-shadow: var(--shadow-premium);"
-            >
-              <Icon name="mdi:filter" class="w-5 h-5" />
-              {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
-            </a>
-          </div>
-        </div>
-      </div>
+    <!-- Explore More CTA -->
+    <div class="mt-16 flex flex-col sm:flex-row gap-4">
+      <a
+        href={`/${lang}/collection`}
+        class="inline-flex items-center gap-2 bg-(--oc-surface-container-highest) text-(--oc-on-surface) px-8 py-3 font-label text-[10px] uppercase tracking-[0.2em] hover:bg-(--oc-surface-bright) transition-colors border border-(--oc-outline-variant)/30"
+      >
+        <Icon name="mdi:view-grid" class="w-4 h-4" />
+        {t("artifact.related.exploreMore")}
+      </a>
+      <a
+        href={`/${lang}/collection?culture=${currentCulture}`}
+        class="inline-flex items-center gap-2 bg-(--oc-surface-container-highest) text-(--oc-on-surface) px-8 py-3 font-label text-[10px] uppercase tracking-[0.2em] hover:bg-(--oc-surface-bright) transition-colors border border-(--oc-outline-variant)/30"
+      >
+        <Icon name="mdi:filter" class="w-4 h-4" />
+        {t("artifact.related.sameCulture").replace('{culture}', currentCulture)}
+      </a>
     </div>
   </section>
 )}
 
 {!hasRelatedArtifacts && (
-  <section class="py-16 lg:py-24 section-sunken" role="region">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="rounded-2xl p-12" style="background: var(--color-surface-elevated); box-shadow: var(--shadow-premium);">
-        <Icon name="mdi:magnify" class="w-16 h-16 text-base-content/50 mx-auto mb-6" />
-        <h2 class="text-2xl font-semibold text-base-content mb-4">
+  <section class="p-8 lg:p-24 bg-(--oc-surface-container-lowest)" role="region">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="bg-(--oc-surface-container-low) p-12">
+        <Icon name="mdi:magnify" class="w-16 h-16 text-stone-500 mx-auto mb-6" />
+        <h2 class="font-headline text-2xl font-bold text-(--oc-on-surface) mb-4">
           {t("artifact.related.noRelated")}
         </h2>
-        <p class="text-base-content/80 mb-8 max-w-2xl mx-auto">
+        <p class="font-body text-(--oc-on-surface-variant) mb-8 max-w-2xl mx-auto">
           {t("artifact.related.noRelatedDescription")}
         </p>
         <a
           href={`/${lang}/collection`}
-          class="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-content px-6 py-3 rounded-xl transition-all duration-300"
-          style="box-shadow: var(--shadow-premium);"
+          class="inline-flex items-center gap-2 bg-linear-to-tr from-(--oc-primary) to-(--oc-primary-container) text-(--oc-on-primary) px-10 py-4 font-label uppercase tracking-widest text-xs font-bold transition-transform active:scale-95"
         >
           <Icon name="mdi:view-grid" class="w-5 h-5" />
           {t("collection.cta")}
