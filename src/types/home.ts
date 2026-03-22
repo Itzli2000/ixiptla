@@ -1,12 +1,3 @@
-export interface SEOData {
-  title: string;
-  description: string;
-  keywords: string[];
-  image: string;
-  url: string;
-  structuredData: Record<string, unknown>;
-}
-
 export interface CultureInfo {
   id: string;
   name: string;
@@ -16,15 +7,5 @@ export interface CultureInfo {
   slug: string;
   color: string;
   image: string;
-}
-
-export interface FeaturedArtifact {
-  id: string;
-  title: string;
-  culture: string;
-  period: string;
-  image: string;
-  description: string;
-  has3DModel: boolean;
-  slug: string;
+  tags?: string[];
 }

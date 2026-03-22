@@ -53,14 +53,6 @@ export const cultureData: CultureInfo[] = [
   }
 ];
 
-export const getTotalArtifacts = (): number => {
-  return cultureData.reduce((total, culture) => total + culture.artifactCount, 0);
-};
-
-export const getCultureBySlug = (slug: string): CultureInfo | undefined => {
-  return cultureData.find(culture => culture.slug === slug);
-};
-
 export const getCulturesWithArtifacts = (): CultureInfo[] => {
   return cultureData.filter(culture => culture.artifactCount > 0);
 };
