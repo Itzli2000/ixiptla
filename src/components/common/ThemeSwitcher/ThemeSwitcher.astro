@@ -35,106 +35,57 @@ const { class: className = "" } = Astro.props;
 </label>
 
 <script is:inline>
-  function initializeTheme() {
-    const getSystemTheme = () => {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "ixpitla"
-        : "ixpitla-light";
-    };
-
-    const validThemes = ["ixpitla", "ixpitla-light"];
-    const theme = (() => {
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("theme")
-      ) {
-        const stored = localStorage.getItem("theme");
-        // Migrate legacy theme names
-        if (stored === "ixpitla-dark") {
-          localStorage.setItem("theme", "ixpitla");
-          return "ixpitla";
-        }
-        if (validThemes.includes(stored)) return stored;
-        // Invalid stored value, clear it
-        localStorage.removeItem("theme");
-      }
-      return getSystemTheme();
-    })();
-
-    // Apply theme immediately
-    document.documentElement.setAttribute("data-theme", theme);
-
-    // Update checkbox state: checked = light mode
-    const controller = document.querySelector(".theme-controller");
-    if (controller) {
-      if (theme === "ixpitla-light") {
-        controller.setAttribute("checked", "");
-      } else {
-        controller.removeAttribute("checked");
-      }
-    }
-  }
-
-  function setupThemeListeners() {
-    const themeToggle = document.querySelector(".theme-controller");
-
-    // Remove existing listeners to prevent duplicates
-    const newToggle = themeToggle?.cloneNode(true);
-    if (themeToggle && newToggle) {
-      themeToggle.parentNode?.replaceChild(newToggle, themeToggle);
+  (function() {
+    // Migrate legacy theme name
+    const stored = localStorage.getItem("theme");
+    if (stored === "ixpitla-dark") {
+      localStorage.setItem("theme", "ixpitla");
     }
 
-    const currentToggle = document.querySelector(".theme-controller");
-    currentToggle?.addEventListener("change", (e) => {
-      const target = e.target;
-      if (target instanceof HTMLInputElement && target.checked) {
-        // Checked = light mode
-        document.documentElement.setAttribute("data-theme", "ixpitla-light");
-        localStorage.setItem("theme", "ixpitla-light");
-      } else {
-        // Unchecked = dark mode (default)
-        document.documentElement.setAttribute("data-theme", "ixpitla");
-        localStorage.setItem("theme", "ixpitla");
+    function applyTheme() {
+      const saved = localStorage.getItem("theme");
+      const isLight = saved === "ixpitla-light";
+
+      // Set the data-theme attribute
+      document.documentElement.setAttribute("data-theme", isLight ? "ixpitla-light" : "ixpitla");
+
+      // Sync checkbox state
+      const checkbox = document.querySelector(".theme-controller");
+      if (checkbox) {
+        checkbox.checked = isLight;
       }
+    }
+
+    function setupListener() {
+      const checkbox = document.querySelector(".theme-controller");
+      if (!checkbox) return;
+
+      checkbox.addEventListener("change", function() {
+        const theme = this.checked ? "ixpitla-light" : "ixpitla";
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+      });
+    }
+
+    // Apply immediately (prevents FOUC)
+    applyTheme();
+
+    // Setup when DOM is ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function() {
+        applyTheme();
+        setupListener();
+      });
+    } else {
+      setupListener();
+    }
+
+    // Astro view transitions
+    document.addEventListener("astro:page-load", function() {
+      applyTheme();
+      setupListener();
     });
 
-    // System theme change listener
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
-          const newTheme = e.matches ? "ixpitla" : "ixpitla-light";
-          document.documentElement.setAttribute("data-theme", newTheme);
-          const ctrl = document.querySelector(".theme-controller");
-          if (ctrl) {
-            if (newTheme === "ixpitla-light") {
-              ctrl.setAttribute("checked", "");
-            } else {
-              ctrl.removeAttribute("checked");
-            }
-          }
-        }
-      });
-  }
-
-  // Initialize on page load
-  initializeTheme();
-
-  // Setup listeners when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupThemeListeners);
-  } else {
-    setupThemeListeners();
-  }
-
-  // Re-initialize on view transitions (Astro specific)
-  document.addEventListener("astro:page-load", () => {
-    initializeTheme();
-    setupThemeListeners();
-  });
-
-  // Also handle before swap to prevent FOUC
-  document.addEventListener("astro:before-swap", () => {
-    initializeTheme();
-  });
+    document.addEventListener("astro:before-swap", applyTheme);
+  })();
 </script>
