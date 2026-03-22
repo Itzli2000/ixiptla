@@ -7,8 +7,7 @@ const { class: className = "" } = Astro.props;
 ---
 
 <button
-  class={`swap swap-rotate ${className}`}
-  id="theme-switcher"
+  class={`swap swap-rotate theme-toggle ${className}`}
   aria-label="Toggle dark mode"
   type="button"
 >
@@ -51,31 +50,35 @@ const { class: className = "" } = Astro.props;
       return DARK;
     }
 
-    function applyTheme(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      var btn = document.getElementById("theme-switcher");
-      if (btn) {
+    function syncAllButtons(theme) {
+      document.querySelectorAll(".theme-toggle").forEach(function(btn) {
         if (theme === LIGHT) {
           btn.classList.add("swap-active");
         } else {
           btn.classList.remove("swap-active");
         }
-      }
+      });
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      syncAllButtons(theme);
     }
 
     // Apply immediately
     applyTheme(getTheme());
 
     function setup() {
-      var btn = document.getElementById("theme-switcher");
-      if (!btn || btn.dataset.themeReady) return;
-      btn.dataset.themeReady = "1";
+      document.querySelectorAll(".theme-toggle").forEach(function(btn) {
+        if (btn.dataset.themeReady) return;
+        btn.dataset.themeReady = "1";
 
-      btn.addEventListener("click", function() {
-        var current = document.documentElement.getAttribute("data-theme");
-        var next = (current === LIGHT) ? DARK : LIGHT;
-        applyTheme(next);
-        try { localStorage.setItem("theme", next); } catch(e) {}
+        btn.addEventListener("click", function() {
+          var current = document.documentElement.getAttribute("data-theme");
+          var next = (current === LIGHT) ? DARK : LIGHT;
+          applyTheme(next);
+          try { localStorage.setItem("theme", next); } catch(e) {}
+        });
       });
     }
 
