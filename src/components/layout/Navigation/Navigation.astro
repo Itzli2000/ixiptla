@@ -24,8 +24,8 @@ const isActive = (route: string) => Astro.url.pathname === route;
   <div class="flex justify-between items-center w-full px-8 py-4">
     <!-- Left side: Logo + Desktop Nav -->
     <div class="flex items-center gap-8">
-      <a href={routes.home} aria-label="Ixiptla Home">
-        <span class="text-2xl font-black tracking-[-0.02em] text-(--oc-primary) uppercase font-label">IXIPTLA</span>
+      <a href={routes.home} aria-label="Ixiptla Home" class="flex items-center">
+        <Icon name="logo" class="w-auto h-8 md:h-10" />
       </a>
 
       <div class="hidden lg:flex gap-8">

@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 import LanguageSwitcher from "../../common/LanguageSwitcher/LanguageSwitcher.astro";
 import ThemeSwitcher from "../../common/ThemeSwitcher/ThemeSwitcher.astro";
@@ -49,9 +50,7 @@ const navItems = [
 >
   <!-- Header -->
   <div class="px-4 mb-8">
-    <h2 class="text-xl font-bold text-(--oc-primary) font-label">
-      IXIPTLA
-    </h2>
+    <Icon name="logo" class="w-auto h-8" />
     <p class="font-label uppercase tracking-widest text-[10px] text-stone-500">
       {t('common.brandSubtitle')}
     </p>

@@ -42,10 +42,12 @@ const availableCultures = getCulturesWithArtifacts();
       const artifactCountText = formatArtifactCount(culture.artifactCount, lang);
 
       return (
-        <article
+        <a
+          href={cultureLink}
           data-reveal
-          class="bg-(--oc-surface-container-low) group cursor-pointer relative overflow-hidden"
+          class="bg-(--oc-surface-container-low) group block relative overflow-hidden hover:bg-(--oc-surface-bright) transition-colors duration-300"
           style={`--reveal-index: ${index}`}
+          aria-label={`${t('home.featuredCollections.exploreCollectionCTA')} ${culture.name}`}
         >
           <!-- Culture Image -->
           <div class="relative aspect-square overflow-hidden bg-(--oc-surface-container-lowest)">
@@ -63,10 +65,8 @@ const availableCultures = getCulturesWithArtifacts();
 
           <!-- Content -->
           <div class="p-8">
-            <h4 class="font-headline text-3xl font-bold text-(--oc-on-surface) mb-4">
-              <a href={cultureLink} class="hover:text-(--oc-primary) transition-colors duration-300">
-                {culture.name}
-              </a>
+            <h4 class="font-headline text-3xl font-bold text-(--oc-on-surface) mb-4 group-hover:text-(--oc-primary) transition-colors duration-300">
+              {culture.name}
             </h4>
             <p class="font-body text-sm text-stone-400 mb-6 leading-relaxed">
               {t('home.featuredCollections.cultures.' + culture.id) !== 'home.featuredCollections.cultures.' + culture.id
@@ -92,48 +92,9 @@ const availableCultures = getCulturesWithArtifacts();
             </div>
           </div>
 
-          <!-- Info button -->
-          <button
-            class="absolute bottom-8 right-8 font-label text-[10px] text-stone-500 hover:text-(--oc-primary) transition-colors duration-300"
-            aria-label={`${t('home.featuredCollections.learnMore')} ${culture.name}`}
-            data-culture={culture.id}
-          >
-            <span class="material-symbols-outlined text-base">info</span>
-          </button>
-        </article>
+        </a>
       );
     })}
-  </div>
-
-  <!-- Culture Info Modal -->
-  <div id="culture-modal" class="modal" role="dialog" aria-labelledby="modal-title">
-    <div class="modal-box max-w-2xl bg-(--oc-surface-container) text-(--oc-on-surface)">
-      <h3 id="modal-title" class="font-headline font-bold text-2xl mb-4"></h3>
-      <div id="modal-content" class="space-y-4">
-        <div id="modal-description" class="font-body text-sm text-stone-400 leading-relaxed"></div>
-        <div class="grid grid-cols-2 gap-4 text-sm mt-6">
-          <div>
-            <strong class="font-label text-xs text-stone-500 block mb-1">{t('home.featuredCollections.modal.artifacts')}</strong>
-            <div id="modal-artifacts" class="font-body text-(--oc-on-surface)"></div>
-          </div>
-          <div>
-            <strong class="font-label text-xs text-stone-500 block mb-1">{t('home.featuredCollections.modal.period')}</strong>
-            <div id="modal-period" class="font-body text-(--oc-on-surface)"></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-action">
-        <form method="dialog">
-          <button class="font-label text-xs text-stone-500 hover:text-(--oc-on-surface) transition-colors duration-300">{t('home.featuredCollections.modal.close')}</button>
-        </form>
-        <a id="modal-explore-link" href="#" class="font-label text-xs text-(--oc-primary) underline hover:text-(--oc-on-surface) transition-colors duration-300">
-          {t('home.featuredCollections.exploreCollectionCTA')}
-        </a>
-      </div>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-      <button>close</button>
-    </form>
   </div>
 
   <!-- Structured Data -->
@@ -156,62 +117,3 @@ const availableCultures = getCulturesWithArtifacts();
     }
   })}></script>
 </section>
-
-<script is:inline>
-  document.addEventListener('astro:page-load', () => {
-    const modal = document.getElementById('culture-modal');
-    const cultureData = {
-      'maya': {
-        name: 'Maya',
-        description: 'Advanced astronomical and mathematical civilization with sophisticated writing system and architectural achievements.',
-        artifacts: '15',
-        period: 'Classic Period (250-900 CE)'
-      },
-      'mexica': {
-        name: 'Mexica',
-        description: 'Powerful empire builders known for their military prowess, trade networks, and architectural marvels.',
-        artifacts: '12',
-        period: 'Postclassic Period (1345-1521 CE)'
-      },
-      'acolhua': {
-        name: 'Acolhua',
-        description: 'Refined culture known for poetry, philosophy, and architectural innovations in the Valley of Mexico.',
-        artifacts: '8',
-        period: 'Postclassic Period (1200-1521 CE)'
-      },
-      'mixteca': {
-        name: 'Mixteca',
-        description: 'Master craftsmen renowned for their goldwork, codices, and sophisticated artistic traditions.',
-        artifacts: '10',
-        period: 'Classic-Postclassic (700-1521 CE)'
-      },
-      'teotihuacan': {
-        name: 'Teotihuacan',
-        description: 'Mysterious civilization that built one of the largest cities in the ancient world.',
-        artifacts: '6',
-        period: 'Classic Period (100-650 CE)'
-      }
-    };
-
-    // Handle learn more buttons
-    document.querySelectorAll('[data-culture]').forEach(button => {
-      button.addEventListener('click', (e) => {
-        const cultureId = e.currentTarget.getAttribute('data-culture');
-        const culture = cultureData[cultureId];
-
-        if (culture && modal) {
-          document.getElementById('modal-title').textContent = culture.name;
-          document.getElementById('modal-description').textContent = culture.description;
-          document.getElementById('modal-artifacts').textContent = culture.artifacts;
-          document.getElementById('modal-period').textContent = culture.period;
-
-          const exploreLink = document.getElementById('modal-explore-link');
-          const pathLang = window.location.pathname.split('/')[1] || 'es';
-          exploreLink.href = `/${pathLang}/collection?culture=${cultureId}`;
-
-          modal.showModal();
-        }
-      });
-    });
-  });
-</script>
