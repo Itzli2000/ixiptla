@@ -1,7 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
-import LanguageSwitcher from "../../common/LanguageSwitcher/LanguageSwitcher.astro";
 import type { Language } from "../../../types";
 
 const lang = getLangFromUrl(Astro.url) as Language;
@@ -76,10 +75,6 @@ const navItems = [
     }
   </nav>
 
-  <!-- Bottom section -->
-  <div class="mt-auto mb-8 px-4 flex flex-col gap-4">
-    <LanguageSwitcher />
-  </div>
 </aside>
 
 <script>
