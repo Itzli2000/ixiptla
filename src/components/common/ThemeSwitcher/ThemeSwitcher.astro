@@ -42,12 +42,21 @@ const { class: className = "" } = Astro.props;
         : "ixpitla-light";
     };
 
+    const validThemes = ["ixpitla", "ixpitla-light"];
     const theme = (() => {
       if (
         typeof localStorage !== "undefined" &&
         localStorage.getItem("theme")
       ) {
-        return localStorage.getItem("theme");
+        const stored = localStorage.getItem("theme");
+        // Migrate legacy theme names
+        if (stored === "ixpitla-dark") {
+          localStorage.setItem("theme", "ixpitla");
+          return "ixpitla";
+        }
+        if (validThemes.includes(stored)) return stored;
+        // Invalid stored value, clear it
+        localStorage.removeItem("theme");
       }
       return getSystemTheme();
     })();
